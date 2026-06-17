@@ -159,10 +159,10 @@ function placements(list){
     arr.forEach((p,i)=>{const y=yc-(n-1)*sp/2+i*sp; out.push({p,x,y});});};
   H(B.GK,12,50,34);
   H(B.DC,27,50,40);
-  V(B.DL,12,42,11); V(B.DR,88,42,11);
+  V(B.DL,88,42,11); V(B.DR,12,42,11);
   H(B.DM,48,50,22);
   H(B.MC,64,50,58);
-  V(B.ML,9,70,11); V(B.MR,91,70,11);
+  V(B.ML,91,70,11); V(B.MR,9,70,11);
   H(B.AT,85,50,46);
   return out;
 }
