@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Compo Ligue 2 — Export Keynote</title>
+<script src="https://cdn.jsdelivr.net/npm/pptxgenjs@3.12.0/dist/pptxgen.bundle.js"></script>
+<style>
+  :root{--navy-0:#0a1428;--navy-1:#0d1b33;--navy-card:#1f3a63;--orange:#ff7a18;--gk:#f5c518;--txt:#fff;--muted:#9fb0c8}
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{font-family:"Segoe UI",system-ui,-apple-system,sans-serif;background:#060c18;color:var(--txt)}
+  .topbar{display:flex;align-items:center;gap:12px;flex-wrap:wrap;padding:10px 16px;background:#0a1428;border-bottom:1px solid rgba(255,255,255,.06)}
+  .topbar select,.topbar a,.topbar button{font-size:14px;font-weight:600;border-radius:8px;cursor:pointer}
+  .topbar select{background:var(--navy-card);color:#fff;border:1px solid rgba(255,255,255,.15);padding:8px 12px}
+  .topbar a{color:var(--muted);text-decoration:none;padding:8px 10px}
+  .topbar a:hover{color:#fff}
+  .btn-export{margin-left:auto;background:var(--orange);color:#1a1200;border:none;padding:9px 16px;font-weight:800}
+  .btn-export:disabled{opacity:.5;cursor:not-allowed}
+  .frame{max-width:1100px;margin:0 auto;padding:14px}
+  .header{text-align:center;padding:12px 0 16px;background:linear-gradient(90deg,#05284f,#0a1428 35%,#0a1428 65%,#05284f);border-radius:12px 12px 0 0;border-bottom:2px solid #c9a24b}
+  .header h1{font-family:Georgia,serif;letter-spacing:.16em;font-size:clamp(22px,4vw,38px)}
+  .header .sub{color:var(--muted);font-size:12px;margin-top:4px}
+  .pitch{position:relative;width:100%;aspect-ratio:3/4;max-width:720px;margin:0 auto;background:linear-gradient(180deg,var(--navy-1),var(--navy-0));border-radius:0 0 12px 12px;overflow:hidden}
+  .pitch svg{position:absolute;inset:0;width:100%;height:100%}
+  .slot{position:absolute;transform:translate(-50%,-50%);display:flex;flex-direction:column;align-items:center;gap:3px;width:120px;z-index:2}
+  .bubble{width:42px;height:42px;border-radius:50%;background:var(--navy-card);border:2px solid rgba(255,255,255,.4);display:flex;align-items:center;justify-content:center;font-weight:800;font-size:16px;color:#dfe7f2}
+  .slot.gk .bubble{background:var(--gk);color:#5b4302}
+  .slot.empty .bubble{background:transparent;border-style:dashed;color:var(--muted);font-weight:400}
+  .slot select{max-width:118px;width:118px;font-size:11px;padding:3px 4px;border-radius:6px;background:rgba(10,20,40,.85);color:#fff;border:1px solid rgba(255,255,255,.2)}
+  .hint{max-width:1100px;margin:14px auto 40px;padding:0 16px;color:var(--muted);font-size:12.5px;line-height:1.5}
+  .hint code{background:#11203a;padding:2px 6px;border-radius:4px;color:#cfe}
+</style>
+</head>
+<body>
+  <div class="topbar">
+    <select id="teamSelect"></select>
+    <select id="formationSelect"></select>
+    <a href="index.html">← Effectif complet</a>
+    <button class="btn-export" id="exportBtn" disabled>⬇ Exporter en Keynote (.pptx)</button>
+  </div>
+
+  <div class="frame">
+    <div class="header">
+      <h1>COMPO</h1>
+      <div class="sub" id="sub">—</div>
+    </div>
+    <div class="pitch" id="pitch">
+      <svg viewBox="0 0 1000 1333" preserveAspectRatio="none">
+        <g fill="none" stroke="rgba(255,255,255,0.16)" stroke-width="2.5">
+          <rect x="40" y="40" width="920" height="1253" rx="6"/>
+          <line x1="40" y1="666" x2="960" y2="666"/>
+          <circle cx="500" cy="666" r="110"/>
+          <rect x="300" y="1093" width="400" height="200"/><rect x="410" y="1213" width="180" height="80"/>
+          <rect x="300" y="40" width="400" height="200"/><rect x="410" y="40" width="180" height="80"/>
+        </g>
+      </svg>
+      <div id="slots"></div>
+    </div>
+  </div>
+
+  <div class="hint">
+    Choisis une formation, puis place tes joueurs via les menus (un par poste). Le bouton génère un <b>.pptx</b>
+    que tu ouvres d'un double-clic dans <b>Keynote</b>. Astuce : un joueur déjà placé disparaît des autres menus.
+  </div>
+
+<script>
+const FALLBACK={season:"démo",updated:"—",teams:{"Montpellier Hérault SC":{logo:null,squad:[
+ {num:1,name:"MICHEL",flag:"🇫🇷",pos:"GK"},{num:31,name:"SIMON",flag:"🇨🇲",pos:"GK"},
+ {num:15,name:"LAPORTE",flag:"🇫🇷",pos:"DEF"},{num:3,name:"EL HANNACH",flag:"🇲🇦",pos:"DEF"},
+ {num:6,name:"JULLIEN",flag:"🇫🇷",pos:"DEF"},{num:17,name:"SAINTE-LUCE",flag:"🇫🇷",pos:"DEF"},
+ {num:20,name:"HOMSSA",flag:"🇲🇦",pos:"MID"},{num:44,name:"CHENNAHI",flag:"🇫🇷",pos:"MID"},
+ {num:77,name:"EVERSON",flag:"🇧🇷",pos:"MID"},{num:9,name:"MEGNAN-PAVÉ",flag:"🇫🇷",pos:"ATT"},
+ {num:19,name:"MENDY",flag:"🇫🇷",pos:"ATT"},{num:24,name:"NDIAYE",flag:"🇫🇷",pos:"ATT"}]}}};
+
+// formations : lignes du GK (bas) vers l'attaque (haut)
+const FORMATIONS={
+ "4-3-3":  [["GK",1],["DEF",4],["MID",3],["ATT",3]],
+ "4-4-2":  [["GK",1],["DEF",4],["MID",4],["ATT",2]],
+ "4-2-3-1":[["GK",1],["DEF",4],["MID",2],["MID",3],["ATT",1]],
+ "3-5-2":  [["GK",1],["DEF",3],["MID",5],["ATT",2]],
+ "5-3-2":  [["GK",1],["DEF",5],["MID",3],["ATT",2]],
+ "4-5-1":  [["GK",1],["DEF",4],["MID",5],["ATT",1]],
+};
+const YS={4:[90,68,42,16],5:[90,73,53,33,13]};
+
+let DATA=null, slots=[], selection=[];
+
+function buildSlots(form){
+  const lines=FORMATIONS[form], ys=YS[lines.length];
+  slots=[];
+  lines.forEach((ln,li)=>{
+    const [grp,n]=ln, y=ys[li];
+    for(let k=0;k<n;k++){
+      const x=12+76*(k+0.5)/n;
+      slots.push({gk:grp==="GK", x, y});
+    }
+  });
+  selection=slots.map(()=>null);
+}
+
+function shortName(n){ const p=n.trim().split(" "); return p[p.length-1]; }
+
+function optionsFor(slot, squad, myVal){
+  const used=new Set(selection.filter((v,i)=>v!=null && slots[i]!==slot).map(v=>v));
+  const opt=(i)=>`<option value="${i}" ${i===myVal?"selected":""} ${used.has(i)?"disabled":""}>#${squad[i].num} ${squad[i].name}</option>`;
+  const byPos=(P)=>squad.map((p,i)=>[p,i]).filter(([p])=>p.pos===P).map(([,i])=>opt(i)).join("");
+  if(slot.gk){
+    return `<option value="">— gardien —</option>`+byPos("GK");
+  }
+  return `<option value="">— joueur —</option>`+
+    `<optgroup label="Défenseurs">${byPos("DEF")}</optgroup>`+
+    `<optgroup label="Milieux">${byPos("MID")}</optgroup>`+
+    `<optgroup label="Attaquants">${byPos("ATT")}</optgroup>`;
+}
+
+function render(){
+  const team=DATA.teams[teamSelect.value], squad=team.squad;
+  document.getElementById("sub").textContent=`${teamSelect.value} • ${formationSelect.value} • saison ${DATA.season}`;
+  const host=document.getElementById("slots");
+  host.innerHTML="";
+  slots.forEach((slot,si)=>{
+    const val=selection[si];
+    const div=document.createElement("div");
+    div.className="slot"+(slot.gk?" gk":"")+(val==null?" empty":"");
+    div.style.left=slot.x+"%"; div.style.top=slot.y+"%";
+    const label=val!=null?`#${squad[val].num}`:"+";
+    div.innerHTML=`<div class="bubble">${label}</div>
+      <select data-si="${si}">${optionsFor(slot,squad,val)}</select>`;
+    host.appendChild(div);
+  });
+  host.querySelectorAll("select").forEach(sel=>{
+    sel.onchange=()=>{
+      const si=+sel.dataset.si;
+      selection[si]= sel.value===""? null : +sel.value;
+      render();
+    };
+  });
+  document.getElementById("exportBtn").disabled = !selection.some(v=>v!=null);
+}
+
+async function exportPptx(){
+  const team=DATA.teams[teamSelect.value], squad=team.squad, form=formationSelect.value;
+  const pptx=new PptxGenJS();
+  pptx.defineLayout({name:"W",width:13.33,height:7.5}); pptx.layout="W";
+  const s=pptx.addSlide();
+  s.background={color:"0D1B33"};
+  s.addText(`${teamSelect.value}`,{x:0.4,y:0.18,w:12.5,h:0.5,fontSize:26,bold:true,color:"FFFFFF"});
+  s.addText(`Compo ${form} • saison ${DATA.season}`,{x:0.4,y:0.72,w:9,h:0.3,fontSize:13,color:"9FB0C8"});
+  // terrain
+  s.addShape(pptx.ShapeType.line,{x:0.6,y:4.0,w:12.13,h:0,line:{color:"FFFFFF",width:1,transparency:82}});
+  s.addShape(pptx.ShapeType.ellipse,{x:5.66,y:3.0,w:2,h:2,fill:{type:"none"},line:{color:"FFFFFF",width:1,transparency:82}});
+  // joueurs
+  const X0=0.6, W=12.13, Y0=1.05, H=6.1, R=0.62;
+  slots.forEach((slot,si)=>{
+    const v=selection[si]; if(v==null) return;
+    const p=squad[v];
+    const cx=X0+W*slot.x/100, cy=Y0+H*slot.y/100;
+    s.addShape(pptx.ShapeType.ellipse,{x:cx-R/2,y:cy-R/2,w:R,h:R,
+      fill:{color:slot.gk?"F5C518":"1F3A63"},line:{color:"FFFFFF",width:1.25}});
+    s.addText(String(p.num),{x:cx-R/2,y:cy-R/2,w:R,h:R,align:"center",valign:"middle",
+      fontSize:15,bold:true,color:slot.gk?"5B4302":"DFE7F2"});
+    s.addText(`${p.flag||""} ${shortName(p.name)}`,{x:cx-1.1,y:cy+R/2-0.02,w:2.2,h:0.32,
+      align:"center",fontSize:11,bold:true,color:"FFFFFF"});
+  });
+  await pptx.writeFile({fileName:`compo_${teamSelect.value.replace(/\s+/g,"_")}_${form}.pptx`});
+}
+
+function init(data){
+  DATA=data;
+  Object.keys(DATA.teams).sort().forEach(t=>teamSelect.add(new Option(t,t)));
+  Object.keys(FORMATIONS).forEach(f=>formationSelect.add(new Option(f,f)));
+  buildSlots(formationSelect.value);
+  teamSelect.onchange=()=>{ buildSlots(formationSelect.value); render(); };
+  formationSelect.onchange=()=>{ buildSlots(formationSelect.value); render(); };
+  document.getElementById("exportBtn").onclick=exportPptx;
+  render();
+}
+
+fetch("ligue2.json?_="+Date.now()).then(r=>{if(!r.ok)throw 0;return r.json();})
+  .then(d=>init(d)).catch(()=>init(FALLBACK));
+</script>
+</body>
+</html>
