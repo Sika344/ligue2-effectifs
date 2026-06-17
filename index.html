@@ -46,10 +46,10 @@
   .num{font-weight:800;font-size:15px;color:var(--ink);border-bottom:2px solid var(--ink);display:inline-block;line-height:1.1;padding:0 2px;min-width:14px}
   .name{font-weight:800;font-size:12px;color:var(--ink);letter-spacing:.01em;margin-top:3px;line-height:1.05;text-transform:uppercase}
   .bio{font-size:9.5px;color:var(--muted);margin-top:1px;white-space:nowrap}
-  .stats{display:inline-flex;flex-direction:column;gap:1px;margin-top:4px;border:1.5px solid var(--box);border-radius:4px;background:#fff;padding:2px 5px}
-  .stats .row{display:flex;align-items:center;justify-content:center;gap:5px;line-height:1.15}
-  .stats .v{color:var(--orange);font-weight:800;font-size:12px;min-width:12px}
-  .stats .i{font-size:11px}
+  .stats{display:inline-block;margin-top:4px;border:1.5px solid var(--box);border-radius:4px;background:#fff;padding:2px 6px;text-align:center}
+  .stats .row{line-height:1.3;white-space:nowrap}
+  .stats .v{color:var(--orange);font-weight:800;font-size:12px;margin-right:4px;vertical-align:middle}
+  .stats .ic{vertical-align:middle;display:inline-block}
 
   .note{max-width:1280px;margin:10px auto 30px;padding:0 16px;color:#9fb0c8;font-size:12px}
   .note code{background:#11203a;padding:2px 6px;border-radius:4px;color:#cfe}
@@ -125,8 +125,8 @@ const FALLBACK={season:"démo",updated:"—",teams:{"Montpellier HSC":{logo:null
 ]}}};
 
 let DATA=null;
-const BALL='<svg class="ic" viewBox="0 0 32 32" width="13" height="13"><circle cx="16" cy="16" r="14" fill="#fff" stroke="#1b2a4a" stroke-width="2"/><path d="M16 9l4.5 3.3-1.7 5.3h-5.6L11.5 12.3z" fill="#1b2a4a"/><path d="M16 9V5M20.5 12.3l3.6-1.3M18.8 17.6l2.4 3.1M13.2 17.6l-2.4 3.1M11.5 12.3 7.9 11" stroke="#1b2a4a" stroke-width="1.4" fill="none"/></svg>';
-const BOOT='<svg class="ic" viewBox="0 0 34 22" width="15" height="11"><path d="M3 5c0-1 .8-1.8 1.8-1.8H8l1.2 6.5 10.5 2.2c3.3.7 6.2 2.8 7.4 5.6l.5 1.5H4.2C3 19 2 18 2 16.8z" fill="#1b2a4a"/><g fill="#fff"><circle cx="9" cy="17.5" r="1"/><circle cx="14" cy="17.5" r="1"/><circle cx="19" cy="17.5" r="1"/></g></svg>';
+const BALL='data:image/svg+xml;base64,'+btoa('<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" width="13" height="13"><circle cx="16" cy="16" r="14" fill="#fff" stroke="#1b2a4a" stroke-width="2"/><path d="M16 9l4.5 3.3-1.7 5.3h-5.6L11.5 12.3z" fill="#1b2a4a"/><path d="M16 9V5M20.5 12.3l3.6-1.3M18.8 17.6l2.4 3.1M13.2 17.6l-2.4 3.1M11.5 12.3 7.9 11" stroke="#1b2a4a" stroke-width="1.4" fill="none"/></svg>');
+const BOOT='data:image/svg+xml;base64,'+btoa('<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 34 22" width="15" height="11"><path d="M3 5c0-1 .8-1.8 1.8-1.8H8l1.2 6.5 10.5 2.2c3.3.7 6.2 2.8 7.4 5.6l.5 1.5H4.2C3 19 2 18 2 16.8z" fill="#1b2a4a"/><g fill="#fff"><circle cx="9" cy="17.5" r="1"/><circle cx="14" cy="17.5" r="1"/><circle cx="19" cy="17.5" r="1"/></g></svg>');
 
 function roleOf(p){
   const d=((p.posDesc||"").split(",")[0]||"").toUpperCase();
@@ -172,8 +172,8 @@ function card(p){
     : `<div class="jersey">${num||"?"}</div>`;
   const bio=[p.height?`${p.height} cm`:null,(p.age!=null)?`${p.age} ans`:null].filter(Boolean).join(" - ");
   const stats=(p.g!=null||p.a!=null)?`<div class="stats">
-      <div class="row"><span class="v">${p.g??0}</span>${BALL}</div>
-      <div class="row"><span class="v">${p.a??0}</span>${BOOT}</div>
+      <div class="row"><span class="v">${p.g??0}</span><img class="ic" width="13" height="13" src="${BALL}"></div>
+      <div class="row"><span class="v">${p.a??0}</span><img class="ic" width="15" height="11" src="${BOOT}"></div>
     </div>`:"";
   return `${p.foot==='left'?'<span class="gleft">G</span>':''}<div class="photo-wrap">${photo}</div>
     <div class="flag">${p.flag||""}</div>
@@ -207,7 +207,7 @@ async function boardCanvas(){
   const board=document.getElementById("board");
   const imgs=[...board.querySelectorAll("img")]; const src0=imgs.map(im=>im.src);
   try{
-    await Promise.all(imgs.map(async im=>{ try{ im.src=await toDataURL(im.src); }catch(e){} }));
+    await Promise.all(imgs.map(async im=>{ if(im.src.indexOf("data:")===0)return; try{ im.src=await toDataURL(im.src); }catch(e){} }));
     return await html2canvas(board,{useCORS:true,backgroundColor:null,scale:2,logging:false});
   } finally { imgs.forEach((im,i)=>im.src=src0[i]); }
 }
