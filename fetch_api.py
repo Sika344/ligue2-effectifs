@@ -7,7 +7,7 @@ Usage:
   RAPIDAPI_KEY=xxx python3 fetch_api.py            # run reel (API)
   python3 fetch_api.py --selftest                  # parsing hors-ligne (probe/*.json)
 """
-import os, sys, json, time, datetime, urllib.request, urllib.error
+import os, sys, json, time, datetime, unicodedata, urllib.request, urllib.error
 
 HOST = "free-api-live-football-data.p.rapidapi.com"
 LEAGUE = "110"          # Ligue 2 (FotMob)
@@ -123,16 +123,48 @@ def parse_squad(data):
                             p["num"] if isinstance(p["num"], int) else 999))
     return out
 
+def _norm(s):
+    s = unicodedata.normalize("NFKD", s or "").encode("ascii", "ignore").decode().lower()
+    return "".join(c for c in s if c.isalnum() or c == " ").strip()
+
+def load_photos():
+    try:
+        return json.load(open("photos_lfp.json", encoding="utf-8"))
+    except Exception:
+        return {}
+
+def apply_photos(team_name, squad, photos):
+    entries = photos.get(team_name) or []
+    if not entries:
+        return 0
+    by_num = {e["num"]: e for e in entries if isinstance(e.get("num"), int)}
+    hit = 0
+    for p in squad:
+        e = by_num.get(p["num"]) if isinstance(p["num"], int) else None
+        if not e:  # repli sur le nom
+            pn = _norm(p["name"])
+            for cand in entries:
+                cn = cand.get("norm") or ""
+                if cn and (cn == pn or cn in pn or pn in cn):
+                    e = cand; break
+        if e and e.get("url"):
+            p["photo"] = e["url"]      # photo officielle LFP (buste)
+            p["photoLFP"] = True
+            hit += 1
+    return hit
+
 def build(get_standings, get_squad):
+    photos = load_photos()
     teams_meta = parse_standings(get_standings())
-    print(f"{len(teams_meta)} equipes")
+    print(f"{len(teams_meta)} equipes" + (f" | photos LFP: {len(photos)} clubs" if photos else " | sans photos LFP"))
     teams = {}
     for t in teams_meta:
         squad = parse_squad(get_squad(t["id"]))
-        print(f"  {t['name']:<16} {len(squad)} joueurs")
+        nph = apply_photos(t["name"], squad, photos)
+        print(f"  {t['name']:<16} {len(squad)} joueurs" + (f"  ({nph} photos LFP)" if photos else ""))
         teams[t["name"]] = {"logo": t["logo"], "squad": squad}
     return {"season": SEASON, "updated": datetime.date.today().isoformat(),
-            "source": "free-api-live-football-data (FotMob)", "teams": teams}
+            "source": "FotMob (data) + LFP (photos)", "teams": teams}
 
 def main():
     if "--selftest" in sys.argv:
