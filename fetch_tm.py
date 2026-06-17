@@ -66,9 +66,16 @@ def pos_group(txt):
     return "MID"
 
 def get(url):
-    r = S.get(url, timeout=30, allow_redirects=True)
-    r.raise_for_status()
-    return r.text
+    last = None
+    for attempt in range(4):
+        try:
+            r = S.get(url, timeout=45, allow_redirects=True)
+            r.raise_for_status()
+            return r.text
+        except Exception as e:
+            last = e
+            time.sleep(SLEEP * (attempt + 1))
+    raise last
 
 def get_clubs(season):
     html = get(f"{BASE}/ligue-2/startseite/wettbewerb/FR2/saison_id/{season}")
