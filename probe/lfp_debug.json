@@ -1,7 +1,22 @@
 {
- "club_status": 404,
- "club_len": 186,
- "club_parse_err": "Expecting value: line 1 column 1 (char 0)",
- "n_pids": 0,
- "pids_sample": []
+ "stats_status": 200,
+ "stats_len": 45339,
+ "l1_championship_club_2025_64": {
+  "status": 404,
+  "len": 150,
+  "npids": 0,
+  "head": "<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n<meta charset=\"utf-8\">\n<title>Error</title>\n</head>\n<body>\n<pre>Cannot GET /cham"
+ },
+ "l1_championship_club_2025_31": {
+  "status": 404,
+  "len": 150,
+  "npids": 0,
+  "head": "<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n<meta charset=\"utf-8\">\n<title>Error</title>\n</head>\n<body>\n<pre>Cannot GET /cham"
+ },
+ "l1_championship_club_2025_10": {
+  "status": 404,
+  "len": 150,
+  "npids": 0,
+  "head": "<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n<meta charset=\"utf-8\">\n<title>Error</title>\n</head>\n<body>\n<pre>Cannot GET /cham"
+ }
 }
