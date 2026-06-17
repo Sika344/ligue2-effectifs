@@ -28,7 +28,7 @@ def norm(s):
 out = {}
 for name, sid in CLUBS.items():
     cid = f"l1_championship_club_2025_{sid}"
-    club = get(f"{HOST}/championship-clubs/{cid}")
+    club = get(f"{HOST}/championship-club/{cid}") or get(f"{HOST}/championship-clubs/{cid}")
     pids = []
     if club:
         ch = club.get("championships", {})
