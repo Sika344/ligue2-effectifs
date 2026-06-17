@@ -37,12 +37,14 @@
   .pitch svg.lines{position:absolute;inset:0;width:100%;height:100%}
   .layer{position:absolute;inset:0}
 
-  .card{position:absolute;transform:translate(-50%,-50%);width:104px;text-align:center;z-index:2}
-  .photo-wrap{height:62px;display:flex;align-items:flex-end;justify-content:center}
-  .photo{height:62px;width:auto;max-width:80px;object-fit:contain;filter:drop-shadow(0 3px 4px rgba(0,0,0,.25))}
+  .card{position:absolute;transform:translate(-50%,-50%);width:116px;text-align:center;z-index:2}
+  .top{position:relative;height:58px}
+  .idcol{position:absolute;left:2px;top:50%;transform:translateY(-50%);display:flex;flex-direction:column;align-items:center;gap:3px;z-index:2}
+  .photo-wrap{height:58px;display:flex;align-items:flex-end;justify-content:center}
+  .photo{height:58px;width:auto;max-width:60px;object-fit:contain;filter:drop-shadow(0 3px 4px rgba(0,0,0,.25))}
   .jersey{height:54px;width:46px;border-radius:8px;background:linear-gradient(180deg,#22386b,#16284f);
     display:flex;align-items:center;justify-content:center;font-weight:800;font-size:17px;color:#fff}
-  .flag{font-size:14px;line-height:1;margin-top:3px}
+  .flag{font-size:13px;line-height:1}
   .num{font-weight:800;font-size:15px;color:var(--ink);border-bottom:2px solid var(--ink);display:inline-block;line-height:1.1;padding:0 2px;min-width:14px}
   .name{font-weight:800;font-size:12px;color:var(--ink);letter-spacing:.01em;margin-top:3px;line-height:1.05;text-transform:uppercase}
   .bio{font-size:9.5px;color:var(--muted);margin-top:1px;white-space:nowrap}
@@ -53,7 +55,7 @@
 
   .note{max-width:1280px;margin:10px auto 30px;padding:0 16px;color:#9fb0c8;font-size:12px}
   .note code{background:#11203a;padding:2px 6px;border-radius:4px;color:#cfe}
-  @media(max-width:760px){ .card{width:78px} .photo,.photo-wrap{height:46px} .name{font-size:10px} .bio{font-size:8px} .stats .v{font-size:10px} }
+  @media(max-width:760px){ .card{width:100px} .photo,.photo-wrap{height:46px} .name{font-size:10px} .bio{font-size:8px} .stats .v{font-size:10px} }
   .gleft{position:absolute;top:-2px;right:10px;color:#e11d2a;font-weight:800;font-size:13px;z-index:3;text-shadow:0 1px 2px rgba(255,255,255,.6)}
 </style>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
@@ -168,20 +170,25 @@ function placements(list){
 function card(p){
   const num=(p.num==null)?"":p.num;
   const photo = p.photo
-    ? `<img class="photo" src="${p.photo}" alt="" onerror="this.outerHTML='<div class=&quot;jersey&quot;>'+(${JSON.stringify(String(num))}||'?')+'</div>'">`
+    ? `<img class="photo" data-num="${num}" src="${p.photo}" alt="">`
     : `<div class="jersey">${num||"?"}</div>`;
   const bio=[p.height?`${p.height} cm`:null,(p.age!=null)?`${p.age} ans`:null].filter(Boolean).join(" - ");
   const stats=(p.g!=null||p.a!=null)?`<div class="stats">
       <div class="row"><span class="v">${p.g??0}</span><img class="ic" width="13" height="13" src="${BALL}"></div>
       <div class="row"><span class="v">${p.a??0}</span><img class="ic" width="15" height="11" src="${BOOT}"></div>
     </div>`:"";
-  return `${p.foot==='left'?'<span class="gleft">G</span>':''}<div class="photo-wrap">${photo}</div>
-    <div class="flag">${p.flag||""}</div>
-    <div class="num">${num}</div>
+  return `${p.foot==='left'?'<span class="gleft">G</span>':''}<div class="top"><div class="idcol"><div class="flag">${p.flag||""}</div><div class="num">${num}</div></div><div class="photo-wrap">${photo}</div></div>
     <div class="name">${p.name}</div>
     <div class="bio">${bio}</div>${stats}`;
 }
 
+function wirePhotos(root){
+  root.querySelectorAll("img.photo").forEach(img=>{
+    const swap=()=>{const d=document.createElement("div");d.className="jersey";d.textContent=img.dataset.num||"?";if(img.parentNode)img.replaceWith(d);};
+    img.addEventListener("error",swap);
+    if(img.complete && img.naturalWidth===0) swap();
+  });
+}
 function render(name){
   const team=DATA.teams[name];
   ["crestL","crestR"].forEach(id=>{document.getElementById(id).innerHTML=team.logo?`<img src="${team.logo}" alt="">`:"";});
@@ -196,6 +203,7 @@ function render(name){
     el.innerHTML=card(p);
     layer.appendChild(el);
   });
+  wirePhotos(layer);
 }
 
 async function toDataURL(url){
