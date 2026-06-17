@@ -54,17 +54,20 @@
   .note{max-width:1280px;margin:10px auto 30px;padding:0 16px;color:#9fb0c8;font-size:12px}
   .note code{background:#11203a;padding:2px 6px;border-radius:4px;color:#cfe}
   @media(max-width:760px){ .card{width:78px} .photo,.photo-wrap{height:46px} .name{font-size:10px} .bio{font-size:8px} .stats .v{font-size:10px} }
+  .gleft{position:absolute;top:-2px;right:10px;color:#e11d2a;font-weight:800;font-size:13px;z-index:3;text-shadow:0 1px 2px rgba(255,255,255,.6)}
 </style>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
 </head>
 <body>
   <div class="topbar">
     <select id="teamSelect"></select>
     <span class="meta" id="metaInfo">chargement…</span>
-    <a href="compo.html">Construire une compo →</a>
+    <button id="dl" style="margin-left:auto;background:var(--gold);color:#111;border:none;border-radius:8px;padding:8px 12px;font-weight:700;font-size:13px;cursor:pointer">⬇ Télécharger PNG</button>
+    <a href="compo.html" style="margin-left:14px">Construire une compo →</a>
   </div>
 
   <div class="frame">
-    <div class="board">
+    <div class="board" id="board">
       <span class="corner tl"></span><span class="corner tr"></span>
       <span class="corner bl"></span><span class="corner br"></span>
       <div class="header">
@@ -168,7 +171,7 @@ function card(p){
       <div class="row"><span class="v">${p.g??0}</span><span class="i">⚽</span></div>
       <div class="row"><span class="v">${p.a??0}</span><span class="i">👟</span></div>
     </div>`:"";
-  return `<div class="photo-wrap">${photo}</div>
+  return `${p.foot==='left'?'<span class="gleft">G</span>':''}<div class="photo-wrap">${photo}</div>
     <div class="flag">${p.flag||""}</div>
     <div class="num">${num}</div>
     <div class="name">${p.name}</div>
@@ -191,11 +194,30 @@ function render(name){
   });
 }
 
+async function toDataURL(url){
+  const proxy="https://images.weserv.nl/?url="+encodeURIComponent(url)+"&output=png";
+  const r=await fetch(proxy); const b=await r.blob();
+  return await new Promise(res=>{const fr=new FileReader();fr.onload=()=>res(fr.result);fr.readAsDataURL(b);});
+}
+async function exportPNG(){
+  const btn=document.getElementById("dl"); const old=btn.textContent; btn.textContent="…"; btn.disabled=true;
+  const board=document.getElementById("board");
+  const imgs=[...board.querySelectorAll("img")]; const src0=imgs.map(im=>im.src);
+  try{
+    await Promise.all(imgs.map(async im=>{ try{ im.src=await toDataURL(im.src); }catch(e){} }));
+    const canvas=await html2canvas(board,{useCORS:true,backgroundColor:null,scale:2,logging:false});
+    const team=document.getElementById("teamSelect").value.replace(/[^a-z0-9]+/gi,"_");
+    const a=document.createElement("a"); a.download="effectif_"+team+".png"; a.href=canvas.toDataURL("image/png"); a.click();
+  }catch(e){ alert("Export échoué : "+e); }
+  finally{ imgs.forEach((im,i)=>im.src=src0[i]); btn.textContent=old; btn.disabled=false; }
+}
+
 function boot(data,demo){
   DATA=data;
   const sel=document.getElementById("teamSelect"); sel.innerHTML="";
   Object.keys(DATA.teams).sort().forEach(t=>{const o=document.createElement("option");o.value=t;o.textContent=t;sel.appendChild(o);});
   sel.onchange=()=>render(sel.value);
+  document.getElementById("dl").onclick=exportPNG;
   render(sel.value);
   document.getElementById("note").innerHTML=demo
     ? `⏳ Données de démo. Lance le job GitHub Actions puis recharge.`
