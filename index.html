@@ -114,9 +114,10 @@ let DATA = null;
 
 function card(p){
   const gk = p.pos==="GK";
+  const num = (p.num==null) ? "" : p.num;
   const avatar = p.photo
-    ? `<img class="photo" src="${p.photo}" alt="" onerror="this.outerHTML='<div class=&quot;jersey&quot;>${p.num}</div>'">`
-    : `<div class="jersey">${p.num}</div>`;
+    ? `<img class="photo" src="${p.photo}" alt="" onerror="this.outerHTML='<div class=&quot;jersey&quot;>${num||"?"}</div>'">`
+    : `<div class="jersey">${num||"?"}</div>`;
   const stats = (p.g!=null || p.a!=null) ? `
     <div class="stats">
       <div class="stat"><span class="v">${p.g??0}</span><span class="i">⚽</span></div>
@@ -125,7 +126,7 @@ function card(p){
   const bio = [p.height?`${p.height} cm`:null, p.age!=null?`${p.age} ans`:null].filter(Boolean).join(" - ");
   return `<div class="card ${gk?"gk":""}">
     <div class="avatar">${avatar}</div>
-    <div class="idrow"><span class="flag">${p.flag||""}</span><span class="num">${p.num}</span></div>
+    <div class="idrow"><span class="flag">${p.flag||""}</span><span class="num">${num}</span></div>
     <div class="name">${p.name}</div>
     <div class="bio">${bio}</div>${stats}
   </div>`;
@@ -155,7 +156,7 @@ function boot(data, demo){
   render(sel.value);
   document.getElementById("note").innerHTML = demo
     ? `⏳ Données de démo affichées. Le job GitHub Actions n'a pas encore généré <code>ligue2.json</code> — lance-le dans l'onglet Actions, puis recharge.`
-    : `Données API-Football (saison ${DATA.season}). Actualisation auto via GitHub Actions. Photos = portraits fournis par l'API.`;
+    : `Données Ligue 2 ${DATA.season} • mise à jour automatique via GitHub Actions • source FotMob.`;
 }
 
 fetch("ligue2.json?_="+Date.now())
