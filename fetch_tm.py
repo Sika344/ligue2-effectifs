@@ -103,6 +103,8 @@ def parse_squad(html):
         if not link: continue
         name = link.get_text(strip=True)
         if not name: continue
+        mtid = re.search(r"/profil/spieler/(\d+)", link.get("href", ""))
+        tid = int(mtid.group(1)) if mtid else None
         num_el = tr.select_one(".rn_nummer")
         num = (num_el.get_text(strip=True) if num_el else "") or "?"
         if num in ("", "-", "‑"): num = "?"
@@ -128,11 +130,50 @@ def parse_squad(html):
             "num": int(num) if str(num).isdigit() else "?",
             "name": name.upper(), "flag": flag(nat), "nat": nat,
             "height": height, "age": age,
-            "pos": pos_group(pos_raw), "photo": photo,
+            "pos": pos_group(pos_raw), "photo": photo, "tid": tid,
         })
     order = {"GK": 0, "DEF": 1, "MID": 2, "ATT": 3}
     out.sort(key=lambda p: (order.get(p["pos"], 9), p["num"] if isinstance(p["num"], int) else 999))
     return out, True
+
+def get_perf(slug, cid):
+    """Page 'performances' du club -> {tid: {'g':buts, 'a':passes décisives, 'm':matchs}}."""
+    html = get(f"{BASE}/{slug}/leistungsdaten/verein/{cid}/plus/1")
+    soup = BeautifulSoup(html, "lxml")
+    table = soup.select_one("table.items")
+    if not table:
+        return {}, html
+    hrow = table.select_one("thead tr")
+    ths = hrow.find_all("th", recursive=False) if hrow else []
+    gi = ai = mi = None
+    for i, th in enumerate(ths):
+        lab = _norm((th.get("title") or "") + " " + th.get_text(" ", strip=True))
+        if gi is None and "but" in lab and not any(k in lab for k in ("encaiss", "csc", "contre")):
+            gi = i
+        if ai is None and "passe" in lab:
+            ai = i
+        if mi is None and any(k in lab for k in ("match", "apparition", "rencontre")):
+            mi = i
+    perf = {}
+    for tr in table.select("tbody tr"):
+        link = tr.select_one("a[href*='/profil/spieler/']")
+        if not link:
+            continue
+        m = re.search(r"/profil/spieler/(\d+)", link.get("href", ""))
+        if not m:
+            continue
+        tds = tr.find_all("td", recursive=False)
+        def cell(idx):
+            if idx is None or idx >= len(tds):
+                return None
+            t = tds[idx].get_text(strip=True).replace("\xa0", "")
+            if t in ("", "-", "\u2011"):
+                return 0
+            t = re.sub(r"[^\d]", "", t)
+            return int(t) if t.isdigit() else None
+        perf[int(m.group(1))] = {"g": cell(gi), "a": cell(ai), "m": cell(mi)}
+    found = gi is not None and ai is not None
+    return perf, (None if found else html)
 
 def main():
     print(f"Saison {SEASON} — récupération des clubs de Ligue 2…")
@@ -140,7 +181,7 @@ def main():
     if not clubs:
         print("❌ Aucun club trouvé. HTML sauvé dans _tm_sample.html — envoie-le moi."); sys.exit(1)
     print(f"  {len(clubs)} clubs : {', '.join(c['name'] for c in clubs)}")
-    teams, sample_saved = {}, False
+    teams, sample_saved, perf_sample_saved = {}, False, False
     for i, c in enumerate(clubs, 1):
         url = f"{BASE}/{c['slug']}/kader/verein/{c['id']}/saison_id/{SEASON}/plus/1"
         try:
@@ -152,8 +193,27 @@ def main():
             with open("_tm_sample.html", "w", encoding="utf-8") as f: f.write(html)
             sample_saved = True
             print(f"     ⚠ 0 joueur — HTML de {c['name']} sauvé dans _tm_sample.html (envoie-le moi)")
+        # buts / passes décisives / matchs (page performances)
+        if squad:
+            time.sleep(SLEEP)
+            try:
+                perf, psample = get_perf(c["slug"], c["id"])
+            except Exception as e:
+                perf, psample = {}, None
+                print(f"     ⚠ perfs {c['name']}: {e}")
+            if psample and not perf_sample_saved:
+                with open("_tm_perf_sample.html", "w", encoding="utf-8") as f: f.write(psample)
+                perf_sample_saved = True
+                print("     ⚠ colonnes buts/passes introuvables — _tm_perf_sample.html sauvé (envoie-le moi)")
+            for p in squad:
+                pr = perf.get(p.get("tid"))
+                if pr:
+                    p["g"], p["a"], p["m"] = pr["g"], pr["a"], pr["m"]
+        for p in squad:
+            p.pop("tid", None)
         teams[c["name"]] = {"logo": c["crest"], "squad": squad}
-        print(f"  [{i}/{len(clubs)}] {c['name']}: {len(squad)} joueurs")
+        nb = sum((p.get("g") or 0) for p in squad)
+        print(f"  [{i}/{len(clubs)}] {c['name']}: {len(squad)} joueurs, {nb} buts")
         time.sleep(SLEEP)
 
     payload = {"season": f"{SEASON}-{SEASON+1}", "updated": time.strftime("%Y-%m-%d %H:%M"), "teams": teams}

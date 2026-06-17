@@ -116,10 +116,10 @@ function card(p){
   const avatar = p.photo
     ? `<img class="photo" src="${p.photo}" alt="" onerror="this.outerHTML='<div class=&quot;jersey&quot;>${p.num}</div>'">`
     : `<div class="jersey">${p.num}</div>`;
-  const stats = (p.m!=null && p.pos!=="GK") ? `
+  const stats = (p.g!=null || p.a!=null) ? `
     <div class="stats">
-      <div class="stat"><span class="v">${p.m}</span><span class="i">⚽</span></div>
-      <div class="stat"><span class="v">${p.t}</span><span class="i">👟</span></div>
+      <div class="stat"><span class="v">${p.g??0}</span><span class="i">⚽</span></div>
+      <div class="stat"><span class="v">${p.a??0}</span><span class="i">🅰</span></div>
     </div>` : "";
   const bio = [p.height?`${p.height} cm`:null, p.age!=null?`${p.age} ans`:null].filter(Boolean).join(" - ");
   return `<div class="card ${gk?"gk":""}">

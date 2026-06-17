@@ -59,8 +59,9 @@
   </div>
 
   <div class="hint">
-    Choisis une formation, puis place tes joueurs via les menus (un par poste). Le bouton génère un <b>.pptx</b>
-    que tu ouvres d'un double-clic dans <b>Keynote</b>. Astuce : un joueur déjà placé disparaît des autres menus.
+    Choisis une formation, place tes joueurs via les menus (un par poste), puis exporte.
+    La slide générée contient <b>photo, taille, âge, buts et passes décisives</b> de chaque joueur.
+    Le <code>.pptx</code> s'ouvre d'un double-clic dans Keynote.
   </div>
 
 <script>
@@ -72,7 +73,6 @@ const FALLBACK={season:"démo",updated:"—",teams:{"Montpellier Hérault SC":{l
  {num:77,name:"EVERSON",flag:"🇧🇷",pos:"MID"},{num:9,name:"MEGNAN-PAVÉ",flag:"🇫🇷",pos:"ATT"},
  {num:19,name:"MENDY",flag:"🇫🇷",pos:"ATT"},{num:24,name:"NDIAYE",flag:"🇫🇷",pos:"ATT"}]}}};
 
-// formations : lignes du GK (bas) vers l'attaque (haut)
 const FORMATIONS={
  "4-3-3":  [["GK",1],["DEF",4],["MID",3],["ATT",3]],
  "4-4-2":  [["GK",1],["DEF",4],["MID",4],["ATT",2]],
@@ -82,7 +82,6 @@ const FORMATIONS={
  "4-5-1":  [["GK",1],["DEF",4],["MID",5],["ATT",1]],
 };
 const YS={4:[90,68,42,16],5:[90,73,53,33,13]};
-
 let DATA=null, slots=[], selection=[];
 
 function buildSlots(form){
@@ -90,23 +89,17 @@ function buildSlots(form){
   slots=[];
   lines.forEach((ln,li)=>{
     const [grp,n]=ln, y=ys[li];
-    for(let k=0;k<n;k++){
-      const x=12+76*(k+0.5)/n;
-      slots.push({gk:grp==="GK", x, y});
-    }
+    for(let k=0;k<n;k++){ slots.push({gk:grp==="GK", x:12+76*(k+0.5)/n, y}); }
   });
   selection=slots.map(()=>null);
 }
-
 function shortName(n){ const p=n.trim().split(" "); return p[p.length-1]; }
 
 function optionsFor(slot, squad, myVal){
-  const used=new Set(selection.filter((v,i)=>v!=null && slots[i]!==slot).map(v=>v));
-  const opt=(i)=>`<option value="${i}" ${i===myVal?"selected":""} ${used.has(i)?"disabled":""}>#${squad[i].num} ${squad[i].name}</option>`;
+  const used=new Set(selection.filter((v,i)=>v!=null && slots[i]!==slot));
+  const opt=(i)=>`<option value="${i}" ${i===myVal?"selected":""} ${used.has(i)&&i!==myVal?"disabled":""}>#${squad[i].num} ${squad[i].name}</option>`;
   const byPos=(P)=>squad.map((p,i)=>[p,i]).filter(([p])=>p.pos===P).map(([,i])=>opt(i)).join("");
-  if(slot.gk){
-    return `<option value="">— gardien —</option>`+byPos("GK");
-  }
+  if(slot.gk) return `<option value="">— gardien —</option>`+byPos("GK");
   return `<option value="">— joueur —</option>`+
     `<optgroup label="Défenseurs">${byPos("DEF")}</optgroup>`+
     `<optgroup label="Milieux">${byPos("MID")}</optgroup>`+
@@ -116,53 +109,75 @@ function optionsFor(slot, squad, myVal){
 function render(){
   const team=DATA.teams[teamSelect.value], squad=team.squad;
   document.getElementById("sub").textContent=`${teamSelect.value} • ${formationSelect.value} • saison ${DATA.season}`;
-  const host=document.getElementById("slots");
-  host.innerHTML="";
+  const host=document.getElementById("slots"); host.innerHTML="";
   slots.forEach((slot,si)=>{
     const val=selection[si];
     const div=document.createElement("div");
     div.className="slot"+(slot.gk?" gk":"")+(val==null?" empty":"");
     div.style.left=slot.x+"%"; div.style.top=slot.y+"%";
-    const label=val!=null?`#${squad[val].num}`:"+";
-    div.innerHTML=`<div class="bubble">${label}</div>
+    div.innerHTML=`<div class="bubble">${val!=null?("#"+squad[val].num):"+"}</div>
       <select data-si="${si}">${optionsFor(slot,squad,val)}</select>`;
     host.appendChild(div);
   });
   host.querySelectorAll("select").forEach(sel=>{
-    sel.onchange=()=>{
-      const si=+sel.dataset.si;
-      selection[si]= sel.value===""? null : +sel.value;
-      render();
-    };
+    sel.onchange=()=>{ const si=+sel.dataset.si; selection[si]=sel.value===""?null:+sel.value; render(); };
   });
-  document.getElementById("exportBtn").disabled = !selection.some(v=>v!=null);
+  document.getElementById("exportBtn").disabled=!selection.some(v=>v!=null);
+}
+
+// récupère une photo distante en dataURL via un proxy CORS (sinon null -> pastille n°)
+async function imgData(url){
+  if(!url) return null;
+  try{
+    const u="https://images.weserv.nl/?w=180&h=180&fit=cover&output=jpg&url="+
+            encodeURIComponent(url.replace(/^https?:\/\//,"ssl:"));
+    const r=await fetch(u); if(!r.ok) throw 0;
+    const b=await r.blob();
+    return await new Promise((ok,no)=>{const f=new FileReader();f.onloadend=()=>ok(f.result);f.onerror=no;f.readAsDataURL(b);});
+  }catch(e){ return null; }
 }
 
 async function exportPptx(){
-  const team=DATA.teams[teamSelect.value], squad=team.squad, form=formationSelect.value;
-  const pptx=new PptxGenJS();
-  pptx.defineLayout({name:"W",width:13.33,height:7.5}); pptx.layout="W";
-  const s=pptx.addSlide();
-  s.background={color:"0D1B33"};
-  s.addText(`${teamSelect.value}`,{x:0.4,y:0.18,w:12.5,h:0.5,fontSize:26,bold:true,color:"FFFFFF"});
-  s.addText(`Compo ${form} • saison ${DATA.season}`,{x:0.4,y:0.72,w:9,h:0.3,fontSize:13,color:"9FB0C8"});
-  // terrain
-  s.addShape(pptx.ShapeType.line,{x:0.6,y:4.0,w:12.13,h:0,line:{color:"FFFFFF",width:1,transparency:82}});
-  s.addShape(pptx.ShapeType.ellipse,{x:5.66,y:3.0,w:2,h:2,fill:{type:"none"},line:{color:"FFFFFF",width:1,transparency:82}});
-  // joueurs
-  const X0=0.6, W=12.13, Y0=1.05, H=6.1, R=0.62;
-  slots.forEach((slot,si)=>{
-    const v=selection[si]; if(v==null) return;
-    const p=squad[v];
-    const cx=X0+W*slot.x/100, cy=Y0+H*slot.y/100;
-    s.addShape(pptx.ShapeType.ellipse,{x:cx-R/2,y:cy-R/2,w:R,h:R,
-      fill:{color:slot.gk?"F5C518":"1F3A63"},line:{color:"FFFFFF",width:1.25}});
-    s.addText(String(p.num),{x:cx-R/2,y:cy-R/2,w:R,h:R,align:"center",valign:"middle",
-      fontSize:15,bold:true,color:slot.gk?"5B4302":"DFE7F2"});
-    s.addText(`${p.flag||""} ${shortName(p.name)}`,{x:cx-1.1,y:cy+R/2-0.02,w:2.2,h:0.32,
-      align:"center",fontSize:11,bold:true,color:"FFFFFF"});
-  });
-  await pptx.writeFile({fileName:`compo_${teamSelect.value.replace(/\s+/g,"_")}_${form}.pptx`});
+  const btn=document.getElementById("exportBtn"), old=btn.textContent;
+  btn.disabled=true; btn.textContent="Préparation…";
+  try{
+    const team=DATA.teams[teamSelect.value], squad=team.squad, form=formationSelect.value;
+    const picks=slots.map((slot,si)=>({slot,p:selection[si]!=null?squad[selection[si]]:null})).filter(o=>o.p);
+    const photos=await Promise.all(picks.map(o=>imgData(o.p.photo)));
+    picks.forEach((o,i)=>o.photo=photos[i]);
+
+    const pptx=new PptxGenJS();
+    pptx.defineLayout({name:"W",width:13.33,height:7.5}); pptx.layout="W";
+    const s=pptx.addSlide();
+    s.background={color:"0D1B33"};
+    s.addText(`${teamSelect.value}`,{x:0.4,y:0.16,w:12.5,h:0.5,fontSize:26,bold:true,color:"FFFFFF"});
+    s.addText(`Compo ${form} • saison ${DATA.season}`,{x:0.4,y:0.70,w:9,h:0.3,fontSize:13,color:"9FB0C8"});
+    s.addShape(pptx.ShapeType.line,{x:0.6,y:4.05,w:12.13,h:0,line:{color:"FFFFFF",width:1,transparency:82}});
+    s.addShape(pptx.ShapeType.ellipse,{x:5.66,y:3.05,w:2,h:2,fill:{type:"none"},line:{color:"FFFFFF",width:1,transparency:82}});
+
+    const X0=0.6,W=12.13,Y0=1.18,H=5.7,PH=0.82,tw=2.0;
+    picks.forEach(o=>{
+      const {slot,p,photo}=o;
+      const cx=X0+W*slot.x/100, cy=Y0+H*slot.y/100;
+      if(photo){
+        s.addImage({data:photo,x:cx-PH/2,y:cy-PH/2,w:PH,h:PH,rounding:true});
+      }else{
+        s.addShape(pptx.ShapeType.ellipse,{x:cx-PH/2,y:cy-PH/2,w:PH,h:PH,
+          fill:{color:slot.gk?"F5C518":"1F3A63"},line:{color:"FFFFFF",width:1.25}});
+        s.addText(String(p.num),{x:cx-PH/2,y:cy-PH/2,w:PH,h:PH,align:"center",valign:"middle",
+          fontSize:16,bold:true,color:slot.gk?"5B4302":"DFE7F2"});
+      }
+      s.addText(`${p.flag||""} #${p.num} ${shortName(p.name)}`,
+        {x:cx-tw/2,y:cy+PH/2-0.02,w:tw,h:0.26,align:"center",fontSize:10.5,bold:true,color:"FFFFFF"});
+      const bio=[p.height?`${p.height} cm`:null,(p.age!=null?`${p.age} ans`:null)].filter(Boolean).join(" · ");
+      if(bio) s.addText(bio,{x:cx-tw/2,y:cy+PH/2+0.21,w:tw,h:0.22,align:"center",fontSize:8.5,color:"9FB0C8"});
+      if(p.g!=null||p.a!=null)
+        s.addText(`Buts ${p.g??0} · PD ${p.a??0}`,
+          {x:cx-tw/2,y:cy+PH/2+0.40,w:tw,h:0.22,align:"center",fontSize:9,bold:true,color:"FF7A18"});
+    });
+    await pptx.writeFile({fileName:`compo_${teamSelect.value.replace(/\s+/g,"_")}_${form}.pptx`});
+  }catch(e){ alert("Erreur export : "+e); }
+  finally{ btn.disabled=false; btn.textContent=old; }
 }
 
 function init(data){
@@ -175,7 +190,6 @@ function init(data){
   document.getElementById("exportBtn").onclick=exportPptx;
   render();
 }
-
 fetch("ligue2.json?_="+Date.now()).then(r=>{if(!r.ok)throw 0;return r.json();})
   .then(d=>init(d)).catch(()=>init(FALLBACK));
 </script>
