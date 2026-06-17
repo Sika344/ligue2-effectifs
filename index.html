@@ -57,12 +57,14 @@
   .gleft{position:absolute;top:-2px;right:10px;color:#e11d2a;font-weight:800;font-size:13px;z-index:3;text-shadow:0 1px 2px rgba(255,255,255,.6)}
 </style>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/pptxgenjs@3.12.0/dist/pptxgen.bundle.js"></script>
 </head>
 <body>
   <div class="topbar">
     <select id="teamSelect"></select>
     <span class="meta" id="metaInfo">chargement…</span>
-    <button id="dl" style="margin-left:auto;background:var(--gold);color:#111;border:none;border-radius:8px;padding:8px 12px;font-weight:700;font-size:13px;cursor:pointer">⬇ Télécharger PNG</button>
+    <button id="dl" style="margin-left:auto;background:#16234a;color:#fff;border:1px solid rgba(255,255,255,.18);border-radius:8px;padding:8px 12px;font-weight:700;font-size:13px;cursor:pointer">⬇ PNG</button>
+    <button id="dlk" style="margin-left:8px;background:var(--gold);color:#111;border:none;border-radius:8px;padding:8px 12px;font-weight:700;font-size:13px;cursor:pointer">⬇ Keynote (.pptx)</button>
     <a href="compo.html" style="margin-left:14px">Construire une compo →</a>
   </div>
 
@@ -199,18 +201,30 @@ async function toDataURL(url){
   const r=await fetch(proxy); const b=await r.blob();
   return await new Promise(res=>{const fr=new FileReader();fr.onload=()=>res(fr.result);fr.readAsDataURL(b);});
 }
-async function exportPNG(){
-  const btn=document.getElementById("dl"); const old=btn.textContent; btn.textContent="…"; btn.disabled=true;
+async function boardCanvas(){
   const board=document.getElementById("board");
   const imgs=[...board.querySelectorAll("img")]; const src0=imgs.map(im=>im.src);
   try{
     await Promise.all(imgs.map(async im=>{ try{ im.src=await toDataURL(im.src); }catch(e){} }));
-    const canvas=await html2canvas(board,{useCORS:true,backgroundColor:null,scale:2,logging:false});
-    const team=document.getElementById("teamSelect").value.replace(/[^a-z0-9]+/gi,"_");
-    const a=document.createElement("a"); a.download="effectif_"+team+".png"; a.href=canvas.toDataURL("image/png"); a.click();
-  }catch(e){ alert("Export échoué : "+e); }
-  finally{ imgs.forEach((im,i)=>im.src=src0[i]); btn.textContent=old; btn.disabled=false; }
+    return await html2canvas(board,{useCORS:true,backgroundColor:null,scale:2,logging:false});
+  } finally { imgs.forEach((im,i)=>im.src=src0[i]); }
 }
+function teamSlug(){ return document.getElementById("teamSelect").value.replace(/[^a-z0-9]+/gi,"_"); }
+async function withBtn(id,fn){
+  const b=document.getElementById(id); const o=b.textContent; b.textContent="…"; b.disabled=true;
+  try{ await fn(); }catch(e){ alert("Export échoué : "+e); } finally{ b.textContent=o; b.disabled=false; }
+}
+function exportPNG(){ return withBtn("dl", async()=>{
+  const c=await boardCanvas();
+  const a=document.createElement("a"); a.download="effectif_"+teamSlug()+".png"; a.href=c.toDataURL("image/png"); a.click();
+}); }
+function exportPPTX(){ return withBtn("dlk", async()=>{
+  const c=await boardCanvas(); const data=c.toDataURL("image/png"); const aspect=c.width/c.height;
+  const W=13.333, H=Math.round(W/aspect*100)/100;
+  const pptx=new PptxGenJS(); pptx.defineLayout({name:"BOARD",width:W,height:H}); pptx.layout="BOARD";
+  const s=pptx.addSlide(); s.background={color:"070B16"}; s.addImage({data,x:0,y:0,w:W,h:H});
+  await pptx.writeFile({fileName:"effectif_"+teamSlug()+".pptx"});
+}); }
 
 function boot(data,demo){
   DATA=data;
@@ -218,6 +232,7 @@ function boot(data,demo){
   Object.keys(DATA.teams).sort().forEach(t=>{const o=document.createElement("option");o.value=t;o.textContent=t;sel.appendChild(o);});
   sel.onchange=()=>render(sel.value);
   document.getElementById("dl").onclick=exportPNG;
+  document.getElementById("dlk").onclick=exportPPTX;
   render(sel.value);
   document.getElementById("note").innerHTML=demo
     ? `⏳ Données de démo. Lance le job GitHub Actions puis recharge.`
