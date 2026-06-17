@@ -163,7 +163,13 @@ def get_perf(slug, cid):
         m = re.search(r"/profil/spieler/(\d+)", link.get("href", ""))
         if not m:
             continue
+        tid = int(m.group(1))
         tds = tr.find_all("td", recursive=False)
+        # TM rend 2 <tr> par joueur : la 2e est vide -> on la saute et on garde la 1re
+        if mi >= len(tds) or tds[mi].get_text(strip=True) == "":
+            continue
+        if tid in perf:
+            continue
         def cell(idx):
             if idx is None or idx >= len(tds):
                 return None
@@ -172,7 +178,7 @@ def get_perf(slug, cid):
                 return 0
             t = re.sub(r"[^\d]", "", t)
             return int(t) if t.isdigit() else None
-        perf[int(m.group(1))] = {"g": cell(gi), "a": cell(ai), "m": cell(mi)}
+        perf[tid] = {"g": cell(gi), "a": cell(ai), "m": cell(mi)}
     found = anchored
     return perf, (None if found else html)
 
