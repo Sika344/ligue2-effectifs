@@ -143,17 +143,18 @@ def get_perf(slug, cid):
     table = soup.select_one("table.items")
     if not table:
         return {}, html
-    hrow = table.select_one("thead tr")
-    ths = hrow.find_all("th", recursive=False) if hrow else []
-    gi = ai = mi = None
-    for i, th in enumerate(ths):
-        lab = _norm((th.get("title") or "") + " " + th.get_text(" ", strip=True))
-        if gi is None and "but" in lab and not any(k in lab for k in ("encaiss", "csc", "contre")):
-            gi = i
-        if ai is None and "passe" in lab:
-            ai = i
-        if mi is None and any(k in lab for k in ("match", "apparition", "rencontre")):
-            mi = i
+    hrow = table.select_one("thead tr") or table.select_one("tr")
+    cells = hrow.find_all(["th", "td"], recursive=False) if hrow else []
+    base = None
+    for i, cell in enumerate(cells):
+        lab = _norm((cell.get("title") or "") + " " + cell.get_text(" ", strip=True))
+        if "effectif" in lab:
+            base = i
+            break
+    anchored = base is not None
+    if base is None:
+        base = 4                       # repli : #, Joueur, Âge, Nat., Dans l'effectif
+    mi, gi, ai = base + 1, base + 2, base + 3   # matchs, buts, passes décisives
     perf = {}
     for tr in table.select("tbody tr"):
         link = tr.select_one("a[href*='/profil/spieler/']")
@@ -172,7 +173,7 @@ def get_perf(slug, cid):
             t = re.sub(r"[^\d]", "", t)
             return int(t) if t.isdigit() else None
         perf[int(m.group(1))] = {"g": cell(gi), "a": cell(ai), "m": cell(mi)}
-    found = gi is not None and ai is not None
+    found = anchored
     return perf, (None if found else html)
 
 def main():
