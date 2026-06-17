@@ -1,0 +1,55 @@
+{
+ "endpoints": [
+  {
+   "url": "https://ma-api.ligue1.fr/championship-players/l1_championship_player_2025_64_50598",
+   "status": 404,
+   "player": false,
+   "len": 196
+  },
+  {
+   "url": "https://ma-api.ligue1.fr/championship-player/l1_championship_player_2025_64_50598",
+   "status": 200,
+   "player": true,
+   "len": 5319
+  },
+  {
+   "url": "https://ma-api.ligue1.fr/championship-player-detail/l1_championship_player_2025_64_50598",
+   "status": 404,
+   "player": false,
+   "len": 202
+  },
+  {
+   "url": "https://ma-api.ligue1.fr/championship-player-card/l1_championship_player_2025_64_50598",
+   "status": 404,
+   "player": false,
+   "len": 200
+  },
+  {
+   "url": "https://ma-api.ligue1.fr/championship-player-profile/l1_championship_player_2025_64_50598",
+   "status": 404,
+   "player": false,
+   "len": 203
+  },
+  {
+   "url": "https://ma-api.ligue1.fr/championship-player-identity/l1_championship_player_2025_64_50598",
+   "status": 404,
+   "player": false,
+   "len": 204
+  },
+  {
+   "url": "https://ma-api.ligue1.fr/championship-player-info/l1_championship_player_2025_64_50598",
+   "status": 404,
+   "player": false,
+   "len": 200
+  },
+  {
+   "url": "https://ma-api.ligue1.fr/championship-player-stats/l1_championship_player_2025_64_50598",
+   "status": 200,
+   "player": true,
+   "len": 45339
+  }
+ ],
+ "photos": {
+  "ex_400x300": 200
+ }
+}
