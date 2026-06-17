@@ -45,6 +45,7 @@ NAT2CC = {
  "Macédoine du Nord":"MK","Bosnie-Herzégovine":"BA","Monténégro":"ME","Slovénie":"SI",
  "Slovaquie":"SK","Ukraine":"UA","Russie":"RU","Guinée équatoriale":"GQ","Jamaïque":"JM",
  "Gambie":"GM","Haïti":"HT","Cap Vert":"CV","Curaçao":"CW","Luxembourg":"LU","Croate":"HR",
+ "Guadeloupe":"GP","Martinique":"MQ","Guyane Française":"GF","Guyane française":"GF","République Centrafricaine":"CF","Kenya":"KE","Nouvelle-Zélande":"NZ","Malte":"MT","Estonie":"EE","Réunion":"RE","Nouvelle-Calédonie":"NC","Tahiti":"PF",
 }
 def _norm(s):  # comparaison insensible aux accents
     return "".join(c for c in unicodedata.normalize("NFD", s) if unicodedata.category(c) != "Mn").lower()
