@@ -33,7 +33,7 @@
   .crest.left{left:8px}.crest.right{right:8px}
 
   .pitch{position:relative;width:100%;aspect-ratio:1000/660;margin-top:10px;border-radius:8px;overflow:hidden;
-    background:linear-gradient(180deg,#f3f5f8,#e9edf2)}
+    background:linear-gradient(180deg,#5ba348,#4b9239)}
   .pitch svg.lines{position:absolute;inset:0;width:100%;height:100%}
   .layer{position:absolute;inset:0}
 
@@ -88,19 +88,26 @@
       </div>
       <div class="pitch">
         <svg class="lines" viewBox="0 0 1000 660" preserveAspectRatio="none">
-          <g fill="none" stroke="#b7c0cd" stroke-width="2.5">
+          <g>
+            <rect x="0" y="0" width="1000" height="66" fill="#ffffff" opacity="0.06"/>
+            <rect x="0" y="132" width="1000" height="66" fill="#ffffff" opacity="0.06"/>
+            <rect x="0" y="264" width="1000" height="66" fill="#ffffff" opacity="0.06"/>
+            <rect x="0" y="396" width="1000" height="66" fill="#ffffff" opacity="0.06"/>
+            <rect x="0" y="528" width="1000" height="66" fill="#ffffff" opacity="0.06"/>
+          </g>
+          <g fill="none" stroke="#ffffff" stroke-opacity="0.85" stroke-width="3">
             <rect x="12" y="12" width="976" height="636" rx="4"/>
             <line x1="12" y1="330" x2="988" y2="330"/>
             <circle cx="500" cy="330" r="66"/>
-            <circle cx="500" cy="330" r="3" fill="#b7c0cd"/>
+            <circle cx="500" cy="330" r="3" fill="#ffffff"/>
             <rect x="300" y="12" width="400" height="110"/>
             <rect x="400" y="12" width="200" height="48"/>
             <path d="M 388 122 A 66 66 0 0 0 612 122"/>
-            <circle cx="500" cy="86" r="3" fill="#b7c0cd"/>
+            <circle cx="500" cy="86" r="3" fill="#ffffff"/>
             <rect x="300" y="538" width="400" height="110"/>
             <rect x="400" y="600" width="200" height="48"/>
             <path d="M 388 538 A 66 66 0 0 1 612 538"/>
-            <circle cx="500" cy="574" r="3" fill="#b7c0cd"/>
+            <circle cx="500" cy="574" r="3" fill="#ffffff"/>
           </g>
         </svg>
         <div class="layer" id="layer"></div>
