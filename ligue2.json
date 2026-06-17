@@ -1,6 +1,6 @@
 {
   "season": "2025-2026",
-  "updated": "2026-06-17 19:30",
+  "updated": "2026-06-17 20:09",
   "teams": {
     "Stade de Reims": {
       "logo": "https://tmssl.akamaized.net//images/wappen/head/1421.png",
@@ -13,7 +13,10 @@
           "height": "193",
           "age": 30,
           "pos": "GK",
-          "photo": "https://img.a.transfermarkt.technology/portrait/medium/395602-1723831771.png"
+          "photo": "https://img.a.transfermarkt.technology/portrait/medium/395602-1723831771.png",
+          "g": null,
+          "a": null,
+          "m": null
         },
         {
           "num": 29,
@@ -23,7 +26,10 @@
           "height": "200",
           "age": 20,
           "pos": "GK",
-          "photo": "https://img.a.transfermarkt.technology/portrait/medium/923757-1781091704.jpg"
+          "photo": "https://img.a.transfermarkt.technology/portrait/medium/923757-1781091704.jpg",
+          "g": null,
+          "a": null,
+          "m": null
         },
         {
           "num": 94,
@@ -33,7 +39,10 @@
           "height": "191",
           "age": 22,
           "pos": "GK",
-          "photo": "https://img.a.transfermarkt.technology/portrait/medium/894585-1723837652.png"
+          "photo": "https://img.a.transfermarkt.technology/portrait/medium/894585-1723837652.png",
+          "g": null,
+          "a": null,
+          "m": null
         },
         {
           "num": 2,
@@ -43,7 +52,10 @@
           "height": "190",
           "age": 29,
           "pos": "DEF",
-          "photo": "https://img.a.transfermarkt.technology/portrait/medium/453376-1723832031.png"
+          "photo": "https://img.a.transfermarkt.technology/portrait/medium/453376-1723832031.png",
+          "g": null,
+          "a": null,
+          "m": null
         },
         {
           "num": 3,
@@ -53,7 +65,10 @@
           "height": "187",
           "age": 23,
           "pos": "DEF",
-          "photo": "https://img.a.transfermarkt.technology/portrait/medium/1137808-1723238645.jpg"
+          "photo": "https://img.a.transfermarkt.technology/portrait/medium/1137808-1723238645.jpg",
+          "g": null,
+          "a": null,
+          "m": null
         },
         {
           "num": 4,
@@ -63,7 +78,10 @@
           "height": "182",
           "age": 26,
           "pos": "DEF",
-          "photo": "https://img.a.transfermarkt.technology/portrait/medium/570817-1672838490.jpg"
+          "photo": "https://img.a.transfermarkt.technology/portrait/medium/570817-1672838490.jpg",
+          "g": null,
+          "a": null,
+          "m": null
         },
         {
           "num": 5,
@@ -73,7 +91,10 @@
           "height": "189",
           "age": 38,
           "pos": "DEF",
-          "photo": "https://img.a.transfermarkt.technology/portrait/medium/139279-1704213256.jpg"
+          "photo": "https://img.a.transfermarkt.technology/portrait/medium/139279-1704213256.jpg",
+          "g": null,
+          "a": null,
+          "m": null
         },
         {
           "num": 18,
@@ -83,7 +104,10 @@
           "height": "175",
           "age": 28,
           "pos": "DEF",
-          "photo": "https://img.a.transfermarkt.technology/portrait/medium/355627-1723835849.png"
+          "photo": "https://img.a.transfermarkt.technology/portrait/medium/355627-1723835849.png",
+          "g": null,
+          "a": null,
+          "m": null
         },
         {
           "num": 22,
@@ -93,7 +117,10 @@
           "height": "190",
           "age": 22,
           "pos": "DEF",
-          "photo": "https://img.a.transfermarkt.technology/portrait/medium/863900-1724964290.jpg"
+          "photo": "https://img.a.transfermarkt.technology/portrait/medium/863900-1724964290.jpg",
+          "g": null,
+          "a": null,
+          "m": null
         },
         {
           "num": 28,
@@ -103,7 +130,10 @@
           "height": "188",
           "age": 22,
           "pos": "DEF",
-          "photo": "https://img.a.transfermarkt.technology/portrait/medium/668966-1737739332.jpg"
+          "photo": "https://img.a.transfermarkt.technology/portrait/medium/668966-1737739332.jpg",
+          "g": null,
+          "a": null,
+          "m": null
         },
         {
           "num": 92,
@@ -113,7 +143,10 @@
           "height": "192",
           "age": 21,
           "pos": "DEF",
-          "photo": "https://img.a.transfermarkt.technology/portrait/medium/1130445-1723838146.png"
+          "photo": "https://img.a.transfermarkt.technology/portrait/medium/1130445-1723838146.png",
+          "g": null,
+          "a": null,
+          "m": null
         },
         {
           "num": 6,
@@ -123,7 +156,10 @@
           "height": "174",
           "age": 26,
           "pos": "MID",
-          "photo": "https://img.a.transfermarkt.technology/portrait/medium/418071-1659621224.jpg"
+          "photo": "https://img.a.transfermarkt.technology/portrait/medium/418071-1659621224.jpg",
+          "g": null,
+          "a": null,
+          "m": null
         },
         {
           "num": 8,
@@ -133,7 +169,10 @@
           "height": "180",
           "age": 22,
           "pos": "MID",
-          "photo": "https://img.a.transfermarkt.technology/portrait/medium/1044893-1723838377.png"
+          "photo": "https://img.a.transfermarkt.technology/portrait/medium/1044893-1723838377.png",
+          "g": null,
+          "a": null,
+          "m": null
         },
         {
           "num": 24,
@@ -143,7 +182,10 @@
           "height": "188",
           "age": 25,
           "pos": "MID",
-          "photo": "https://img.a.transfermarkt.technology/portrait/medium/717585-1710239409.png"
+          "photo": "https://img.a.transfermarkt.technology/portrait/medium/717585-1710239409.png",
+          "g": null,
+          "a": null,
+          "m": null
         },
         {
           "num": 30,
@@ -153,7 +195,10 @@
           "height": "192",
           "age": 22,
           "pos": "MID",
-          "photo": "https://img.a.transfermarkt.technology/portrait/medium/841121-1732137454.jpg"
+          "photo": "https://img.a.transfermarkt.technology/portrait/medium/841121-1732137454.jpg",
+          "g": null,
+          "a": null,
+          "m": null
         },
         {
           "num": 86,
@@ -163,7 +208,10 @@
           "height": "191",
           "age": 19,
           "pos": "MID",
-          "photo": "https://img.a.transfermarkt.technology/portrait/medium/1363293-1756736469.jpg"
+          "photo": "https://img.a.transfermarkt.technology/portrait/medium/1363293-1756736469.jpg",
+          "g": null,
+          "a": null,
+          "m": null
         },
         {
           "num": 87,
@@ -173,7 +221,10 @@
           "height": "178",
           "age": 19,
           "pos": "MID",
-          "photo": "https://img.a.transfermarkt.technology/portrait/medium/1132634-1756736842.jpg"
+          "photo": "https://img.a.transfermarkt.technology/portrait/medium/1132634-1756736842.jpg",
+          "g": null,
+          "a": null,
+          "m": null
         },
         {
           "num": 7,
@@ -183,7 +234,10 @@
           "height": "176",
           "age": 23,
           "pos": "ATT",
-          "photo": "https://img.a.transfermarkt.technology/portrait/medium/922828-1770738787.jpg"
+          "photo": "https://img.a.transfermarkt.technology/portrait/medium/922828-1770738787.jpg",
+          "g": null,
+          "a": null,
+          "m": null
         },
         {
           "num": 9,
@@ -193,7 +247,10 @@
           "height": "180",
           "age": 24,
           "pos": "ATT",
-          "photo": "https://img.a.transfermarkt.technology/portrait/medium/574385-1723837255.png"
+          "photo": "https://img.a.transfermarkt.technology/portrait/medium/574385-1723837255.png",
+          "g": null,
+          "a": null,
+          "m": null
         },
         {
           "num": 17,
@@ -203,7 +260,10 @@
           "height": "180",
           "age": 25,
           "pos": "ATT",
-          "photo": "https://img.a.transfermarkt.technology/portrait/medium/405397-1723837290.png"
+          "photo": "https://img.a.transfermarkt.technology/portrait/medium/405397-1723837290.png",
+          "g": null,
+          "a": null,
+          "m": null
         },
         {
           "num": 27,
@@ -213,7 +273,10 @@
           "height": "191",
           "age": 22,
           "pos": "ATT",
-          "photo": "https://img.a.transfermarkt.technology/portrait/medium/1111912-1723820918.png"
+          "photo": "https://img.a.transfermarkt.technology/portrait/medium/1111912-1723820918.png",
+          "g": null,
+          "a": null,
+          "m": null
         },
         {
           "num": 73,
@@ -223,7 +286,10 @@
           "height": "176",
           "age": 19,
           "pos": "ATT",
-          "photo": "https://img.a.transfermarkt.technology/portrait/medium/1073032-1723838839.png"
+          "photo": "https://img.a.transfermarkt.technology/portrait/medium/1073032-1723838839.png",
+          "g": null,
+          "a": null,
+          "m": null
         },
         {
           "num": 85,
@@ -233,7 +299,10 @@
           "height": "190",
           "age": 20,
           "pos": "ATT",
-          "photo": "https://img.a.transfermarkt.technology/portrait/medium/1237306-1770738885.jpg"
+          "photo": "https://img.a.transfermarkt.technology/portrait/medium/1237306-1770738885.jpg",
+          "g": null,
+          "a": null,
+          "m": null
         },
         {
           "num": 90,
@@ -243,7 +312,10 @@
           "height": "170",
           "age": 23,
           "pos": "ATT",
-          "photo": "https://img.a.transfermarkt.technology/portrait/medium/796589-1758286910.jpg"
+          "photo": "https://img.a.transfermarkt.technology/portrait/medium/796589-1758286910.jpg",
+          "g": null,
+          "a": null,
+          "m": null
         }
       ]
     },
@@ -258,7 +330,10 @@
           "height": "192",
           "age": 36,
           "pos": "GK",
-          "photo": "https://img.a.transfermarkt.technology/portrait/medium/78047-1727720955.jpg"
+          "photo": "https://img.a.transfermarkt.technology/portrait/medium/78047-1727720955.jpg",
+          "g": null,
+          "a": null,
+          "m": null
         },
         {
           "num": 30,
@@ -268,7 +343,10 @@
           "height": "181",
           "age": 29,
           "pos": "GK",
-          "photo": "https://img.a.transfermarkt.technology/portrait/medium/357047-1727720726.jpg"
+          "photo": "https://img.a.transfermarkt.technology/portrait/medium/357047-1727720726.jpg",
+          "g": null,
+          "a": null,
+          "m": null
         },
         {
           "num": 2,
@@ -278,7 +356,10 @@
           "height": "188",
           "age": 19,
           "pos": "DEF",
-          "photo": "https://img.a.transfermarkt.technology/portrait/medium/952770-1708516342.jpg"
+          "photo": "https://img.a.transfermarkt.technology/portrait/medium/952770-1708516342.jpg",
+          "g": null,
+          "a": null,
+          "m": null
         },
         {
           "num": 3,
@@ -288,7 +369,10 @@
           "height": "193",
           "age": 27,
           "pos": "DEF",
-          "photo": "https://img.a.transfermarkt.technology/portrait/medium/494586-1727722979.jpg"
+          "photo": "https://img.a.transfermarkt.technology/portrait/medium/494586-1727722979.jpg",
+          "g": null,
+          "a": null,
+          "m": null
         },
         {
           "num": 6,
@@ -298,7 +382,10 @@
           "height": "185",
           "age": 27,
           "pos": "DEF",
-          "photo": "https://img.a.transfermarkt.technology/portrait/medium/324819-1595959090.jpg"
+          "photo": "https://img.a.transfermarkt.technology/portrait/medium/324819-1595959090.jpg",
+          "g": null,
+          "a": null,
+          "m": null
         },
         {
           "num": 8,
@@ -308,7 +395,10 @@
           "height": "179",
           "age": 34,
           "pos": "DEF",
-          "photo": "https://img.a.transfermarkt.technology/portrait/medium/111038-1727723257.jpg"
+          "photo": "https://img.a.transfermarkt.technology/portrait/medium/111038-1727723257.jpg",
+          "g": null,
+          "a": null,
+          "m": null
         },
         {
           "num": 11,
@@ -318,7 +408,10 @@
           "height": "173",
           "age": 23,
           "pos": "DEF",
-          "photo": "https://img.a.transfermarkt.technology/portrait/medium/617021-1727721943.jpg"
+          "photo": "https://img.a.transfermarkt.technology/portrait/medium/617021-1727721943.jpg",
+          "g": null,
+          "a": null,
+          "m": null
         },
         {
           "num": 13,
@@ -328,7 +421,10 @@
           "height": "185",
           "age": 25,
           "pos": "DEF",
-          "photo": "https://img.a.transfermarkt.technology/portrait/medium/481623-1690898542.jpg"
+          "photo": "https://img.a.transfermarkt.technology/portrait/medium/481623-1690898542.jpg",
+          "g": null,
+          "a": null,
+          "m": null
         },
         {
           "num": 15,
@@ -338,7 +434,10 @@
           "height": "190",
           "age": 23,
           "pos": "DEF",
-          "photo": "https://img.a.transfermarkt.technology/portrait/medium/744186-1706081634.jpg"
+          "photo": "https://img.a.transfermarkt.technology/portrait/medium/744186-1706081634.jpg",
+          "g": null,
+          "a": null,
+          "m": null
         },
         {
           "num": 18,
@@ -348,7 +447,10 @@
           "height": "187",
           "age": 21,
           "pos": "DEF",
-          "photo": "https://img.a.transfermarkt.technology/portrait/medium/1052420-1758188513.jpg"
+          "photo": "https://img.a.transfermarkt.technology/portrait/medium/1052420-1758188513.jpg",
+          "g": null,
+          "a": null,
+          "m": null
         },
         {
           "num": 19,
@@ -358,7 +460,10 @@
           "height": "178",
           "age": 23,
           "pos": "DEF",
-          "photo": "https://img.a.transfermarkt.technology/portrait/medium/861221-1754563095.jpg"
+          "photo": "https://img.a.transfermarkt.technology/portrait/medium/861221-1754563095.jpg",
+          "g": null,
+          "a": null,
+          "m": null
         },
         {
           "num": 26,
@@ -368,7 +473,10 @@
           "height": "184",
           "age": 28,
           "pos": "DEF",
-          "photo": "https://img.a.transfermarkt.technology/portrait/medium/794349-1727808054.jpg"
+          "photo": "https://img.a.transfermarkt.technology/portrait/medium/794349-1727808054.jpg",
+          "g": null,
+          "a": null,
+          "m": null
         },
         {
           "num": 34,
@@ -378,7 +486,10 @@
           "height": "180",
           "age": 19,
           "pos": "DEF",
-          "photo": "https://img.a.transfermarkt.technology/portrait/medium/1133751-1740389251.jpg"
+          "photo": "https://img.a.transfermarkt.technology/portrait/medium/1133751-1740389251.jpg",
+          "g": null,
+          "a": null,
+          "m": null
         },
         {
           "num": 39,
@@ -388,7 +499,10 @@
           "height": "183",
           "age": 20,
           "pos": "DEF",
-          "photo": "https://img.a.transfermarkt.technology/portrait/medium/955263-1771429718.png"
+          "photo": "https://img.a.transfermarkt.technology/portrait/medium/955263-1771429718.png",
+          "g": null,
+          "a": null,
+          "m": null
         },
         {
           "num": 5,
@@ -398,7 +512,10 @@
           "height": "182",
           "age": 26,
           "pos": "MID",
-          "photo": "https://img.a.transfermarkt.technology/portrait/medium/467151-1695404925.jpg"
+          "photo": "https://img.a.transfermarkt.technology/portrait/medium/467151-1695404925.jpg",
+          "g": null,
+          "a": null,
+          "m": null
         },
         {
           "num": 10,
@@ -408,7 +525,10 @@
           "height": "181",
           "age": 34,
           "pos": "MID",
-          "photo": "https://img.a.transfermarkt.technology/portrait/medium/212804-1727722208.jpg"
+          "photo": "https://img.a.transfermarkt.technology/portrait/medium/212804-1727722208.jpg",
+          "g": null,
+          "a": null,
+          "m": null
         },
         {
           "num": 14,
@@ -418,7 +538,10 @@
           "height": "180",
           "age": 20,
           "pos": "MID",
-          "photo": "https://img.a.transfermarkt.technology/portrait/medium/1091219-1733314807.jpg"
+          "photo": "https://img.a.transfermarkt.technology/portrait/medium/1091219-1733314807.jpg",
+          "g": null,
+          "a": null,
+          "m": null
         },
         {
           "num": 20,
@@ -428,7 +551,10 @@
           "height": "178",
           "age": 25,
           "pos": "MID",
-          "photo": "https://img.a.transfermarkt.technology/portrait/medium/579263-1727722384.jpg"
+          "photo": "https://img.a.transfermarkt.technology/portrait/medium/579263-1727722384.jpg",
+          "g": null,
+          "a": null,
+          "m": null
         },
         {
           "num": 28,
@@ -438,7 +564,10 @@
           "height": "170",
           "age": 23,
           "pos": "MID",
-          "photo": "https://img.a.transfermarkt.technology/portrait/medium/729872-1727721630.jpg"
+          "photo": "https://img.a.transfermarkt.technology/portrait/medium/729872-1727721630.jpg",
+          "g": null,
+          "a": null,
+          "m": null
         },
         {
           "num": 29,
@@ -448,7 +577,10 @@
           "height": "179",
           "age": 25,
           "pos": "MID",
-          "photo": "https://img.a.transfermarkt.technology/portrait/medium/484992-1727722286.jpg"
+          "photo": "https://img.a.transfermarkt.technology/portrait/medium/484992-1727722286.jpg",
+          "g": null,
+          "a": null,
+          "m": null
         },
         {
           "num": 31,
@@ -458,7 +590,10 @@
           "height": "180",
           "age": 19,
           "pos": "MID",
-          "photo": "https://img.a.transfermarkt.technology/portrait/medium/default.jpg"
+          "photo": "https://img.a.transfermarkt.technology/portrait/medium/default.jpg",
+          "g": null,
+          "a": null,
+          "m": null
         },
         {
           "num": 35,
@@ -468,7 +603,10 @@
           "height": "186",
           "age": 19,
           "pos": "MID",
-          "photo": "https://img.a.transfermarkt.technology/portrait/medium/default.jpg"
+          "photo": "https://img.a.transfermarkt.technology/portrait/medium/default.jpg",
+          "g": null,
+          "a": null,
+          "m": null
         },
         {
           "num": 36,
@@ -478,7 +616,10 @@
           "height": "185",
           "age": 18,
           "pos": "MID",
-          "photo": "https://img.a.transfermarkt.technology/portrait/medium/1227102-1771420637.png"
+          "photo": "https://img.a.transfermarkt.technology/portrait/medium/1227102-1771420637.png",
+          "g": null,
+          "a": null,
+          "m": null
         },
         {
           "num": 7,
@@ -488,7 +629,10 @@
           "height": "185",
           "age": 28,
           "pos": "ATT",
-          "photo": "https://img.a.transfermarkt.technology/portrait/medium/342226-1723534120.jpg"
+          "photo": "https://img.a.transfermarkt.technology/portrait/medium/342226-1723534120.jpg",
+          "g": null,
+          "a": null,
+          "m": null
         },
         {
           "num": 9,
@@ -498,7 +642,10 @@
           "height": "183",
           "age": 21,
           "pos": "ATT",
-          "photo": "https://img.a.transfermarkt.technology/portrait/medium/655012-1727721924.jpg"
+          "photo": "https://img.a.transfermarkt.technology/portrait/medium/655012-1727721924.jpg",
+          "g": null,
+          "a": null,
+          "m": null
         },
         {
           "num": 17,
@@ -508,7 +655,10 @@
           "height": "181",
           "age": 21,
           "pos": "ATT",
-          "photo": "https://img.a.transfermarkt.technology/portrait/medium/867700-1752755797.jpg"
+          "photo": "https://img.a.transfermarkt.technology/portrait/medium/867700-1752755797.jpg",
+          "g": null,
+          "a": null,
+          "m": null
         },
         {
           "num": 22,
@@ -518,7 +668,10 @@
           "height": "175",
           "age": 25,
           "pos": "ATT",
-          "photo": "https://img.a.transfermarkt.technology/portrait/medium/427572-1727721934.jpg"
+          "photo": "https://img.a.transfermarkt.technology/portrait/medium/427572-1727721934.jpg",
+          "g": null,
+          "a": null,
+          "m": null
         },
         {
           "num": 25,
@@ -528,7 +681,10 @@
           "height": "180",
           "age": 17,
           "pos": "ATT",
-          "photo": "https://img.a.transfermarkt.technology/portrait/medium/1200419-1736786320.jpg"
+          "photo": "https://img.a.transfermarkt.technology/portrait/medium/1200419-1736786320.jpg",
+          "g": null,
+          "a": null,
+          "m": null
         },
         {
           "num": 49,
@@ -538,7 +694,10 @@
           "height": "188",
           "age": 17,
           "pos": "ATT",
-          "photo": "https://img.a.transfermarkt.technology/portrait/medium/1044395-1709905862.jpg"
+          "photo": "https://img.a.transfermarkt.technology/portrait/medium/1044395-1709905862.jpg",
+          "g": null,
+          "a": null,
+          "m": null
         }
       ]
     },
@@ -553,7 +712,10 @@
           "height": "181",
           "age": 34,
           "pos": "GK",
-          "photo": "https://img.a.transfermarkt.technology/portrait/medium/111041-1599221369.jpg"
+          "photo": "https://img.a.transfermarkt.technology/portrait/medium/111041-1599221369.jpg",
+          "g": null,
+          "a": null,
+          "m": null
         },
         {
           "num": 16,
@@ -563,7 +725,10 @@
           "height": "189",
           "age": 29,
           "pos": "GK",
-          "photo": "https://img.a.transfermarkt.technology/portrait/medium/373939-1669736193.jpg"
+          "photo": "https://img.a.transfermarkt.technology/portrait/medium/373939-1669736193.jpg",
+          "g": null,
+          "a": null,
+          "m": null
         },
         {
           "num": 40,
@@ -573,7 +738,10 @@
           "height": "182",
           "age": 31,
           "pos": "GK",
-          "photo": "https://img.a.transfermarkt.technology/portrait/medium/170549-1726480199.png"
+          "photo": "https://img.a.transfermarkt.technology/portrait/medium/170549-1726480199.png",
+          "g": null,
+          "a": null,
+          "m": null
         },
         {
           "num": 2,
@@ -583,7 +751,10 @@
           "height": "174",
           "age": 26,
           "pos": "DEF",
-          "photo": "https://img.a.transfermarkt.technology/portrait/medium/536473-1727173947.png"
+          "photo": "https://img.a.transfermarkt.technology/portrait/medium/536473-1727173947.png",
+          "g": null,
+          "a": null,
+          "m": null
         },
         {
           "num": 3,
@@ -593,7 +764,10 @@
           "height": "177",
           "age": 19,
           "pos": "DEF",
-          "photo": "https://img.a.transfermarkt.technology/portrait/medium/1119845-1779447938.jpg"
+          "photo": "https://img.a.transfermarkt.technology/portrait/medium/1119845-1779447938.jpg",
+          "g": null,
+          "a": null,
+          "m": null
         },
         {
           "num": 6,
@@ -603,7 +777,10 @@
           "height": "187",
           "age": 35,
           "pos": "DEF",
-          "photo": "https://img.a.transfermarkt.technology/portrait/medium/281611-1604253652.jpg"
+          "photo": "https://img.a.transfermarkt.technology/portrait/medium/281611-1604253652.jpg",
+          "g": null,
+          "a": null,
+          "m": null
         },
         {
           "num": 14,
@@ -613,7 +790,10 @@
           "height": "173",
           "age": 25,
           "pos": "DEF",
-          "photo": "https://img.a.transfermarkt.technology/portrait/medium/770895-1598255270.jpg"
+          "photo": "https://img.a.transfermarkt.technology/portrait/medium/770895-1598255270.jpg",
+          "g": null,
+          "a": null,
+          "m": null
         },
         {
           "num": 18,
@@ -623,7 +803,10 @@
           "height": "182",
           "age": 24,
           "pos": "DEF",
-          "photo": "https://img.a.transfermarkt.technology/portrait/medium/709482-1644084795.jpg"
+          "photo": "https://img.a.transfermarkt.technology/portrait/medium/709482-1644084795.jpg",
+          "g": null,
+          "a": null,
+          "m": null
         },
         {
           "num": 23,
@@ -633,7 +816,10 @@
           "height": "186",
           "age": 23,
           "pos": "DEF",
-          "photo": "https://img.a.transfermarkt.technology/portrait/medium/775403-1705098029.jpg"
+          "photo": "https://img.a.transfermarkt.technology/portrait/medium/775403-1705098029.jpg",
+          "g": null,
+          "a": null,
+          "m": null
         },
         {
           "num": 25,
@@ -643,7 +829,10 @@
           "height": "180",
           "age": 25,
           "pos": "DEF",
-          "photo": "https://img.a.transfermarkt.technology/portrait/medium/487333-1606986634.jpg"
+          "photo": "https://img.a.transfermarkt.technology/portrait/medium/487333-1606986634.jpg",
+          "g": null,
+          "a": null,
+          "m": null
         },
         {
           "num": 37,
@@ -653,7 +842,10 @@
           "height": "174",
           "age": 21,
           "pos": "DEF",
-          "photo": "https://img.a.transfermarkt.technology/portrait/medium/default.jpg"
+          "photo": "https://img.a.transfermarkt.technology/portrait/medium/default.jpg",
+          "g": null,
+          "a": null,
+          "m": null
         },
         {
           "num": 38,
@@ -663,7 +855,10 @@
           "height": "188",
           "age": 20,
           "pos": "DEF",
-          "photo": "https://img.a.transfermarkt.technology/portrait/medium/1179195-1779443702.jpg"
+          "photo": "https://img.a.transfermarkt.technology/portrait/medium/1179195-1779443702.jpg",
+          "g": null,
+          "a": null,
+          "m": null
         },
         {
           "num": 44,
@@ -673,7 +868,10 @@
           "height": "188",
           "age": 20,
           "pos": "DEF",
-          "photo": "https://img.a.transfermarkt.technology/portrait/medium/986299-1701165883.jpg"
+          "photo": "https://img.a.transfermarkt.technology/portrait/medium/986299-1701165883.jpg",
+          "g": null,
+          "a": null,
+          "m": null
         },
         {
           "num": 5,
@@ -683,7 +881,10 @@
           "height": "180",
           "age": 22,
           "pos": "MID",
-          "photo": "https://img.a.transfermarkt.technology/portrait/medium/814976-1723836232.png"
+          "photo": "https://img.a.transfermarkt.technology/portrait/medium/814976-1723836232.png",
+          "g": null,
+          "a": null,
+          "m": null
         },
         {
           "num": 7,
@@ -693,7 +894,10 @@
           "height": "179",
           "age": 35,
           "pos": "MID",
-          "photo": "https://img.a.transfermarkt.technology/portrait/medium/118278-1667290562.jpg"
+          "photo": "https://img.a.transfermarkt.technology/portrait/medium/118278-1667290562.jpg",
+          "g": null,
+          "a": null,
+          "m": null
         },
         {
           "num": 8,
@@ -703,7 +907,10 @@
           "height": "182",
           "age": 25,
           "pos": "MID",
-          "photo": "https://img.a.transfermarkt.technology/portrait/medium/933147-1658914314.png"
+          "photo": "https://img.a.transfermarkt.technology/portrait/medium/933147-1658914314.png",
+          "g": null,
+          "a": null,
+          "m": null
         },
         {
           "num": 17,
@@ -713,7 +920,10 @@
           "height": "181",
           "age": 28,
           "pos": "MID",
-          "photo": "https://img.a.transfermarkt.technology/portrait/medium/807653-1669302542.png"
+          "photo": "https://img.a.transfermarkt.technology/portrait/medium/807653-1669302542.png",
+          "g": null,
+          "a": null,
+          "m": null
         },
         {
           "num": 26,
@@ -723,7 +933,10 @@
           "height": "180",
           "age": 26,
           "pos": "MID",
-          "photo": "https://img.a.transfermarkt.technology/portrait/medium/585951-1694081193.jpg"
+          "photo": "https://img.a.transfermarkt.technology/portrait/medium/585951-1694081193.jpg",
+          "g": null,
+          "a": null,
+          "m": null
         },
         {
           "num": 35,
@@ -733,7 +946,10 @@
           "height": "183",
           "age": 20,
           "pos": "MID",
-          "photo": "https://img.a.transfermarkt.technology/portrait/medium/default.jpg"
+          "photo": "https://img.a.transfermarkt.technology/portrait/medium/default.jpg",
+          "g": null,
+          "a": null,
+          "m": null
         },
         {
           "num": 9,
@@ -743,7 +959,10 @@
           "height": "181",
           "age": 27,
           "pos": "ATT",
-          "photo": "https://img.a.transfermarkt.technology/portrait/medium/627163-1704364870.jpg"
+          "photo": "https://img.a.transfermarkt.technology/portrait/medium/627163-1704364870.jpg",
+          "g": null,
+          "a": null,
+          "m": null
         },
         {
           "num": 10,
@@ -753,7 +972,10 @@
           "height": "178",
           "age": 27,
           "pos": "ATT",
-          "photo": "https://img.a.transfermarkt.technology/portrait/medium/976861-1678227792.jpg"
+          "photo": "https://img.a.transfermarkt.technology/portrait/medium/976861-1678227792.jpg",
+          "g": null,
+          "a": null,
+          "m": null
         },
         {
           "num": 11,
@@ -763,7 +985,10 @@
           "height": "178",
           "age": 19,
           "pos": "ATT",
-          "photo": "https://img.a.transfermarkt.technology/portrait/medium/1171981-1749199277.jpg"
+          "photo": "https://img.a.transfermarkt.technology/portrait/medium/1171981-1749199277.jpg",
+          "g": null,
+          "a": null,
+          "m": null
         },
         {
           "num": 12,
@@ -773,7 +998,10 @@
           "height": "175",
           "age": 19,
           "pos": "ATT",
-          "photo": "https://img.a.transfermarkt.technology/portrait/medium/1372119-1755311057.jpg"
+          "photo": "https://img.a.transfermarkt.technology/portrait/medium/1372119-1755311057.jpg",
+          "g": null,
+          "a": null,
+          "m": null
         },
         {
           "num": 20,
@@ -783,7 +1011,10 @@
           "height": "181",
           "age": 33,
           "pos": "ATT",
-          "photo": "https://img.a.transfermarkt.technology/portrait/medium/234802-1626346115.jpg"
+          "photo": "https://img.a.transfermarkt.technology/portrait/medium/234802-1626346115.jpg",
+          "g": null,
+          "a": null,
+          "m": null
         },
         {
           "num": 21,
@@ -793,7 +1024,10 @@
           "height": "180",
           "age": 24,
           "pos": "ATT",
-          "photo": "https://img.a.transfermarkt.technology/portrait/medium/667995-1741881244.jpg"
+          "photo": "https://img.a.transfermarkt.technology/portrait/medium/667995-1741881244.jpg",
+          "g": null,
+          "a": null,
+          "m": null
         },
         {
           "num": 29,
@@ -803,7 +1037,10 @@
           "height": "180",
           "age": 26,
           "pos": "ATT",
-          "photo": "https://img.a.transfermarkt.technology/portrait/medium/575319-1755095069.jpg"
+          "photo": "https://img.a.transfermarkt.technology/portrait/medium/575319-1755095069.jpg",
+          "g": null,
+          "a": null,
+          "m": null
         },
         {
           "num": 34,
@@ -813,7 +1050,10 @@
           "height": "180",
           "age": 20,
           "pos": "ATT",
-          "photo": "https://img.a.transfermarkt.technology/portrait/medium/default.jpg"
+          "photo": "https://img.a.transfermarkt.technology/portrait/medium/default.jpg",
+          "g": null,
+          "a": null,
+          "m": null
         },
         {
           "num": 36,
@@ -823,7 +1063,10 @@
           "height": "177",
           "age": 21,
           "pos": "ATT",
-          "photo": "https://img.a.transfermarkt.technology/portrait/medium/default.jpg"
+          "photo": "https://img.a.transfermarkt.technology/portrait/medium/default.jpg",
+          "g": null,
+          "a": null,
+          "m": null
         },
         {
           "num": "?",
@@ -833,7 +1076,10 @@
           "height": "180",
           "age": 22,
           "pos": "ATT",
-          "photo": "https://img.a.transfermarkt.technology/portrait/medium/931841-1713870119.png"
+          "photo": "https://img.a.transfermarkt.technology/portrait/medium/931841-1713870119.png",
+          "g": null,
+          "a": null,
+          "m": null
         }
       ]
     },
@@ -848,7 +1094,10 @@
           "height": "190",
           "age": 29,
           "pos": "GK",
-          "photo": "https://img.a.transfermarkt.technology/portrait/medium/282409-1778861445.jpg"
+          "photo": "https://img.a.transfermarkt.technology/portrait/medium/282409-1778861445.jpg",
+          "g": null,
+          "a": null,
+          "m": null
         },
         {
           "num": 36,
@@ -858,7 +1107,10 @@
           "height": "185",
           "age": 21,
           "pos": "GK",
-          "photo": "https://img.a.transfermarkt.technology/portrait/medium/default.jpg"
+          "photo": "https://img.a.transfermarkt.technology/portrait/medium/default.jpg",
+          "g": null,
+          "a": null,
+          "m": null
         },
         {
           "num": 60,
@@ -868,7 +1120,10 @@
           "height": "192",
           "age": 19,
           "pos": "GK",
-          "photo": "https://img.a.transfermarkt.technology/portrait/medium/1075580-1778863179.jpg"
+          "photo": "https://img.a.transfermarkt.technology/portrait/medium/1075580-1778863179.jpg",
+          "g": null,
+          "a": null,
+          "m": null
         },
         {
           "num": 2,
@@ -878,7 +1133,10 @@
           "height": "172",
           "age": 27,
           "pos": "DEF",
-          "photo": "https://img.a.transfermarkt.technology/portrait/medium/324800-1778861480.jpg"
+          "photo": "https://img.a.transfermarkt.technology/portrait/medium/324800-1778861480.jpg",
+          "g": null,
+          "a": null,
+          "m": null
         },
         {
           "num": 4,
@@ -888,7 +1146,10 @@
           "height": "183",
           "age": 22,
           "pos": "DEF",
-          "photo": "https://img.a.transfermarkt.technology/portrait/medium/654986-1660760595.jpg"
+          "photo": "https://img.a.transfermarkt.technology/portrait/medium/654986-1660760595.jpg",
+          "g": null,
+          "a": null,
+          "m": null
         },
         {
           "num": 22,
@@ -898,7 +1159,10 @@
           "height": "187",
           "age": 22,
           "pos": "DEF",
-          "photo": "https://img.a.transfermarkt.technology/portrait/medium/950727-1778863169.png"
+          "photo": "https://img.a.transfermarkt.technology/portrait/medium/950727-1778863169.png",
+          "g": null,
+          "a": null,
+          "m": null
         },
         {
           "num": 23,
@@ -908,7 +1172,10 @@
           "height": "190",
           "age": 35,
           "pos": "DEF",
-          "photo": "https://img.a.transfermarkt.technology/portrait/medium/122115-1778861464.jpg"
+          "photo": "https://img.a.transfermarkt.technology/portrait/medium/122115-1778861464.jpg",
+          "g": null,
+          "a": null,
+          "m": null
         },
         {
           "num": 24,
@@ -918,7 +1185,10 @@
           "height": "165",
           "age": 21,
           "pos": "DEF",
-          "photo": "https://img.a.transfermarkt.technology/portrait/medium/1162409-1778861500.jpg"
+          "photo": "https://img.a.transfermarkt.technology/portrait/medium/1162409-1778861500.jpg",
+          "g": null,
+          "a": null,
+          "m": null
         },
         {
           "num": 26,
@@ -928,7 +1198,10 @@
           "height": "188",
           "age": 35,
           "pos": "DEF",
-          "photo": "https://img.a.transfermarkt.technology/portrait/medium/352448-1778861455.jpg"
+          "photo": "https://img.a.transfermarkt.technology/portrait/medium/352448-1778861455.jpg",
+          "g": null,
+          "a": null,
+          "m": null
         },
         {
           "num": 27,
@@ -938,7 +1211,10 @@
           "height": "176",
           "age": 26,
           "pos": "DEF",
-          "photo": "https://img.a.transfermarkt.technology/portrait/medium/635486-1778861489.jpg"
+          "photo": "https://img.a.transfermarkt.technology/portrait/medium/635486-1778861489.jpg",
+          "g": null,
+          "a": null,
+          "m": null
         },
         {
           "num": 30,
@@ -948,7 +1224,10 @@
           "height": "180",
           "age": 30,
           "pos": "DEF",
-          "photo": "https://img.a.transfermarkt.technology/portrait/medium/273455-1778861473.jpg"
+          "photo": "https://img.a.transfermarkt.technology/portrait/medium/273455-1778861473.jpg",
+          "g": null,
+          "a": null,
+          "m": null
         },
         {
           "num": 42,
@@ -958,7 +1237,10 @@
           "height": "183",
           "age": 21,
           "pos": "DEF",
-          "photo": "https://img.a.transfermarkt.technology/portrait/medium/1052285-1771368358.png"
+          "photo": "https://img.a.transfermarkt.technology/portrait/medium/1052285-1771368358.png",
+          "g": null,
+          "a": null,
+          "m": null
         },
         {
           "num": 6,
@@ -968,7 +1250,10 @@
           "height": "193",
           "age": 20,
           "pos": "MID",
-          "photo": "https://img.a.transfermarkt.technology/portrait/medium/1183575-1778861876.jpg"
+          "photo": "https://img.a.transfermarkt.technology/portrait/medium/1183575-1778861876.jpg",
+          "g": null,
+          "a": null,
+          "m": null
         },
         {
           "num": 7,
@@ -978,7 +1263,10 @@
           "height": "173",
           "age": 26,
           "pos": "MID",
-          "photo": "https://img.a.transfermarkt.technology/portrait/medium/629566-1778863136.png"
+          "photo": "https://img.a.transfermarkt.technology/portrait/medium/629566-1778863136.png",
+          "g": null,
+          "a": null,
+          "m": null
         },
         {
           "num": 8,
@@ -988,7 +1276,10 @@
           "height": "178",
           "age": 22,
           "pos": "MID",
-          "photo": "https://img.a.transfermarkt.technology/portrait/medium/1178476-1778861868.jpg"
+          "photo": "https://img.a.transfermarkt.technology/portrait/medium/1178476-1778861868.jpg",
+          "g": null,
+          "a": null,
+          "m": null
         },
         {
           "num": 15,
@@ -998,7 +1289,10 @@
           "height": "180",
           "age": 23,
           "pos": "MID",
-          "photo": "https://img.a.transfermarkt.technology/portrait/medium/830265-1741881062.jpg"
+          "photo": "https://img.a.transfermarkt.technology/portrait/medium/830265-1741881062.jpg",
+          "g": null,
+          "a": null,
+          "m": null
         },
         {
           "num": 16,
@@ -1008,7 +1302,10 @@
           "height": "181",
           "age": 34,
           "pos": "MID",
-          "photo": "https://img.a.transfermarkt.technology/portrait/medium/89731-1778862766.jpg"
+          "photo": "https://img.a.transfermarkt.technology/portrait/medium/89731-1778862766.jpg",
+          "g": null,
+          "a": null,
+          "m": null
         },
         {
           "num": 18,
@@ -1018,7 +1315,10 @@
           "height": "184",
           "age": 20,
           "pos": "MID",
-          "photo": "https://img.a.transfermarkt.technology/portrait/medium/1334467-1778860003.jpg"
+          "photo": "https://img.a.transfermarkt.technology/portrait/medium/1334467-1778860003.jpg",
+          "g": null,
+          "a": null,
+          "m": null
         },
         {
           "num": 20,
@@ -1028,7 +1328,10 @@
           "height": "173",
           "age": 25,
           "pos": "MID",
-          "photo": "https://img.a.transfermarkt.technology/portrait/medium/707222-1778861802.jpg"
+          "photo": "https://img.a.transfermarkt.technology/portrait/medium/707222-1778861802.jpg",
+          "g": null,
+          "a": null,
+          "m": null
         },
         {
           "num": 87,
@@ -1038,7 +1341,10 @@
           "height": "192",
           "age": 18,
           "pos": "MID",
-          "photo": "https://img.a.transfermarkt.technology/portrait/medium/1216075-1778863143.jpg"
+          "photo": "https://img.a.transfermarkt.technology/portrait/medium/1216075-1778863143.jpg",
+          "g": null,
+          "a": null,
+          "m": null
         },
         {
           "num": 9,
@@ -1048,7 +1354,10 @@
           "height": "180",
           "age": 29,
           "pos": "ATT",
-          "photo": "https://img.a.transfermarkt.technology/portrait/medium/290615-1778863121.png"
+          "photo": "https://img.a.transfermarkt.technology/portrait/medium/290615-1778863121.png",
+          "g": null,
+          "a": null,
+          "m": null
         },
         {
           "num": 10,
@@ -1058,7 +1367,10 @@
           "height": "182",
           "age": 27,
           "pos": "ATT",
-          "photo": "https://img.a.transfermarkt.technology/portrait/medium/628697-1778861886.jpg"
+          "photo": "https://img.a.transfermarkt.technology/portrait/medium/628697-1778861886.jpg",
+          "g": null,
+          "a": null,
+          "m": null
         },
         {
           "num": 11,
@@ -1068,7 +1380,10 @@
           "height": "175",
           "age": 22,
           "pos": "ATT",
-          "photo": "https://img.a.transfermarkt.technology/portrait/medium/1074926-1778862775.jpg"
+          "photo": "https://img.a.transfermarkt.technology/portrait/medium/1074926-1778862775.jpg",
+          "g": null,
+          "a": null,
+          "m": null
         },
         {
           "num": 19,
@@ -1078,7 +1393,10 @@
           "height": "184",
           "age": 31,
           "pos": "ATT",
-          "photo": "https://img.a.transfermarkt.technology/portrait/medium/315095-1778862752.jpg"
+          "photo": "https://img.a.transfermarkt.technology/portrait/medium/315095-1778862752.jpg",
+          "g": null,
+          "a": null,
+          "m": null
         },
         {
           "num": 57,
@@ -1088,7 +1406,10 @@
           "height": "172",
           "age": 19,
           "pos": "ATT",
-          "photo": "https://img.a.transfermarkt.technology/portrait/medium/1195023-1778862959.png"
+          "photo": "https://img.a.transfermarkt.technology/portrait/medium/1195023-1778862959.png",
+          "g": null,
+          "a": null,
+          "m": null
         },
         {
           "num": 69,
@@ -1098,7 +1419,10 @@
           "height": "175",
           "age": 22,
           "pos": "ATT",
-          "photo": "https://img.a.transfermarkt.technology/portrait/medium/838562-1741881165.jpg"
+          "photo": "https://img.a.transfermarkt.technology/portrait/medium/838562-1741881165.jpg",
+          "g": null,
+          "a": null,
+          "m": null
         },
         {
           "num": 77,
@@ -1108,7 +1432,10 @@
           "height": "178",
           "age": 21,
           "pos": "ATT",
-          "photo": "https://img.a.transfermarkt.technology/portrait/medium/1310513-1778863128.jpg"
+          "photo": "https://img.a.transfermarkt.technology/portrait/medium/1310513-1778863128.jpg",
+          "g": null,
+          "a": null,
+          "m": null
         }
       ]
     },
@@ -1123,7 +1450,10 @@
           "height": "188",
           "age": 34,
           "pos": "GK",
-          "photo": "https://img.a.transfermarkt.technology/portrait/medium/193142-1773267417.png"
+          "photo": "https://img.a.transfermarkt.technology/portrait/medium/193142-1773267417.png",
+          "g": null,
+          "a": null,
+          "m": null
         },
         {
           "num": 31,
@@ -1133,7 +1463,10 @@
           "height": "186",
           "age": 23,
           "pos": "GK",
-          "photo": "https://img.a.transfermarkt.technology/portrait/medium/696600-1773267436.png"
+          "photo": "https://img.a.transfermarkt.technology/portrait/medium/696600-1773267436.png",
+          "g": null,
+          "a": null,
+          "m": null
         },
         {
           "num": 50,
@@ -1143,7 +1476,10 @@
           "height": "186",
           "age": 19,
           "pos": "GK",
-          "photo": "https://img.a.transfermarkt.technology/portrait/medium/989106-1773266710.png"
+          "photo": "https://img.a.transfermarkt.technology/portrait/medium/989106-1773266710.png",
+          "g": null,
+          "a": null,
+          "m": null
         },
         {
           "num": 3,
@@ -1153,7 +1489,10 @@
           "height": "183",
           "age": 19,
           "pos": "DEF",
-          "photo": "https://img.a.transfermarkt.technology/portrait/medium/1053148-1773267450.png"
+          "photo": "https://img.a.transfermarkt.technology/portrait/medium/1053148-1773267450.png",
+          "g": null,
+          "a": null,
+          "m": null
         },
         {
           "num": 6,
@@ -1163,7 +1502,10 @@
           "height": "196",
           "age": 33,
           "pos": "DEF",
-          "photo": "https://img.a.transfermarkt.technology/portrait/medium/201737-1773267597.png"
+          "photo": "https://img.a.transfermarkt.technology/portrait/medium/201737-1773267597.png",
+          "g": null,
+          "a": null,
+          "m": null
         },
         {
           "num": 15,
@@ -1173,7 +1515,10 @@
           "height": "185",
           "age": 32,
           "pos": "DEF",
-          "photo": "https://img.a.transfermarkt.technology/portrait/medium/386057-1773267606.png"
+          "photo": "https://img.a.transfermarkt.technology/portrait/medium/386057-1773267606.png",
+          "g": null,
+          "a": null,
+          "m": null
         },
         {
           "num": 17,
@@ -1183,7 +1528,10 @@
           "height": "176",
           "age": 27,
           "pos": "DEF",
-          "photo": "https://img.a.transfermarkt.technology/portrait/medium/537127-1773267587.png"
+          "photo": "https://img.a.transfermarkt.technology/portrait/medium/537127-1773267587.png",
+          "g": null,
+          "a": null,
+          "m": null
         },
         {
           "num": 21,
@@ -1193,7 +1541,10 @@
           "height": "180",
           "age": 22,
           "pos": "DEF",
-          "photo": "https://img.a.transfermarkt.technology/portrait/medium/982393-1773267680.png"
+          "photo": "https://img.a.transfermarkt.technology/portrait/medium/982393-1773267680.png",
+          "g": null,
+          "a": null,
+          "m": null
         },
         {
           "num": 23,
@@ -1203,7 +1554,10 @@
           "height": "183",
           "age": 20,
           "pos": "DEF",
-          "photo": "https://img.a.transfermarkt.technology/portrait/medium/970364-1773267553.png"
+          "photo": "https://img.a.transfermarkt.technology/portrait/medium/970364-1773267553.png",
+          "g": null,
+          "a": null,
+          "m": null
         },
         {
           "num": 29,
@@ -1213,7 +1567,10 @@
           "height": "182",
           "age": 23,
           "pos": "DEF",
-          "photo": "https://img.a.transfermarkt.technology/portrait/medium/842338-1773267690.png"
+          "photo": "https://img.a.transfermarkt.technology/portrait/medium/842338-1773267690.png",
+          "g": null,
+          "a": null,
+          "m": null
         },
         {
           "num": 49,
@@ -1223,7 +1580,10 @@
           "height": "172",
           "age": 20,
           "pos": "DEF",
-          "photo": "https://img.a.transfermarkt.technology/portrait/medium/1203026-1773266723.png"
+          "photo": "https://img.a.transfermarkt.technology/portrait/medium/1203026-1773266723.png",
+          "g": null,
+          "a": null,
+          "m": null
         },
         {
           "num": 10,
@@ -1233,7 +1593,10 @@
           "height": "172",
           "age": 22,
           "pos": "MID",
-          "photo": "https://img.a.transfermarkt.technology/portrait/medium/782630-1773267960.png"
+          "photo": "https://img.a.transfermarkt.technology/portrait/medium/782630-1773267960.png",
+          "g": null,
+          "a": null,
+          "m": null
         },
         {
           "num": 11,
@@ -1243,7 +1606,10 @@
           "height": "172",
           "age": 34,
           "pos": "MID",
-          "photo": "https://img.a.transfermarkt.technology/portrait/medium/127156-1773268067.png"
+          "photo": "https://img.a.transfermarkt.technology/portrait/medium/127156-1773268067.png",
+          "g": null,
+          "a": null,
+          "m": null
         },
         {
           "num": 20,
@@ -1253,7 +1619,10 @@
           "height": "181",
           "age": 24,
           "pos": "MID",
-          "photo": "https://img.a.transfermarkt.technology/portrait/medium/805861-1773268058.png"
+          "photo": "https://img.a.transfermarkt.technology/portrait/medium/805861-1773268058.png",
+          "g": null,
+          "a": null,
+          "m": null
         },
         {
           "num": 28,
@@ -1263,7 +1632,10 @@
           "height": "169",
           "age": 21,
           "pos": "MID",
-          "photo": "https://img.a.transfermarkt.technology/portrait/medium/977877-1773267783.png"
+          "photo": "https://img.a.transfermarkt.technology/portrait/medium/977877-1773267783.png",
+          "g": null,
+          "a": null,
+          "m": null
         },
         {
           "num": 44,
@@ -1273,7 +1645,10 @@
           "height": "182",
           "age": 21,
           "pos": "MID",
-          "photo": "https://img.a.transfermarkt.technology/portrait/medium/1019950-1773268049.png"
+          "photo": "https://img.a.transfermarkt.technology/portrait/medium/1019950-1773268049.png",
+          "g": null,
+          "a": null,
+          "m": null
         },
         {
           "num": 77,
@@ -1283,7 +1658,10 @@
           "height": "178",
           "age": 22,
           "pos": "MID",
-          "photo": "https://img.a.transfermarkt.technology/portrait/medium/919236-1773267874.png"
+          "photo": "https://img.a.transfermarkt.technology/portrait/medium/919236-1773267874.png",
+          "g": null,
+          "a": null,
+          "m": null
         },
         {
           "num": 7,
@@ -1293,7 +1671,10 @@
           "height": "170",
           "age": 24,
           "pos": "ATT",
-          "photo": "https://img.a.transfermarkt.technology/portrait/medium/557614-1773267950.png"
+          "photo": "https://img.a.transfermarkt.technology/portrait/medium/557614-1773267950.png",
+          "g": null,
+          "a": null,
+          "m": null
         },
         {
           "num": 8,
@@ -1303,7 +1684,10 @@
           "height": "182",
           "age": 19,
           "pos": "ATT",
-          "photo": "https://img.a.transfermarkt.technology/portrait/medium/1047104-1773267969.png"
+          "photo": "https://img.a.transfermarkt.technology/portrait/medium/1047104-1773267969.png",
+          "g": null,
+          "a": null,
+          "m": null
         },
         {
           "num": 14,
@@ -1313,7 +1697,10 @@
           "height": "178",
           "age": 18,
           "pos": "ATT",
-          "photo": "https://img.a.transfermarkt.technology/portrait/medium/1106860-1773267865.png"
+          "photo": "https://img.a.transfermarkt.technology/portrait/medium/1106860-1773267865.png",
+          "g": null,
+          "a": null,
+          "m": null
         },
         {
           "num": 18,
@@ -1323,7 +1710,10 @@
           "height": "177",
           "age": 22,
           "pos": "ATT",
-          "photo": "https://img.a.transfermarkt.technology/portrait/medium/1093482-1773268031.png"
+          "photo": "https://img.a.transfermarkt.technology/portrait/medium/1093482-1773268031.png",
+          "g": null,
+          "a": null,
+          "m": null
         },
         {
           "num": 19,
@@ -1333,7 +1723,10 @@
           "height": "184",
           "age": 32,
           "pos": "ATT",
-          "photo": "https://img.a.transfermarkt.technology/portrait/medium/290561-1773267901.png"
+          "photo": "https://img.a.transfermarkt.technology/portrait/medium/290561-1773267901.png",
+          "g": null,
+          "a": null,
+          "m": null
         },
         {
           "num": 22,
@@ -1343,7 +1736,10 @@
           "height": "172",
           "age": 21,
           "pos": "ATT",
-          "photo": "https://img.a.transfermarkt.technology/portrait/medium/981977-1773268040.png"
+          "photo": "https://img.a.transfermarkt.technology/portrait/medium/981977-1773268040.png",
+          "g": null,
+          "a": null,
+          "m": null
         }
       ]
     },
@@ -1358,7 +1754,10 @@
           "height": "186",
           "age": 34,
           "pos": "GK",
-          "photo": "https://img.a.transfermarkt.technology/portrait/medium/191188-1669829521.jpg"
+          "photo": "https://img.a.transfermarkt.technology/portrait/medium/191188-1669829521.jpg",
+          "g": null,
+          "a": null,
+          "m": null
         },
         {
           "num": 40,
@@ -1368,7 +1767,10 @@
           "height": "193",
           "age": 29,
           "pos": "GK",
-          "photo": "https://img.a.transfermarkt.technology/portrait/medium/318507-1738847260.jpg"
+          "photo": "https://img.a.transfermarkt.technology/portrait/medium/318507-1738847260.jpg",
+          "g": null,
+          "a": null,
+          "m": null
         },
         {
           "num": 21,
@@ -1378,7 +1780,10 @@
           "height": "175",
           "age": 33,
           "pos": "DEF",
-          "photo": "https://img.a.transfermarkt.technology/portrait/medium/127076-1691614715.jpg"
+          "photo": "https://img.a.transfermarkt.technology/portrait/medium/127076-1691614715.jpg",
+          "g": null,
+          "a": null,
+          "m": null
         },
         {
           "num": 25,
@@ -1388,7 +1793,10 @@
           "height": "177",
           "age": 25,
           "pos": "DEF",
-          "photo": "https://img.a.transfermarkt.technology/portrait/medium/433257-1544622521.jpg"
+          "photo": "https://img.a.transfermarkt.technology/portrait/medium/433257-1544622521.jpg",
+          "g": null,
+          "a": null,
+          "m": null
         },
         {
           "num": 28,
@@ -1398,7 +1806,10 @@
           "height": "187",
           "age": 26,
           "pos": "DEF",
-          "photo": "https://img.a.transfermarkt.technology/portrait/medium/739076-1697463834.png"
+          "photo": "https://img.a.transfermarkt.technology/portrait/medium/739076-1697463834.png",
+          "g": null,
+          "a": null,
+          "m": null
         },
         {
           "num": 34,
@@ -1408,7 +1819,10 @@
           "height": "188",
           "age": 21,
           "pos": "DEF",
-          "photo": "https://img.a.transfermarkt.technology/portrait/medium/986258-1741880435.jpg"
+          "photo": "https://img.a.transfermarkt.technology/portrait/medium/986258-1741880435.jpg",
+          "g": null,
+          "a": null,
+          "m": null
         },
         {
           "num": 39,
@@ -1418,7 +1832,10 @@
           "height": "183",
           "age": 19,
           "pos": "DEF",
-          "photo": "https://img.a.transfermarkt.technology/portrait/medium/1172908-1741880548.jpg"
+          "photo": "https://img.a.transfermarkt.technology/portrait/medium/1172908-1741880548.jpg",
+          "g": null,
+          "a": null,
+          "m": null
         },
         {
           "num": 44,
@@ -1428,7 +1845,10 @@
           "height": "184",
           "age": 20,
           "pos": "DEF",
-          "photo": "https://img.a.transfermarkt.technology/portrait/medium/1169057-1779448038.jpg"
+          "photo": "https://img.a.transfermarkt.technology/portrait/medium/1169057-1779448038.jpg",
+          "g": null,
+          "a": null,
+          "m": null
         },
         {
           "num": 59,
@@ -1438,7 +1858,10 @@
           "height": "170",
           "age": 18,
           "pos": "DEF",
-          "photo": "https://img.a.transfermarkt.technology/portrait/medium/default.jpg"
+          "photo": "https://img.a.transfermarkt.technology/portrait/medium/default.jpg",
+          "g": null,
+          "a": null,
+          "m": null
         },
         {
           "num": 88,
@@ -1448,7 +1871,10 @@
           "height": "187",
           "age": 21,
           "pos": "DEF",
-          "photo": "https://img.a.transfermarkt.technology/portrait/medium/914539-1741190379.jpg"
+          "photo": "https://img.a.transfermarkt.technology/portrait/medium/914539-1741190379.jpg",
+          "g": null,
+          "a": null,
+          "m": null
         },
         {
           "num": 6,
@@ -1458,7 +1884,10 @@
           "height": "184",
           "age": 35,
           "pos": "MID",
-          "photo": "https://img.a.transfermarkt.technology/portrait/medium/127182-1727722128.jpg"
+          "photo": "https://img.a.transfermarkt.technology/portrait/medium/127182-1727722128.jpg",
+          "g": null,
+          "a": null,
+          "m": null
         },
         {
           "num": 8,
@@ -1468,7 +1897,10 @@
           "height": "181",
           "age": 31,
           "pos": "MID",
-          "photo": "https://img.a.transfermarkt.technology/portrait/medium/592358-1592234087.png"
+          "photo": "https://img.a.transfermarkt.technology/portrait/medium/592358-1592234087.png",
+          "g": null,
+          "a": null,
+          "m": null
         },
         {
           "num": 11,
@@ -1478,7 +1910,10 @@
           "height": "180",
           "age": 26,
           "pos": "MID",
-          "photo": "https://img.a.transfermarkt.technology/portrait/medium/809180-1765799231.jpg"
+          "photo": "https://img.a.transfermarkt.technology/portrait/medium/809180-1765799231.jpg",
+          "g": null,
+          "a": null,
+          "m": null
         },
         {
           "num": 15,
@@ -1488,7 +1923,10 @@
           "height": "187",
           "age": 21,
           "pos": "MID",
-          "photo": "https://img.a.transfermarkt.technology/portrait/medium/919620-1697462326.png"
+          "photo": "https://img.a.transfermarkt.technology/portrait/medium/919620-1697462326.png",
+          "g": null,
+          "a": null,
+          "m": null
         },
         {
           "num": 18,
@@ -1498,7 +1936,10 @@
           "height": "177",
           "age": 20,
           "pos": "MID",
-          "photo": "https://img.a.transfermarkt.technology/portrait/medium/1248495-1746213923.jpeg"
+          "photo": "https://img.a.transfermarkt.technology/portrait/medium/1248495-1746213923.jpeg",
+          "g": null,
+          "a": null,
+          "m": null
         },
         {
           "num": 20,
@@ -1508,7 +1949,10 @@
           "height": "179",
           "age": 27,
           "pos": "MID",
-          "photo": "https://img.a.transfermarkt.technology/portrait/medium/612143-1556009485.jpg"
+          "photo": "https://img.a.transfermarkt.technology/portrait/medium/612143-1556009485.jpg",
+          "g": null,
+          "a": null,
+          "m": null
         },
         {
           "num": 27,
@@ -1518,7 +1962,10 @@
           "height": "170",
           "age": 23,
           "pos": "MID",
-          "photo": "https://img.a.transfermarkt.technology/portrait/medium/954090-1741881454.jpg"
+          "photo": "https://img.a.transfermarkt.technology/portrait/medium/954090-1741881454.jpg",
+          "g": null,
+          "a": null,
+          "m": null
         },
         {
           "num": 45,
@@ -1528,7 +1975,10 @@
           "height": "178",
           "age": 22,
           "pos": "MID",
-          "photo": "https://img.a.transfermarkt.technology/portrait/medium/1001788-1762885223.jpg"
+          "photo": "https://img.a.transfermarkt.technology/portrait/medium/1001788-1762885223.jpg",
+          "g": null,
+          "a": null,
+          "m": null
         },
         {
           "num": 46,
@@ -1538,7 +1988,10 @@
           "height": "183",
           "age": 19,
           "pos": "MID",
-          "photo": "https://img.a.transfermarkt.technology/portrait/medium/default.jpg"
+          "photo": "https://img.a.transfermarkt.technology/portrait/medium/default.jpg",
+          "g": null,
+          "a": null,
+          "m": null
         },
         {
           "num": 80,
@@ -1548,7 +2001,10 @@
           "height": "202",
           "age": 24,
           "pos": "MID",
-          "photo": "https://img.a.transfermarkt.technology/portrait/medium/855134-1756027874.jpg"
+          "photo": "https://img.a.transfermarkt.technology/portrait/medium/855134-1756027874.jpg",
+          "g": null,
+          "a": null,
+          "m": null
         },
         {
           "num": 87,
@@ -1558,7 +2014,10 @@
           "height": "175",
           "age": 18,
           "pos": "MID",
-          "photo": "https://img.a.transfermarkt.technology/portrait/medium/default.jpg"
+          "photo": "https://img.a.transfermarkt.technology/portrait/medium/default.jpg",
+          "g": null,
+          "a": null,
+          "m": null
         },
         {
           "num": 7,
@@ -1568,7 +2027,10 @@
           "height": "178",
           "age": 23,
           "pos": "ATT",
-          "photo": "https://img.a.transfermarkt.technology/portrait/medium/911990-1753386244.jpg"
+          "photo": "https://img.a.transfermarkt.technology/portrait/medium/911990-1753386244.jpg",
+          "g": null,
+          "a": null,
+          "m": null
         },
         {
           "num": 9,
@@ -1578,7 +2040,10 @@
           "height": "183",
           "age": 27,
           "pos": "ATT",
-          "photo": "https://img.a.transfermarkt.technology/portrait/medium/309180-1716317465.jpg"
+          "photo": "https://img.a.transfermarkt.technology/portrait/medium/309180-1716317465.jpg",
+          "g": null,
+          "a": null,
+          "m": null
         },
         {
           "num": 10,
@@ -1588,7 +2053,10 @@
           "height": "167",
           "age": 24,
           "pos": "ATT",
-          "photo": "https://img.a.transfermarkt.technology/portrait/medium/891379-1692034805.png"
+          "photo": "https://img.a.transfermarkt.technology/portrait/medium/891379-1692034805.png",
+          "g": null,
+          "a": null,
+          "m": null
         },
         {
           "num": 14,
@@ -1598,7 +2066,10 @@
           "height": "172",
           "age": 30,
           "pos": "ATT",
-          "photo": "https://img.a.transfermarkt.technology/portrait/medium/467486-1677772818.jpg"
+          "photo": "https://img.a.transfermarkt.technology/portrait/medium/467486-1677772818.jpg",
+          "g": null,
+          "a": null,
+          "m": null
         },
         {
           "num": 19,
@@ -1608,7 +2079,10 @@
           "height": "187",
           "age": 20,
           "pos": "ATT",
-          "photo": "https://img.a.transfermarkt.technology/portrait/medium/1004478-1779443783.jpg"
+          "photo": "https://img.a.transfermarkt.technology/portrait/medium/1004478-1779443783.jpg",
+          "g": null,
+          "a": null,
+          "m": null
         },
         {
           "num": 29,
@@ -1618,7 +2092,10 @@
           "height": "179",
           "age": 21,
           "pos": "ATT",
-          "photo": "https://img.a.transfermarkt.technology/portrait/medium/1111776-1697461975.png"
+          "photo": "https://img.a.transfermarkt.technology/portrait/medium/1111776-1697461975.png",
+          "g": null,
+          "a": null,
+          "m": null
         },
         {
           "num": 90,
@@ -1628,7 +2105,10 @@
           "height": "178",
           "age": 25,
           "pos": "ATT",
-          "photo": "https://img.a.transfermarkt.technology/portrait/medium/796892-1757572971.png"
+          "photo": "https://img.a.transfermarkt.technology/portrait/medium/796892-1757572971.png",
+          "g": null,
+          "a": null,
+          "m": null
         }
       ]
     },
@@ -1643,7 +2123,10 @@
           "height": "195",
           "age": 20,
           "pos": "GK",
-          "photo": "https://img.a.transfermarkt.technology/portrait/medium/986180-1668004374.jpg"
+          "photo": "https://img.a.transfermarkt.technology/portrait/medium/986180-1668004374.jpg",
+          "g": null,
+          "a": null,
+          "m": null
         },
         {
           "num": 30,
@@ -1653,7 +2136,10 @@
           "height": "187",
           "age": 32,
           "pos": "GK",
-          "photo": "https://img.a.transfermarkt.technology/portrait/medium/323253-1727207402.png"
+          "photo": "https://img.a.transfermarkt.technology/portrait/medium/323253-1727207402.png",
+          "g": null,
+          "a": null,
+          "m": null
         },
         {
           "num": 2,
@@ -1663,7 +2149,10 @@
           "height": "180",
           "age": 22,
           "pos": "DEF",
-          "photo": "https://img.a.transfermarkt.technology/portrait/medium/917817-1754329723.jpg"
+          "photo": "https://img.a.transfermarkt.technology/portrait/medium/917817-1754329723.jpg",
+          "g": null,
+          "a": null,
+          "m": null
         },
         {
           "num": 3,
@@ -1673,7 +2162,10 @@
           "height": "180",
           "age": 21,
           "pos": "DEF",
-          "photo": "https://img.a.transfermarkt.technology/portrait/medium/1117092-1770714100.jpg"
+          "photo": "https://img.a.transfermarkt.technology/portrait/medium/1117092-1770714100.jpg",
+          "g": null,
+          "a": null,
+          "m": null
         },
         {
           "num": 4,
@@ -1683,7 +2175,10 @@
           "height": "196",
           "age": 26,
           "pos": "DEF",
-          "photo": "https://img.a.transfermarkt.technology/portrait/medium/693029-1673910707.jpg"
+          "photo": "https://img.a.transfermarkt.technology/portrait/medium/693029-1673910707.jpg",
+          "g": null,
+          "a": null,
+          "m": null
         },
         {
           "num": 8,
@@ -1693,7 +2188,10 @@
           "height": "182",
           "age": 22,
           "pos": "DEF",
-          "photo": "https://img.a.transfermarkt.technology/portrait/medium/1111045-1732104439.jpg"
+          "photo": "https://img.a.transfermarkt.technology/portrait/medium/1111045-1732104439.jpg",
+          "g": null,
+          "a": null,
+          "m": null
         },
         {
           "num": 19,
@@ -1703,7 +2201,10 @@
           "height": "182",
           "age": 36,
           "pos": "DEF",
-          "photo": "https://img.a.transfermarkt.technology/portrait/medium/528470-1595869281.jpg"
+          "photo": "https://img.a.transfermarkt.technology/portrait/medium/528470-1595869281.jpg",
+          "g": null,
+          "a": null,
+          "m": null
         },
         {
           "num": 23,
@@ -1713,7 +2214,10 @@
           "height": "185",
           "age": 31,
           "pos": "DEF",
-          "photo": "https://img.a.transfermarkt.technology/portrait/medium/190338-1727722993.jpg"
+          "photo": "https://img.a.transfermarkt.technology/portrait/medium/190338-1727722993.jpg",
+          "g": null,
+          "a": null,
+          "m": null
         },
         {
           "num": 25,
@@ -1723,7 +2227,10 @@
           "height": "188",
           "age": 28,
           "pos": "DEF",
-          "photo": "https://img.a.transfermarkt.technology/portrait/medium/345067-1637151619.jpg"
+          "photo": "https://img.a.transfermarkt.technology/portrait/medium/345067-1637151619.jpg",
+          "g": null,
+          "a": null,
+          "m": null
         },
         {
           "num": 26,
@@ -1733,7 +2240,10 @@
           "height": "188",
           "age": 21,
           "pos": "DEF",
-          "photo": "https://img.a.transfermarkt.technology/portrait/medium/1016807-1779446855.jpg"
+          "photo": "https://img.a.transfermarkt.technology/portrait/medium/1016807-1779446855.jpg",
+          "g": null,
+          "a": null,
+          "m": null
         },
         {
           "num": 97,
@@ -1743,7 +2253,10 @@
           "height": "187",
           "age": 23,
           "pos": "DEF",
-          "photo": "https://img.a.transfermarkt.technology/portrait/medium/768439-1711574716.jpg"
+          "photo": "https://img.a.transfermarkt.technology/portrait/medium/768439-1711574716.jpg",
+          "g": null,
+          "a": null,
+          "m": null
         },
         {
           "num": 6,
@@ -1753,7 +2266,10 @@
           "height": "177",
           "age": 22,
           "pos": "MID",
-          "photo": "https://img.a.transfermarkt.technology/portrait/medium/1080215-1727721429.jpg"
+          "photo": "https://img.a.transfermarkt.technology/portrait/medium/1080215-1727721429.jpg",
+          "g": null,
+          "a": null,
+          "m": null
         },
         {
           "num": 11,
@@ -1763,7 +2279,10 @@
           "height": "178",
           "age": 23,
           "pos": "MID",
-          "photo": "https://img.a.transfermarkt.technology/portrait/medium/711981-1779446861.jpg"
+          "photo": "https://img.a.transfermarkt.technology/portrait/medium/711981-1779446861.jpg",
+          "g": null,
+          "a": null,
+          "m": null
         },
         {
           "num": 14,
@@ -1773,7 +2292,10 @@
           "height": "178",
           "age": 30,
           "pos": "MID",
-          "photo": "https://img.a.transfermarkt.technology/portrait/medium/344575-1626346422.jpg"
+          "photo": "https://img.a.transfermarkt.technology/portrait/medium/344575-1626346422.jpg",
+          "g": null,
+          "a": null,
+          "m": null
         },
         {
           "num": 20,
@@ -1783,7 +2305,10 @@
           "height": "176",
           "age": 26,
           "pos": "MID",
-          "photo": "https://img.a.transfermarkt.technology/portrait/medium/520819-1705317880.jpg"
+          "photo": "https://img.a.transfermarkt.technology/portrait/medium/520819-1705317880.jpg",
+          "g": null,
+          "a": null,
+          "m": null
         },
         {
           "num": 21,
@@ -1793,7 +2318,10 @@
           "height": "170",
           "age": 33,
           "pos": "MID",
-          "photo": "https://img.a.transfermarkt.technology/portrait/medium/468246-1602016098.jpg"
+          "photo": "https://img.a.transfermarkt.technology/portrait/medium/468246-1602016098.jpg",
+          "g": null,
+          "a": null,
+          "m": null
         },
         {
           "num": 84,
@@ -1803,7 +2331,10 @@
           "height": "182",
           "age": 22,
           "pos": "MID",
-          "photo": "https://img.a.transfermarkt.technology/portrait/medium/953065-1727174322.png"
+          "photo": "https://img.a.transfermarkt.technology/portrait/medium/953065-1727174322.png",
+          "g": null,
+          "a": null,
+          "m": null
         },
         {
           "num": 87,
@@ -1813,7 +2344,10 @@
           "height": "175",
           "age": 21,
           "pos": "MID",
-          "photo": "https://img.a.transfermarkt.technology/portrait/medium/default.jpg"
+          "photo": "https://img.a.transfermarkt.technology/portrait/medium/default.jpg",
+          "g": null,
+          "a": null,
+          "m": null
         },
         {
           "num": 9,
@@ -1823,7 +2357,10 @@
           "height": "178",
           "age": 21,
           "pos": "ATT",
-          "photo": "https://img.a.transfermarkt.technology/portrait/medium/982863-1755200417.jpg"
+          "photo": "https://img.a.transfermarkt.technology/portrait/medium/982863-1755200417.jpg",
+          "g": null,
+          "a": null,
+          "m": null
         },
         {
           "num": 10,
@@ -1833,7 +2370,10 @@
           "height": "167",
           "age": 22,
           "pos": "ATT",
-          "photo": "https://img.a.transfermarkt.technology/portrait/medium/922685-1726485886.png"
+          "photo": "https://img.a.transfermarkt.technology/portrait/medium/922685-1726485886.png",
+          "g": null,
+          "a": null,
+          "m": null
         },
         {
           "num": 17,
@@ -1843,7 +2383,10 @@
           "height": "186",
           "age": 19,
           "pos": "ATT",
-          "photo": "https://img.a.transfermarkt.technology/portrait/medium/default.jpg"
+          "photo": "https://img.a.transfermarkt.technology/portrait/medium/default.jpg",
+          "g": null,
+          "a": null,
+          "m": null
         },
         {
           "num": 18,
@@ -1853,7 +2396,10 @@
           "height": "185",
           "age": 22,
           "pos": "ATT",
-          "photo": "https://img.a.transfermarkt.technology/portrait/medium/869458-1779446986.jpg"
+          "photo": "https://img.a.transfermarkt.technology/portrait/medium/869458-1779446986.jpg",
+          "g": null,
+          "a": null,
+          "m": null
         },
         {
           "num": 34,
@@ -1863,7 +2409,10 @@
           "height": "184",
           "age": 24,
           "pos": "ATT",
-          "photo": "https://img.a.transfermarkt.technology/portrait/medium/default.jpg"
+          "photo": "https://img.a.transfermarkt.technology/portrait/medium/default.jpg",
+          "g": null,
+          "a": null,
+          "m": null
         }
       ]
     },
@@ -1878,7 +2427,10 @@
           "height": "194",
           "age": 28,
           "pos": "GK",
-          "photo": "https://img.a.transfermarkt.technology/portrait/medium/390942-1772555978.png"
+          "photo": "https://img.a.transfermarkt.technology/portrait/medium/390942-1772555978.png",
+          "g": null,
+          "a": null,
+          "m": null
         },
         {
           "num": 16,
@@ -1888,7 +2440,10 @@
           "height": "194",
           "age": 25,
           "pos": "GK",
-          "photo": "https://img.a.transfermarkt.technology/portrait/medium/618463-1772556524.png"
+          "photo": "https://img.a.transfermarkt.technology/portrait/medium/618463-1772556524.png",
+          "g": null,
+          "a": null,
+          "m": null
         },
         {
           "num": 30,
@@ -1898,7 +2453,10 @@
           "height": "188",
           "age": 23,
           "pos": "GK",
-          "photo": "https://img.a.transfermarkt.technology/portrait/medium/947911-1772556557.png"
+          "photo": "https://img.a.transfermarkt.technology/portrait/medium/947911-1772556557.png",
+          "g": null,
+          "a": null,
+          "m": null
         },
         {
           "num": 3,
@@ -1908,7 +2466,10 @@
           "height": "181",
           "age": 23,
           "pos": "DEF",
-          "photo": "https://img.a.transfermarkt.technology/portrait/medium/913323-1772557188.png"
+          "photo": "https://img.a.transfermarkt.technology/portrait/medium/913323-1772557188.png",
+          "g": null,
+          "a": null,
+          "m": null
         },
         {
           "num": 4,
@@ -1918,7 +2479,10 @@
           "height": "190",
           "age": 24,
           "pos": "DEF",
-          "photo": "https://img.a.transfermarkt.technology/portrait/medium/537825-1772557078.png"
+          "photo": "https://img.a.transfermarkt.technology/portrait/medium/537825-1772557078.png",
+          "g": null,
+          "a": null,
+          "m": null
         },
         {
           "num": 5,
@@ -1928,7 +2492,10 @@
           "height": "192",
           "age": 28,
           "pos": "DEF",
-          "photo": "https://img.a.transfermarkt.technology/portrait/medium/770418-1772557041.png"
+          "photo": "https://img.a.transfermarkt.technology/portrait/medium/770418-1772557041.png",
+          "g": null,
+          "a": null,
+          "m": null
         },
         {
           "num": 15,
@@ -1938,7 +2505,10 @@
           "height": "180",
           "age": 27,
           "pos": "DEF",
-          "photo": "https://img.a.transfermarkt.technology/portrait/medium/543720-1772556798.png"
+          "photo": "https://img.a.transfermarkt.technology/portrait/medium/543720-1772556798.png",
+          "g": null,
+          "a": null,
+          "m": null
         },
         {
           "num": 21,
@@ -1948,7 +2518,10 @@
           "height": "193",
           "age": 20,
           "pos": "DEF",
-          "photo": "https://img.a.transfermarkt.technology/portrait/medium/923810-1772553512.png"
+          "photo": "https://img.a.transfermarkt.technology/portrait/medium/923810-1772553512.png",
+          "g": null,
+          "a": null,
+          "m": null
         },
         {
           "num": 24,
@@ -1958,7 +2531,10 @@
           "height": "184",
           "age": 25,
           "pos": "DEF",
-          "photo": "https://img.a.transfermarkt.technology/portrait/medium/961647-1772556871.png"
+          "photo": "https://img.a.transfermarkt.technology/portrait/medium/961647-1772556871.png",
+          "g": null,
+          "a": null,
+          "m": null
         },
         {
           "num": 25,
@@ -1968,7 +2544,10 @@
           "height": "180",
           "age": 22,
           "pos": "DEF",
-          "photo": "https://img.a.transfermarkt.technology/portrait/medium/855098-1772557112.png"
+          "photo": "https://img.a.transfermarkt.technology/portrait/medium/855098-1772557112.png",
+          "g": null,
+          "a": null,
+          "m": null
         },
         {
           "num": 6,
@@ -1978,7 +2557,10 @@
           "height": "180",
           "age": 22,
           "pos": "MID",
-          "photo": "https://img.a.transfermarkt.technology/portrait/medium/1138156-1772557903.png"
+          "photo": "https://img.a.transfermarkt.technology/portrait/medium/1138156-1772557903.png",
+          "g": null,
+          "a": null,
+          "m": null
         },
         {
           "num": 7,
@@ -1988,7 +2570,10 @@
           "height": "181",
           "age": 24,
           "pos": "MID",
-          "photo": "https://img.a.transfermarkt.technology/portrait/medium/855158-1772557456.png"
+          "photo": "https://img.a.transfermarkt.technology/portrait/medium/855158-1772557456.png",
+          "g": null,
+          "a": null,
+          "m": null
         },
         {
           "num": 8,
@@ -1998,7 +2583,10 @@
           "height": "174",
           "age": 24,
           "pos": "MID",
-          "photo": "https://img.a.transfermarkt.technology/portrait/medium/804934-1772557833.png"
+          "photo": "https://img.a.transfermarkt.technology/portrait/medium/804934-1772557833.png",
+          "g": null,
+          "a": null,
+          "m": null
         },
         {
           "num": 12,
@@ -2008,7 +2596,10 @@
           "height": "183",
           "age": 21,
           "pos": "MID",
-          "photo": "https://img.a.transfermarkt.technology/portrait/medium/1134211-1772558152.png"
+          "photo": "https://img.a.transfermarkt.technology/portrait/medium/1134211-1772558152.png",
+          "g": null,
+          "a": null,
+          "m": null
         },
         {
           "num": 13,
@@ -2018,7 +2609,10 @@
           "height": "180",
           "age": 21,
           "pos": "MID",
-          "photo": "https://img.a.transfermarkt.technology/portrait/medium/1143458-1772554184.png"
+          "photo": "https://img.a.transfermarkt.technology/portrait/medium/1143458-1772554184.png",
+          "g": null,
+          "a": null,
+          "m": null
         },
         {
           "num": 20,
@@ -2028,7 +2622,10 @@
           "height": "185",
           "age": 27,
           "pos": "MID",
-          "photo": "https://img.a.transfermarkt.technology/portrait/medium/737481-1772557951.png"
+          "photo": "https://img.a.transfermarkt.technology/portrait/medium/737481-1772557951.png",
+          "g": null,
+          "a": null,
+          "m": null
         },
         {
           "num": 22,
@@ -2038,7 +2635,10 @@
           "height": "182",
           "age": 23,
           "pos": "MID",
-          "photo": "https://img.a.transfermarkt.technology/portrait/medium/981090-1772557395.png"
+          "photo": "https://img.a.transfermarkt.technology/portrait/medium/981090-1772557395.png",
+          "g": null,
+          "a": null,
+          "m": null
         },
         {
           "num": 26,
@@ -2048,7 +2648,10 @@
           "height": "187",
           "age": 25,
           "pos": "MID",
-          "photo": "https://img.a.transfermarkt.technology/portrait/medium/627464-1772554410.png"
+          "photo": "https://img.a.transfermarkt.technology/portrait/medium/627464-1772554410.png",
+          "g": null,
+          "a": null,
+          "m": null
         },
         {
           "num": 27,
@@ -2058,7 +2661,10 @@
           "height": "175",
           "age": 25,
           "pos": "MID",
-          "photo": "https://img.a.transfermarkt.technology/portrait/medium/482769-1772558776.png"
+          "photo": "https://img.a.transfermarkt.technology/portrait/medium/482769-1772558776.png",
+          "g": null,
+          "a": null,
+          "m": null
         },
         {
           "num": 28,
@@ -2068,7 +2674,10 @@
           "height": "172",
           "age": 19,
           "pos": "MID",
-          "photo": "https://img.a.transfermarkt.technology/portrait/medium/986310-1772558213.png"
+          "photo": "https://img.a.transfermarkt.technology/portrait/medium/986310-1772558213.png",
+          "g": null,
+          "a": null,
+          "m": null
         },
         {
           "num": 34,
@@ -2078,7 +2687,10 @@
           "height": "180",
           "age": 21,
           "pos": "MID",
-          "photo": "https://img.a.transfermarkt.technology/portrait/medium/1143328-1772555753.png"
+          "photo": "https://img.a.transfermarkt.technology/portrait/medium/1143328-1772555753.png",
+          "g": null,
+          "a": null,
+          "m": null
         },
         {
           "num": 9,
@@ -2088,7 +2700,10 @@
           "height": "177",
           "age": 24,
           "pos": "ATT",
-          "photo": "https://img.a.transfermarkt.technology/portrait/medium/618416-1772554609.png"
+          "photo": "https://img.a.transfermarkt.technology/portrait/medium/618416-1772554609.png",
+          "g": null,
+          "a": null,
+          "m": null
         },
         {
           "num": 10,
@@ -2098,7 +2713,10 @@
           "height": "183",
           "age": 25,
           "pos": "ATT",
-          "photo": "https://img.a.transfermarkt.technology/portrait/medium/801566-1772554645.png"
+          "photo": "https://img.a.transfermarkt.technology/portrait/medium/801566-1772554645.png",
+          "g": null,
+          "a": null,
+          "m": null
         },
         {
           "num": 11,
@@ -2108,7 +2726,10 @@
           "height": "181",
           "age": 22,
           "pos": "ATT",
-          "photo": "https://img.a.transfermarkt.technology/portrait/medium/855056-1772554758.png"
+          "photo": "https://img.a.transfermarkt.technology/portrait/medium/855056-1772554758.png",
+          "g": null,
+          "a": null,
+          "m": null
         },
         {
           "num": 18,
@@ -2118,7 +2739,10 @@
           "height": "185",
           "age": 23,
           "pos": "ATT",
-          "photo": "https://img.a.transfermarkt.technology/portrait/medium/804884-1772554718.png"
+          "photo": "https://img.a.transfermarkt.technology/portrait/medium/804884-1772554718.png",
+          "g": null,
+          "a": null,
+          "m": null
         },
         {
           "num": 19,
@@ -2128,7 +2752,10 @@
           "height": "183",
           "age": 24,
           "pos": "ATT",
-          "photo": "https://img.a.transfermarkt.technology/portrait/medium/726566-1772554523.png"
+          "photo": "https://img.a.transfermarkt.technology/portrait/medium/726566-1772554523.png",
+          "g": null,
+          "a": null,
+          "m": null
         }
       ]
     },
@@ -2143,7 +2770,10 @@
           "height": "180",
           "age": 26,
           "pos": "GK",
-          "photo": "https://img.a.transfermarkt.technology/portrait/medium/default.jpg"
+          "photo": "https://img.a.transfermarkt.technology/portrait/medium/default.jpg",
+          "g": null,
+          "a": null,
+          "m": null
         },
         {
           "num": 55,
@@ -2153,7 +2783,10 @@
           "height": "187",
           "age": 24,
           "pos": "GK",
-          "photo": "https://img.a.transfermarkt.technology/portrait/medium/default.jpg"
+          "photo": "https://img.a.transfermarkt.technology/portrait/medium/default.jpg",
+          "g": null,
+          "a": null,
+          "m": null
         },
         {
           "num": 98,
@@ -2163,7 +2796,10 @@
           "height": "193",
           "age": 27,
           "pos": "GK",
-          "photo": "https://img.a.transfermarkt.technology/portrait/medium/357069-1774544717.jpg"
+          "photo": "https://img.a.transfermarkt.technology/portrait/medium/357069-1774544717.jpg",
+          "g": null,
+          "a": null,
+          "m": null
         },
         {
           "num": 3,
@@ -2173,7 +2809,10 @@
           "height": "193",
           "age": 19,
           "pos": "DEF",
-          "photo": "https://img.a.transfermarkt.technology/portrait/medium/1160753-1778703023.jpg"
+          "photo": "https://img.a.transfermarkt.technology/portrait/medium/1160753-1778703023.jpg",
+          "g": null,
+          "a": null,
+          "m": null
         },
         {
           "num": 5,
@@ -2183,7 +2822,10 @@
           "height": "186",
           "age": 29,
           "pos": "DEF",
-          "photo": "https://img.a.transfermarkt.technology/portrait/medium/344382-1656068347.jpg"
+          "photo": "https://img.a.transfermarkt.technology/portrait/medium/344382-1656068347.jpg",
+          "g": null,
+          "a": null,
+          "m": null
         },
         {
           "num": 12,
@@ -2193,7 +2835,10 @@
           "height": "180",
           "age": 30,
           "pos": "DEF",
-          "photo": "https://img.a.transfermarkt.technology/portrait/medium/334006-1669302556.png"
+          "photo": "https://img.a.transfermarkt.technology/portrait/medium/334006-1669302556.png",
+          "g": null,
+          "a": null,
+          "m": null
         },
         {
           "num": 17,
@@ -2203,7 +2848,10 @@
           "height": "190",
           "age": 34,
           "pos": "DEF",
-          "photo": "https://img.a.transfermarkt.technology/portrait/medium/386048-1641905810.png"
+          "photo": "https://img.a.transfermarkt.technology/portrait/medium/386048-1641905810.png",
+          "g": null,
+          "a": null,
+          "m": null
         },
         {
           "num": 18,
@@ -2213,7 +2861,10 @@
           "height": "181",
           "age": 28,
           "pos": "DEF",
-          "photo": "https://img.a.transfermarkt.technology/portrait/medium/531960-1732012915.jpg"
+          "photo": "https://img.a.transfermarkt.technology/portrait/medium/531960-1732012915.jpg",
+          "g": null,
+          "a": null,
+          "m": null
         },
         {
           "num": 21,
@@ -2223,7 +2874,10 @@
           "height": "184",
           "age": 24,
           "pos": "DEF",
-          "photo": "https://img.a.transfermarkt.technology/portrait/medium/801762-1778702438.jpg"
+          "photo": "https://img.a.transfermarkt.technology/portrait/medium/801762-1778702438.jpg",
+          "g": null,
+          "a": null,
+          "m": null
         },
         {
           "num": 22,
@@ -2233,7 +2887,10 @@
           "height": "171",
           "age": 24,
           "pos": "DEF",
-          "photo": "https://img.a.transfermarkt.technology/portrait/medium/857653-1778703196.jpg"
+          "photo": "https://img.a.transfermarkt.technology/portrait/medium/857653-1778703196.jpg",
+          "g": null,
+          "a": null,
+          "m": null
         },
         {
           "num": 26,
@@ -2243,7 +2900,10 @@
           "height": "180",
           "age": 22,
           "pos": "DEF",
-          "photo": "https://img.a.transfermarkt.technology/portrait/medium/982864-1768409539.jpg"
+          "photo": "https://img.a.transfermarkt.technology/portrait/medium/982864-1768409539.jpg",
+          "g": null,
+          "a": null,
+          "m": null
         },
         {
           "num": 31,
@@ -2253,7 +2913,10 @@
           "height": "181",
           "age": 20,
           "pos": "DEF",
-          "photo": "https://img.a.transfermarkt.technology/portrait/medium/1169041-1778702918.jpg"
+          "photo": "https://img.a.transfermarkt.technology/portrait/medium/1169041-1778702918.jpg",
+          "g": null,
+          "a": null,
+          "m": null
         },
         {
           "num": 6,
@@ -2263,7 +2926,10 @@
           "height": "179",
           "age": 30,
           "pos": "MID",
-          "photo": "https://img.a.transfermarkt.technology/portrait/medium/590048-1778702731.jpg"
+          "photo": "https://img.a.transfermarkt.technology/portrait/medium/590048-1778702731.jpg",
+          "g": null,
+          "a": null,
+          "m": null
         },
         {
           "num": 7,
@@ -2273,7 +2939,10 @@
           "height": "175",
           "age": 21,
           "pos": "MID",
-          "photo": "https://img.a.transfermarkt.technology/portrait/medium/default.jpg"
+          "photo": "https://img.a.transfermarkt.technology/portrait/medium/default.jpg",
+          "g": null,
+          "a": null,
+          "m": null
         },
         {
           "num": 8,
@@ -2283,7 +2952,10 @@
           "height": "178",
           "age": 29,
           "pos": "MID",
-          "photo": "https://img.a.transfermarkt.technology/portrait/medium/666744-1606581383.png"
+          "photo": "https://img.a.transfermarkt.technology/portrait/medium/666744-1606581383.png",
+          "g": null,
+          "a": null,
+          "m": null
         },
         {
           "num": 10,
@@ -2293,7 +2965,10 @@
           "height": "183",
           "age": 25,
           "pos": "MID",
-          "photo": "https://img.a.transfermarkt.technology/portrait/medium/626592-1749460429.jpg"
+          "photo": "https://img.a.transfermarkt.technology/portrait/medium/626592-1749460429.jpg",
+          "g": null,
+          "a": null,
+          "m": null
         },
         {
           "num": 11,
@@ -2303,7 +2978,10 @@
           "height": "183",
           "age": 21,
           "pos": "MID",
-          "photo": "https://img.a.transfermarkt.technology/portrait/medium/default.jpg"
+          "photo": "https://img.a.transfermarkt.technology/portrait/medium/default.jpg",
+          "g": null,
+          "a": null,
+          "m": null
         },
         {
           "num": 24,
@@ -2313,7 +2991,10 @@
           "height": "186",
           "age": 26,
           "pos": "MID",
-          "photo": "https://img.a.transfermarkt.technology/portrait/medium/371143-1691421470.png"
+          "photo": "https://img.a.transfermarkt.technology/portrait/medium/371143-1691421470.png",
+          "g": null,
+          "a": null,
+          "m": null
         },
         {
           "num": 27,
@@ -2323,7 +3004,10 @@
           "height": "171",
           "age": 22,
           "pos": "MID",
-          "photo": "https://img.a.transfermarkt.technology/portrait/medium/1010671-1778702304.jpg"
+          "photo": "https://img.a.transfermarkt.technology/portrait/medium/1010671-1778702304.jpg",
+          "g": null,
+          "a": null,
+          "m": null
         },
         {
           "num": 29,
@@ -2333,7 +3017,10 @@
           "height": "172",
           "age": 24,
           "pos": "MID",
-          "photo": "https://img.a.transfermarkt.technology/portrait/medium/941561-1753695684.jpg"
+          "photo": "https://img.a.transfermarkt.technology/portrait/medium/941561-1753695684.jpg",
+          "g": null,
+          "a": null,
+          "m": null
         },
         {
           "num": "?",
@@ -2343,7 +3030,10 @@
           "height": "175",
           "age": 21,
           "pos": "MID",
-          "photo": "https://img.a.transfermarkt.technology/portrait/medium/default.jpg"
+          "photo": "https://img.a.transfermarkt.technology/portrait/medium/default.jpg",
+          "g": null,
+          "a": null,
+          "m": null
         },
         {
           "num": 9,
@@ -2353,7 +3043,10 @@
           "height": "180",
           "age": 30,
           "pos": "ATT",
-          "photo": "https://img.a.transfermarkt.technology/portrait/medium/146373-1778703088.jpg"
+          "photo": "https://img.a.transfermarkt.technology/portrait/medium/146373-1778703088.jpg",
+          "g": null,
+          "a": null,
+          "m": null
         },
         {
           "num": 19,
@@ -2363,7 +3056,10 @@
           "height": "189",
           "age": 31,
           "pos": "ATT",
-          "photo": "https://img.a.transfermarkt.technology/portrait/medium/264567-1725529168.jpg"
+          "photo": "https://img.a.transfermarkt.technology/portrait/medium/264567-1725529168.jpg",
+          "g": null,
+          "a": null,
+          "m": null
         },
         {
           "num": 20,
@@ -2373,7 +3069,10 @@
           "height": "191",
           "age": 26,
           "pos": "ATT",
-          "photo": "https://img.a.transfermarkt.technology/portrait/medium/1029482-1778702744.jpg"
+          "photo": "https://img.a.transfermarkt.technology/portrait/medium/1029482-1778702744.jpg",
+          "g": null,
+          "a": null,
+          "m": null
         },
         {
           "num": 23,
@@ -2383,7 +3082,10 @@
           "height": "180",
           "age": 26,
           "pos": "ATT",
-          "photo": "https://img.a.transfermarkt.technology/portrait/medium/510260-1727174939.png"
+          "photo": "https://img.a.transfermarkt.technology/portrait/medium/510260-1727174939.png",
+          "g": null,
+          "a": null,
+          "m": null
         },
         {
           "num": 25,
@@ -2393,7 +3095,10 @@
           "height": "176",
           "age": 30,
           "pos": "ATT",
-          "photo": "https://img.a.transfermarkt.technology/portrait/medium/422711-1778702742.jpg"
+          "photo": "https://img.a.transfermarkt.technology/portrait/medium/422711-1778702742.jpg",
+          "g": null,
+          "a": null,
+          "m": null
         },
         {
           "num": 28,
@@ -2403,7 +3108,10 @@
           "height": "179",
           "age": 29,
           "pos": "ATT",
-          "photo": "https://img.a.transfermarkt.technology/portrait/medium/804386-1778702145.jpg"
+          "photo": "https://img.a.transfermarkt.technology/portrait/medium/804386-1778702145.jpg",
+          "g": null,
+          "a": null,
+          "m": null
         }
       ]
     },
@@ -2418,7 +3126,10 @@
           "height": "202",
           "age": 24,
           "pos": "GK",
-          "photo": "https://img.a.transfermarkt.technology/portrait/medium/916497-1764607221.jpg"
+          "photo": "https://img.a.transfermarkt.technology/portrait/medium/916497-1764607221.jpg",
+          "g": null,
+          "a": null,
+          "m": null
         },
         {
           "num": 30,
@@ -2428,7 +3139,10 @@
           "height": "195",
           "age": 30,
           "pos": "GK",
-          "photo": "https://img.a.transfermarkt.technology/portrait/medium/358505-1764607209.jpg"
+          "photo": "https://img.a.transfermarkt.technology/portrait/medium/358505-1764607209.jpg",
+          "g": null,
+          "a": null,
+          "m": null
         },
         {
           "num": 4,
@@ -2438,7 +3152,10 @@
           "height": "187",
           "age": 23,
           "pos": "DEF",
-          "photo": "https://img.a.transfermarkt.technology/portrait/medium/807128-1732575624.png"
+          "photo": "https://img.a.transfermarkt.technology/portrait/medium/807128-1732575624.png",
+          "g": null,
+          "a": null,
+          "m": null
         },
         {
           "num": 5,
@@ -2448,7 +3165,10 @@
           "height": "189",
           "age": 29,
           "pos": "DEF",
-          "photo": "https://img.a.transfermarkt.technology/portrait/medium/369267-1764608622.jpg"
+          "photo": "https://img.a.transfermarkt.technology/portrait/medium/369267-1764608622.jpg",
+          "g": null,
+          "a": null,
+          "m": null
         },
         {
           "num": 12,
@@ -2458,7 +3178,10 @@
           "height": "169",
           "age": 32,
           "pos": "DEF",
-          "photo": "https://img.a.transfermarkt.technology/portrait/medium/203761-1764608553.jpg"
+          "photo": "https://img.a.transfermarkt.technology/portrait/medium/203761-1764608553.jpg",
+          "g": null,
+          "a": null,
+          "m": null
         },
         {
           "num": 21,
@@ -2468,7 +3191,10 @@
           "height": "188",
           "age": 33,
           "pos": "DEF",
-          "photo": "https://img.a.transfermarkt.technology/portrait/medium/351843-1764608514.jpg"
+          "photo": "https://img.a.transfermarkt.technology/portrait/medium/351843-1764608514.jpg",
+          "g": null,
+          "a": null,
+          "m": null
         },
         {
           "num": 28,
@@ -2478,7 +3204,10 @@
           "height": "174",
           "age": 21,
           "pos": "DEF",
-          "photo": "https://img.a.transfermarkt.technology/portrait/medium/1247360-1764608697.jpg"
+          "photo": "https://img.a.transfermarkt.technology/portrait/medium/1247360-1764608697.jpg",
+          "g": null,
+          "a": null,
+          "m": null
         },
         {
           "num": 38,
@@ -2488,7 +3217,10 @@
           "height": "176",
           "age": 20,
           "pos": "DEF",
-          "photo": "https://img.a.transfermarkt.technology/portrait/medium/1119423-1741190689.jpg"
+          "photo": "https://img.a.transfermarkt.technology/portrait/medium/1119423-1741190689.jpg",
+          "g": null,
+          "a": null,
+          "m": null
         },
         {
           "num": 39,
@@ -2498,7 +3230,10 @@
           "height": "172",
           "age": 25,
           "pos": "DEF",
-          "photo": "https://img.a.transfermarkt.technology/portrait/medium/536506-1709203881.jpg"
+          "photo": "https://img.a.transfermarkt.technology/portrait/medium/536506-1709203881.jpg",
+          "g": null,
+          "a": null,
+          "m": null
         },
         {
           "num": 45,
@@ -2508,7 +3243,10 @@
           "height": "183",
           "age": 19,
           "pos": "DEF",
-          "photo": "https://img.a.transfermarkt.technology/portrait/medium/1047098-1764608707.jpg"
+          "photo": "https://img.a.transfermarkt.technology/portrait/medium/1047098-1764608707.jpg",
+          "g": null,
+          "a": null,
+          "m": null
         },
         {
           "num": 93,
@@ -2518,7 +3256,10 @@
           "height": "176",
           "age": 20,
           "pos": "DEF",
-          "photo": "https://img.a.transfermarkt.technology/portrait/medium/1079183-1764608669.jpg"
+          "photo": "https://img.a.transfermarkt.technology/portrait/medium/1079183-1764608669.jpg",
+          "g": null,
+          "a": null,
+          "m": null
         },
         {
           "num": 97,
@@ -2528,7 +3269,10 @@
           "height": "183",
           "age": 30,
           "pos": "DEF",
-          "photo": "https://img.a.transfermarkt.technology/portrait/medium/229012-1764608582.jpg"
+          "photo": "https://img.a.transfermarkt.technology/portrait/medium/229012-1764608582.jpg",
+          "g": null,
+          "a": null,
+          "m": null
         },
         {
           "num": 2,
@@ -2538,7 +3282,10 @@
           "height": "188",
           "age": 21,
           "pos": "MID",
-          "photo": "https://img.a.transfermarkt.technology/portrait/medium/1028125-1764609023.jpg"
+          "photo": "https://img.a.transfermarkt.technology/portrait/medium/1028125-1764609023.jpg",
+          "g": null,
+          "a": null,
+          "m": null
         },
         {
           "num": 8,
@@ -2548,7 +3295,10 @@
           "height": "173",
           "age": 23,
           "pos": "MID",
-          "photo": "https://img.a.transfermarkt.technology/portrait/medium/1020544-1764609056.jpg"
+          "photo": "https://img.a.transfermarkt.technology/portrait/medium/1020544-1764609056.jpg",
+          "g": null,
+          "a": null,
+          "m": null
         },
         {
           "num": 10,
@@ -2558,7 +3308,10 @@
           "height": "175",
           "age": 35,
           "pos": "MID",
-          "photo": "https://img.a.transfermarkt.technology/portrait/medium/51540-1764609142.jpg"
+          "photo": "https://img.a.transfermarkt.technology/portrait/medium/51540-1764609142.jpg",
+          "g": null,
+          "a": null,
+          "m": null
         },
         {
           "num": 13,
@@ -2568,7 +3321,10 @@
           "height": "184",
           "age": 21,
           "pos": "MID",
-          "photo": "https://img.a.transfermarkt.technology/portrait/medium/986733-1764609065.jpg"
+          "photo": "https://img.a.transfermarkt.technology/portrait/medium/986733-1764609065.jpg",
+          "g": null,
+          "a": null,
+          "m": null
         },
         {
           "num": 25,
@@ -2578,7 +3334,10 @@
           "height": "179",
           "age": 38,
           "pos": "MID",
-          "photo": "https://img.a.transfermarkt.technology/portrait/medium/72121-1764609047.jpg"
+          "photo": "https://img.a.transfermarkt.technology/portrait/medium/72121-1764609047.jpg",
+          "g": null,
+          "a": null,
+          "m": null
         },
         {
           "num": 44,
@@ -2588,7 +3347,10 @@
           "height": "185",
           "age": 22,
           "pos": "MID",
-          "photo": "https://img.a.transfermarkt.technology/portrait/medium/978027-1764609152.jpg"
+          "photo": "https://img.a.transfermarkt.technology/portrait/medium/978027-1764609152.jpg",
+          "g": null,
+          "a": null,
+          "m": null
         },
         {
           "num": 7,
@@ -2598,7 +3360,10 @@
           "height": "174",
           "age": 22,
           "pos": "ATT",
-          "photo": "https://img.a.transfermarkt.technology/portrait/medium/924800-1764609816.jpg"
+          "photo": "https://img.a.transfermarkt.technology/portrait/medium/924800-1764609816.jpg",
+          "g": null,
+          "a": null,
+          "m": null
         },
         {
           "num": 9,
@@ -2608,7 +3373,10 @@
           "height": "186",
           "age": 23,
           "pos": "ATT",
-          "photo": "https://img.a.transfermarkt.technology/portrait/medium/905942-1764609959.jpg"
+          "photo": "https://img.a.transfermarkt.technology/portrait/medium/905942-1764609959.jpg",
+          "g": null,
+          "a": null,
+          "m": null
         },
         {
           "num": 11,
@@ -2618,7 +3386,10 @@
           "height": "177",
           "age": 23,
           "pos": "ATT",
-          "photo": "https://img.a.transfermarkt.technology/portrait/medium/512690-1764609769.jpg"
+          "photo": "https://img.a.transfermarkt.technology/portrait/medium/512690-1764609769.jpg",
+          "g": null,
+          "a": null,
+          "m": null
         },
         {
           "num": 17,
@@ -2628,7 +3399,10 @@
           "height": "170",
           "age": 21,
           "pos": "ATT",
-          "photo": "https://img.a.transfermarkt.technology/portrait/medium/1185046-1764609623.jpg"
+          "photo": "https://img.a.transfermarkt.technology/portrait/medium/1185046-1764609623.jpg",
+          "g": null,
+          "a": null,
+          "m": null
         },
         {
           "num": 18,
@@ -2638,7 +3412,10 @@
           "height": "189",
           "age": 33,
           "pos": "ATT",
-          "photo": "https://img.a.transfermarkt.technology/portrait/medium/237125-1764609924.jpg"
+          "photo": "https://img.a.transfermarkt.technology/portrait/medium/237125-1764609924.jpg",
+          "g": null,
+          "a": null,
+          "m": null
         },
         {
           "num": 19,
@@ -2648,7 +3425,10 @@
           "height": "184",
           "age": 22,
           "pos": "ATT",
-          "photo": "https://img.a.transfermarkt.technology/portrait/medium/617698-1709896279.jpg"
+          "photo": "https://img.a.transfermarkt.technology/portrait/medium/617698-1709896279.jpg",
+          "g": null,
+          "a": null,
+          "m": null
         },
         {
           "num": 23,
@@ -2658,7 +3438,10 @@
           "height": "179",
           "age": 32,
           "pos": "ATT",
-          "photo": "https://img.a.transfermarkt.technology/portrait/medium/203507-1764609610.jpg"
+          "photo": "https://img.a.transfermarkt.technology/portrait/medium/203507-1764609610.jpg",
+          "g": null,
+          "a": null,
+          "m": null
         },
         {
           "num": 29,
@@ -2668,7 +3451,10 @@
           "height": "176",
           "age": 20,
           "pos": "ATT",
-          "photo": "https://img.a.transfermarkt.technology/portrait/medium/1047101-1764609986.jpg"
+          "photo": "https://img.a.transfermarkt.technology/portrait/medium/1047101-1764609986.jpg",
+          "g": null,
+          "a": null,
+          "m": null
         },
         {
           "num": 32,
@@ -2678,7 +3464,10 @@
           "height": "177",
           "age": 32,
           "pos": "ATT",
-          "photo": "https://img.a.transfermarkt.technology/portrait/medium/560725-1764609012.jpg"
+          "photo": "https://img.a.transfermarkt.technology/portrait/medium/560725-1764609012.jpg",
+          "g": null,
+          "a": null,
+          "m": null
         },
         {
           "num": 77,
@@ -2688,7 +3477,10 @@
           "height": "165",
           "age": 21,
           "pos": "ATT",
-          "photo": "https://img.a.transfermarkt.technology/portrait/medium/1081092-1764609304.jpg"
+          "photo": "https://img.a.transfermarkt.technology/portrait/medium/1081092-1764609304.jpg",
+          "g": null,
+          "a": null,
+          "m": null
         }
       ]
     },
@@ -2703,7 +3495,10 @@
           "height": "184",
           "age": 32,
           "pos": "GK",
-          "photo": "https://img.a.transfermarkt.technology/portrait/medium/157484-1569357969.jpg"
+          "photo": "https://img.a.transfermarkt.technology/portrait/medium/157484-1569357969.jpg",
+          "g": null,
+          "a": null,
+          "m": null
         },
         {
           "num": 16,
@@ -2713,7 +3508,10 @@
           "height": "186",
           "age": 27,
           "pos": "GK",
-          "photo": "https://img.a.transfermarkt.technology/portrait/medium/344591-1732367977.jpg"
+          "photo": "https://img.a.transfermarkt.technology/portrait/medium/344591-1732367977.jpg",
+          "g": null,
+          "a": null,
+          "m": null
         },
         {
           "num": 40,
@@ -2723,7 +3521,10 @@
           "height": "186",
           "age": 31,
           "pos": "GK",
-          "photo": "https://img.a.transfermarkt.technology/portrait/medium/215677-1686756989.jpg"
+          "photo": "https://img.a.transfermarkt.technology/portrait/medium/215677-1686756989.jpg",
+          "g": null,
+          "a": null,
+          "m": null
         },
         {
           "num": 2,
@@ -2733,7 +3534,10 @@
           "height": "171",
           "age": 22,
           "pos": "DEF",
-          "photo": "https://img.a.transfermarkt.technology/portrait/medium/539808-1724941703.jpg"
+          "photo": "https://img.a.transfermarkt.technology/portrait/medium/539808-1724941703.jpg",
+          "g": null,
+          "a": null,
+          "m": null
         },
         {
           "num": 3,
@@ -2743,7 +3547,10 @@
           "height": "178",
           "age": 28,
           "pos": "DEF",
-          "photo": "https://img.a.transfermarkt.technology/portrait/medium/588997-1591707736.jpg"
+          "photo": "https://img.a.transfermarkt.technology/portrait/medium/588997-1591707736.jpg",
+          "g": null,
+          "a": null,
+          "m": null
         },
         {
           "num": 5,
@@ -2753,7 +3560,10 @@
           "height": "193",
           "age": 23,
           "pos": "DEF",
-          "photo": "https://img.a.transfermarkt.technology/portrait/medium/862972-1741880679.jpg"
+          "photo": "https://img.a.transfermarkt.technology/portrait/medium/862972-1741880679.jpg",
+          "g": null,
+          "a": null,
+          "m": null
         },
         {
           "num": 6,
@@ -2763,7 +3573,10 @@
           "height": "183",
           "age": 25,
           "pos": "DEF",
-          "photo": "https://img.a.transfermarkt.technology/portrait/medium/465296-1656332755.png"
+          "photo": "https://img.a.transfermarkt.technology/portrait/medium/465296-1656332755.png",
+          "g": null,
+          "a": null,
+          "m": null
         },
         {
           "num": 11,
@@ -2773,7 +3586,10 @@
           "height": "170",
           "age": 29,
           "pos": "DEF",
-          "photo": "https://img.a.transfermarkt.technology/portrait/medium/806494-1669327224.jpg"
+          "photo": "https://img.a.transfermarkt.technology/portrait/medium/806494-1669327224.jpg",
+          "g": null,
+          "a": null,
+          "m": null
         },
         {
           "num": 20,
@@ -2783,7 +3599,10 @@
           "height": "177",
           "age": 24,
           "pos": "DEF",
-          "photo": "https://img.a.transfermarkt.technology/portrait/medium/756171-1656332914.png"
+          "photo": "https://img.a.transfermarkt.technology/portrait/medium/756171-1656332914.png",
+          "g": null,
+          "a": null,
+          "m": null
         },
         {
           "num": 22,
@@ -2793,7 +3612,10 @@
           "height": "175",
           "age": 23,
           "pos": "DEF",
-          "photo": "https://img.a.transfermarkt.technology/portrait/medium/1049151-1669831322.jpg"
+          "photo": "https://img.a.transfermarkt.technology/portrait/medium/1049151-1669831322.jpg",
+          "g": null,
+          "a": null,
+          "m": null
         },
         {
           "num": 24,
@@ -2803,7 +3625,10 @@
           "height": "184",
           "age": 32,
           "pos": "DEF",
-          "photo": "https://img.a.transfermarkt.technology/portrait/medium/170477-1727173688.png"
+          "photo": "https://img.a.transfermarkt.technology/portrait/medium/170477-1727173688.png",
+          "g": null,
+          "a": null,
+          "m": null
         },
         {
           "num": 27,
@@ -2813,7 +3638,10 @@
           "height": "180",
           "age": 28,
           "pos": "DEF",
-          "photo": "https://img.a.transfermarkt.technology/portrait/medium/324798-1666197595.JPG"
+          "photo": "https://img.a.transfermarkt.technology/portrait/medium/324798-1666197595.JPG",
+          "g": null,
+          "a": null,
+          "m": null
         },
         {
           "num": 4,
@@ -2823,7 +3651,10 @@
           "height": "186",
           "age": 26,
           "pos": "MID",
-          "photo": "https://img.a.transfermarkt.technology/portrait/medium/642002-1730185630.jpg"
+          "photo": "https://img.a.transfermarkt.technology/portrait/medium/642002-1730185630.jpg",
+          "g": null,
+          "a": null,
+          "m": null
         },
         {
           "num": 10,
@@ -2833,7 +3664,10 @@
           "height": "180",
           "age": 31,
           "pos": "MID",
-          "photo": "https://img.a.transfermarkt.technology/portrait/medium/270411-1679510178.jpg"
+          "photo": "https://img.a.transfermarkt.technology/portrait/medium/270411-1679510178.jpg",
+          "g": null,
+          "a": null,
+          "m": null
         },
         {
           "num": 12,
@@ -2843,7 +3677,10 @@
           "height": "188",
           "age": 23,
           "pos": "MID",
-          "photo": "https://img.a.transfermarkt.technology/portrait/medium/default.jpg"
+          "photo": "https://img.a.transfermarkt.technology/portrait/medium/default.jpg",
+          "g": null,
+          "a": null,
+          "m": null
         },
         {
           "num": 19,
@@ -2853,7 +3690,10 @@
           "height": "180",
           "age": 21,
           "pos": "MID",
-          "photo": "https://img.a.transfermarkt.technology/portrait/medium/902629-1741365389.jpg"
+          "photo": "https://img.a.transfermarkt.technology/portrait/medium/902629-1741365389.jpg",
+          "g": null,
+          "a": null,
+          "m": null
         },
         {
           "num": 25,
@@ -2863,7 +3703,10 @@
           "height": "178",
           "age": 28,
           "pos": "MID",
-          "photo": "https://img.a.transfermarkt.technology/portrait/medium/802012-1749460995.jpg"
+          "photo": "https://img.a.transfermarkt.technology/portrait/medium/802012-1749460995.jpg",
+          "g": null,
+          "a": null,
+          "m": null
         },
         {
           "num": 81,
@@ -2873,7 +3716,10 @@
           "height": "187",
           "age": 26,
           "pos": "MID",
-          "photo": "https://img.a.transfermarkt.technology/portrait/medium/635103-1753692553.jpg"
+          "photo": "https://img.a.transfermarkt.technology/portrait/medium/635103-1753692553.jpg",
+          "g": null,
+          "a": null,
+          "m": null
         },
         {
           "num": 98,
@@ -2883,7 +3729,10 @@
           "height": "172",
           "age": 28,
           "pos": "MID",
-          "photo": "https://img.a.transfermarkt.technology/portrait/medium/796883-1669326485.jpg"
+          "photo": "https://img.a.transfermarkt.technology/portrait/medium/796883-1669326485.jpg",
+          "g": null,
+          "a": null,
+          "m": null
         },
         {
           "num": 7,
@@ -2893,7 +3742,10 @@
           "height": "173",
           "age": 30,
           "pos": "ATT",
-          "photo": "https://img.a.transfermarkt.technology/portrait/medium/792328-1669327199.jpg"
+          "photo": "https://img.a.transfermarkt.technology/portrait/medium/792328-1669327199.jpg",
+          "g": null,
+          "a": null,
+          "m": null
         },
         {
           "num": 9,
@@ -2903,7 +3755,10 @@
           "height": "186",
           "age": 28,
           "pos": "ATT",
-          "photo": "https://img.a.transfermarkt.technology/portrait/medium/693637-1743760835.jpg"
+          "photo": "https://img.a.transfermarkt.technology/portrait/medium/693637-1743760835.jpg",
+          "g": null,
+          "a": null,
+          "m": null
         },
         {
           "num": 21,
@@ -2913,7 +3768,10 @@
           "height": "185",
           "age": 23,
           "pos": "ATT",
-          "photo": "https://img.a.transfermarkt.technology/portrait/medium/1051271-1779445921.jpg"
+          "photo": "https://img.a.transfermarkt.technology/portrait/medium/1051271-1779445921.jpg",
+          "g": null,
+          "a": null,
+          "m": null
         },
         {
           "num": 23,
@@ -2923,7 +3781,10 @@
           "height": "179",
           "age": 24,
           "pos": "ATT",
-          "photo": "https://img.a.transfermarkt.technology/portrait/medium/921852-1669327448.jpg"
+          "photo": "https://img.a.transfermarkt.technology/portrait/medium/921852-1669327448.jpg",
+          "g": null,
+          "a": null,
+          "m": null
         },
         {
           "num": 29,
@@ -2933,7 +3794,10 @@
           "height": "182",
           "age": 26,
           "pos": "ATT",
-          "photo": "https://img.a.transfermarkt.technology/portrait/medium/676187-1669327215.jpg"
+          "photo": "https://img.a.transfermarkt.technology/portrait/medium/676187-1669327215.jpg",
+          "g": null,
+          "a": null,
+          "m": null
         },
         {
           "num": 91,
@@ -2943,7 +3807,10 @@
           "height": "185",
           "age": 26,
           "pos": "ATT",
-          "photo": "https://img.a.transfermarkt.technology/portrait/medium/460632-1740820238.jpg"
+          "photo": "https://img.a.transfermarkt.technology/portrait/medium/460632-1740820238.jpg",
+          "g": null,
+          "a": null,
+          "m": null
         }
       ]
     },
@@ -2958,7 +3825,10 @@
           "height": "178",
           "age": 29,
           "pos": "GK",
-          "photo": "https://img.a.transfermarkt.technology/portrait/medium/629587-1727173265.png"
+          "photo": "https://img.a.transfermarkt.technology/portrait/medium/629587-1727173265.png",
+          "g": null,
+          "a": null,
+          "m": null
         },
         {
           "num": 16,
@@ -2968,7 +3838,10 @@
           "height": "187",
           "age": 32,
           "pos": "GK",
-          "photo": "https://img.a.transfermarkt.technology/portrait/medium/142033-1490620560.jpg"
+          "photo": "https://img.a.transfermarkt.technology/portrait/medium/142033-1490620560.jpg",
+          "g": null,
+          "a": null,
+          "m": null
         },
         {
           "num": 40,
@@ -2978,7 +3851,10 @@
           "height": "193",
           "age": 21,
           "pos": "GK",
-          "photo": "https://img.a.transfermarkt.technology/portrait/medium/1004498-1727173226.png"
+          "photo": "https://img.a.transfermarkt.technology/portrait/medium/1004498-1727173226.png",
+          "g": null,
+          "a": null,
+          "m": null
         },
         {
           "num": 2,
@@ -2988,7 +3864,10 @@
           "height": "175",
           "age": 31,
           "pos": "DEF",
-          "photo": "https://img.a.transfermarkt.technology/portrait/medium/341942-1734753021.png"
+          "photo": "https://img.a.transfermarkt.technology/portrait/medium/341942-1734753021.png",
+          "g": null,
+          "a": null,
+          "m": null
         },
         {
           "num": 3,
@@ -2998,7 +3877,10 @@
           "height": "180",
           "age": 20,
           "pos": "DEF",
-          "photo": "https://img.a.transfermarkt.technology/portrait/medium/1169161-1779447104.jpg"
+          "photo": "https://img.a.transfermarkt.technology/portrait/medium/1169161-1779447104.jpg",
+          "g": null,
+          "a": null,
+          "m": null
         },
         {
           "num": 7,
@@ -3008,7 +3890,10 @@
           "height": "188",
           "age": 31,
           "pos": "DEF",
-          "photo": "https://img.a.transfermarkt.technology/portrait/medium/562576-1727173957.png"
+          "photo": "https://img.a.transfermarkt.technology/portrait/medium/562576-1727173957.png",
+          "g": null,
+          "a": null,
+          "m": null
         },
         {
           "num": 18,
@@ -3018,7 +3903,10 @@
           "height": "186",
           "age": 24,
           "pos": "DEF",
-          "photo": "https://img.a.transfermarkt.technology/portrait/medium/966312-1727173788.png"
+          "photo": "https://img.a.transfermarkt.technology/portrait/medium/966312-1727173788.png",
+          "g": null,
+          "a": null,
+          "m": null
         },
         {
           "num": 22,
@@ -3028,7 +3916,10 @@
           "height": "178",
           "age": 29,
           "pos": "DEF",
-          "photo": "https://img.a.transfermarkt.technology/portrait/medium/594992-1727173937.png"
+          "photo": "https://img.a.transfermarkt.technology/portrait/medium/594992-1727173937.png",
+          "g": null,
+          "a": null,
+          "m": null
         },
         {
           "num": 29,
@@ -3038,7 +3929,10 @@
           "height": "170",
           "age": 28,
           "pos": "DEF",
-          "photo": "https://img.a.transfermarkt.technology/portrait/medium/483460-1666195745.JPG"
+          "photo": "https://img.a.transfermarkt.technology/portrait/medium/483460-1666195745.JPG",
+          "g": null,
+          "a": null,
+          "m": null
         },
         {
           "num": 36,
@@ -3048,7 +3942,10 @@
           "height": "186",
           "age": 24,
           "pos": "DEF",
-          "photo": "https://img.a.transfermarkt.technology/portrait/medium/814930-1610041574.png"
+          "photo": "https://img.a.transfermarkt.technology/portrait/medium/814930-1610041574.png",
+          "g": null,
+          "a": null,
+          "m": null
         },
         {
           "num": 38,
@@ -3058,7 +3955,10 @@
           "height": "186",
           "age": 19,
           "pos": "DEF",
-          "photo": "https://img.a.transfermarkt.technology/portrait/medium/1166832-1727173856.png"
+          "photo": "https://img.a.transfermarkt.technology/portrait/medium/1166832-1727173856.png",
+          "g": null,
+          "a": null,
+          "m": null
         },
         {
           "num": 4,
@@ -3068,7 +3968,10 @@
           "height": "173",
           "age": 31,
           "pos": "MID",
-          "photo": "https://img.a.transfermarkt.technology/portrait/medium/291415-1727174130.png"
+          "photo": "https://img.a.transfermarkt.technology/portrait/medium/291415-1727174130.png",
+          "g": null,
+          "a": null,
+          "m": null
         },
         {
           "num": 6,
@@ -3078,7 +3981,10 @@
           "height": "173",
           "age": 25,
           "pos": "MID",
-          "photo": "https://img.a.transfermarkt.technology/portrait/medium/434226-1595969935.jpg"
+          "photo": "https://img.a.transfermarkt.technology/portrait/medium/434226-1595969935.jpg",
+          "g": null,
+          "a": null,
+          "m": null
         },
         {
           "num": 8,
@@ -3088,7 +3994,10 @@
           "height": "202",
           "age": 27,
           "pos": "MID",
-          "photo": "https://img.a.transfermarkt.technology/portrait/medium/629585-1727174170.png"
+          "photo": "https://img.a.transfermarkt.technology/portrait/medium/629585-1727174170.png",
+          "g": null,
+          "a": null,
+          "m": null
         },
         {
           "num": 10,
@@ -3098,7 +4007,10 @@
           "height": "178",
           "age": 28,
           "pos": "MID",
-          "photo": "https://img.a.transfermarkt.technology/portrait/medium/903161-1727172886.png"
+          "photo": "https://img.a.transfermarkt.technology/portrait/medium/903161-1727172886.png",
+          "g": null,
+          "a": null,
+          "m": null
         },
         {
           "num": 21,
@@ -3108,7 +4020,10 @@
           "height": "181",
           "age": 30,
           "pos": "MID",
-          "photo": "https://img.a.transfermarkt.technology/portrait/medium/289435-1707220357.png"
+          "photo": "https://img.a.transfermarkt.technology/portrait/medium/289435-1707220357.png",
+          "g": null,
+          "a": null,
+          "m": null
         },
         {
           "num": 39,
@@ -3118,7 +4033,10 @@
           "height": "178",
           "age": 21,
           "pos": "MID",
-          "photo": "https://img.a.transfermarkt.technology/portrait/medium/1084972-1747252629.png"
+          "photo": "https://img.a.transfermarkt.technology/portrait/medium/1084972-1747252629.png",
+          "g": null,
+          "a": null,
+          "m": null
         },
         {
           "num": 9,
@@ -3128,7 +4046,10 @@
           "height": "186",
           "age": 31,
           "pos": "ATT",
-          "photo": "https://img.a.transfermarkt.technology/portrait/medium/461790-1669738255.jpg"
+          "photo": "https://img.a.transfermarkt.technology/portrait/medium/461790-1669738255.jpg",
+          "g": null,
+          "a": null,
+          "m": null
         },
         {
           "num": 11,
@@ -3138,7 +4059,10 @@
           "height": "172",
           "age": 27,
           "pos": "ATT",
-          "photo": "https://img.a.transfermarkt.technology/portrait/medium/649025-1727174795.png"
+          "photo": "https://img.a.transfermarkt.technology/portrait/medium/649025-1727174795.png",
+          "g": null,
+          "a": null,
+          "m": null
         },
         {
           "num": 17,
@@ -3148,7 +4072,10 @@
           "height": "175",
           "age": 23,
           "pos": "ATT",
-          "photo": "https://img.a.transfermarkt.technology/portrait/medium/983364-1742299959.png"
+          "photo": "https://img.a.transfermarkt.technology/portrait/medium/983364-1742299959.png",
+          "g": null,
+          "a": null,
+          "m": null
         },
         {
           "num": 19,
@@ -3158,7 +4085,10 @@
           "height": "162",
           "age": 22,
           "pos": "ATT",
-          "photo": "https://img.a.transfermarkt.technology/portrait/medium/770372-1767965677.jpg"
+          "photo": "https://img.a.transfermarkt.technology/portrait/medium/770372-1767965677.jpg",
+          "g": null,
+          "a": null,
+          "m": null
         },
         {
           "num": 20,
@@ -3168,7 +4098,10 @@
           "height": "178",
           "age": 21,
           "pos": "ATT",
-          "photo": "https://img.a.transfermarkt.technology/portrait/medium/981760-1770738661.jpg"
+          "photo": "https://img.a.transfermarkt.technology/portrait/medium/981760-1770738661.jpg",
+          "g": null,
+          "a": null,
+          "m": null
         },
         {
           "num": 24,
@@ -3178,7 +4111,10 @@
           "height": "178",
           "age": 24,
           "pos": "ATT",
-          "photo": "https://img.a.transfermarkt.technology/portrait/medium/744932-1725617498.png"
+          "photo": "https://img.a.transfermarkt.technology/portrait/medium/744932-1725617498.png",
+          "g": null,
+          "a": null,
+          "m": null
         },
         {
           "num": 27,
@@ -3188,7 +4124,10 @@
           "height": "184",
           "age": 24,
           "pos": "ATT",
-          "photo": "https://img.a.transfermarkt.technology/portrait/medium/940263-1727207228.png"
+          "photo": "https://img.a.transfermarkt.technology/portrait/medium/940263-1727207228.png",
+          "g": null,
+          "a": null,
+          "m": null
         },
         {
           "num": 34,
@@ -3198,7 +4137,10 @@
           "height": "180",
           "age": 22,
           "pos": "ATT",
-          "photo": "https://img.a.transfermarkt.technology/portrait/medium/default.jpg"
+          "photo": "https://img.a.transfermarkt.technology/portrait/medium/default.jpg",
+          "g": null,
+          "a": null,
+          "m": null
         }
       ]
     },
@@ -3213,7 +4155,10 @@
           "height": "187",
           "age": 31,
           "pos": "GK",
-          "photo": "https://img.a.transfermarkt.technology/portrait/medium/242716-1727173344.png"
+          "photo": "https://img.a.transfermarkt.technology/portrait/medium/242716-1727173344.png",
+          "g": null,
+          "a": null,
+          "m": null
         },
         {
           "num": 16,
@@ -3223,7 +4168,10 @@
           "height": "186",
           "age": 34,
           "pos": "GK",
-          "photo": "https://img.a.transfermarkt.technology/portrait/medium/126705-1685538848.jpg"
+          "photo": "https://img.a.transfermarkt.technology/portrait/medium/126705-1685538848.jpg",
+          "g": null,
+          "a": null,
+          "m": null
         },
         {
           "num": 30,
@@ -3233,7 +4181,10 @@
           "height": "186",
           "age": 37,
           "pos": "GK",
-          "photo": "https://img.a.transfermarkt.technology/portrait/medium/72414-1666525120.jpg"
+          "photo": "https://img.a.transfermarkt.technology/portrait/medium/72414-1666525120.jpg",
+          "g": null,
+          "a": null,
+          "m": null
         },
         {
           "num": 40,
@@ -3243,7 +4194,10 @@
           "height": "182",
           "age": 19,
           "pos": "GK",
-          "photo": "https://img.a.transfermarkt.technology/portrait/medium/default.jpg"
+          "photo": "https://img.a.transfermarkt.technology/portrait/medium/default.jpg",
+          "g": null,
+          "a": null,
+          "m": null
         },
         {
           "num": 3,
@@ -3253,7 +4207,10 @@
           "height": "185",
           "age": 20,
           "pos": "DEF",
-          "photo": "https://img.a.transfermarkt.technology/portrait/medium/1030153-1727207548.png"
+          "photo": "https://img.a.transfermarkt.technology/portrait/medium/1030153-1727207548.png",
+          "g": null,
+          "a": null,
+          "m": null
         },
         {
           "num": 4,
@@ -3263,7 +4220,10 @@
           "height": "184",
           "age": 21,
           "pos": "DEF",
-          "photo": "https://img.a.transfermarkt.technology/portrait/medium/743495-1644158325.png"
+          "photo": "https://img.a.transfermarkt.technology/portrait/medium/743495-1644158325.png",
+          "g": null,
+          "a": null,
+          "m": null
         },
         {
           "num": 12,
@@ -3273,7 +4233,10 @@
           "height": "179",
           "age": 29,
           "pos": "DEF",
-          "photo": "https://img.a.transfermarkt.technology/portrait/medium/291120-1779447279.jpg"
+          "photo": "https://img.a.transfermarkt.technology/portrait/medium/291120-1779447279.jpg",
+          "g": null,
+          "a": null,
+          "m": null
         },
         {
           "num": 14,
@@ -3283,7 +4246,10 @@
           "height": "186",
           "age": 33,
           "pos": "DEF",
-          "photo": "https://img.a.transfermarkt.technology/portrait/medium/170962-1538129731.jpg"
+          "photo": "https://img.a.transfermarkt.technology/portrait/medium/170962-1538129731.jpg",
+          "g": null,
+          "a": null,
+          "m": null
         },
         {
           "num": 19,
@@ -3293,7 +4259,10 @@
           "height": "178",
           "age": 27,
           "pos": "DEF",
-          "photo": "https://img.a.transfermarkt.technology/portrait/medium/804885-1692806194.png"
+          "photo": "https://img.a.transfermarkt.technology/portrait/medium/804885-1692806194.png",
+          "g": null,
+          "a": null,
+          "m": null
         },
         {
           "num": 21,
@@ -3303,7 +4272,10 @@
           "height": "193",
           "age": 26,
           "pos": "DEF",
-          "photo": "https://img.a.transfermarkt.technology/portrait/medium/602549-1779447487.jpg"
+          "photo": "https://img.a.transfermarkt.technology/portrait/medium/602549-1779447487.jpg",
+          "g": null,
+          "a": null,
+          "m": null
         },
         {
           "num": 23,
@@ -3313,7 +4285,10 @@
           "height": "185",
           "age": 22,
           "pos": "DEF",
-          "photo": "https://img.a.transfermarkt.technology/portrait/medium/979760-1727207319.png"
+          "photo": "https://img.a.transfermarkt.technology/portrait/medium/979760-1727207319.png",
+          "g": null,
+          "a": null,
+          "m": null
         },
         {
           "num": 27,
@@ -3323,7 +4298,10 @@
           "height": "170",
           "age": 27,
           "pos": "DEF",
-          "photo": "https://img.a.transfermarkt.technology/portrait/medium/357072-1630503943.jpg"
+          "photo": "https://img.a.transfermarkt.technology/portrait/medium/357072-1630503943.jpg",
+          "g": null,
+          "a": null,
+          "m": null
         },
         {
           "num": 44,
@@ -3333,7 +4311,10 @@
           "height": "185",
           "age": 21,
           "pos": "DEF",
-          "photo": "https://img.a.transfermarkt.technology/portrait/medium/1133052-1779447539.jpg"
+          "photo": "https://img.a.transfermarkt.technology/portrait/medium/1133052-1779447539.jpg",
+          "g": null,
+          "a": null,
+          "m": null
         },
         {
           "num": 77,
@@ -3343,7 +4324,10 @@
           "height": "193",
           "age": 22,
           "pos": "DEF",
-          "photo": "https://img.a.transfermarkt.technology/portrait/medium/904707-1674921912.jpg"
+          "photo": "https://img.a.transfermarkt.technology/portrait/medium/904707-1674921912.jpg",
+          "g": null,
+          "a": null,
+          "m": null
         },
         {
           "num": 5,
@@ -3353,7 +4337,10 @@
           "height": "178",
           "age": 29,
           "pos": "MID",
-          "photo": "https://img.a.transfermarkt.technology/portrait/medium/348431-1779989694.jpg"
+          "photo": "https://img.a.transfermarkt.technology/portrait/medium/348431-1779989694.jpg",
+          "g": null,
+          "a": null,
+          "m": null
         },
         {
           "num": 6,
@@ -3363,7 +4350,10 @@
           "height": "173",
           "age": 29,
           "pos": "MID",
-          "photo": "https://img.a.transfermarkt.technology/portrait/medium/272618-1656010975.jpg"
+          "photo": "https://img.a.transfermarkt.technology/portrait/medium/272618-1656010975.jpg",
+          "g": null,
+          "a": null,
+          "m": null
         },
         {
           "num": 8,
@@ -3373,7 +4363,10 @@
           "height": "182",
           "age": 25,
           "pos": "MID",
-          "photo": "https://img.a.transfermarkt.technology/portrait/medium/958487-1779447358.jpg"
+          "photo": "https://img.a.transfermarkt.technology/portrait/medium/958487-1779447358.jpg",
+          "g": null,
+          "a": null,
+          "m": null
         },
         {
           "num": 13,
@@ -3383,7 +4376,10 @@
           "height": "189",
           "age": 32,
           "pos": "MID",
-          "photo": "https://img.a.transfermarkt.technology/portrait/medium/603564-1599749391.jpg"
+          "photo": "https://img.a.transfermarkt.technology/portrait/medium/603564-1599749391.jpg",
+          "g": null,
+          "a": null,
+          "m": null
         },
         {
           "num": 17,
@@ -3393,7 +4389,10 @@
           "height": "186",
           "age": 29,
           "pos": "MID",
-          "photo": "https://img.a.transfermarkt.technology/portrait/medium/512754-1666530276.jpg"
+          "photo": "https://img.a.transfermarkt.technology/portrait/medium/512754-1666530276.jpg",
+          "g": null,
+          "a": null,
+          "m": null
         },
         {
           "num": 18,
@@ -3403,7 +4402,10 @@
           "height": "177",
           "age": 21,
           "pos": "MID",
-          "photo": "https://img.a.transfermarkt.technology/portrait/medium/default.jpg"
+          "photo": "https://img.a.transfermarkt.technology/portrait/medium/default.jpg",
+          "g": null,
+          "a": null,
+          "m": null
         },
         {
           "num": 25,
@@ -3413,7 +4415,10 @@
           "height": "183",
           "age": 29,
           "pos": "MID",
-          "photo": "https://img.a.transfermarkt.technology/portrait/medium/288237-1728952332.jpg"
+          "photo": "https://img.a.transfermarkt.technology/portrait/medium/288237-1728952332.jpg",
+          "g": null,
+          "a": null,
+          "m": null
         },
         {
           "num": 45,
@@ -3423,7 +4428,10 @@
           "height": "184",
           "age": 21,
           "pos": "MID",
-          "photo": "https://img.a.transfermarkt.technology/portrait/medium/default.jpg"
+          "photo": "https://img.a.transfermarkt.technology/portrait/medium/default.jpg",
+          "g": null,
+          "a": null,
+          "m": null
         },
         {
           "num": 7,
@@ -3433,7 +4441,10 @@
           "height": "172",
           "age": 29,
           "pos": "ATT",
-          "photo": "https://img.a.transfermarkt.technology/portrait/medium/777150-1729002690.jpg"
+          "photo": "https://img.a.transfermarkt.technology/portrait/medium/777150-1729002690.jpg",
+          "g": null,
+          "a": null,
+          "m": null
         },
         {
           "num": 9,
@@ -3443,7 +4454,10 @@
           "height": "187",
           "age": 20,
           "pos": "ATT",
-          "photo": "https://img.a.transfermarkt.technology/portrait/medium/1228320-1723838592.png"
+          "photo": "https://img.a.transfermarkt.technology/portrait/medium/1228320-1723838592.png",
+          "g": null,
+          "a": null,
+          "m": null
         },
         {
           "num": 10,
@@ -3453,7 +4467,10 @@
           "height": "187",
           "age": 32,
           "pos": "ATT",
-          "photo": "https://img.a.transfermarkt.technology/portrait/medium/198410-1613132411.jpg"
+          "photo": "https://img.a.transfermarkt.technology/portrait/medium/198410-1613132411.jpg",
+          "g": null,
+          "a": null,
+          "m": null
         },
         {
           "num": 20,
@@ -3463,7 +4480,10 @@
           "height": "181",
           "age": 26,
           "pos": "ATT",
-          "photo": "https://img.a.transfermarkt.technology/portrait/medium/864769-1655928965.jpg"
+          "photo": "https://img.a.transfermarkt.technology/portrait/medium/864769-1655928965.jpg",
+          "g": null,
+          "a": null,
+          "m": null
         },
         {
           "num": 22,
@@ -3473,7 +4493,10 @@
           "height": "182",
           "age": 27,
           "pos": "ATT",
-          "photo": "https://img.a.transfermarkt.technology/portrait/medium/default.jpg"
+          "photo": "https://img.a.transfermarkt.technology/portrait/medium/default.jpg",
+          "g": null,
+          "a": null,
+          "m": null
         },
         {
           "num": 24,
@@ -3483,7 +4506,10 @@
           "height": "194",
           "age": 20,
           "pos": "ATT",
-          "photo": "https://img.a.transfermarkt.technology/portrait/medium/1231401-1739972753.jpg"
+          "photo": "https://img.a.transfermarkt.technology/portrait/medium/1231401-1739972753.jpg",
+          "g": null,
+          "a": null,
+          "m": null
         },
         {
           "num": 26,
@@ -3493,7 +4519,10 @@
           "height": "182",
           "age": 19,
           "pos": "ATT",
-          "photo": "https://img.a.transfermarkt.technology/portrait/medium/default.jpg"
+          "photo": "https://img.a.transfermarkt.technology/portrait/medium/default.jpg",
+          "g": null,
+          "a": null,
+          "m": null
         },
         {
           "num": 29,
@@ -3503,7 +4532,10 @@
           "height": "182",
           "age": 20,
           "pos": "ATT",
-          "photo": "https://img.a.transfermarkt.technology/portrait/medium/1099652-1735775191.jpg"
+          "photo": "https://img.a.transfermarkt.technology/portrait/medium/1099652-1735775191.jpg",
+          "g": null,
+          "a": null,
+          "m": null
         },
         {
           "num": 34,
@@ -3513,7 +4545,10 @@
           "height": "178",
           "age": 20,
           "pos": "ATT",
-          "photo": "https://img.a.transfermarkt.technology/portrait/medium/default.jpg"
+          "photo": "https://img.a.transfermarkt.technology/portrait/medium/default.jpg",
+          "g": null,
+          "a": null,
+          "m": null
         }
       ]
     },
@@ -3528,7 +4563,10 @@
           "height": "192",
           "age": 20,
           "pos": "GK",
-          "photo": "https://img.a.transfermarkt.technology/portrait/medium/810789-1762876205.png"
+          "photo": "https://img.a.transfermarkt.technology/portrait/medium/810789-1762876205.png",
+          "g": null,
+          "a": null,
+          "m": null
         },
         {
           "num": 16,
@@ -3538,7 +4576,10 @@
           "height": "192",
           "age": 20,
           "pos": "GK",
-          "photo": "https://img.a.transfermarkt.technology/portrait/medium/987302-1762874800.png"
+          "photo": "https://img.a.transfermarkt.technology/portrait/medium/987302-1762874800.png",
+          "g": null,
+          "a": null,
+          "m": null
         },
         {
           "num": 23,
@@ -3548,7 +4589,10 @@
           "height": "183",
           "age": 32,
           "pos": "GK",
-          "photo": "https://img.a.transfermarkt.technology/portrait/medium/238635-1762876153.png"
+          "photo": "https://img.a.transfermarkt.technology/portrait/medium/238635-1762876153.png",
+          "g": null,
+          "a": null,
+          "m": null
         },
         {
           "num": 30,
@@ -3558,7 +4602,10 @@
           "height": "181",
           "age": 38,
           "pos": "GK",
-          "photo": "https://img.a.transfermarkt.technology/portrait/medium/51035-1762876180.png"
+          "photo": "https://img.a.transfermarkt.technology/portrait/medium/51035-1762876180.png",
+          "g": null,
+          "a": null,
+          "m": null
         },
         {
           "num": 2,
@@ -3568,7 +4615,10 @@
           "height": "186",
           "age": 22,
           "pos": "DEF",
-          "photo": "https://img.a.transfermarkt.technology/portrait/medium/1174593-1762876663.png"
+          "photo": "https://img.a.transfermarkt.technology/portrait/medium/1174593-1762876663.png",
+          "g": null,
+          "a": null,
+          "m": null
         },
         {
           "num": 3,
@@ -3578,7 +4628,10 @@
           "height": "182",
           "age": 24,
           "pos": "DEF",
-          "photo": "https://img.a.transfermarkt.technology/portrait/medium/857638-1762880996.png"
+          "photo": "https://img.a.transfermarkt.technology/portrait/medium/857638-1762880996.png",
+          "g": null,
+          "a": null,
+          "m": null
         },
         {
           "num": 4,
@@ -3588,7 +4641,10 @@
           "height": "185",
           "age": 25,
           "pos": "DEF",
-          "photo": "https://img.a.transfermarkt.technology/portrait/medium/651979-1762880903.png"
+          "photo": "https://img.a.transfermarkt.technology/portrait/medium/651979-1762880903.png",
+          "g": null,
+          "a": null,
+          "m": null
         },
         {
           "num": 5,
@@ -3598,7 +4654,10 @@
           "height": "178",
           "age": 22,
           "pos": "DEF",
-          "photo": "https://img.a.transfermarkt.technology/portrait/medium/982403-1762877141.png"
+          "photo": "https://img.a.transfermarkt.technology/portrait/medium/982403-1762877141.png",
+          "g": null,
+          "a": null,
+          "m": null
         },
         {
           "num": 6,
@@ -3608,7 +4667,10 @@
           "height": "177",
           "age": 30,
           "pos": "DEF",
-          "photo": "https://img.a.transfermarkt.technology/portrait/medium/588645-1762880552.png"
+          "photo": "https://img.a.transfermarkt.technology/portrait/medium/588645-1762880552.png",
+          "g": null,
+          "a": null,
+          "m": null
         },
         {
           "num": 12,
@@ -3618,7 +4680,10 @@
           "height": "182",
           "age": 23,
           "pos": "DEF",
-          "photo": "https://img.a.transfermarkt.technology/portrait/medium/855309-1762876937.png"
+          "photo": "https://img.a.transfermarkt.technology/portrait/medium/855309-1762876937.png",
+          "g": null,
+          "a": null,
+          "m": null
         },
         {
           "num": 15,
@@ -3628,7 +4693,10 @@
           "height": "182",
           "age": 28,
           "pos": "DEF",
-          "photo": "https://img.a.transfermarkt.technology/portrait/medium/251448-1762881272.png"
+          "photo": "https://img.a.transfermarkt.technology/portrait/medium/251448-1762881272.png",
+          "g": null,
+          "a": null,
+          "m": null
         },
         {
           "num": 24,
@@ -3638,7 +4706,10 @@
           "height": "176",
           "age": 26,
           "pos": "DEF",
-          "photo": "https://img.a.transfermarkt.technology/portrait/medium/863038-1762881252.png"
+          "photo": "https://img.a.transfermarkt.technology/portrait/medium/863038-1762881252.png",
+          "g": null,
+          "a": null,
+          "m": null
         },
         {
           "num": 28,
@@ -3648,7 +4719,10 @@
           "height": "189",
           "age": 30,
           "pos": "DEF",
-          "photo": "https://img.a.transfermarkt.technology/portrait/medium/523780-1762877334.png"
+          "photo": "https://img.a.transfermarkt.technology/portrait/medium/523780-1762877334.png",
+          "g": null,
+          "a": null,
+          "m": null
         },
         {
           "num": 34,
@@ -3658,7 +4732,10 @@
           "height": "186",
           "age": 19,
           "pos": "DEF",
-          "photo": "https://img.a.transfermarkt.technology/portrait/medium/1448120-1762876959.png"
+          "photo": "https://img.a.transfermarkt.technology/portrait/medium/1448120-1762876959.png",
+          "g": null,
+          "a": null,
+          "m": null
         },
         {
           "num": 7,
@@ -3668,7 +4745,10 @@
           "height": "178",
           "age": 33,
           "pos": "MID",
-          "photo": "https://img.a.transfermarkt.technology/portrait/medium/203324-1762880936.png"
+          "photo": "https://img.a.transfermarkt.technology/portrait/medium/203324-1762880936.png",
+          "g": null,
+          "a": null,
+          "m": null
         },
         {
           "num": 13,
@@ -3678,7 +4758,10 @@
           "height": "176",
           "age": 26,
           "pos": "MID",
-          "photo": "https://img.a.transfermarkt.technology/portrait/medium/652128-1762881150.png"
+          "photo": "https://img.a.transfermarkt.technology/portrait/medium/652128-1762881150.png",
+          "g": null,
+          "a": null,
+          "m": null
         },
         {
           "num": 17,
@@ -3688,7 +4771,10 @@
           "height": "179",
           "age": 33,
           "pos": "MID",
-          "photo": "https://img.a.transfermarkt.technology/portrait/medium/271390-1669303762.png"
+          "photo": "https://img.a.transfermarkt.technology/portrait/medium/271390-1669303762.png",
+          "g": null,
+          "a": null,
+          "m": null
         },
         {
           "num": 18,
@@ -3698,7 +4784,10 @@
           "height": "177",
           "age": 21,
           "pos": "MID",
-          "photo": "https://img.a.transfermarkt.technology/portrait/medium/1427173-1762876350.png"
+          "photo": "https://img.a.transfermarkt.technology/portrait/medium/1427173-1762876350.png",
+          "g": null,
+          "a": null,
+          "m": null
         },
         {
           "num": 33,
@@ -3708,7 +4797,10 @@
           "height": "176",
           "age": 20,
           "pos": "MID",
-          "photo": "https://img.a.transfermarkt.technology/portrait/medium/default.jpg"
+          "photo": "https://img.a.transfermarkt.technology/portrait/medium/default.jpg",
+          "g": null,
+          "a": null,
+          "m": null
         },
         {
           "num": 66,
@@ -3718,7 +4810,10 @@
           "height": "184",
           "age": 23,
           "pos": "MID",
-          "photo": "https://img.a.transfermarkt.technology/portrait/medium/973852-1762880878.png"
+          "photo": "https://img.a.transfermarkt.technology/portrait/medium/973852-1762880878.png",
+          "g": null,
+          "a": null,
+          "m": null
         },
         {
           "num": 8,
@@ -3728,7 +4823,10 @@
           "height": "182",
           "age": 24,
           "pos": "ATT",
-          "photo": "https://img.a.transfermarkt.technology/portrait/medium/773807-1762876469.png"
+          "photo": "https://img.a.transfermarkt.technology/portrait/medium/773807-1762876469.png",
+          "g": null,
+          "a": null,
+          "m": null
         },
         {
           "num": 9,
@@ -3738,7 +4836,10 @@
           "height": "181",
           "age": 25,
           "pos": "ATT",
-          "photo": "https://img.a.transfermarkt.technology/portrait/medium/640488-1762881175.png"
+          "photo": "https://img.a.transfermarkt.technology/portrait/medium/640488-1762881175.png",
+          "g": null,
+          "a": null,
+          "m": null
         },
         {
           "num": 10,
@@ -3748,7 +4849,10 @@
           "height": "171",
           "age": 25,
           "pos": "ATT",
-          "photo": "https://img.a.transfermarkt.technology/portrait/medium/651977-1762876539.png"
+          "photo": "https://img.a.transfermarkt.technology/portrait/medium/651977-1762876539.png",
+          "g": null,
+          "a": null,
+          "m": null
         },
         {
           "num": 11,
@@ -3758,7 +4862,10 @@
           "height": "177",
           "age": 23,
           "pos": "ATT",
-          "photo": "https://img.a.transfermarkt.technology/portrait/medium/974857-1762876412.png"
+          "photo": "https://img.a.transfermarkt.technology/portrait/medium/974857-1762876412.png",
+          "g": null,
+          "a": null,
+          "m": null
         },
         {
           "num": 14,
@@ -3768,7 +4875,10 @@
           "height": "187",
           "age": 23,
           "pos": "ATT",
-          "photo": "https://img.a.transfermarkt.technology/portrait/medium/999229-1762876506.png"
+          "photo": "https://img.a.transfermarkt.technology/portrait/medium/999229-1762876506.png",
+          "g": null,
+          "a": null,
+          "m": null
         },
         {
           "num": 19,
@@ -3778,7 +4888,10 @@
           "height": "194",
           "age": 28,
           "pos": "ATT",
-          "photo": "https://img.a.transfermarkt.technology/portrait/medium/395020-1762876382.png"
+          "photo": "https://img.a.transfermarkt.technology/portrait/medium/395020-1762876382.png",
+          "g": null,
+          "a": null,
+          "m": null
         },
         {
           "num": 25,
@@ -3788,7 +4901,10 @@
           "height": "178",
           "age": 20,
           "pos": "ATT",
-          "photo": "https://img.a.transfermarkt.technology/portrait/medium/986261-1762876444.png"
+          "photo": "https://img.a.transfermarkt.technology/portrait/medium/986261-1762876444.png",
+          "g": null,
+          "a": null,
+          "m": null
         },
         {
           "num": 29,
@@ -3798,7 +4914,10 @@
           "height": "185",
           "age": 28,
           "pos": "ATT",
-          "photo": "https://img.a.transfermarkt.technology/portrait/medium/452877-1656331816.png"
+          "photo": "https://img.a.transfermarkt.technology/portrait/medium/452877-1656331816.png",
+          "g": null,
+          "a": null,
+          "m": null
         },
         {
           "num": 35,
@@ -3808,7 +4927,10 @@
           "height": "186",
           "age": 20,
           "pos": "ATT",
-          "photo": "https://img.a.transfermarkt.technology/portrait/medium/default.jpg"
+          "photo": "https://img.a.transfermarkt.technology/portrait/medium/default.jpg",
+          "g": null,
+          "a": null,
+          "m": null
         }
       ]
     },
@@ -3823,7 +4945,10 @@
           "height": "184",
           "age": 30,
           "pos": "GK",
-          "photo": "https://img.a.transfermarkt.technology/portrait/medium/288247-1694080447.jpg"
+          "photo": "https://img.a.transfermarkt.technology/portrait/medium/288247-1694080447.jpg",
+          "g": null,
+          "a": null,
+          "m": null
         },
         {
           "num": 13,
@@ -3833,7 +4958,10 @@
           "height": "204",
           "age": 26,
           "pos": "GK",
-          "photo": "https://img.a.transfermarkt.technology/portrait/medium/917147-1741879989.jpg"
+          "photo": "https://img.a.transfermarkt.technology/portrait/medium/917147-1741879989.jpg",
+          "g": null,
+          "a": null,
+          "m": null
         },
         {
           "num": 16,
@@ -3843,7 +4971,10 @@
           "height": "185",
           "age": 34,
           "pos": "GK",
-          "photo": "https://img.a.transfermarkt.technology/portrait/medium/314862-1543828641.jpg"
+          "photo": "https://img.a.transfermarkt.technology/portrait/medium/314862-1543828641.jpg",
+          "g": null,
+          "a": null,
+          "m": null
         },
         {
           "num": 4,
@@ -3853,7 +4984,10 @@
           "height": "184",
           "age": 27,
           "pos": "DEF",
-          "photo": "https://img.a.transfermarkt.technology/portrait/medium/591911-1632292979.jpg"
+          "photo": "https://img.a.transfermarkt.technology/portrait/medium/591911-1632292979.jpg",
+          "g": null,
+          "a": null,
+          "m": null
         },
         {
           "num": 5,
@@ -3863,7 +4997,10 @@
           "height": "181",
           "age": 25,
           "pos": "DEF",
-          "photo": "https://img.a.transfermarkt.technology/portrait/medium/569388-1604256779.jpg"
+          "photo": "https://img.a.transfermarkt.technology/portrait/medium/569388-1604256779.jpg",
+          "g": null,
+          "a": null,
+          "m": null
         },
         {
           "num": 17,
@@ -3873,7 +5010,10 @@
           "height": "183",
           "age": 27,
           "pos": "DEF",
-          "photo": "https://img.a.transfermarkt.technology/portrait/medium/650809-1632825488.jpg"
+          "photo": "https://img.a.transfermarkt.technology/portrait/medium/650809-1632825488.jpg",
+          "g": null,
+          "a": null,
+          "m": null
         },
         {
           "num": 21,
@@ -3883,7 +5023,10 @@
           "height": "193",
           "age": 24,
           "pos": "DEF",
-          "photo": "https://img.a.transfermarkt.technology/portrait/medium/465294-1709204065.jpg"
+          "photo": "https://img.a.transfermarkt.technology/portrait/medium/465294-1709204065.jpg",
+          "g": null,
+          "a": null,
+          "m": null
         },
         {
           "num": 22,
@@ -3893,7 +5036,10 @@
           "height": "175",
           "age": 22,
           "pos": "DEF",
-          "photo": "https://img.a.transfermarkt.technology/portrait/medium/855215-1758194264.jpg"
+          "photo": "https://img.a.transfermarkt.technology/portrait/medium/855215-1758194264.jpg",
+          "g": null,
+          "a": null,
+          "m": null
         },
         {
           "num": 24,
@@ -3903,7 +5049,10 @@
           "height": "194",
           "age": 25,
           "pos": "DEF",
-          "photo": "https://img.a.transfermarkt.technology/portrait/medium/799936-1666191819.JPG"
+          "photo": "https://img.a.transfermarkt.technology/portrait/medium/799936-1666191819.JPG",
+          "g": null,
+          "a": null,
+          "m": null
         },
         {
           "num": 26,
@@ -3913,7 +5062,10 @@
           "height": "179",
           "age": 25,
           "pos": "DEF",
-          "photo": "https://img.a.transfermarkt.technology/portrait/medium/668201-1700669874.png"
+          "photo": "https://img.a.transfermarkt.technology/portrait/medium/668201-1700669874.png",
+          "g": null,
+          "a": null,
+          "m": null
         },
         {
           "num": 27,
@@ -3923,7 +5075,10 @@
           "height": "183",
           "age": 24,
           "pos": "DEF",
-          "photo": "https://img.a.transfermarkt.technology/portrait/medium/744936-1688234282.jpg"
+          "photo": "https://img.a.transfermarkt.technology/portrait/medium/744936-1688234282.jpg",
+          "g": null,
+          "a": null,
+          "m": null
         },
         {
           "num": 29,
@@ -3933,7 +5088,10 @@
           "height": "182",
           "age": 32,
           "pos": "DEF",
-          "photo": "https://img.a.transfermarkt.technology/portrait/medium/412092-1779987503.jpg"
+          "photo": "https://img.a.transfermarkt.technology/portrait/medium/412092-1779987503.jpg",
+          "g": null,
+          "a": null,
+          "m": null
         },
         {
           "num": 6,
@@ -3943,7 +5101,10 @@
           "height": "178",
           "age": 25,
           "pos": "MID",
-          "photo": "https://img.a.transfermarkt.technology/portrait/medium/536480-1616528977.jpg"
+          "photo": "https://img.a.transfermarkt.technology/portrait/medium/536480-1616528977.jpg",
+          "g": null,
+          "a": null,
+          "m": null
         },
         {
           "num": 8,
@@ -3953,7 +5114,10 @@
           "height": "186",
           "age": 30,
           "pos": "MID",
-          "photo": "https://img.a.transfermarkt.technology/portrait/medium/332047-1656083194.png"
+          "photo": "https://img.a.transfermarkt.technology/portrait/medium/332047-1656083194.png",
+          "g": null,
+          "a": null,
+          "m": null
         },
         {
           "num": 10,
@@ -3963,7 +5127,10 @@
           "height": "174",
           "age": 24,
           "pos": "MID",
-          "photo": "https://img.a.transfermarkt.technology/portrait/medium/804548-1727208042.png"
+          "photo": "https://img.a.transfermarkt.technology/portrait/medium/804548-1727208042.png",
+          "g": null,
+          "a": null,
+          "m": null
         },
         {
           "num": 30,
@@ -3973,7 +5140,10 @@
           "height": "195",
           "age": 22,
           "pos": "MID",
-          "photo": "https://img.a.transfermarkt.technology/portrait/medium/1026014-1727872268.jpg"
+          "photo": "https://img.a.transfermarkt.technology/portrait/medium/1026014-1727872268.jpg",
+          "g": null,
+          "a": null,
+          "m": null
         },
         {
           "num": 2,
@@ -3983,7 +5153,10 @@
           "height": "180",
           "age": 26,
           "pos": "ATT",
-          "photo": "https://img.a.transfermarkt.technology/portrait/medium/591796-1647190683.png"
+          "photo": "https://img.a.transfermarkt.technology/portrait/medium/591796-1647190683.png",
+          "g": null,
+          "a": null,
+          "m": null
         },
         {
           "num": 7,
@@ -3993,7 +5166,10 @@
           "height": "186",
           "age": 25,
           "pos": "ATT",
-          "photo": "https://img.a.transfermarkt.technology/portrait/medium/806496-1706289628.jpg"
+          "photo": "https://img.a.transfermarkt.technology/portrait/medium/806496-1706289628.jpg",
+          "g": null,
+          "a": null,
+          "m": null
         },
         {
           "num": 9,
@@ -4003,7 +5179,10 @@
           "height": "183",
           "age": 22,
           "pos": "ATT",
-          "photo": "https://img.a.transfermarkt.technology/portrait/medium/default.jpg"
+          "photo": "https://img.a.transfermarkt.technology/portrait/medium/default.jpg",
+          "g": null,
+          "a": null,
+          "m": null
         },
         {
           "num": 11,
@@ -4013,7 +5192,10 @@
           "height": "171",
           "age": 25,
           "pos": "ATT",
-          "photo": "https://img.a.transfermarkt.technology/portrait/medium/817180-1669737824.jpg"
+          "photo": "https://img.a.transfermarkt.technology/portrait/medium/817180-1669737824.jpg",
+          "g": null,
+          "a": null,
+          "m": null
         },
         {
           "num": 12,
@@ -4023,7 +5205,10 @@
           "height": "180",
           "age": 32,
           "pos": "ATT",
-          "photo": "https://img.a.transfermarkt.technology/portrait/medium/525114-1614114710.JPG"
+          "photo": "https://img.a.transfermarkt.technology/portrait/medium/525114-1614114710.JPG",
+          "g": null,
+          "a": null,
+          "m": null
         },
         {
           "num": 19,
@@ -4033,7 +5218,10 @@
           "height": "175",
           "age": 23,
           "pos": "ATT",
-          "photo": "https://img.a.transfermarkt.technology/portrait/medium/825592-1676910967.jpg"
+          "photo": "https://img.a.transfermarkt.technology/portrait/medium/825592-1676910967.jpg",
+          "g": null,
+          "a": null,
+          "m": null
         },
         {
           "num": 20,
@@ -4043,7 +5231,10 @@
           "height": "179",
           "age": 25,
           "pos": "ATT",
-          "photo": "https://img.a.transfermarkt.technology/portrait/medium/default.jpg"
+          "photo": "https://img.a.transfermarkt.technology/portrait/medium/default.jpg",
+          "g": null,
+          "a": null,
+          "m": null
         },
         {
           "num": 37,
@@ -4053,7 +5244,10 @@
           "height": "183",
           "age": 20,
           "pos": "ATT",
-          "photo": "https://img.a.transfermarkt.technology/portrait/medium/886503-1732576619.png"
+          "photo": "https://img.a.transfermarkt.technology/portrait/medium/886503-1732576619.png",
+          "g": null,
+          "a": null,
+          "m": null
         }
       ]
     },
@@ -4068,7 +5262,10 @@
           "height": "184",
           "age": 30,
           "pos": "GK",
-          "photo": "https://img.a.transfermarkt.technology/portrait/medium/222636-1773276373.jpg"
+          "photo": "https://img.a.transfermarkt.technology/portrait/medium/222636-1773276373.jpg",
+          "g": null,
+          "a": null,
+          "m": null
         },
         {
           "num": 16,
@@ -4078,7 +5275,10 @@
           "height": "182",
           "age": 27,
           "pos": "GK",
-          "photo": "https://img.a.transfermarkt.technology/portrait/medium/593315-1773276382.jpg"
+          "photo": "https://img.a.transfermarkt.technology/portrait/medium/593315-1773276382.jpg",
+          "g": null,
+          "a": null,
+          "m": null
         },
         {
           "num": 30,
@@ -4088,7 +5288,10 @@
           "height": "185",
           "age": 20,
           "pos": "GK",
-          "photo": "https://img.a.transfermarkt.technology/portrait/medium/1004376-1773276389.jpg"
+          "photo": "https://img.a.transfermarkt.technology/portrait/medium/1004376-1773276389.jpg",
+          "g": null,
+          "a": null,
+          "m": null
         },
         {
           "num": 40,
@@ -4098,7 +5301,10 @@
           "height": "185",
           "age": 19,
           "pos": "GK",
-          "photo": "https://img.a.transfermarkt.technology/portrait/medium/1343640-1773276285.jpg"
+          "photo": "https://img.a.transfermarkt.technology/portrait/medium/1343640-1773276285.jpg",
+          "g": null,
+          "a": null,
+          "m": null
         },
         {
           "num": 2,
@@ -4108,7 +5314,10 @@
           "height": "183",
           "age": 19,
           "pos": "DEF",
-          "photo": "https://img.a.transfermarkt.technology/portrait/medium/984593-1746641384.jpg"
+          "photo": "https://img.a.transfermarkt.technology/portrait/medium/984593-1746641384.jpg",
+          "g": null,
+          "a": null,
+          "m": null
         },
         {
           "num": 3,
@@ -4118,7 +5327,10 @@
           "height": "177",
           "age": 19,
           "pos": "DEF",
-          "photo": "https://img.a.transfermarkt.technology/portrait/medium/1134250-1756822862.jpg"
+          "photo": "https://img.a.transfermarkt.technology/portrait/medium/1134250-1756822862.jpg",
+          "g": null,
+          "a": null,
+          "m": null
         },
         {
           "num": 6,
@@ -4128,7 +5340,10 @@
           "height": "190",
           "age": 30,
           "pos": "DEF",
-          "photo": "https://img.a.transfermarkt.technology/portrait/medium/374039-1773277115.jpg"
+          "photo": "https://img.a.transfermarkt.technology/portrait/medium/374039-1773277115.jpg",
+          "g": null,
+          "a": null,
+          "m": null
         },
         {
           "num": 18,
@@ -4138,7 +5353,10 @@
           "height": "187",
           "age": 26,
           "pos": "DEF",
-          "photo": "https://img.a.transfermarkt.technology/portrait/medium/935507-1773277092.jpg"
+          "photo": "https://img.a.transfermarkt.technology/portrait/medium/935507-1773277092.jpg",
+          "g": null,
+          "a": null,
+          "m": null
         },
         {
           "num": 20,
@@ -4148,7 +5366,10 @@
           "height": "178",
           "age": 20,
           "pos": "DEF",
-          "photo": "https://img.a.transfermarkt.technology/portrait/medium/874902-1773277141.jpg"
+          "photo": "https://img.a.transfermarkt.technology/portrait/medium/874902-1773277141.jpg",
+          "g": null,
+          "a": null,
+          "m": null
         },
         {
           "num": 21,
@@ -4158,7 +5379,10 @@
           "height": "179",
           "age": 35,
           "pos": "DEF",
-          "photo": "https://img.a.transfermarkt.technology/portrait/medium/86930-1773277100.jpg"
+          "photo": "https://img.a.transfermarkt.technology/portrait/medium/86930-1773277100.jpg",
+          "g": null,
+          "a": null,
+          "m": null
         },
         {
           "num": 23,
@@ -4168,7 +5392,10 @@
           "height": "187",
           "age": 24,
           "pos": "DEF",
-          "photo": "https://img.a.transfermarkt.technology/portrait/medium/830649-1773276564.jpg"
+          "photo": "https://img.a.transfermarkt.technology/portrait/medium/830649-1773276564.jpg",
+          "g": null,
+          "a": null,
+          "m": null
         },
         {
           "num": 26,
@@ -4178,7 +5405,10 @@
           "height": "176",
           "age": 28,
           "pos": "DEF",
-          "photo": "https://img.a.transfermarkt.technology/portrait/medium/392303-1773277108.jpg"
+          "photo": "https://img.a.transfermarkt.technology/portrait/medium/392303-1773277108.jpg",
+          "g": null,
+          "a": null,
+          "m": null
         },
         {
           "num": 27,
@@ -4188,7 +5418,10 @@
           "height": "175",
           "age": 26,
           "pos": "DEF",
-          "photo": "https://img.a.transfermarkt.technology/portrait/medium/808846-1773277131.jpg"
+          "photo": "https://img.a.transfermarkt.technology/portrait/medium/808846-1773277131.jpg",
+          "g": null,
+          "a": null,
+          "m": null
         },
         {
           "num": 34,
@@ -4198,7 +5431,10 @@
           "height": "190",
           "age": 19,
           "pos": "DEF",
-          "photo": "https://img.a.transfermarkt.technology/portrait/medium/1322127-1773276365.jpg"
+          "photo": "https://img.a.transfermarkt.technology/portrait/medium/1322127-1773276365.jpg",
+          "g": null,
+          "a": null,
+          "m": null
         },
         {
           "num": 41,
@@ -4208,7 +5444,10 @@
           "height": "183",
           "age": 23,
           "pos": "DEF",
-          "photo": "https://img.a.transfermarkt.technology/portrait/medium/1063470-1773277122.jpg"
+          "photo": "https://img.a.transfermarkt.technology/portrait/medium/1063470-1773277122.jpg",
+          "g": null,
+          "a": null,
+          "m": null
         },
         {
           "num": 5,
@@ -4218,7 +5457,10 @@
           "height": "177",
           "age": 37,
           "pos": "MID",
-          "photo": "https://img.a.transfermarkt.technology/portrait/medium/73120-1773276928.jpg"
+          "photo": "https://img.a.transfermarkt.technology/portrait/medium/73120-1773276928.jpg",
+          "g": null,
+          "a": null,
+          "m": null
         },
         {
           "num": 7,
@@ -4228,7 +5470,10 @@
           "height": "171",
           "age": 32,
           "pos": "MID",
-          "photo": "https://img.a.transfermarkt.technology/portrait/medium/284526-1773276917.jpg"
+          "photo": "https://img.a.transfermarkt.technology/portrait/medium/284526-1773276917.jpg",
+          "g": null,
+          "a": null,
+          "m": null
         },
         {
           "num": 8,
@@ -4238,7 +5483,10 @@
           "height": "176",
           "age": 27,
           "pos": "MID",
-          "photo": "https://img.a.transfermarkt.technology/portrait/medium/660042-1773276911.jpg"
+          "photo": "https://img.a.transfermarkt.technology/portrait/medium/660042-1773276911.jpg",
+          "g": null,
+          "a": null,
+          "m": null
         },
         {
           "num": 17,
@@ -4248,7 +5496,10 @@
           "height": "180",
           "age": 35,
           "pos": "MID",
-          "photo": "https://img.a.transfermarkt.technology/portrait/medium/126699-1773276948.jpg"
+          "photo": "https://img.a.transfermarkt.technology/portrait/medium/126699-1773276948.jpg",
+          "g": null,
+          "a": null,
+          "m": null
         },
         {
           "num": 19,
@@ -4258,7 +5509,10 @@
           "height": "185",
           "age": 19,
           "pos": "MID",
-          "photo": "https://img.a.transfermarkt.technology/portrait/medium/1273127-1773276324.jpg"
+          "photo": "https://img.a.transfermarkt.technology/portrait/medium/1273127-1773276324.jpg",
+          "g": null,
+          "a": null,
+          "m": null
         },
         {
           "num": 22,
@@ -4268,7 +5522,10 @@
           "height": "175",
           "age": 27,
           "pos": "MID",
-          "photo": "https://img.a.transfermarkt.technology/portrait/medium/579205-1773276903.jpg"
+          "photo": "https://img.a.transfermarkt.technology/portrait/medium/579205-1773276903.jpg",
+          "g": null,
+          "a": null,
+          "m": null
         },
         {
           "num": 24,
@@ -4278,7 +5535,10 @@
           "height": "179",
           "age": 20,
           "pos": "MID",
-          "photo": "https://img.a.transfermarkt.technology/portrait/medium/994281-1773276476.jpg"
+          "photo": "https://img.a.transfermarkt.technology/portrait/medium/994281-1773276476.jpg",
+          "g": null,
+          "a": null,
+          "m": null
         },
         {
           "num": 25,
@@ -4288,7 +5548,10 @@
           "height": "194",
           "age": 24,
           "pos": "MID",
-          "photo": "https://img.a.transfermarkt.technology/portrait/medium/804859-1773276576.jpg"
+          "photo": "https://img.a.transfermarkt.technology/portrait/medium/804859-1773276576.jpg",
+          "g": null,
+          "a": null,
+          "m": null
         },
         {
           "num": 29,
@@ -4298,7 +5561,10 @@
           "height": "189",
           "age": 21,
           "pos": "MID",
-          "photo": "https://img.a.transfermarkt.technology/portrait/medium/1004483-1757065639.jpg"
+          "photo": "https://img.a.transfermarkt.technology/portrait/medium/1004483-1757065639.jpg",
+          "g": null,
+          "a": null,
+          "m": null
         },
         {
           "num": 42,
@@ -4308,7 +5574,10 @@
           "height": "175",
           "age": 21,
           "pos": "MID",
-          "photo": "https://img.a.transfermarkt.technology/portrait/medium/1284768-1773276315.jpg"
+          "photo": "https://img.a.transfermarkt.technology/portrait/medium/1284768-1773276315.jpg",
+          "g": null,
+          "a": null,
+          "m": null
         },
         {
           "num": 9,
@@ -4318,7 +5587,10 @@
           "height": "192",
           "age": 29,
           "pos": "ATT",
-          "photo": "https://img.a.transfermarkt.technology/portrait/medium/689146-1773276691.jpg"
+          "photo": "https://img.a.transfermarkt.technology/portrait/medium/689146-1773276691.jpg",
+          "g": null,
+          "a": null,
+          "m": null
         },
         {
           "num": 11,
@@ -4328,7 +5600,10 @@
           "height": "180",
           "age": 18,
           "pos": "ATT",
-          "photo": "https://img.a.transfermarkt.technology/portrait/medium/1108478-1773276775.jpg"
+          "photo": "https://img.a.transfermarkt.technology/portrait/medium/1108478-1773276775.jpg",
+          "g": null,
+          "a": null,
+          "m": null
         },
         {
           "num": 28,
@@ -4338,7 +5613,10 @@
           "height": "182",
           "age": 33,
           "pos": "ATT",
-          "photo": "https://img.a.transfermarkt.technology/portrait/medium/775330-1773276675.jpg"
+          "photo": "https://img.a.transfermarkt.technology/portrait/medium/775330-1773276675.jpg",
+          "g": null,
+          "a": null,
+          "m": null
         },
         {
           "num": 33,
@@ -4348,7 +5626,10 @@
           "height": "187",
           "age": 19,
           "pos": "ATT",
-          "photo": "https://img.a.transfermarkt.technology/portrait/medium/1284766-1773276664.jpg"
+          "photo": "https://img.a.transfermarkt.technology/portrait/medium/1284766-1773276664.jpg",
+          "g": null,
+          "a": null,
+          "m": null
         },
         {
           "num": 71,
@@ -4358,7 +5639,10 @@
           "height": "185",
           "age": 22,
           "pos": "ATT",
-          "photo": "https://img.a.transfermarkt.technology/portrait/medium/989824-1709202767.jpg"
+          "photo": "https://img.a.transfermarkt.technology/portrait/medium/989824-1709202767.jpg",
+          "g": null,
+          "a": null,
+          "m": null
         },
         {
           "num": 80,
@@ -4368,7 +5652,10 @@
           "height": "175",
           "age": 24,
           "pos": "ATT",
-          "photo": "https://img.a.transfermarkt.technology/portrait/medium/880330-1773276683.jpg"
+          "photo": "https://img.a.transfermarkt.technology/portrait/medium/880330-1773276683.jpg",
+          "g": null,
+          "a": null,
+          "m": null
         }
       ]
     },
@@ -4383,7 +5670,10 @@
           "height": "181",
           "age": 35,
           "pos": "GK",
-          "photo": "https://img.a.transfermarkt.technology/portrait/medium/141364-1669829495.jpg"
+          "photo": "https://img.a.transfermarkt.technology/portrait/medium/141364-1669829495.jpg",
+          "g": null,
+          "a": null,
+          "m": null
         },
         {
           "num": 30,
@@ -4393,7 +5683,10 @@
           "height": "198",
           "age": 36,
           "pos": "GK",
-          "photo": "https://img.a.transfermarkt.technology/portrait/medium/72422-1449739979.jpg"
+          "photo": "https://img.a.transfermarkt.technology/portrait/medium/72422-1449739979.jpg",
+          "g": null,
+          "a": null,
+          "m": null
         },
         {
           "num": 3,
@@ -4403,7 +5696,10 @@
           "height": "187",
           "age": 26,
           "pos": "DEF",
-          "photo": "https://img.a.transfermarkt.technology/portrait/medium/427197-1632825379.jpg"
+          "photo": "https://img.a.transfermarkt.technology/portrait/medium/427197-1632825379.jpg",
+          "g": null,
+          "a": null,
+          "m": null
         },
         {
           "num": 4,
@@ -4413,7 +5709,10 @@
           "height": "184",
           "age": 28,
           "pos": "DEF",
-          "photo": "https://img.a.transfermarkt.technology/portrait/medium/391375-1669379586.png"
+          "photo": "https://img.a.transfermarkt.technology/portrait/medium/391375-1669379586.png",
+          "g": null,
+          "a": null,
+          "m": null
         },
         {
           "num": 5,
@@ -4423,7 +5722,10 @@
           "height": "190",
           "age": 30,
           "pos": "DEF",
-          "photo": "https://img.a.transfermarkt.technology/portrait/medium/198629-1681281243.png"
+          "photo": "https://img.a.transfermarkt.technology/portrait/medium/198629-1681281243.png",
+          "g": null,
+          "a": null,
+          "m": null
         },
         {
           "num": 7,
@@ -4433,7 +5735,10 @@
           "height": "175",
           "age": 26,
           "pos": "DEF",
-          "photo": "https://img.a.transfermarkt.technology/portrait/medium/627463-1656350459.jpg"
+          "photo": "https://img.a.transfermarkt.technology/portrait/medium/627463-1656350459.jpg",
+          "g": null,
+          "a": null,
+          "m": null
         },
         {
           "num": 12,
@@ -4443,7 +5748,10 @@
           "height": "184",
           "age": 24,
           "pos": "DEF",
-          "photo": "https://img.a.transfermarkt.technology/portrait/medium/836761-1712576243.jpg"
+          "photo": "https://img.a.transfermarkt.technology/portrait/medium/836761-1712576243.jpg",
+          "g": null,
+          "a": null,
+          "m": null
         },
         {
           "num": 21,
@@ -4453,7 +5761,10 @@
           "height": "179",
           "age": 21,
           "pos": "DEF",
-          "photo": "https://img.a.transfermarkt.technology/portrait/medium/923758-1708555761.jpg"
+          "photo": "https://img.a.transfermarkt.technology/portrait/medium/923758-1708555761.jpg",
+          "g": null,
+          "a": null,
+          "m": null
         },
         {
           "num": 22,
@@ -4463,7 +5774,10 @@
           "height": "187",
           "age": 23,
           "pos": "DEF",
-          "photo": "https://img.a.transfermarkt.technology/portrait/medium/1057563-1751354881.jpg"
+          "photo": "https://img.a.transfermarkt.technology/portrait/medium/1057563-1751354881.jpg",
+          "g": null,
+          "a": null,
+          "m": null
         },
         {
           "num": 23,
@@ -4473,7 +5787,10 @@
           "height": "188",
           "age": 38,
           "pos": "DEF",
-          "photo": "https://img.a.transfermarkt.technology/portrait/medium/85953-1669831299.jpg"
+          "photo": "https://img.a.transfermarkt.technology/portrait/medium/85953-1669831299.jpg",
+          "g": null,
+          "a": null,
+          "m": null
         },
         {
           "num": 24,
@@ -4483,7 +5800,10 @@
           "height": "184",
           "age": 22,
           "pos": "DEF",
-          "photo": "https://img.a.transfermarkt.technology/portrait/medium/1000828-1683655201.png"
+          "photo": "https://img.a.transfermarkt.technology/portrait/medium/1000828-1683655201.png",
+          "g": null,
+          "a": null,
+          "m": null
         },
         {
           "num": 35,
@@ -4493,7 +5813,10 @@
           "height": "183",
           "age": 25,
           "pos": "DEF",
-          "photo": "https://img.a.transfermarkt.technology/portrait/medium/1270173-1755605274.jpg"
+          "photo": "https://img.a.transfermarkt.technology/portrait/medium/1270173-1755605274.jpg",
+          "g": null,
+          "a": null,
+          "m": null
         },
         {
           "num": 6,
@@ -4503,7 +5826,10 @@
           "height": "170",
           "age": 27,
           "pos": "MID",
-          "photo": "https://img.a.transfermarkt.technology/portrait/medium/694549-1669830942.jpg"
+          "photo": "https://img.a.transfermarkt.technology/portrait/medium/694549-1669830942.jpg",
+          "g": null,
+          "a": null,
+          "m": null
         },
         {
           "num": 8,
@@ -4513,7 +5839,10 @@
           "height": "183",
           "age": 24,
           "pos": "MID",
-          "photo": "https://img.a.transfermarkt.technology/portrait/medium/546884-1561543811.png"
+          "photo": "https://img.a.transfermarkt.technology/portrait/medium/546884-1561543811.png",
+          "g": null,
+          "a": null,
+          "m": null
         },
         {
           "num": 10,
@@ -4523,7 +5852,10 @@
           "height": "177",
           "age": 26,
           "pos": "MID",
-          "photo": "https://img.a.transfermarkt.technology/portrait/medium/811430-1676562492.jpg"
+          "photo": "https://img.a.transfermarkt.technology/portrait/medium/811430-1676562492.jpg",
+          "g": null,
+          "a": null,
+          "m": null
         },
         {
           "num": 14,
@@ -4533,7 +5865,10 @@
           "height": "180",
           "age": 34,
           "pos": "MID",
-          "photo": "https://img.a.transfermarkt.technology/portrait/medium/412086-1725479737.jpg"
+          "photo": "https://img.a.transfermarkt.technology/portrait/medium/412086-1725479737.jpg",
+          "g": null,
+          "a": null,
+          "m": null
         },
         {
           "num": 25,
@@ -4543,7 +5878,10 @@
           "height": "180",
           "age": 23,
           "pos": "MID",
-          "photo": "https://img.a.transfermarkt.technology/portrait/medium/1066677-1669826534.jpeg"
+          "photo": "https://img.a.transfermarkt.technology/portrait/medium/1066677-1669826534.jpeg",
+          "g": null,
+          "a": null,
+          "m": null
         },
         {
           "num": 26,
@@ -4553,7 +5891,10 @@
           "height": "182",
           "age": 23,
           "pos": "MID",
-          "photo": "https://img.a.transfermarkt.technology/portrait/medium/808316-1639670419.png"
+          "photo": "https://img.a.transfermarkt.technology/portrait/medium/808316-1639670419.png",
+          "g": null,
+          "a": null,
+          "m": null
         },
         {
           "num": 28,
@@ -4563,7 +5904,10 @@
           "height": "186",
           "age": 30,
           "pos": "MID",
-          "photo": "https://img.a.transfermarkt.technology/portrait/medium/781808-1737651074.png"
+          "photo": "https://img.a.transfermarkt.technology/portrait/medium/781808-1737651074.png",
+          "g": null,
+          "a": null,
+          "m": null
         },
         {
           "num": 9,
@@ -4573,7 +5917,10 @@
           "height": "189",
           "age": 25,
           "pos": "ATT",
-          "photo": "https://img.a.transfermarkt.technology/portrait/medium/857148-1669738288.jpg"
+          "photo": "https://img.a.transfermarkt.technology/portrait/medium/857148-1669738288.jpg",
+          "g": null,
+          "a": null,
+          "m": null
         },
         {
           "num": 11,
@@ -4583,7 +5930,10 @@
           "height": "183",
           "age": 21,
           "pos": "ATT",
-          "photo": "https://img.a.transfermarkt.technology/portrait/medium/984697-1741878365.jpg"
+          "photo": "https://img.a.transfermarkt.technology/portrait/medium/984697-1741878365.jpg",
+          "g": null,
+          "a": null,
+          "m": null
         },
         {
           "num": 15,
@@ -4593,7 +5943,10 @@
           "height": "175",
           "age": 24,
           "pos": "ATT",
-          "photo": "https://img.a.transfermarkt.technology/portrait/medium/502289-1755607043.jpg"
+          "photo": "https://img.a.transfermarkt.technology/portrait/medium/502289-1755607043.jpg",
+          "g": null,
+          "a": null,
+          "m": null
         },
         {
           "num": 18,
@@ -4603,7 +5956,10 @@
           "height": "188",
           "age": 37,
           "pos": "ATT",
-          "photo": "https://img.a.transfermarkt.technology/portrait/medium/412085-1641907669.png"
+          "photo": "https://img.a.transfermarkt.technology/portrait/medium/412085-1641907669.png",
+          "g": null,
+          "a": null,
+          "m": null
         },
         {
           "num": 20,
@@ -4613,7 +5969,10 @@
           "height": "181",
           "age": 19,
           "pos": "ATT",
-          "photo": "https://img.a.transfermarkt.technology/portrait/medium/1166734-1762885652.jpg"
+          "photo": "https://img.a.transfermarkt.technology/portrait/medium/1166734-1762885652.jpg",
+          "g": null,
+          "a": null,
+          "m": null
         },
         {
           "num": 31,
@@ -4623,7 +5982,10 @@
           "height": "177",
           "age": 21,
           "pos": "ATT",
-          "photo": "https://img.a.transfermarkt.technology/portrait/medium/default.jpg"
+          "photo": "https://img.a.transfermarkt.technology/portrait/medium/default.jpg",
+          "g": null,
+          "a": null,
+          "m": null
         },
         {
           "num": 34,
@@ -4633,7 +5995,10 @@
           "height": "177",
           "age": 25,
           "pos": "ATT",
-          "photo": "https://img.a.transfermarkt.technology/portrait/medium/412934-1605470824.jpg"
+          "photo": "https://img.a.transfermarkt.technology/portrait/medium/412934-1605470824.jpg",
+          "g": null,
+          "a": null,
+          "m": null
         }
       ]
     },
@@ -4648,7 +6013,10 @@
           "height": "194",
           "age": 29,
           "pos": "GK",
-          "photo": "https://img.a.transfermarkt.technology/portrait/medium/334045-1750009975.png"
+          "photo": "https://img.a.transfermarkt.technology/portrait/medium/334045-1750009975.png",
+          "g": null,
+          "a": null,
+          "m": null
         },
         {
           "num": 16,
@@ -4658,7 +6026,10 @@
           "height": "190",
           "age": 36,
           "pos": "GK",
-          "photo": "https://img.a.transfermarkt.technology/portrait/medium/s_70348_7042_2010_2.jpg"
+          "photo": "https://img.a.transfermarkt.technology/portrait/medium/s_70348_7042_2010_2.jpg",
+          "g": null,
+          "a": null,
+          "m": null
         },
         {
           "num": 30,
@@ -4668,7 +6039,10 @@
           "height": "190",
           "age": 22,
           "pos": "GK",
-          "photo": "https://img.a.transfermarkt.technology/portrait/medium/768578-1749647672.png"
+          "photo": "https://img.a.transfermarkt.technology/portrait/medium/768578-1749647672.png",
+          "g": null,
+          "a": null,
+          "m": null
         },
         {
           "num": 99,
@@ -4678,7 +6052,10 @@
           "height": "196",
           "age": 25,
           "pos": "GK",
-          "photo": "https://img.a.transfermarkt.technology/portrait/medium/696892-1724769980.jpg"
+          "photo": "https://img.a.transfermarkt.technology/portrait/medium/696892-1724769980.jpg",
+          "g": null,
+          "a": null,
+          "m": null
         },
         {
           "num": 4,
@@ -4688,7 +6065,10 @@
           "height": "187",
           "age": 22,
           "pos": "DEF",
-          "photo": "https://img.a.transfermarkt.technology/portrait/medium/default.jpg"
+          "photo": "https://img.a.transfermarkt.technology/portrait/medium/default.jpg",
+          "g": null,
+          "a": null,
+          "m": null
         },
         {
           "num": 5,
@@ -4698,7 +6078,10 @@
           "height": "188",
           "age": 25,
           "pos": "DEF",
-          "photo": "https://img.a.transfermarkt.technology/portrait/medium/656096-1749718387.png"
+          "photo": "https://img.a.transfermarkt.technology/portrait/medium/656096-1749718387.png",
+          "g": null,
+          "a": null,
+          "m": null
         },
         {
           "num": 12,
@@ -4708,7 +6091,10 @@
           "height": "180",
           "age": 28,
           "pos": "DEF",
-          "photo": "https://img.a.transfermarkt.technology/portrait/medium/590629-1749718620.png"
+          "photo": "https://img.a.transfermarkt.technology/portrait/medium/590629-1749718620.png",
+          "g": null,
+          "a": null,
+          "m": null
         },
         {
           "num": 15,
@@ -4718,7 +6104,10 @@
           "height": "194",
           "age": 25,
           "pos": "DEF",
-          "photo": "https://img.a.transfermarkt.technology/portrait/medium/858935-1749718245.png"
+          "photo": "https://img.a.transfermarkt.technology/portrait/medium/858935-1749718245.png",
+          "g": null,
+          "a": null,
+          "m": null
         },
         {
           "num": 18,
@@ -4728,7 +6117,10 @@
           "height": "179",
           "age": 36,
           "pos": "DEF",
-          "photo": "https://img.a.transfermarkt.technology/portrait/medium/137970-1749718494.png"
+          "photo": "https://img.a.transfermarkt.technology/portrait/medium/137970-1749718494.png",
+          "g": null,
+          "a": null,
+          "m": null
         },
         {
           "num": 24,
@@ -4738,7 +6130,10 @@
           "height": "180",
           "age": 24,
           "pos": "DEF",
-          "photo": "https://img.a.transfermarkt.technology/portrait/medium/1060303-1698685486.png"
+          "photo": "https://img.a.transfermarkt.technology/portrait/medium/1060303-1698685486.png",
+          "g": null,
+          "a": null,
+          "m": null
         },
         {
           "num": 25,
@@ -4748,7 +6143,10 @@
           "height": "198",
           "age": 26,
           "pos": "DEF",
-          "photo": "https://img.a.transfermarkt.technology/portrait/medium/917822-1750009631.png"
+          "photo": "https://img.a.transfermarkt.technology/portrait/medium/917822-1750009631.png",
+          "g": null,
+          "a": null,
+          "m": null
         },
         {
           "num": 33,
@@ -4758,7 +6156,10 @@
           "height": "177",
           "age": 23,
           "pos": "DEF",
-          "photo": "https://img.a.transfermarkt.technology/portrait/medium/default.jpg"
+          "photo": "https://img.a.transfermarkt.technology/portrait/medium/default.jpg",
+          "g": null,
+          "a": null,
+          "m": null
         },
         {
           "num": 97,
@@ -4768,7 +6169,10 @@
           "height": "181",
           "age": 22,
           "pos": "DEF",
-          "photo": "https://img.a.transfermarkt.technology/portrait/medium/936500-1779284187.JPG"
+          "photo": "https://img.a.transfermarkt.technology/portrait/medium/936500-1779284187.JPG",
+          "g": null,
+          "a": null,
+          "m": null
         },
         {
           "num": 3,
@@ -4778,7 +6182,10 @@
           "height": "180",
           "age": 20,
           "pos": "MID",
-          "photo": "https://img.a.transfermarkt.technology/portrait/medium/920939-1756762007.jpg"
+          "photo": "https://img.a.transfermarkt.technology/portrait/medium/920939-1756762007.jpg",
+          "g": null,
+          "a": null,
+          "m": null
         },
         {
           "num": 7,
@@ -4788,7 +6195,10 @@
           "height": "174",
           "age": 20,
           "pos": "MID",
-          "photo": "https://img.a.transfermarkt.technology/portrait/medium/default.jpg"
+          "photo": "https://img.a.transfermarkt.technology/portrait/medium/default.jpg",
+          "g": null,
+          "a": null,
+          "m": null
         },
         {
           "num": 10,
@@ -4798,7 +6208,10 @@
           "height": "174",
           "age": 27,
           "pos": "MID",
-          "photo": "https://img.a.transfermarkt.technology/portrait/medium/639225-1779447655.jpg"
+          "photo": "https://img.a.transfermarkt.technology/portrait/medium/639225-1779447655.jpg",
+          "g": null,
+          "a": null,
+          "m": null
         },
         {
           "num": 14,
@@ -4808,7 +6221,10 @@
           "height": "185",
           "age": 26,
           "pos": "MID",
-          "photo": "https://img.a.transfermarkt.technology/portrait/medium/740471-1750009525.png"
+          "photo": "https://img.a.transfermarkt.technology/portrait/medium/740471-1750009525.png",
+          "g": null,
+          "a": null,
+          "m": null
         },
         {
           "num": 19,
@@ -4818,7 +6234,10 @@
           "height": "180",
           "age": 22,
           "pos": "MID",
-          "photo": "https://img.a.transfermarkt.technology/portrait/medium/915842-1776699549.jpg"
+          "photo": "https://img.a.transfermarkt.technology/portrait/medium/915842-1776699549.jpg",
+          "g": null,
+          "a": null,
+          "m": null
         },
         {
           "num": 21,
@@ -4828,7 +6247,10 @@
           "height": "177",
           "age": 23,
           "pos": "MID",
-          "photo": "https://img.a.transfermarkt.technology/portrait/medium/745201-1693948462.png"
+          "photo": "https://img.a.transfermarkt.technology/portrait/medium/745201-1693948462.png",
+          "g": null,
+          "a": null,
+          "m": null
         },
         {
           "num": 22,
@@ -4838,7 +6260,10 @@
           "height": "176",
           "age": 31,
           "pos": "MID",
-          "photo": "https://img.a.transfermarkt.technology/portrait/medium/660499-1749718641.png"
+          "photo": "https://img.a.transfermarkt.technology/portrait/medium/660499-1749718641.png",
+          "g": null,
+          "a": null,
+          "m": null
         },
         {
           "num": 28,
@@ -4848,7 +6273,10 @@
           "height": "180",
           "age": 22,
           "pos": "MID",
-          "photo": "https://img.a.transfermarkt.technology/portrait/medium/954514-1750010605.png"
+          "photo": "https://img.a.transfermarkt.technology/portrait/medium/954514-1750010605.png",
+          "g": null,
+          "a": null,
+          "m": null
         },
         {
           "num": 90,
@@ -4858,7 +6286,10 @@
           "height": "184",
           "age": 36,
           "pos": "MID",
-          "photo": "https://img.a.transfermarkt.technology/portrait/medium/127142-1676911402.jpg"
+          "photo": "https://img.a.transfermarkt.technology/portrait/medium/127142-1676911402.jpg",
+          "g": null,
+          "a": null,
+          "m": null
         },
         {
           "num": 9,
@@ -4868,7 +6299,10 @@
           "height": "189",
           "age": 22,
           "pos": "ATT",
-          "photo": "https://img.a.transfermarkt.technology/portrait/medium/937992-1776789502.jpg"
+          "photo": "https://img.a.transfermarkt.technology/portrait/medium/937992-1776789502.jpg",
+          "g": null,
+          "a": null,
+          "m": null
         },
         {
           "num": 11,
@@ -4878,7 +6312,10 @@
           "height": "180",
           "age": 20,
           "pos": "ATT",
-          "photo": "https://img.a.transfermarkt.technology/portrait/medium/1176027-1750010595.png"
+          "photo": "https://img.a.transfermarkt.technology/portrait/medium/1176027-1750010595.png",
+          "g": null,
+          "a": null,
+          "m": null
         },
         {
           "num": 17,
@@ -4888,7 +6325,10 @@
           "height": "178",
           "age": 27,
           "pos": "ATT",
-          "photo": "https://img.a.transfermarkt.technology/portrait/medium/471583-1749326851.png"
+          "photo": "https://img.a.transfermarkt.technology/portrait/medium/471583-1749326851.png",
+          "g": null,
+          "a": null,
+          "m": null
         },
         {
           "num": 23,
@@ -4898,7 +6338,10 @@
           "height": "170",
           "age": 24,
           "pos": "ATT",
-          "photo": "https://img.a.transfermarkt.technology/portrait/medium/707225-1632762335.jpg"
+          "photo": "https://img.a.transfermarkt.technology/portrait/medium/707225-1632762335.jpg",
+          "g": null,
+          "a": null,
+          "m": null
         },
         {
           "num": 26,
@@ -4908,7 +6351,10 @@
           "height": "188",
           "age": 20,
           "pos": "ATT",
-          "photo": "https://img.a.transfermarkt.technology/portrait/medium/1179130-1756742993.jpg"
+          "photo": "https://img.a.transfermarkt.technology/portrait/medium/1179130-1756742993.jpg",
+          "g": null,
+          "a": null,
+          "m": null
         }
       ]
     }
