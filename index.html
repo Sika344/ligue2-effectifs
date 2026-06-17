@@ -28,28 +28,29 @@
   .crest.left{left:16px}.crest.right{right:16px}
 
   .pitch{position:relative;background:linear-gradient(180deg,var(--navy-1),var(--navy-0));
-    border-radius:0 0 12px 12px;overflow:hidden;padding:26px 14px 34px;min-height:300px}
+    border-radius:0 0 12px 12px;overflow:hidden;padding:18px 10px 22px;min-height:300px}
   .pitch svg.lines{position:absolute;inset:0;width:100%;height:100%;pointer-events:none}
 
-  .band{position:relative;z-index:2;display:flex;flex-wrap:wrap;justify-content:center;gap:6px 22px;padding:14px 0}
+  .band{position:relative;z-index:2;display:flex;flex-wrap:wrap;justify-content:space-evenly;align-items:flex-start;gap:10px 4px;padding:8px 0;width:100%}
+  .band.gk{justify-content:center;gap:10px 30px}
 
-  .card{width:118px;display:flex;flex-direction:column;align-items:center;text-align:center}
-  .avatar{width:64px;height:66px;display:flex;align-items:center;justify-content:center;position:relative}
-  .photo{width:60px;height:60px;border-radius:50%;object-fit:cover;background:#13243f;border:2px solid rgba(255,255,255,.12)}
-  .jersey{width:58px;height:58px;border-radius:14px 14px 18px 18px;background:linear-gradient(180deg,var(--navy-card),#15294a);
-    display:flex;align-items:center;justify-content:center;font-weight:800;font-size:19px;color:#dfe7f2;box-shadow:inset 0 -6px 12px rgba(0,0,0,.25)}
+  .card{width:100px;display:flex;flex-direction:column;align-items:center;text-align:center}
+  .avatar{width:58px;height:60px;display:flex;align-items:center;justify-content:center;position:relative}
+  .photo{width:54px;height:54px;border-radius:50%;object-fit:cover;background:#13243f;border:2px solid rgba(255,255,255,.12)}
+  .jersey{width:52px;height:52px;border-radius:14px 14px 18px 18px;background:linear-gradient(180deg,var(--navy-card),#15294a);
+    display:flex;align-items:center;justify-content:center;font-weight:800;font-size:18px;color:#dfe7f2;box-shadow:inset 0 -6px 12px rgba(0,0,0,.25)}
   .card.gk .jersey{background:linear-gradient(180deg,#f7d24a,#e0a90f);color:#5b4302}
   .card.gk .photo{border-color:var(--gk)}
 
-  .idrow{display:flex;align-items:center;gap:6px;margin-top:6px}
-  .flag{font-size:14px;line-height:1}
-  .num{font-weight:800;font-size:15px;border-bottom:2px solid #fff;padding-bottom:1px;min-width:14px}
-  .name{font-weight:800;font-size:12.5px;letter-spacing:.02em;margin-top:5px}
-  .bio{font-size:10.5px;color:var(--muted);margin-top:2px}
-  .stats{display:flex;gap:5px;margin-top:7px}
+  .idrow{display:flex;align-items:center;gap:6px;margin-top:5px}
+  .flag{font-size:13px;line-height:1}
+  .num{font-weight:800;font-size:14px;border-bottom:2px solid #fff;padding-bottom:1px;min-width:13px}
+  .name{font-weight:800;font-size:11.5px;letter-spacing:.01em;margin-top:4px;line-height:1.1}
+  .bio{font-size:9.5px;color:var(--muted);margin-top:2px}
+  .stats{display:flex;gap:4px;margin-top:6px}
   .stat{border:2px solid var(--box);border-radius:4px;background:rgba(255,255,255,.04);
-    min-width:46px;padding:3px 4px;display:flex;flex-direction:column;align-items:center;gap:2px}
-  .stat .v{color:var(--orange);font-weight:800;font-size:13px;line-height:1}
+    min-width:40px;padding:3px 4px;display:flex;flex-direction:column;align-items:center;gap:2px}
+  .stat .v{color:var(--orange);font-weight:800;font-size:12.5px;line-height:1}
   .stat .i{font-size:11px}
 
   .note{max-width:1280px;margin:10px auto 30px;padding:0 16px;color:var(--muted);font-size:12px}
@@ -139,7 +140,7 @@ function render(name){
     `${team.squad.length} joueurs • saison ${DATA.season} • MAJ ${DATA.updated}`;
   document.getElementById("bands").innerHTML = BANDS.map(b=>{
     const ps = team.squad.filter(p=>p.pos===b);
-    return ps.length ? `<div class="band">${ps.map(card).join("")}</div>` : "";
+    return ps.length ? `<div class="band ${b==="GK"?"gk":""}">${ps.map(card).join("")}</div>` : "";
   }).join("");
 }
 
