@@ -175,7 +175,7 @@ function card(p){
   const bio=[p.height?`${p.height} cm`:null,(p.age!=null)?`${p.age} ans`:null].filter(Boolean).join(" - ");
   const stats=(p.g!=null||p.a!=null)?`<div class="stats">
       <div class="row"><span class="v">${p.g??0}</span><img class="ic" width="13" height="13" src="${BALL}"></div>
-      <div class="row"><span class="v">${p.a??0}</span><img class="ic" width="15" height="11" src="${BOOT}"></div>
+      <div class="row"><span class="v">${p.a??0}</span><img class="ic" width="16" height="11" src="${BOOT}"></div>
     </div>`:"";
   return `${p.foot==='left'?'<span class="gleft">G</span>':''}<div class="top"><div class="idcol"><div class="flag">${p.flag||""}</div><div class="num">${num}</div></div><div class="photo-wrap">${photo}</div></div>
     <div class="name">${p.name}</div>
