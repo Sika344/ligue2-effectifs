@@ -1,0 +1,13 @@
+{
+  "season": 2024,
+  "league": 62,
+  "key_present": true,
+  "key_len": 32,
+  "teams_results": 0,
+  "teams_errors": {
+    "access": "Your account is suspended, check on https://dashboard.api-football.com."
+  },
+  "teams_sample": [],
+  "teams_built": 0,
+  "players_total": 0
+}
