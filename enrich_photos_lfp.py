@@ -48,6 +48,7 @@ for name, sid in CLUBS.items():
         entries.append({"num": c4.get("jerseyNumber"),
                         "name": (p.get("lastName") or "").upper(),
                         "norm": norm(p.get("lastName")),
+                        "foot": p.get("preferredFoot"),
                         "url": bust})
     out[name] = entries
     print(f"{name:<16} {len(entries)} photos")

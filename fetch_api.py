@@ -150,6 +150,7 @@ def apply_photos(team_name, squad, photos):
         if e and e.get("url"):
             p["photo"] = e["url"]      # photo officielle LFP (buste)
             p["photoLFP"] = True
+            if e.get("foot"): p["foot"] = e["foot"]
             hit += 1
     return hit
 
