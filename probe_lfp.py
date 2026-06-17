@@ -2,33 +2,32 @@
 import json, urllib.request, urllib.error, os
 os.makedirs("probe", exist_ok=True)
 HOST="https://ma-api.ligue1.fr"
-PID="l1_championship_player_2025_64_50598"
-CANDS=[f"/championship-players/{PID}", f"/championship-player/{PID}",
-       f"/championship-player-detail/{PID}", f"/championship-player-card/{PID}",
-       f"/championship-player-profile/{PID}", f"/championship-player-identity/{PID}",
-       f"/championship-player-info/{PID}", f"/championship-player-stats/{PID}"]
+HEAD={"User-Agent":"Mozilla/5.0","Accept":"application/json","Origin":"https://ligue1.com","Referer":"https://ligue1.com/"}
 def get(url):
-    req=urllib.request.Request(url, headers={"User-Agent":"Mozilla/5.0","Accept":"application/json",
-        "Origin":"https://ligue1.com","Referer":"https://ligue1.com/"})
     try:
-        with urllib.request.urlopen(req,timeout=30) as r: return r.status, r.read().decode("utf-8","replace")
-    except urllib.error.HTTPError as e: return e.code, e.read().decode("utf-8","replace")[:300]
-    except Exception as e: return -1, str(e)[:300]
-
-summary=[]
-for path in CANDS:
-    url=HOST+path; st,body=get(url)
-    is_player = st==200 and any(k in body for k in ('"lastName"','"firstName"','"shortName"','"shortOptaId"','"birthDate"','"position"'))
-    print(f"[{st}] {url} ({len(body)} o){'  <<< PLAYER' if is_player else ''}")
-    summary.append({"url":url,"status":st,"player":is_player,"len":len(body)})
-    if is_player:
-        with open(f"probe/player_{path.split('/')[1]}.json","w",encoding="utf-8") as f: f.write(body)
-
-# test patterns photo (Rodez optaClub=3308 ; joueur opta inconnu, on teste 579587 connu)
-photos={
- "ex_400x300":"https://s3.eu-west-3.amazonaws.com/ligue1.image/players/2025/all/player_official_2025_3308_579587-400x300.png",
-}
-ps={}
-for k,u in photos.items():
-    st,_=get(u); ps[k]=st; print(f"PHOTO {k}: [{st}]")
-with open("probe/player_summary.json","w") as f: json.dump({"endpoints":summary,"photos":ps},f,indent=1)
+        with urllib.request.urlopen(urllib.request.Request(url,headers=HEAD),timeout=30) as r:
+            return r.status, r.read().decode("utf-8","replace")
+    except urllib.error.HTTPError as e:
+        return e.code, e.read().decode("utf-8","replace")[:200]
+    except Exception as e:
+        return -1, str(e)[:200]
+dbg={}
+st,body=get(f"{HOST}/championship-clubs/l1_championship_club_2025_64")
+dbg["club_status"]=st; dbg["club_len"]=len(body)
+pids=[]
+try:
+    j=json.loads(body); ch=j.get("championships",{})
+    for k in ["4"]+[x for x in ch if x!="4"]:
+        if ch.get(k,{}).get("playersIds"): pids=ch[k]["playersIds"]; break
+except Exception as e: dbg["club_parse_err"]=str(e)
+dbg["n_pids"]=len(pids); dbg["pids_sample"]=pids[:3]
+if pids:
+    st2,body2=get(f"{HOST}/championship-player/{pids[0]}")
+    dbg["player_status"]=st2; dbg["player_len"]=len(body2)
+    try:
+        p=json.loads(body2); c4=p.get("championships",{}).get("4",{})
+        dbg["lastName"]=p.get("lastName")
+        dbg["bust"]=(c4.get("assets",{}).get("bustPictures",{}) or {}).get("medium")
+    except Exception as e: dbg["player_parse_err"]=str(e); dbg["player_body_head"]=body2[:150]
+json.dump(dbg,open("probe/lfp_debug.json","w"),ensure_ascii=False,indent=1)
+print(json.dumps(dbg,ensure_ascii=False,indent=1))
