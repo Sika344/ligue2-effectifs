@@ -220,13 +220,41 @@ function exportPNG(){ return withBtn("dl", async()=>{
   const c=await boardCanvas();
   const a=document.createElement("a"); a.download="effectif_"+teamSlug()+".png"; a.href=c.toDataURL("image/png"); a.click();
 }); }
-function exportPPTX(){ return withBtn("dlk", async()=>{
-  const c=await boardCanvas(); const data=c.toDataURL("image/png"); const aspect=c.width/c.height;
-  const W=13.333, H=Math.round(W/aspect*100)/100;
-  const pptx=new PptxGenJS(); pptx.defineLayout({name:"BOARD",width:W,height:H}); pptx.layout="BOARD";
-  const s=pptx.addSlide(); s.background={color:"070B16"}; s.addImage({data,x:0,y:0,w:W,h:H});
-  await pptx.writeFile({fileName:"effectif_"+teamSlug()+".pptx"});
-}); }
+async function pptxLayered(fileName){
+  const board=document.getElementById("board");
+  const layer=document.getElementById("layer");
+  const hide=[...board.querySelectorAll(".editctl, .slot.empty")];
+  const prevH=hide.map(e=>e.style.display); hide.forEach(e=>e.style.display="none");
+  const imgs=[...board.querySelectorAll("img")]; const src0=imgs.map(im=>im.src);
+  await Promise.all(imgs.map(async im=>{ if(im.src.indexOf("data:")===0)return; try{ im.src=await toDataURL(im.src); }catch(e){} }));
+  try{
+    const bRect=board.getBoundingClientRect();
+    const cards=[...layer.children].filter(c=>!c.classList.contains("empty"));
+    const ld=layer.style.display; layer.style.display="none";
+    const bg=await html2canvas(board,{useCORS:true,backgroundColor:null,scale:2,logging:false});
+    layer.style.display=ld;
+    const items=[];
+    for(const c of cards){
+      const r=c.getBoundingClientRect();
+      const cc=await html2canvas(c,{useCORS:true,backgroundColor:null,scale:3,logging:false});
+      items.push({data:cc.toDataURL("image/png"),
+        x:(r.left-bRect.left)/bRect.width, y:(r.top-bRect.top)/bRect.height,
+        w:r.width/bRect.width, h:r.height/bRect.height});
+    }
+    const aspect=bRect.width/bRect.height, W=13.333, H=Math.round(W/aspect*100)/100;
+    const pptx=new PptxGenJS(); pptx.defineLayout({name:"BOARD",width:W,height:H}); pptx.layout="BOARD";
+    const s=pptx.addSlide(); s.background={color:"070B16"};
+    s.addImage({data:bg.toDataURL("image/png"),x:0,y:0,w:W,h:H});
+    items.forEach(it=>s.addImage({data:it.data,
+      x:Math.round(it.x*W*100)/100, y:Math.round(it.y*H*100)/100,
+      w:Math.round(it.w*W*100)/100, h:Math.round(it.h*H*100)/100}));
+    await pptx.writeFile({fileName});
+  } finally {
+    imgs.forEach((im,i)=>im.src=src0[i]);
+    hide.forEach((e,i)=>e.style.display=prevH[i]);
+  }
+}
+function exportPPTX(){ return withBtn("dlk", ()=>pptxLayered("effectif_"+teamSlug()+".pptx")); }
 
 function boot(data,demo){
   DATA=data;
