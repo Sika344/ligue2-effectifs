@@ -14,6 +14,7 @@
   .topbar{display:flex;align-items:center;gap:14px;flex-wrap:wrap;padding:10px 16px;background:#0a1428;border-bottom:1px solid rgba(255,255,255,.06)}
   .topbar select{background:#16234a;color:#fff;border:1px solid rgba(255,255,255,.18);border-radius:8px;padding:8px 12px;font-size:14px;font-weight:600;cursor:pointer;max-width:60vw}
   .topbar .meta{font-size:12px;color:#9fb0c8}
+  .topbar .opt{font-size:12px;color:#9fb0c8;display:flex;align-items:center;gap:6px;cursor:pointer;user-select:none}
   .topbar a{margin-left:auto;color:var(--orange);font-weight:700;text-decoration:none;font-size:14px}
 
   .frame{max-width:1280px;margin:14px auto;padding:0 12px}
@@ -65,6 +66,7 @@
   <div class="topbar">
     <select id="teamSelect"></select>
     <span class="meta" id="metaInfo">chargement…</span>
+    <label class="opt"><input type="checkbox" id="hideYouth"> Masquer les jeunes hors groupe</label>
     <button id="dl" style="margin-left:auto;background:#16234a;color:#fff;border:1px solid rgba(255,255,255,.18);border-radius:8px;padding:8px 12px;font-weight:700;font-size:13px;cursor:pointer">⬇ PNG</button>
     <button id="dlk" style="margin-left:8px;background:var(--gold);color:#111;border:none;border-radius:8px;padding:8px 12px;font-weight:700;font-size:13px;cursor:pointer">⬇ Keynote (.pptx)</button>
     <a href="compo.html" style="margin-left:14px">Construire une compo →</a>
@@ -195,6 +197,10 @@ function render(name){
   // groupe pro : joueurs avec numéro (sinon tout)
   let squad=team.squad.filter(p=>p.num!=null);
   if(squad.length<11) squad=team.squad.slice();
+  if(document.getElementById("hideYouth").checked){
+    const f=squad.filter(p=>!(p.age!=null && p.age<=20 && (p.g||0)===0 && (p.a||0)===0 && (p.num||0)>=30));
+    if(f.length>=11) squad=f;
+  }
   document.getElementById("metaInfo").textContent=`${squad.length} joueurs • saison ${DATA.season} • MAJ ${DATA.updated}`;
   const layer=document.getElementById("layer"); layer.innerHTML="";
   placements(squad).forEach(({p,x,y})=>{
@@ -269,6 +275,7 @@ function boot(data,demo){
   const sel=document.getElementById("teamSelect"); sel.innerHTML="";
   Object.keys(DATA.teams).sort().forEach(t=>{const o=document.createElement("option");o.value=t;o.textContent=t;sel.appendChild(o);});
   sel.onchange=()=>render(sel.value);
+  document.getElementById("hideYouth").onchange=()=>render(sel.value);
   document.getElementById("dl").onclick=exportPNG;
   document.getElementById("dlk").onclick=exportPPTX;
   render(sel.value);
