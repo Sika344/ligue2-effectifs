@@ -6,163 +6,204 @@
 <title>Effectifs Ligue 2 — Live</title>
 <style>
   :root{
-    --navy-0:#0a1428; --navy-1:#0d1b33; --navy-card:#1f3a63;
-    --orange:#ff7a18; --gk:#f5c518; --txt:#fff; --muted:#9fb0c8; --box:#cfd6e0;
+    --navy:#0a1733; --navy2:#0d1f44; --gold:#c9a24b; --orange:#ff7a18;
+    --field:#eef1f5; --line:#b7c0cd; --ink:#11203f; --muted:#69748c; --box:#cad0db;
   }
   *{box-sizing:border-box;margin:0;padding:0}
-  body{font-family:"Segoe UI",system-ui,-apple-system,sans-serif;background:#060c18;color:var(--txt);-webkit-font-smoothing:antialiased}
+  body{font-family:"Segoe UI",system-ui,-apple-system,sans-serif;background:#070b16;color:#fff;-webkit-font-smoothing:antialiased}
+  .topbar{display:flex;align-items:center;gap:14px;flex-wrap:wrap;padding:10px 16px;background:#0a1428;border-bottom:1px solid rgba(255,255,255,.06)}
+  .topbar select{background:#16234a;color:#fff;border:1px solid rgba(255,255,255,.18);border-radius:8px;padding:8px 12px;font-size:14px;font-weight:600;cursor:pointer;max-width:60vw}
+  .topbar .meta{font-size:12px;color:#9fb0c8}
+  .topbar a{margin-left:auto;color:var(--orange);font-weight:700;text-decoration:none;font-size:14px}
 
-  .topbar{display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap;
-    padding:10px 16px;background:#0a1428;border-bottom:1px solid rgba(255,255,255,.06)}
-  .topbar select{background:var(--navy-card);color:#fff;border:1px solid rgba(255,255,255,.15);
-    border-radius:8px;padding:8px 12px;font-size:14px;font-weight:600;cursor:pointer;max-width:60vw}
-  .topbar .meta{font-size:12px;color:var(--muted)}
+  .frame{max-width:1280px;margin:14px auto;padding:0 12px}
+  .board{position:relative;background:linear-gradient(135deg,var(--navy),var(--navy2));
+    border-radius:14px;padding:12px;box-shadow:0 12px 40px rgba(0,0,0,.45)}
+  /* coins dorés */
+  .corner{position:absolute;width:30px;height:30px;z-index:5}
+  .corner.tl{top:8px;left:8px;border-top:3px solid var(--gold);border-left:3px solid var(--gold)}
+  .corner.tr{top:8px;right:8px;border-top:3px solid var(--gold);border-right:3px solid var(--gold)}
+  .corner.bl{bottom:8px;left:8px;border-bottom:3px solid var(--gold);border-left:3px solid var(--gold)}
+  .corner.br{bottom:8px;right:8px;border-bottom:3px solid var(--gold);border-right:3px solid var(--gold)}
 
-  .frame{max-width:1280px;margin:0 auto;padding:14px}
-  .header{position:relative;text-align:center;padding:14px 0 18px;
-    background:linear-gradient(90deg,#05284f,#0a1428 35%,#0a1428 65%,#05284f);
-    border-radius:12px 12px 0 0;border-bottom:2px solid #c9a24b}
-  .header h1{font-family:Georgia,"Times New Roman",serif;letter-spacing:.18em;font-size:clamp(26px,5vw,46px);font-weight:700}
-  .crest{position:absolute;top:50%;transform:translateY(-50%);width:46px;height:46px;display:flex;align-items:center;justify-content:center}
-  .crest img{max-width:46px;max-height:46px;object-fit:contain}
-  .crest.left{left:16px}.crest.right{right:16px}
+  .header{position:relative;text-align:center;padding:10px 0 12px;border-bottom:2px solid var(--gold)}
+  .header h1{font-family:Georgia,"Times New Roman",serif;letter-spacing:.2em;font-size:clamp(24px,4.5vw,42px);font-weight:700;color:#fff}
+  .crest{position:absolute;top:50%;transform:translateY(-50%);width:52px;height:52px;display:flex;align-items:center;justify-content:center}
+  .crest img{max-width:52px;max-height:52px;object-fit:contain}
+  .crest.left{left:8px}.crest.right{right:8px}
 
-  .pitch{position:relative;background:linear-gradient(180deg,var(--navy-1),var(--navy-0));
-    border-radius:0 0 12px 12px;overflow:hidden;padding:18px 10px 22px;min-height:300px}
-  .pitch svg.lines{position:absolute;inset:0;width:100%;height:100%;pointer-events:none}
+  .pitch{position:relative;width:100%;aspect-ratio:1000/660;margin-top:10px;border-radius:8px;overflow:hidden;
+    background:linear-gradient(180deg,#f3f5f8,#e9edf2)}
+  .pitch svg.lines{position:absolute;inset:0;width:100%;height:100%}
+  .layer{position:absolute;inset:0}
 
-  .band{position:relative;z-index:2;display:flex;flex-wrap:wrap;justify-content:space-evenly;align-items:flex-start;gap:10px 4px;padding:8px 0;width:100%}
-  .band.gk{justify-content:center;gap:10px 30px}
+  .card{position:absolute;transform:translate(-50%,-50%);width:104px;text-align:center;z-index:2}
+  .photo-wrap{height:62px;display:flex;align-items:flex-end;justify-content:center}
+  .photo{height:62px;width:auto;max-width:80px;object-fit:contain;filter:drop-shadow(0 3px 4px rgba(0,0,0,.25))}
+  .jersey{height:54px;width:46px;border-radius:8px;background:linear-gradient(180deg,#22386b,#16284f);
+    display:flex;align-items:center;justify-content:center;font-weight:800;font-size:17px;color:#fff}
+  .flag{font-size:14px;line-height:1;margin-top:3px}
+  .num{font-weight:800;font-size:15px;color:var(--ink);border-bottom:2px solid var(--ink);display:inline-block;line-height:1.1;padding:0 2px;min-width:14px}
+  .name{font-weight:800;font-size:12px;color:var(--ink);letter-spacing:.01em;margin-top:3px;line-height:1.05;text-transform:uppercase}
+  .bio{font-size:9.5px;color:var(--muted);margin-top:1px;white-space:nowrap}
+  .stats{display:inline-flex;flex-direction:column;gap:1px;margin-top:4px;border:1.5px solid var(--box);border-radius:4px;background:#fff;padding:2px 5px}
+  .stats .row{display:flex;align-items:center;justify-content:center;gap:5px;line-height:1.15}
+  .stats .v{color:var(--orange);font-weight:800;font-size:12px;min-width:12px}
+  .stats .i{font-size:11px}
 
-  .card{width:100px;display:flex;flex-direction:column;align-items:center;text-align:center}
-  .avatar{width:58px;height:62px;display:flex;align-items:center;justify-content:center;position:relative}
-  .photo{width:56px;height:62px;border-radius:9px;object-fit:cover;object-position:center 18%;background:#13243f;border:2px solid rgba(255,255,255,.12)}
-  .jersey{width:52px;height:52px;border-radius:14px 14px 18px 18px;background:linear-gradient(180deg,var(--navy-card),#15294a);
-    display:flex;align-items:center;justify-content:center;font-weight:800;font-size:18px;color:#dfe7f2;box-shadow:inset 0 -6px 12px rgba(0,0,0,.25)}
-  .card.gk .jersey{background:linear-gradient(180deg,#f7d24a,#e0a90f);color:#5b4302}
-  .card.gk .photo{border-color:var(--gk)}
-
-  .idrow{display:flex;align-items:center;gap:6px;margin-top:5px}
-  .flag{font-size:13px;line-height:1}
-  .num{font-weight:800;font-size:14px;border-bottom:2px solid #fff;padding-bottom:1px;min-width:13px}
-  .name{font-weight:800;font-size:11.5px;letter-spacing:.01em;margin-top:4px;line-height:1.1}
-  .bio{font-size:9.5px;color:var(--muted);margin-top:2px}
-  .stats{display:flex;gap:4px;margin-top:6px}
-  .stat{border:2px solid var(--box);border-radius:4px;background:rgba(255,255,255,.04);
-    min-width:40px;padding:3px 4px;display:flex;flex-direction:column;align-items:center;gap:2px}
-  .stat .v{color:var(--orange);font-weight:800;font-size:12.5px;line-height:1}
-  .stat .i{font-size:11px}
-
-  .note{max-width:1280px;margin:10px auto 30px;padding:0 16px;color:var(--muted);font-size:12px}
+  .note{max-width:1280px;margin:10px auto 30px;padding:0 16px;color:#9fb0c8;font-size:12px}
   .note code{background:#11203a;padding:2px 6px;border-radius:4px;color:#cfe}
+  @media(max-width:760px){ .card{width:78px} .photo,.photo-wrap{height:46px} .name{font-size:10px} .bio{font-size:8px} .stats .v{font-size:10px} }
 </style>
 </head>
 <body>
   <div class="topbar">
     <select id="teamSelect"></select>
     <span class="meta" id="metaInfo">chargement…</span>
-    <a href="compo.html" style="margin-left:auto;color:#ff7a18;font-weight:700;text-decoration:none;font-size:14px">Construire une compo →</a>
+    <a href="compo.html">Construire une compo →</a>
   </div>
 
   <div class="frame">
-    <div class="header">
-      <div class="crest left" id="crestL"></div>
-      <h1>EFFECTIF</h1>
-      <div class="crest right" id="crestR"></div>
-    </div>
-    <div class="pitch" id="pitch">
-      <svg class="lines" viewBox="0 0 1000 1500" preserveAspectRatio="none">
-        <g fill="none" stroke="rgba(255,255,255,0.16)" stroke-width="2.5">
-          <rect x="40" y="40" width="920" height="1420" rx="6"/>
-          <line x1="40" y1="750" x2="960" y2="750"/>
-          <circle cx="500" cy="750" r="120"/><circle cx="500" cy="750" r="4" fill="rgba(255,255,255,0.25)"/>
-          <rect x="290" y="40" width="420" height="200"/><rect x="400" y="40" width="200" height="80"/><rect x="430" y="20" width="140" height="20"/>
-          <path d="M 360 240 A 120 120 0 0 0 640 240"/>
-          <rect x="290" y="1260" width="420" height="200"/><rect x="400" y="1380" width="200" height="80"/><rect x="430" y="1460" width="140" height="20"/>
-          <path d="M 360 1260 A 120 120 0 0 1 640 1260"/>
-        </g>
-      </svg>
-      <div id="bands"></div>
+    <div class="board">
+      <span class="corner tl"></span><span class="corner tr"></span>
+      <span class="corner bl"></span><span class="corner br"></span>
+      <div class="header">
+        <div class="crest left" id="crestL"></div>
+        <h1>EFFECTIF</h1>
+        <div class="crest right" id="crestR"></div>
+      </div>
+      <div class="pitch">
+        <svg class="lines" viewBox="0 0 1000 660" preserveAspectRatio="none">
+          <g fill="none" stroke="#b7c0cd" stroke-width="2.5">
+            <rect x="12" y="12" width="976" height="636" rx="4"/>
+            <line x1="12" y1="330" x2="988" y2="330"/>
+            <circle cx="500" cy="330" r="66"/>
+            <circle cx="500" cy="330" r="3" fill="#b7c0cd"/>
+            <!-- haut -->
+            <rect x="300" y="12" width="400" height="110"/>
+            <rect x="400" y="12" width="200" height="48"/>
+            <path d="M 388 122 A 66 66 0 0 0 612 122"/>
+            <circle cx="500" cy="86" r="3" fill="#b7c0cd"/>
+            <!-- bas -->
+            <rect x="300" y="538" width="400" height="110"/>
+            <rect x="400" y="600" width="200" height="48"/>
+            <path d="M 388 538 A 66 66 0 0 1 612 538"/>
+            <circle cx="500" cy="574" r="3" fill="#b7c0cd"/>
+          </g>
+        </svg>
+        <div class="layer" id="layer"></div>
+      </div>
     </div>
   </div>
-
   <div class="note" id="note"></div>
 
 <script>
-/* Données de secours (saisies depuis la capture) si ligue2.json n'est pas encore généré. */
-const FALLBACK = { season:"démo", updated:"—", teams:{
-  "Montpellier HSC":{logo:null,squad:[
-    {num:31,name:"SIMON N.",flag:"🇨🇲",height:188,age:23,pos:"GK"},
-    {num:50,name:"DZODIĆ",flag:"🇷🇸",height:186,age:19,pos:"GK"},
-    {num:1,name:"MICHEL",flag:"🇫🇷",height:189,age:34,pos:"GK"},
-    {num:60,name:"KANDEM",flag:"🇨🇲",height:195,age:20,pos:"GK"},
-    {num:15,name:"LAPORTE",flag:"🇫🇷",height:185,age:32,pos:"DEF",m:29,t:29},
-    {num:23,name:"MOUANGA",flag:"🇫🇷",height:183,age:20,pos:"DEF",m:29,t:29},
-    {num:29,name:"TCHATO",flag:"🇨🇲",height:182,age:23,pos:"DEF",m:29,t:29},
-    {num:25,name:"NDOLLO",flag:"🇨🇲",height:172,age:20,pos:"DEF",m:29,t:29},
-    {num:77,name:"EVERSON",flag:"🇧🇷",height:182,age:22,pos:"MID",m:29,t:29},
-    {num:44,name:"CHENNAHI",flag:"🇫🇷",height:182,age:21,pos:"MID",m:29,t:29},
-    {num:20,name:"HOMSSA",flag:"🇲🇦",height:181,age:24,pos:"MID",m:29,t:29},
-    {num:19,name:"MENDY",flag:"🇫🇷",height:185,age:32,pos:"ATT",m:29,t:29},
-    {num:9,name:"MEGNAN-PAVÉ",flag:"🇫🇷",height:187,age:16,pos:"ATT",m:29,t:29},
-    {num:24,name:"NDIAYE",flag:"🇫🇷",height:183,age:21,pos:"ATT",m:29,t:29},
-  ]}
-}};
+const FALLBACK={season:"démo",updated:"—",teams:{"Montpellier HSC":{logo:null,squad:[
+ {num:31,name:"SIMON N.",flag:"🇨🇲",height:188,age:23,pos:"GK",posDesc:"GK"},
+ {num:50,name:"DZODIĆ",flag:"🇷🇸",height:186,age:19,pos:"GK",posDesc:"GK"},
+ {num:1,name:"MICHEL",flag:"🇫🇷",height:189,age:34,pos:"GK",posDesc:"GK"},
+ {num:15,name:"LAPORTE",flag:"🇫🇷",height:185,age:32,pos:"DEF",posDesc:"CB",g:1,a:0},
+ {num:23,name:"MOUANGA",flag:"🇫🇷",height:183,age:20,pos:"DEF",posDesc:"CB",g:0,a:0},
+ {num:29,name:"TCHATO",flag:"🇨🇲",height:182,age:23,pos:"DEF",posDesc:"RB",g:0,a:3},
+ {num:25,name:"NDOLLO",flag:"🇨🇲",height:172,age:20,pos:"DEF",posDesc:"LB",g:0,a:0},
+ {num:17,name:"St-LUCE",flag:"🇫🇷",height:176,age:27,pos:"DEF",posDesc:"RB",g:1,a:0},
+ {num:21,name:"MINCARELLI",flag:"🇫🇷",height:179,age:22,pos:"DEF",posDesc:"LB",g:0,a:0},
+ {num:77,name:"EVERSON",flag:"🇧🇷",height:182,age:22,pos:"MID",posDesc:"CDM",g:0,a:0},
+ {num:44,name:"CHENNAHI",flag:"🇫🇷",height:182,age:21,pos:"MID",posDesc:"CM",g:0,a:0},
+ {num:20,name:"HOMSSA",flag:"🇲🇦",height:181,age:24,pos:"MID",posDesc:"CM",g:0,a:0},
+ {num:10,name:"FAYAD",flag:"🇫🇷",height:172,age:22,pos:"MID",posDesc:"CAM",g:1,a:1},
+ {num:18,name:"PAYS",flag:"🇫🇷",height:180,age:22,pos:"MID",posDesc:"LW"},
+ {num:8,name:"ISSOUFOU",flag:"🇫🇷",height:182,age:19,pos:"MID",posDesc:"RW"},
+ {num:19,name:"MENDY",flag:"🇫🇷",height:185,age:32,pos:"ATT",posDesc:"ST",g:5,a:1},
+ {num:9,name:"MEGNAN-PAVÉ",flag:"🇫🇷",height:187,age:16,pos:"ATT",posDesc:"ST"},
+ {num:24,name:"NDIAYE",flag:"🇫🇷",height:183,age:21,pos:"ATT",posDesc:"ST"},
+]}}};
 
-const BANDS = ["GK","DEF","MID","ATT"];
-let DATA = null;
+let DATA=null;
+
+function roleOf(p){
+  const d=((p.posDesc||"").split(",")[0]||"").toUpperCase();
+  if(p.pos==="GK"||d==="GK") return "GK";
+  if(["LB","LWB"].includes(d)) return "DL";
+  if(["RB","RWB"].includes(d)) return "DR";
+  if(d==="CB") return "DC";
+  if(["CDM","DM"].includes(d)) return "DM";
+  if(["LM","LW"].includes(d)) return "ML";
+  if(["RM","RW"].includes(d)) return "MR";
+  if(["CAM","AM","CM","SS"].includes(d)) return "MC";
+  if(["ST","CF","FW"].includes(d)) return "AT";
+  if(p.pos==="DEF") return "DC";
+  if(p.pos==="MID") return "MC";
+  if(p.pos==="ATT") return "AT";
+  return "MC";
+}
+
+function placements(list){
+  const B={GK:[],DC:[],DL:[],DR:[],DM:[],MC:[],ML:[],MR:[],AT:[]};
+  list.forEach(p=>B[roleOf(p)].push(p));
+  // tri par numéro dans chaque bucket
+  Object.values(B).forEach(a=>a.sort((x,y)=>(x.num||999)-(y.num||999)));
+  const out=[];
+  const H=(arr,y,cx,maxW)=>{const n=arr.length; if(!n)return; const w=Math.min(maxW,n*10);
+    arr.forEach((p,i)=>{const x=n===1?cx:cx-w/2+w*(i+0.5)/n; out.push({p,x,y});});};
+  const V=(arr,x,yc,sp)=>{const n=arr.length; if(!n)return;
+    arr.forEach((p,i)=>{const y=yc-(n-1)*sp/2+i*sp; out.push({p,x,y});});};
+  H(B.GK,12,50,34);
+  H(B.DC,27,50,40);
+  V(B.DL,12,42,11); V(B.DR,88,42,11);
+  H(B.DM,48,50,22);
+  H(B.MC,64,50,58);
+  V(B.ML,9,70,11); V(B.MR,91,70,11);
+  H(B.AT,85,50,46);
+  return out;
+}
 
 function card(p){
-  const gk = p.pos==="GK";
-  const num = (p.num==null) ? "" : p.num;
-  const avatar = p.photo
-    ? `<img class="photo" src="${p.photo}" alt="" onerror="this.outerHTML='<div class=&quot;jersey&quot;>${num||"?"}</div>'">`
+  const num=(p.num==null)?"":p.num;
+  const photo = p.photo
+    ? `<img class="photo" src="${p.photo}" alt="" onerror="this.outerHTML='<div class=&quot;jersey&quot;>'+(${JSON.stringify(String(num))}||'?')+'</div>'">`
     : `<div class="jersey">${num||"?"}</div>`;
-  const stats = (p.g!=null || p.a!=null) ? `
-    <div class="stats">
-      <div class="stat"><span class="v">${p.g??0}</span><span class="i">⚽</span></div>
-      <div class="stat"><span class="v">${p.a??0}</span><span class="i">🅰</span></div>
-    </div>` : "";
-  const bio = [p.height?`${p.height} cm`:null, p.age!=null?`${p.age} ans`:null].filter(Boolean).join(" - ");
-  return `<div class="card ${gk?"gk":""}">
-    <div class="avatar">${avatar}</div>
-    <div class="idrow"><span class="flag">${p.flag||""}</span><span class="num">${num}</span></div>
+  const bio=[p.height?`${p.height} cm`:null,(p.age!=null)?`${p.age} ans`:null].filter(Boolean).join(" - ");
+  const stats=(p.g!=null||p.a!=null)?`<div class="stats">
+      <div class="row"><span class="v">${p.g??0}</span><span class="i">⚽</span></div>
+      <div class="row"><span class="v">${p.a??0}</span><span class="i">👟</span></div>
+    </div>`:"";
+  return `<div class="photo-wrap">${photo}</div>
+    <div class="flag">${p.flag||""}</div>
+    <div class="num">${num}</div>
     <div class="name">${p.name}</div>
-    <div class="bio">${bio}</div>${stats}
-  </div>`;
+    <div class="bio">${bio}</div>${stats}`;
 }
 
 function render(name){
-  const team = DATA.teams[name];
-  ["crestL","crestR"].forEach(id=>{
-    document.getElementById(id).innerHTML = team.logo ? `<img src="${team.logo}" alt="">` : "";
+  const team=DATA.teams[name];
+  ["crestL","crestR"].forEach(id=>{document.getElementById(id).innerHTML=team.logo?`<img src="${team.logo}" alt="">`:"";});
+  // groupe pro : joueurs avec numéro (sinon tout)
+  let squad=team.squad.filter(p=>p.num!=null);
+  if(squad.length<11) squad=team.squad.slice();
+  document.getElementById("metaInfo").textContent=`${squad.length} joueurs • saison ${DATA.season} • MAJ ${DATA.updated}`;
+  const layer=document.getElementById("layer"); layer.innerHTML="";
+  placements(squad).forEach(({p,x,y})=>{
+    const el=document.createElement("div");
+    el.className="card"; el.style.left=x+"%"; el.style.top=y+"%";
+    el.innerHTML=card(p);
+    layer.appendChild(el);
   });
-  document.getElementById("metaInfo").textContent =
-    `${team.squad.length} joueurs • saison ${DATA.season} • MAJ ${DATA.updated}`;
-  document.getElementById("bands").innerHTML = BANDS.map(b=>{
-    const ps = team.squad.filter(p=>p.pos===b);
-    return ps.length ? `<div class="band ${b==="GK"?"gk":""}">${ps.map(card).join("")}</div>` : "";
-  }).join("");
 }
 
-function boot(data, demo){
-  DATA = data;
-  const sel = document.getElementById("teamSelect");
-  sel.innerHTML = "";
-  Object.keys(DATA.teams).sort().forEach(t=>{
-    const o=document.createElement("option");o.value=t;o.textContent=t;sel.appendChild(o);
-  });
-  sel.onchange = ()=>render(sel.value);
+function boot(data,demo){
+  DATA=data;
+  const sel=document.getElementById("teamSelect"); sel.innerHTML="";
+  Object.keys(DATA.teams).sort().forEach(t=>{const o=document.createElement("option");o.value=t;o.textContent=t;sel.appendChild(o);});
+  sel.onchange=()=>render(sel.value);
   render(sel.value);
-  document.getElementById("note").innerHTML = demo
-    ? `⏳ Données de démo affichées. Le job GitHub Actions n'a pas encore généré <code>ligue2.json</code> — lance-le dans l'onglet Actions, puis recharge.`
-    : `Données Ligue 2 ${DATA.season} • mise à jour automatique via GitHub Actions • source FotMob.`;
+  document.getElementById("note").innerHTML=demo
+    ? `⏳ Données de démo. Lance le job GitHub Actions puis recharge.`
+    : `Données FotMob + photos officielles LFP • mise à jour automatique via GitHub Actions • saison ${DATA.season}.`;
 }
 
-fetch("ligue2.json?_="+Date.now())
-  .then(r=>{ if(!r.ok) throw 0; return r.json(); })
-  .then(d=> boot(d, false))
-  .catch(()=> boot(FALLBACK, true));
+fetch("ligue2.json?_="+Date.now()).then(r=>{if(!r.ok)throw 0;return r.json();})
+  .then(d=>boot(d,false)).catch(()=>boot(FALLBACK,true));
 </script>
 </body>
 </html>
