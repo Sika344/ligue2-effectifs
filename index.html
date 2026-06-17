@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Effectifs Ligue 2 — Live</title>
+<style>
+  :root{
+    --navy-0:#0a1428; --navy-1:#0d1b33; --navy-card:#1f3a63;
+    --orange:#ff7a18; --gk:#f5c518; --txt:#fff; --muted:#9fb0c8; --box:#cfd6e0;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{font-family:"Segoe UI",system-ui,-apple-system,sans-serif;background:#060c18;color:var(--txt);-webkit-font-smoothing:antialiased}
+
+  .topbar{display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap;
+    padding:10px 16px;background:#0a1428;border-bottom:1px solid rgba(255,255,255,.06)}
+  .topbar select{background:var(--navy-card);color:#fff;border:1px solid rgba(255,255,255,.15);
+    border-radius:8px;padding:8px 12px;font-size:14px;font-weight:600;cursor:pointer;max-width:60vw}
+  .topbar .meta{font-size:12px;color:var(--muted)}
+
+  .frame{max-width:1280px;margin:0 auto;padding:14px}
+  .header{position:relative;text-align:center;padding:14px 0 18px;
+    background:linear-gradient(90deg,#05284f,#0a1428 35%,#0a1428 65%,#05284f);
+    border-radius:12px 12px 0 0;border-bottom:2px solid #c9a24b}
+  .header h1{font-family:Georgia,"Times New Roman",serif;letter-spacing:.18em;font-size:clamp(26px,5vw,46px);font-weight:700}
+  .crest{position:absolute;top:50%;transform:translateY(-50%);width:46px;height:46px;display:flex;align-items:center;justify-content:center}
+  .crest img{max-width:46px;max-height:46px;object-fit:contain}
+  .crest.left{left:16px}.crest.right{right:16px}
+
+  .pitch{position:relative;background:linear-gradient(180deg,var(--navy-1),var(--navy-0));
+    border-radius:0 0 12px 12px;overflow:hidden;padding:26px 14px 34px;min-height:300px}
+  .pitch svg.lines{position:absolute;inset:0;width:100%;height:100%;pointer-events:none}
+
+  .band{position:relative;z-index:2;display:flex;flex-wrap:wrap;justify-content:center;gap:6px 22px;padding:14px 0}
+
+  .card{width:118px;display:flex;flex-direction:column;align-items:center;text-align:center}
+  .avatar{width:64px;height:66px;display:flex;align-items:center;justify-content:center;position:relative}
+  .photo{width:60px;height:60px;border-radius:50%;object-fit:cover;background:#13243f;border:2px solid rgba(255,255,255,.12)}
+  .jersey{width:58px;height:58px;border-radius:14px 14px 18px 18px;background:linear-gradient(180deg,var(--navy-card),#15294a);
+    display:flex;align-items:center;justify-content:center;font-weight:800;font-size:19px;color:#dfe7f2;box-shadow:inset 0 -6px 12px rgba(0,0,0,.25)}
+  .card.gk .jersey{background:linear-gradient(180deg,#f7d24a,#e0a90f);color:#5b4302}
+  .card.gk .photo{border-color:var(--gk)}
+
+  .idrow{display:flex;align-items:center;gap:6px;margin-top:6px}
+  .flag{font-size:14px;line-height:1}
+  .num{font-weight:800;font-size:15px;border-bottom:2px solid #fff;padding-bottom:1px;min-width:14px}
+  .name{font-weight:800;font-size:12.5px;letter-spacing:.02em;margin-top:5px}
+  .bio{font-size:10.5px;color:var(--muted);margin-top:2px}
+  .stats{display:flex;gap:5px;margin-top:7px}
+  .stat{border:2px solid var(--box);border-radius:4px;background:rgba(255,255,255,.04);
+    min-width:46px;padding:3px 4px;display:flex;flex-direction:column;align-items:center;gap:2px}
+  .stat .v{color:var(--orange);font-weight:800;font-size:13px;line-height:1}
+  .stat .i{font-size:11px}
+
+  .note{max-width:1280px;margin:10px auto 30px;padding:0 16px;color:var(--muted);font-size:12px}
+  .note code{background:#11203a;padding:2px 6px;border-radius:4px;color:#cfe}
+</style>
+</head>
+<body>
+  <div class="topbar">
+    <select id="teamSelect"></select>
+    <span class="meta" id="metaInfo">chargement…</span>
+  </div>
+
+  <div class="frame">
+    <div class="header">
+      <div class="crest left" id="crestL"></div>
+      <h1>EFFECTIF</h1>
+      <div class="crest right" id="crestR"></div>
+    </div>
+    <div class="pitch" id="pitch">
+      <svg class="lines" viewBox="0 0 1000 1500" preserveAspectRatio="none">
+        <g fill="none" stroke="rgba(255,255,255,0.16)" stroke-width="2.5">
+          <rect x="40" y="40" width="920" height="1420" rx="6"/>
+          <line x1="40" y1="750" x2="960" y2="750"/>
+          <circle cx="500" cy="750" r="120"/><circle cx="500" cy="750" r="4" fill="rgba(255,255,255,0.25)"/>
+          <rect x="290" y="40" width="420" height="200"/><rect x="400" y="40" width="200" height="80"/><rect x="430" y="20" width="140" height="20"/>
+          <path d="M 360 240 A 120 120 0 0 0 640 240"/>
+          <rect x="290" y="1260" width="420" height="200"/><rect x="400" y="1380" width="200" height="80"/><rect x="430" y="1460" width="140" height="20"/>
+          <path d="M 360 1260 A 120 120 0 0 1 640 1260"/>
+        </g>
+      </svg>
+      <div id="bands"></div>
+    </div>
+  </div>
+
+  <div class="note" id="note"></div>
+
+<script>
+/* Données de secours (saisies depuis la capture) si ligue2.json n'est pas encore généré. */
+const FALLBACK = { season:"démo", updated:"—", teams:{
+  "Montpellier HSC":{logo:null,squad:[
+    {num:31,name:"SIMON N.",flag:"🇨🇲",height:188,age:23,pos:"GK"},
+    {num:50,name:"DZODIĆ",flag:"🇷🇸",height:186,age:19,pos:"GK"},
+    {num:1,name:"MICHEL",flag:"🇫🇷",height:189,age:34,pos:"GK"},
+    {num:60,name:"KANDEM",flag:"🇨🇲",height:195,age:20,pos:"GK"},
+    {num:15,name:"LAPORTE",flag:"🇫🇷",height:185,age:32,pos:"DEF",m:29,t:29},
+    {num:23,name:"MOUANGA",flag:"🇫🇷",height:183,age:20,pos:"DEF",m:29,t:29},
+    {num:29,name:"TCHATO",flag:"🇨🇲",height:182,age:23,pos:"DEF",m:29,t:29},
+    {num:25,name:"NDOLLO",flag:"🇨🇲",height:172,age:20,pos:"DEF",m:29,t:29},
+    {num:77,name:"EVERSON",flag:"🇧🇷",height:182,age:22,pos:"MID",m:29,t:29},
+    {num:44,name:"CHENNAHI",flag:"🇫🇷",height:182,age:21,pos:"MID",m:29,t:29},
+    {num:20,name:"HOMSSA",flag:"🇲🇦",height:181,age:24,pos:"MID",m:29,t:29},
+    {num:19,name:"MENDY",flag:"🇫🇷",height:185,age:32,pos:"ATT",m:29,t:29},
+    {num:9,name:"MEGNAN-PAVÉ",flag:"🇫🇷",height:187,age:16,pos:"ATT",m:29,t:29},
+    {num:24,name:"NDIAYE",flag:"🇫🇷",height:183,age:21,pos:"ATT",m:29,t:29},
+  ]}
+}};
+
+const BANDS = ["GK","DEF","MID","ATT"];
+let DATA = null;
+
+function card(p){
+  const gk = p.pos==="GK";
+  const avatar = p.photo
+    ? `<img class="photo" src="${p.photo}" alt="" onerror="this.outerHTML='<div class=&quot;jersey&quot;>${p.num}</div>'">`
+    : `<div class="jersey">${p.num}</div>`;
+  const stats = (p.m!=null && p.pos!=="GK") ? `
+    <div class="stats">
+      <div class="stat"><span class="v">${p.m}</span><span class="i">⚽</span></div>
+      <div class="stat"><span class="v">${p.t}</span><span class="i">👟</span></div>
+    </div>` : "";
+  const bio = [p.height?`${p.height} cm`:null, p.age!=null?`${p.age} ans`:null].filter(Boolean).join(" - ");
+  return `<div class="card ${gk?"gk":""}">
+    <div class="avatar">${avatar}</div>
+    <div class="idrow"><span class="flag">${p.flag||""}</span><span class="num">${p.num}</span></div>
+    <div class="name">${p.name}</div>
+    <div class="bio">${bio}</div>${stats}
+  </div>`;
+}
+
+function render(name){
+  const team = DATA.teams[name];
+  ["crestL","crestR"].forEach(id=>{
+    document.getElementById(id).innerHTML = team.logo ? `<img src="${team.logo}" alt="">` : "";
+  });
+  document.getElementById("metaInfo").textContent =
+    `${team.squad.length} joueurs • saison ${DATA.season} • MAJ ${DATA.updated}`;
+  document.getElementById("bands").innerHTML = BANDS.map(b=>{
+    const ps = team.squad.filter(p=>p.pos===b);
+    return ps.length ? `<div class="band">${ps.map(card).join("")}</div>` : "";
+  }).join("");
+}
+
+function boot(data, demo){
+  DATA = data;
+  const sel = document.getElementById("teamSelect");
+  sel.innerHTML = "";
+  Object.keys(DATA.teams).sort().forEach(t=>{
+    const o=document.createElement("option");o.value=t;o.textContent=t;sel.appendChild(o);
+  });
+  sel.onchange = ()=>render(sel.value);
+  render(sel.value);
+  document.getElementById("note").innerHTML = demo
+    ? `⏳ Données de démo affichées. Le job GitHub Actions n'a pas encore généré <code>ligue2.json</code> — lance-le dans l'onglet Actions, puis recharge.`
+    : `Données API-Football (saison ${DATA.season}). Actualisation auto via GitHub Actions. Photos = portraits fournis par l'API.`;
+}
+
+fetch("ligue2.json?_="+Date.now())
+  .then(r=>{ if(!r.ok) throw 0; return r.json(); })
+  .then(d=> boot(d, false))
+  .catch(()=> boot(FALLBACK, true));
+</script>
+</body>
+</html>
