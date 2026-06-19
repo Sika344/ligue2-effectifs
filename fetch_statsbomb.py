@@ -290,13 +290,15 @@ def build():
         num = le.get("num") if le else (pe.get("num") if pe else None)
         photo = le.get("url") if le else (pe.get("photo") if pe else None)
         photoLFP = bool(le and le.get("url"))
-        foot = (le.get("foot") if le else None)
+        # pied : StatsBomb (left_foot_ratio) prioritaire, LFP en repli si ambigu
+        lf = fnum(r.get("player_season_left_foot_ratio"))
+        foot = None
+        if lf is not None:
+            if lf > 1:
+                lf = lf / 100.0
+            foot = "left" if lf >= 0.6 else ("right" if lf <= 0.4 else None)
         if not foot:
-            lf = fnum(r.get("player_season_left_foot_ratio"))
-            if lf is not None:
-                if lf > 1:
-                    lf = lf / 100.0
-                foot = "left" if lf >= 0.6 else ("right" if lf <= 0.4 else None)
+            foot = le.get("foot") if le else None
         if not foot and pe:
             foot = pe.get("foot")
         # nom d affichage : officiel LFP si dispo
@@ -332,7 +334,7 @@ def build():
     out = {
         "season": SEASON_LABEL,
         "updated": datetime.datetime.now(datetime.timezone.utc).strftime("%Y-%m-%d %H:%M UTC"),
-        "source": "StatsBomb (stats) + LFP (photos)",
+        "source": "StatsBomb (stats + pied) + LFP (photos)",
         "teams": teams,
     }
     with open(OUT_PATH, "w", encoding="utf-8") as f:
