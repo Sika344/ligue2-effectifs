@@ -1,0 +1,731 @@
+{
+ "comp": 8,
+ "season": 318,
+ "updated": "2026-06-19 23:29 UTC",
+ "matches_processed": 116,
+ "frames_total": 346342,
+ "line_breaking": [
+  {
+   "player": "Samuel Junior Kotto",
+   "team": "Stade de Reims",
+   "c": 212
+  },
+  {
+   "player": "Opa Sangante",
+   "team": "Dunkerque",
+   "c": 197
+  },
+  {
+   "player": "Balthazar Pierret",
+   "team": "Red Star FC",
+   "c": 180
+  },
+  {
+   "player": "Julien Boyer",
+   "team": "US Boulogne",
+   "c": 180
+  },
+  {
+   "player": "Raphael Lipinski",
+   "team": "Rodez",
+   "c": 174
+  },
+  {
+   "player": "Julien Laporte",
+   "team": "Montpellier",
+   "c": 174
+  },
+  {
+   "player": "Dylan Durivaux",
+   "team": "Red Star FC",
+   "c": 166
+  },
+  {
+   "player": "Triston Rowe",
+   "team": "FC Annecy",
+   "c": 164
+  },
+  {
+   "player": "William Bianda",
+   "team": "Stade Lavallois",
+   "c": 158
+  },
+  {
+   "player": "Clément Billemaz",
+   "team": "FC Annecy",
+   "c": 156
+  },
+  {
+   "player": "Antoine Mille",
+   "team": "Troyes",
+   "c": 154
+  },
+  {
+   "player": "Loni Quenabio",
+   "team": "Rodez",
+   "c": 151
+  },
+  {
+   "player": "Juan José Guevara Possú",
+   "team": "Bastia",
+   "c": 150
+  },
+  {
+   "player": "Dylan Louiserre",
+   "team": "Guingamp",
+   "c": 149
+  },
+  {
+   "player": "Nolan Galves",
+   "team": "Rodez",
+   "c": 149
+  },
+  {
+   "player": "Augustine Boakye",
+   "team": "Saint-Étienne",
+   "c": 148
+  },
+  {
+   "player": "Kylian Kaïboué",
+   "team": "Amiens",
+   "c": 148
+  },
+  {
+   "player": "Nelson Sissoko",
+   "team": "Guingamp",
+   "c": 147
+  },
+  {
+   "player": "Jean Lambert Evans",
+   "team": "Rodez",
+   "c": 147
+  },
+  {
+   "player": "Noa Boissé",
+   "team": "Le Mans",
+   "c": 145
+  },
+  {
+   "player": "Julien Kouadio",
+   "team": "FC Annecy",
+   "c": 143
+  },
+  {
+   "player": "Ahmed Kashi",
+   "team": "FC Annecy",
+   "c": 142
+  },
+  {
+   "player": "Mathys Detourbet",
+   "team": "Troyes",
+   "c": 139
+  },
+  {
+   "player": "Jessy Benet",
+   "team": "Grenoble Foot",
+   "c": 138
+  },
+  {
+   "player": "Enzo Tacafred",
+   "team": "Nancy",
+   "c": 138
+  },
+  {
+   "player": "Enzo Basilio",
+   "team": "Nancy",
+   "c": 136
+  },
+  {
+   "player": "Benjamin Craig Old",
+   "team": "Saint-Étienne",
+   "c": 136
+  },
+  {
+   "player": "Bradley Danger",
+   "team": "Red Star FC",
+   "c": 133
+  },
+  {
+   "player": "Christ-Owen Kouassi Bathele",
+   "team": "Stade Lavallois",
+   "c": 133
+  },
+  {
+   "player": "Nordine Kandil",
+   "team": "Amiens",
+   "c": 133
+  },
+  {
+   "player": "Abdel Hakim Abdallah",
+   "team": "Guingamp",
+   "c": 132
+  },
+  {
+   "player": "Axel Drouhin",
+   "team": "FC Annecy",
+   "c": 131
+  },
+  {
+   "player": "Théo Guivarch",
+   "team": "Clermont Foot",
+   "c": 131
+  },
+  {
+   "player": "Mamadou Samassa",
+   "team": "Stade Lavallois",
+   "c": 130
+  },
+  {
+   "player": "François Lajugie",
+   "team": "FC Annecy",
+   "c": 128
+  },
+  {
+   "player": "Alexandre Lauray",
+   "team": "Le Mans",
+   "c": 126
+  },
+  {
+   "player": "Alec Georgen",
+   "team": "Dunkerque",
+   "c": 126
+  },
+  {
+   "player": "Gaëtan Poussin",
+   "team": "Red Star FC",
+   "c": 126
+  },
+  {
+   "player": "Sohaib Nair",
+   "team": "Guingamp",
+   "c": 123
+  },
+  {
+   "player": "Saidou Sow",
+   "team": "Clermont Foot",
+   "c": 122
+  },
+  {
+   "player": "Ivan Adnan Joshua",
+   "team": "Clermont Foot",
+   "c": 120
+  },
+  {
+   "player": "Peter Ouaneh",
+   "team": "Stade Lavallois",
+   "c": 119
+  },
+  {
+   "player": "Lucas Calodat",
+   "team": "Le Mans",
+   "c": 118
+  },
+  {
+   "player": "Victor Mayela",
+   "team": "Dunkerque",
+   "c": 118
+  },
+  {
+   "player": "Pierre Lemonnier",
+   "team": "Red Star FC",
+   "c": 118
+  },
+  {
+   "player": "Mouhamed Diop",
+   "team": "Troyes",
+   "c": 117
+  },
+  {
+   "player": "Quentin Braat",
+   "team": "Rodez",
+   "c": 117
+  },
+  {
+   "player": "Blondy Nna Noukeu",
+   "team": "US Boulogne",
+   "c": 117
+  },
+  {
+   "player": "Enzo Gianni Tchato Mbiayi",
+   "team": "Montpellier",
+   "c": 115
+  },
+  {
+   "player": "Théo Sainte-Luce",
+   "team": "Montpellier",
+   "c": 113
+  },
+  {
+   "player": "Théo Leoni",
+   "team": "Stade de Reims",
+   "c": 112
+  },
+  {
+   "player": "Abdoul Kone",
+   "team": "Stade de Reims",
+   "c": 111
+  },
+  {
+   "player": "Steeve Beusnard",
+   "team": "Pau",
+   "c": 111
+  },
+  {
+   "player": "Mathis  Magnin",
+   "team": "Rodez",
+   "c": 111
+  },
+  {
+   "player": "Yoann Salmier",
+   "team": "Clermont Foot",
+   "c": 111
+  },
+  {
+   "player": "Harold Voyer",
+   "team": "Le Mans",
+   "c": 110
+  },
+  {
+   "player": "Sergio Akieme Rodríguez",
+   "team": "Stade de Reims",
+   "c": 110
+  },
+  {
+   "player": "Joseph Kalulu Kyatengwa",
+   "team": "Pau",
+   "c": 110
+  },
+  {
+   "player": "Loris Mouyokolo",
+   "team": "Grenoble Foot",
+   "c": 110
+  },
+  {
+   "player": "Kalidou Sidibé",
+   "team": "Guingamp",
+   "c": 108
+  }
+ ],
+ "receptions_space": [
+  {
+   "player": "Samuel Junior Kotto",
+   "team": "Stade de Reims",
+   "c": 736,
+   "c5": 691,
+   "c10": 545
+  },
+  {
+   "player": "Adrien Monfray",
+   "team": "Troyes",
+   "c": 501,
+   "c5": 476,
+   "c10": 415
+  },
+  {
+   "player": "Opa Sangante",
+   "team": "Dunkerque",
+   "c": 558,
+   "c5": 533,
+   "c10": 404
+  },
+  {
+   "player": "Julien Laporte",
+   "team": "Montpellier",
+   "c": 516,
+   "c5": 501,
+   "c10": 392
+  },
+  {
+   "player": "Victor Mayela",
+   "team": "Dunkerque",
+   "c": 650,
+   "c5": 587,
+   "c10": 367
+  },
+  {
+   "player": "Julien Le Cardinal",
+   "team": "Saint-Étienne",
+   "c": 478,
+   "c5": 448,
+   "c10": 357
+  },
+  {
+   "player": "Sohaib Nair",
+   "team": "Guingamp",
+   "c": 522,
+   "c5": 497,
+   "c10": 355
+  },
+  {
+   "player": "Adrián Ortolá Vañó",
+   "team": "Guingamp",
+   "c": 379,
+   "c5": 369,
+   "c10": 331
+  },
+  {
+   "player": "Albin Demouchy",
+   "team": "Guingamp",
+   "c": 450,
+   "c5": 422,
+   "c10": 315
+  },
+  {
+   "player": "Sankhoun Bocoum",
+   "team": "Troyes",
+   "c": 442,
+   "c5": 402,
+   "c10": 312
+  },
+  {
+   "player": "Jean Ruiz",
+   "team": "Pau",
+   "c": 476,
+   "c5": 445,
+   "c10": 311
+  },
+  {
+   "player": "Vincent Julien Sasso",
+   "team": "Dunkerque",
+   "c": 405,
+   "c5": 382,
+   "c10": 307
+  },
+  {
+   "player": "Dylan Durivaux",
+   "team": "Red Star FC",
+   "c": 582,
+   "c5": 502,
+   "c10": 305
+  },
+  {
+   "player": "Mickaël Nade",
+   "team": "Saint-Étienne",
+   "c": 473,
+   "c5": 430,
+   "c10": 294
+  },
+  {
+   "player": "Christopher Jullien",
+   "team": "Montpellier",
+   "c": 364,
+   "c5": 343,
+   "c10": 293
+  },
+  {
+   "player": "Abdoul Kone",
+   "team": "Stade de Reims",
+   "c": 387,
+   "c5": 362,
+   "c10": 276
+  },
+  {
+   "player": "Simon Brady Ngapandouetnbu",
+   "team": "Montpellier",
+   "c": 306,
+   "c5": 303,
+   "c10": 264
+  },
+  {
+   "player": "Nelson Sissoko",
+   "team": "Guingamp",
+   "c": 544,
+   "c5": 456,
+   "c10": 262
+  },
+  {
+   "player": "Noa Boissé",
+   "team": "Le Mans",
+   "c": 374,
+   "c5": 336,
+   "c10": 255
+  },
+  {
+   "player": "Guede Nathan Zohoré",
+   "team": "US Boulogne",
+   "c": 356,
+   "c5": 325,
+   "c10": 252
+  },
+  {
+   "player": "Samuel Yohou",
+   "team": "Le Mans",
+   "c": 328,
+   "c5": 307,
+   "c10": 251
+  },
+  {
+   "player": "William Bianda",
+   "team": "Stade Lavallois",
+   "c": 387,
+   "c5": 358,
+   "c10": 244
+  },
+  {
+   "player": "Bram Lagae",
+   "team": "Dunkerque",
+   "c": 353,
+   "c5": 328,
+   "c10": 242
+  },
+  {
+   "player": "Loris Mouyokolo",
+   "team": "Grenoble Foot",
+   "c": 328,
+   "c5": 302,
+   "c10": 241
+  },
+  {
+   "player": "Loni Quenabio",
+   "team": "Rodez",
+   "c": 376,
+   "c5": 335,
+   "c10": 240
+  },
+  {
+   "player": "Bradley Danger",
+   "team": "Red Star FC",
+   "c": 474,
+   "c5": 395,
+   "c10": 237
+  },
+  {
+   "player": "Yaël Mouanga Boudzoumou",
+   "team": "Montpellier",
+   "c": 351,
+   "c5": 325,
+   "c10": 235
+  },
+  {
+   "player": "Daylam Meddah",
+   "team": "Pau",
+   "c": 408,
+   "c5": 357,
+   "c10": 232
+  },
+  {
+   "player": "Ewen Jaouen",
+   "team": "Stade de Reims",
+   "c": 262,
+   "c5": 259,
+   "c10": 229
+  },
+  {
+   "player": "Raphael Lipinski",
+   "team": "Rodez",
+   "c": 376,
+   "c5": 345,
+   "c10": 228
+  },
+  {
+   "player": "Juan José Guevara Possú",
+   "team": "Bastia",
+   "c": 362,
+   "c5": 313,
+   "c10": 222
+  },
+  {
+   "player": "Yoann Salmier",
+   "team": "Clermont Foot",
+   "c": 387,
+   "c5": 350,
+   "c10": 220
+  },
+  {
+   "player": "Siad Gourville",
+   "team": "US Boulogne",
+   "c": 305,
+   "c5": 281,
+   "c10": 216
+  },
+  {
+   "player": "N'Tamon Elie Ahouonon",
+   "team": "Stade de Reims",
+   "c": 276,
+   "c5": 265,
+   "c10": 216
+  },
+  {
+   "player": "Isaac Cossier",
+   "team": "Le Mans",
+   "c": 286,
+   "c5": 259,
+   "c10": 209
+  },
+  {
+   "player": "Anthony Briançon",
+   "team": "Pau",
+   "c": 293,
+   "c5": 279,
+   "c10": 208
+  },
+  {
+   "player": "Clément Vidal",
+   "team": "Grenoble Foot",
+   "c": 308,
+   "c5": 278,
+   "c10": 207
+  },
+  {
+   "player": "Gaëtan Poussin",
+   "team": "Red Star FC",
+   "c": 260,
+   "c5": 247,
+   "c10": 202
+  },
+  {
+   "player": "Saidou Sow",
+   "team": "Clermont Foot",
+   "c": 304,
+   "c5": 284,
+   "c10": 201
+  },
+  {
+   "player": "Adrien Pinot",
+   "team": "US Boulogne",
+   "c": 293,
+   "c5": 273,
+   "c10": 200
+  },
+  {
+   "player": "Donatien Gomis",
+   "team": "Guingamp",
+   "c": 267,
+   "c5": 251,
+   "c10": 193
+  },
+  {
+   "player": "Hugo Gambor",
+   "team": "Troyes",
+   "c": 227,
+   "c5": 221,
+   "c10": 193
+  },
+  {
+   "player": "Pierre Lemonnier",
+   "team": "Red Star FC",
+   "c": 318,
+   "c5": 293,
+   "c10": 192
+  },
+  {
+   "player": "Benjamin Craig Old",
+   "team": "Saint-Étienne",
+   "c": 532,
+   "c5": 425,
+   "c10": 191
+  },
+  {
+   "player": "Blondy Nna Noukeu",
+   "team": "US Boulogne",
+   "c": 224,
+   "c5": 219,
+   "c10": 189
+  },
+  {
+   "player": "Mathis  Magnin",
+   "team": "Rodez",
+   "c": 322,
+   "c5": 281,
+   "c10": 185
+  },
+  {
+   "player": "Théo Sainte-Luce",
+   "team": "Montpellier",
+   "c": 422,
+   "c5": 360,
+   "c10": 184
+  },
+  {
+   "player": "Siaka Bakayoko",
+   "team": "Amiens",
+   "c": 276,
+   "c5": 252,
+   "c10": 183
+  },
+  {
+   "player": "Joseph Kalulu Kyatengwa",
+   "team": "Pau",
+   "c": 496,
+   "c5": 397,
+   "c10": 182
+  },
+  {
+   "player": "Ivan Adnan Joshua",
+   "team": "Clermont Foot",
+   "c": 366,
+   "c5": 328,
+   "c10": 182
+  },
+  {
+   "player": "Harold Voyer",
+   "team": "Le Mans",
+   "c": 252,
+   "c5": 242,
+   "c10": 180
+  },
+  {
+   "player": "Maxime Busi",
+   "team": "Stade de Reims",
+   "c": 421,
+   "c5": 341,
+   "c10": 178
+  },
+  {
+   "player": "Kevin Pedro",
+   "team": "Saint-Étienne",
+   "c": 418,
+   "c5": 340,
+   "c10": 176
+  },
+  {
+   "player": "François Lajugie",
+   "team": "FC Annecy",
+   "c": 280,
+   "c5": 253,
+   "c10": 176
+  },
+  {
+   "player": "Maximiliano Caufriez",
+   "team": "Clermont Foot",
+   "c": 249,
+   "c5": 220,
+   "c10": 170
+  },
+  {
+   "player": "Ousmane Kanté",
+   "team": "Pau",
+   "c": 239,
+   "c5": 220,
+   "c10": 166
+  },
+  {
+   "player": "Florian Escales",
+   "team": "FC Annecy",
+   "c": 213,
+   "c5": 203,
+   "c10": 160
+  },
+  {
+   "player": "Axel Drouhin",
+   "team": "FC Annecy",
+   "c": 257,
+   "c5": 232,
+   "c10": 158
+  },
+  {
+   "player": "Tom Tony Pouilly",
+   "team": "Pau",
+   "c": 408,
+   "c5": 293,
+   "c10": 153
+  },
+  {
+   "player": "Amine Chabane",
+   "team": "Amiens",
+   "c": 261,
+   "c5": 230,
+   "c10": 152
+  }
+ ]
+}
