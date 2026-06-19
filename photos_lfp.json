@@ -5,6 +5,7 @@
    "name": "BOUCHER",
    "norm": "boucher",
    "foot": "right",
+   "cc": "FRA",
    "url": "https://s3.eu-west-3.amazonaws.com/ligue1.image/players/2025/all/player_official_2025_154_86811-400x300.png"
   },
   {
@@ -12,6 +13,7 @@
    "name": "KONATE",
    "norm": "konate",
    "foot": "right",
+   "cc": "BFA",
    "url": "https://s3.eu-west-3.amazonaws.com/ligue1.image/players/2025/all/player_official_2025_154_193080-400x300.png"
   },
   {
@@ -19,6 +21,7 @@
    "name": "LEMAÎTRE",
    "norm": "lemaitre",
    "foot": "right",
+   "cc": "FRA",
    "url": "https://s3.eu-west-3.amazonaws.com/ligue1.image/players/2025/all/player_official_2025_154_206935-400x300.png"
   },
   {
@@ -26,6 +29,7 @@
    "name": "NKOUMOUCK",
    "norm": "nkoumouck",
    "foot": null,
+   "cc": "FRA",
    "url": "https://s3.eu-west-1.amazonaws.com/image.mpg/2025-empt-154-400x300.png"
   },
   {
@@ -33,6 +37,7 @@
    "name": "AKPAKOUN",
    "norm": "akpakoun",
    "foot": "right",
+   "cc": "FRA",
    "url": "https://s3.eu-west-1.amazonaws.com/image.mpg/2025-empt-154-400x300.png"
   },
   {
@@ -40,6 +45,7 @@
    "name": "BALDE",
    "norm": "balde",
    "foot": "right",
+   "cc": "FRA",
    "url": "https://s3.eu-west-1.amazonaws.com/image.mpg/2025-empt-154-400x300.png"
   },
   {
@@ -47,6 +53,7 @@
    "name": "BOURA",
    "norm": "boura",
    "foot": "left",
+   "cc": "COM",
    "url": "https://s3.eu-west-3.amazonaws.com/ligue1.image/players/2025/all/player_official_2025_154_510139-400x300.png"
   },
   {
@@ -54,6 +61,7 @@
    "name": "CHUPIN",
    "norm": "chupin",
    "foot": null,
+   "cc": "FRA",
    "url": "https://s3.eu-west-1.amazonaws.com/image.mpg/2025-empt-154-400x300.png"
   },
   {
@@ -61,6 +69,7 @@
    "name": "DIAWARA",
    "norm": "diawara",
    "foot": "left",
+   "cc": "FRA",
    "url": "https://s3.eu-west-3.amazonaws.com/ligue1.image/players/2025/all/player_official_2025_154_662133-400x300.png"
   },
   {
@@ -68,6 +77,7 @@
    "name": "DONKOR",
    "norm": "donkor",
    "foot": null,
+   "cc": "FRA",
    "url": "https://s3.eu-west-3.amazonaws.com/ligue1.image/players/2025/all/player_official_2025_154_719331-400x300.png"
   },
   {
@@ -75,6 +85,7 @@
    "name": "GAMBOR",
    "norm": "gambor",
    "foot": "right",
+   "cc": "CAF",
    "url": "https://s3.eu-west-3.amazonaws.com/ligue1.image/players/2025/all/player_official_2025_154_511605-400x300.png"
   },
   {
@@ -82,6 +93,7 @@
    "name": "GOZZI IWERU",
    "norm": "gozzi iweru",
    "foot": "left",
+   "cc": "ITA",
    "url": "https://s3.eu-west-3.amazonaws.com/ligue1.image/players/2025/all/player_official_2025_154_248667-400x300.png"
   },
   {
@@ -89,6 +101,7 @@
    "name": "MARONNIER",
    "norm": "maronnier",
    "foot": "right",
+   "cc": "FRA",
    "url": "https://s3.eu-west-3.amazonaws.com/ligue1.image/players/2025/all/player_official_2025_154_554582-400x300.png"
   },
   {
@@ -96,6 +109,7 @@
    "name": "MONFRAY",
    "norm": "monfray",
    "foot": "right",
+   "cc": "FRA",
    "url": "https://s3.eu-west-3.amazonaws.com/ligue1.image/players/2025/all/player_official_2025_154_149588-400x300.png"
   },
   {
@@ -103,6 +117,7 @@
    "name": "ONAMBELE",
    "norm": "onambele",
    "foot": null,
+   "cc": "FRA",
    "url": "https://s3.eu-west-1.amazonaws.com/image.mpg/2025-empt-154-400x300.png"
   },
   {
@@ -110,6 +125,7 @@
    "name": "OUZENADJI",
    "norm": "ouzenadji",
    "foot": null,
+   "cc": "FRA",
    "url": "https://s3.eu-west-3.amazonaws.com/ligue1.image/players/2025/all/player_official_2025_154_703779-400x300.png"
   },
   {
@@ -117,6 +133,7 @@
    "name": "TITI",
    "norm": "titi",
    "foot": "right",
+   "cc": "FRA",
    "url": "https://s3.eu-west-3.amazonaws.com/ligue1.image/players/2025/all/player_official_2025_154_620415-400x300.png"
   },
   {
@@ -124,6 +141,7 @@
    "name": "ZENGA",
    "norm": "zenga",
    "foot": null,
+   "cc": "FRA",
    "url": "https://s3.eu-west-1.amazonaws.com/image.mpg/2025-empt-154-400x300.png"
   },
   {
@@ -131,6 +149,7 @@
    "name": "ADELINE",
    "norm": "adeline",
    "foot": "right",
+   "cc": "FRA",
    "url": "https://s3.eu-west-3.amazonaws.com/ligue1.image/players/2025/all/player_official_2025_154_493355-400x300.png"
   },
   {
@@ -138,6 +157,7 @@
    "name": "CHAVALERIN",
    "norm": "chavalerin",
    "foot": "left",
+   "cc": "FRA",
    "url": "https://s3.eu-west-3.amazonaws.com/ligue1.image/players/2025/all/player_official_2025_154_119770-400x300.png"
   },
   {
@@ -145,6 +165,7 @@
    "name": "DETOURBET",
    "norm": "detourbet",
    "foot": null,
+   "cc": "FRA",
    "url": "https://s3.eu-west-3.amazonaws.com/ligue1.image/players/2025/all/player_official_2025_154_652152-400x300.png"
   },
   {
@@ -152,6 +173,7 @@
    "name": "DIAWARA",
    "norm": "diawara",
    "foot": "right",
+   "cc": "GIN",
    "url": "https://s3.eu-west-3.amazonaws.com/ligue1.image/players/2025/all/player_official_2025_154_496521-400x300.png"
   },
   {
@@ -159,6 +181,7 @@
    "name": "DIOP",
    "norm": "diop",
    "foot": "right",
+   "cc": "SEN",
    "url": "https://s3.eu-west-3.amazonaws.com/ligue1.image/players/2025/all/player_official_2025_154_550567-400x300.png"
   },
   {
@@ -166,6 +189,7 @@
    "name": "IFNAOUI",
    "norm": "ifnaoui",
    "foot": "left",
+   "cc": "FRA",
    "url": "https://s3.eu-west-3.amazonaws.com/ligue1.image/players/2025/all/player_official_2025_154_628026-400x300.png"
   },
   {
@@ -173,6 +197,7 @@
    "name": "MILLE",
    "norm": "mille",
    "foot": "left",
+   "cc": "FRA",
    "url": "https://s3.eu-west-3.amazonaws.com/ligue1.image/players/2025/all/player_official_2025_154_444395-400x300.png"
   },
   {
@@ -180,6 +205,7 @@
    "name": "MURCY",
    "norm": "murcy",
    "foot": null,
+   "cc": "FRA",
    "url": "https://s3.eu-west-3.amazonaws.com/ligue1.image/players/2025/all/player_official_2025_154_703777-400x300.png"
   },
   {
@@ -187,6 +213,7 @@
    "name": "PHLIPONEAU",
    "norm": "phliponeau",
    "foot": "right",
+   "cc": "FRA",
    "url": "https://s3.eu-west-3.amazonaws.com/ligue1.image/players/2025/all/player_official_2025_154_471437-400x300.png"
   },
   {
@@ -194,6 +221,7 @@
    "name": "BATOLA",
    "norm": "batola",
    "foot": null,
+   "cc": "FRA",
    "url": "https://s3.eu-west-1.amazonaws.com/image.mpg/2025-empt-154-400x300.png"
   },
   {
@@ -201,6 +229,7 @@
    "name": "BENTAYEB",
    "norm": "bentayeb",
    "foot": "right",
+   "cc": "MAR",
    "url": "https://s3.eu-west-3.amazonaws.com/ligue1.image/players/2025/all/player_official_2025_154_482218-400x300.png"
   },
   {
@@ -208,6 +237,7 @@
    "name": "DIAKITE",
    "norm": "diakite",
    "foot": "left",
+   "cc": "FRA",
    "url": "https://s3.eu-west-3.amazonaws.com/ligue1.image/players/2025/all/player_official_2025_154_700218-400x300.png"
   },
   {
@@ -215,6 +245,7 @@
    "name": "EL IDRISSY",
    "norm": "el idrissy",
    "foot": "right",
+   "cc": "FRA",
    "url": "https://s3.eu-west-3.amazonaws.com/ligue1.image/players/2025/all/player_official_2025_154_468427-400x300.png"
   },
   {
@@ -222,6 +253,7 @@
    "name": "NADE",
    "norm": "nade",
    "foot": "right",
+   "cc": "FRA",
    "url": "https://s3.eu-west-1.amazonaws.com/image.mpg/2025-empt-154-400x300.png"
   },
   {
@@ -229,6 +261,7 @@
    "name": "ODEDE",
    "norm": "odede",
    "foot": null,
+   "cc": "NGA",
    "url": "https://s3.eu-west-3.amazonaws.com/ligue1.image/players/2025/all/player_official_2025_154_689258-400x300.png"
   },
   {
@@ -236,6 +269,7 @@
    "name": "RIPART",
    "norm": "ripart",
    "foot": "right",
+   "cc": "FRA",
    "url": "https://s3.eu-west-3.amazonaws.com/ligue1.image/players/2025/all/player_official_2025_154_121150-400x300.png"
   },
   {
@@ -243,6 +277,7 @@
    "name": "TRAORE",
    "norm": "traore",
    "foot": "right",
+   "cc": "FRA",
    "url": "https://s3.eu-west-3.amazonaws.com/ligue1.image/players/2025/all/player_official_2025_154_657510-400x300.png"
   }
  ],
@@ -252,6 +287,7 @@
    "name": "DELBECQUE",
    "norm": "delbecque",
    "foot": null,
+   "cc": "FRA",
    "url": "https://s3.eu-west-3.amazonaws.com/ligue1.image/players/2025/all/player_official_2025_920_584860-400x300.png"
   },
   {
@@ -259,6 +295,7 @@
    "name": "HATFOUT",
    "norm": "hatfout",
    "foot": null,
+   "cc": "FRA",
    "url": "https://s3.eu-west-3.amazonaws.com/ligue1.image/players/2025/all/player_official_2025_920_498382-400x300.png"
   },
   {
@@ -266,6 +303,7 @@
    "name": "KOCIK",
    "norm": "kocik",
    "foot": "right",
+   "cc": "FRA",
    "url": "https://s3.eu-west-3.amazonaws.com/ligue1.image/players/2025/all/player_official_2025_920_222388-400x300.png"
   },
   {
@@ -273,6 +311,7 @@
    "name": "BOISSÉ",
    "norm": "boisse",
    "foot": null,
+   "cc": "FRA",
    "url": "https://s3.eu-west-3.amazonaws.com/ligue1.image/players/2025/all/player_official_2025_920_665236-400x300.png"
   },
   {
@@ -280,6 +319,7 @@
    "name": "CALODAT",
    "norm": "calodat",
    "foot": "left",
+   "cc": "FRA",
    "url": "https://s3.eu-west-3.amazonaws.com/ligue1.image/players/2025/all/player_official_2025_920_561736-400x300.png"
   },
   {
@@ -287,6 +327,7 @@
    "name": "COSSIER",
    "norm": "cossier",
    "foot": "right",
+   "cc": "FRA",
    "url": "https://s3.eu-west-3.amazonaws.com/ligue1.image/players/2025/all/player_official_2025_920_669390-400x300.png"
   },
   {
@@ -294,6 +335,7 @@
    "name": "EYOUM",
    "norm": "eyoum",
    "foot": null,
+   "cc": "FRA",
    "url": "https://s3.eu-west-3.amazonaws.com/ligue1.image/players/2025/all/player_official_2025_920_511500-400x300.png"
   },
   {
@@ -301,6 +343,7 @@
    "name": "HAMDI",
    "norm": "hamdi",
    "foot": "left",
+   "cc": "FRA",
    "url": "https://s3.eu-west-1.amazonaws.com/image.mpg/2025-empt-920-400x300.png"
   },
   {
@@ -308,6 +351,7 @@
    "name": "HAMMOUDI",
    "norm": "hammoudi",
    "foot": null,
+   "cc": "FRA",
    "url": "https://s3.eu-west-3.amazonaws.com/ligue1.image/players/2025/all/player_official_2025_920_700774-400x300.png"
   },
   {
@@ -315,6 +359,7 @@
    "name": "LAURAY",
    "norm": "lauray",
    "foot": "right",
+   "cc": "FRA",
    "url": "https://s3.eu-west-3.amazonaws.com/ligue1.image/players/2025/all/player_official_2025_920_482549-400x300.png"
   },
   {
@@ -322,6 +367,7 @@
    "name": "RIBELIN",
    "norm": "ribelin",
    "foot": null,
+   "cc": "FRA",
    "url": "https://s3.eu-west-3.amazonaws.com/ligue1.image/players/2025/all/player_official_2025_920_194299-400x300.png"
   },
   {
@@ -329,6 +375,7 @@
    "name": "VOYER",
    "norm": "voyer",
    "foot": null,
+   "cc": "MTQ",
    "url": "https://s3.eu-west-3.amazonaws.com/ligue1.image/players/2025/all/player_official_2025_920_225893-400x300.png"
   },
   {
@@ -336,6 +383,7 @@
    "name": "YOHOU",
    "norm": "yohou",
    "foot": "right",
+   "cc": "FRA",
    "url": "https://s3.eu-west-3.amazonaws.com/ligue1.image/players/2025/all/player_official_2025_920_213576-400x300.png"
   },
   {
@@ -343,6 +391,7 @@
    "name": "BOURABAA",
    "norm": "bourabaa",
    "foot": null,
+   "cc": "FRA",
    "url": "https://s3.eu-west-3.amazonaws.com/ligue1.image/players/2025/all/player_official_2025_920_729203-400x300.png"
   },
   {
@@ -350,6 +399,7 @@
    "name": "BRETELLE",
    "norm": "bretelle",
    "foot": null,
+   "cc": "FRA",
    "url": "https://s3.eu-west-3.amazonaws.com/ligue1.image/players/2025/all/player_official_2025_920_560489-400x300.png"
   },
   {
@@ -357,6 +407,7 @@
    "name": "BUADES",
    "norm": "buades",
    "foot": "right",
+   "cc": "FRA",
    "url": "https://s3.eu-west-3.amazonaws.com/ligue1.image/players/2025/all/player_official_2025_920_433731-400x300.png"
   },
   {
@@ -364,6 +415,7 @@
    "name": "GOMES",
    "norm": "gomes",
    "foot": null,
+   "cc": "FRA",
    "url": "https://s3.eu-west-3.amazonaws.com/ligue1.image/players/2025/all/player_official_2025_920_622366-400x300.png"
   },
   {
@@ -371,6 +423,7 @@
    "name": "QUARSHIE",
    "norm": "quarshie",
    "foot": null,
+   "cc": "GHA",
    "url": "https://s3.eu-west-3.amazonaws.com/ligue1.image/players/2025/all/player_official_2025_920_462628-400x300.png"
   },
   {
@@ -378,6 +431,7 @@
    "name": "ROBIN",
    "norm": "robin",
    "foot": "right",
+   "cc": "FRA",
    "url": "https://s3.eu-west-3.amazonaws.com/ligue1.image/players/2025/all/player_official_2025_920_208557-400x300.png"
   },
   {
@@ -385,6 +439,7 @@
    "name": "ROSSIGNOL",
    "norm": "rossignol",
    "foot": null,
+   "cc": "FRA",
    "url": "https://s3.eu-west-3.amazonaws.com/ligue1.image/players/2025/all/player_official_2025_920_628902-400x300.png"
   },
   {
@@ -392,6 +447,7 @@
    "name": "VERCRUYSSE",
    "norm": "vercruysse",
    "foot": null,
+   "cc": "FRA",
    "url": "https://s3.eu-west-3.amazonaws.com/ligue1.image/players/2025/all/player_official_2025_920_477712-400x300.png"
   },
   {
@@ -399,6 +455,7 @@
    "name": "CARO",
    "norm": "caro",
    "foot": null,
+   "cc": "FRA",
    "url": "https://s3.eu-west-3.amazonaws.com/ligue1.image/players/2025/all/player_official_2025_920_650073-400x300.png"
   },
   {
@@ -406,6 +463,7 @@
    "name": "COLAS",
    "norm": "colas",
    "foot": null,
+   "cc": "FRA",
    "url": "https://s3.eu-west-3.amazonaws.com/ligue1.image/players/2025/all/player_official_2025_920_563115-400x300.png"
   },
   {
@@ -413,6 +471,7 @@
    "name": "GUEYE",
    "norm": "gueye",
    "foot": null,
+   "cc": "SEN",
    "url": "https://s3.eu-west-3.amazonaws.com/ligue1.image/players/2025/all/player_official_2025_920_222862-400x300.png"
   },
   {
@@ -420,6 +479,7 @@
    "name": "GUILLAUME",
    "norm": "guillaume",
    "foot": "right",
+   "cc": "BEL",
    "url": "https://s3.eu-west-3.amazonaws.com/ligue1.image/players/2025/all/player_official_2025_920_157728-400x300.png"
   },
   {
@@ -427,6 +487,7 @@
    "name": "HARHOUZ",
    "norm": "harhouz",
    "foot": "right",
+   "cc": "FRA",
    "url": "https://s3.eu-west-3.amazonaws.com/ligue1.image/players/2025/all/player_official_2025_920_701214-400x300.png"
   },
   {
@@ -434,6 +495,7 @@
    "name": "LUVAMBO",
    "norm": "luvambo",
    "foot": "right",
+   "cc": "FRA",
    "url": "https://s3.eu-west-3.amazonaws.com/ligue1.image/players/2025/all/player_official_2025_920_554589-400x300.png"
   },
   {
@@ -441,6 +503,7 @@
    "name": "RABILLARD",
    "norm": "rabillard",
    "foot": null,
+   "cc": "FRA",
    "url": "https://s3.eu-west-3.amazonaws.com/ligue1.image/players/2025/all/player_official_2025_920_221456-400x300.png"
   }
  ],
@@ -450,6 +513,7 @@
    "name": "LARSONNEUR",
    "norm": "larsonneur",
    "foot": "right",
+   "cc": "FRA",
    "url": "https://s3.eu-west-3.amazonaws.com/ligue1.image/players/2025/all/player_official_2025_152_216100-400x300.png"
   },
   {
@@ -457,6 +521,7 @@
    "name": "MAUBLEU",
    "norm": "maubleu",
    "foot": "right",
+   "cc": "FRA",
    "url": "https://s3.eu-west-3.amazonaws.com/ligue1.image/players/2025/all/player_official_2025_152_45103-400x300.png"
   },
   {
@@ -464,6 +529,7 @@
    "name": "TOURE",
    "norm": "toure",
    "foot": "right",
+   "cc": "FRA",
    "url": "https://s3.eu-west-1.amazonaws.com/image.mpg/2025-empt-152-400x300.png"
   },
   {
@@ -471,6 +537,7 @@
    "name": "ANNAN",
    "norm": "annan",
    "foot": "left",
+   "cc": "GHA",
    "url": "https://s3.eu-west-3.amazonaws.com/ligue1.image/players/2025/all/player_official_2025_152_532487-400x300.png"
   },
   {
@@ -478,6 +545,7 @@
    "name": "APPIAH",
    "norm": "appiah",
    "foot": "right",
+   "cc": "FRA",
    "url": "https://s3.eu-west-3.amazonaws.com/ligue1.image/players/2025/all/player_official_2025_152_84424-400x300.png"
   },
   {
@@ -485,6 +553,7 @@
    "name": "BERNAUER",
    "norm": "bernauer",
    "foot": "right",
+   "cc": "FRA",
    "url": "https://s3.eu-west-3.amazonaws.com/ligue1.image/players/2025/all/player_official_2025_152_184080-400x300.png"
   },
   {
@@ -492,6 +561,7 @@
    "name": "CHICO LAMBA",
    "norm": "chico lamba",
    "foot": "right",
+   "cc": "PRT",
    "url": "https://s3.eu-west-3.amazonaws.com/ligue1.image/players/2025/all/player_official_2025_152_551192-400x300.png"
   },
   {
@@ -499,6 +569,7 @@
    "name": "DODOTE",
    "norm": "dodote",
    "foot": null,
+   "cc": "FRA",
    "url": "https://s3.eu-west-1.amazonaws.com/image.mpg/2025-empt-152-400x300.png"
   },
   {
@@ -506,6 +577,7 @@
    "name": "FERREIRA",
    "norm": "ferreira",
    "foot": "right",
+   "cc": "PRT",
    "url": "https://s3.eu-west-3.amazonaws.com/ligue1.image/players/2025/all/player_official_2025_152_449982-400x300.png"
   },
   {
@@ -513,6 +585,7 @@
    "name": "HORNECH",
    "norm": "hornech",
    "foot": "left",
+   "cc": "FRA",
    "url": "https://s3.eu-west-1.amazonaws.com/image.mpg/2025-empt-152-400x300.png"
   },
   {
@@ -520,6 +593,7 @@
    "name": "LE CARDINAL",
    "norm": "le cardinal",
    "foot": "right",
+   "cc": "FRA",
    "url": "https://s3.eu-west-3.amazonaws.com/ligue1.image/players/2025/all/player_official_2025_152_544830-400x300.png"
   },
   {
@@ -527,6 +601,7 @@
    "name": "NADE",
    "norm": "nade",
    "foot": "left",
+   "cc": "FRA",
    "url": "https://s3.eu-west-3.amazonaws.com/ligue1.image/players/2025/all/player_official_2025_152_245742-400x300.png"
   },
   {
@@ -534,6 +609,7 @@
    "name": "PEDRO",
    "norm": "pedro",
    "foot": "right",
+   "cc": "FRA",
    "url": "https://s3.eu-west-3.amazonaws.com/ligue1.image/players/2025/all/player_official_2025_152_560249-400x300.png"
   },
   {
@@ -541,6 +617,7 @@
    "name": "SOUMAHORO",
    "norm": "soumahoro",
    "foot": "right",
+   "cc": "FRA",
    "url": "https://s3.eu-west-3.amazonaws.com/ligue1.image/players/2025/all/player_official_2025_152_651875-400x300.png"
   },
   {
@@ -548,6 +625,7 @@
    "name": "STOJKOVIC",
    "norm": "stojkovic",
    "foot": null,
+   "cc": "SRB",
    "url": "https://s3.eu-west-3.amazonaws.com/ligue1.image/players/2025/all/player_official_2025_152_669958-400x300.png"
   },
   {
@@ -555,6 +633,7 @@
    "name": "TRAORE",
    "norm": "traore",
    "foot": null,
+   "cc": "SEN",
    "url": "https://s3.eu-west-3.amazonaws.com/ligue1.image/players/2025/all/player_official_2025_152_619067-400x300.png"
   },
   {
@@ -562,6 +641,7 @@
    "name": "ACHOUR",
    "norm": "achour",
    "foot": null,
+   "cc": "FRA",
    "url": "https://s3.eu-west-1.amazonaws.com/image.mpg/2025-empt-152-400x300.png"
   },
   {
@@ -569,6 +649,7 @@
    "name": "BAALLAL",
    "norm": "baallal",
    "foot": null,
+   "cc": "MAR",
    "url": "https://s3.eu-west-1.amazonaws.com/image.mpg/2025-empt-152-400x300.png"
   },
   {
@@ -576,6 +657,7 @@
    "name": "BOAKYE",
    "norm": "boakye",
    "foot": "left",
+   "cc": "GHA",
    "url": "https://s3.eu-west-3.amazonaws.com/ligue1.image/players/2025/all/player_official_2025_152_549820-400x300.png"
   },
   {
@@ -583,6 +665,7 @@
    "name": "EYMARD",
    "norm": "eymard",
    "foot": null,
+   "cc": "FRA",
    "url": "https://s3.eu-west-3.amazonaws.com/ligue1.image/players/2025/all/player_official_2025_152_697408-400x300.png"
   },
   {
@@ -590,6 +673,7 @@
    "name": "GADEGBEKU",
    "norm": "gadegbeku",
    "foot": "left",
+   "cc": "FRA",
    "url": "https://s3.eu-west-3.amazonaws.com/ligue1.image/players/2025/all/player_official_2025_152_668891-400x300.png"
   },
   {
@@ -597,6 +681,7 @@
    "name": "JABER",
    "norm": "jaber",
    "foot": "right",
+   "cc": "ISR",
    "url": "https://s3.eu-west-3.amazonaws.com/ligue1.image/players/2025/all/player_official_2025_152_543388-400x300.png"
   },
   {
@@ -604,6 +689,7 @@
    "name": "KANTE",
    "norm": "kante",
    "foot": "right",
+   "cc": "CIV",
    "url": "https://s3.eu-west-3.amazonaws.com/ligue1.image/players/2025/all/player_official_2025_152_625949-400x300.png"
   },
   {
@@ -611,6 +697,7 @@
    "name": "MILADINOVIC",
    "norm": "miladinovic",
    "foot": "right",
+   "cc": "SRB",
    "url": "https://s3.eu-west-3.amazonaws.com/ligue1.image/players/2025/all/player_official_2025_152_576052-400x300.png"
   },
   {
@@ -618,6 +705,7 @@
    "name": "MOUEFFEK",
    "norm": "moueffek",
    "foot": "right",
+   "cc": "MAR",
    "url": "https://s3.eu-west-3.amazonaws.com/ligue1.image/players/2025/all/player_official_2025_152_489573-400x300.png"
   },
   {
@@ -625,6 +713,7 @@
    "name": "MOUTON",
    "norm": "mouton",
    "foot": null,
+   "cc": "FRA",
    "url": "https://s3.eu-west-3.amazonaws.com/ligue1.image/players/2025/all/player_official_2025_152_601493-400x300.png"
   },
   {
@@ -632,6 +721,7 @@
    "name": "OLD",
    "norm": "old",
    "foot": "left",
+   "cc": "NZL",
    "url": "https://s3.eu-west-3.amazonaws.com/ligue1.image/players/2025/all/player_official_2025_152_495159-400x300.png"
   },
   {
@@ -639,6 +729,7 @@
    "name": "TARDIEU",
    "norm": "tardieu",
    "foot": "right",
+   "cc": "FRA",
    "url": "https://s3.eu-west-3.amazonaws.com/ligue1.image/players/2025/all/player_official_2025_152_116592-400x300.png"
   },
   {
@@ -646,6 +737,7 @@
    "name": "CARDONA",
    "norm": "cardona",
    "foot": "right",
+   "cc": "MLT",
    "url": "https://s3.eu-west-3.amazonaws.com/ligue1.image/players/2025/all/player_official_2025_152_240145-400x300.png"
   },
   {
@@ -653,6 +745,7 @@
    "name": "CHEIKH",
    "norm": "cheikh",
    "foot": null,
+   "cc": "FRA",
    "url": "https://s3.eu-west-1.amazonaws.com/image.mpg/2025-empt-152-400x300.png"
   },
   {
@@ -660,6 +753,7 @@
    "name": "DAVITASHVILI",
    "norm": "davitashvili",
    "foot": "right",
+   "cc": "GEO",
    "url": "https://s3.eu-west-3.amazonaws.com/ligue1.image/players/2025/all/player_official_2025_152_449017-400x300.png"
   },
   {
@@ -667,6 +761,7 @@
    "name": "DUFFUS",
    "norm": "duffus",
    "foot": null,
+   "cc": "ENG",
    "url": "https://s3.eu-west-3.amazonaws.com/ligue1.image/players/2025/all/player_official_2025_152_532528-400x300.png"
   },
   {
@@ -674,6 +769,7 @@
    "name": "EL JAMALI",
    "norm": "el jamali",
    "foot": null,
+   "cc": "FRA",
    "url": "https://s3.eu-west-3.amazonaws.com/ligue1.image/players/2025/all/player_official_2025_152_644982-400x300.png"
   },
   {
@@ -681,6 +777,7 @@
    "name": "MOULIN",
    "norm": "moulin",
    "foot": null,
+   "cc": "FRA",
    "url": "https://s3.eu-west-1.amazonaws.com/image.mpg/2025-empt-152-400x300.png"
   },
   {
@@ -688,6 +785,7 @@
    "name": "N'GUESSAN",
    "norm": "nguessan",
    "foot": "right",
+   "cc": "FRA",
    "url": "https://s3.eu-west-3.amazonaws.com/ligue1.image/players/2025/all/player_official_2025_152_640621-400x300.png"
   },
   {
@@ -695,6 +793,7 @@
    "name": "PAALBERG",
    "norm": "paalberg",
    "foot": null,
+   "cc": "EST",
    "url": "https://s3.eu-west-3.amazonaws.com/ligue1.image/players/2025/all/player_official_2025_152_650308-400x300.png"
   },
   {
@@ -702,6 +801,7 @@
    "name": "STASSIN",
    "norm": "stassin",
    "foot": "right",
+   "cc": "BEL",
    "url": "https://s3.eu-west-3.amazonaws.com/ligue1.image/players/2025/all/player_official_2025_152_513530-400x300.png"
   },
   {
@@ -709,6 +809,7 @@
    "name": "TOTY",
    "norm": "toty",
    "foot": "both",
+   "cc": "FRA",
    "url": "https://s3.eu-west-1.amazonaws.com/image.mpg/2025-empt-152-400x300.png"
   }
  ],
@@ -718,6 +819,7 @@
    "name": "BEUNARDEAU",
    "norm": "beunardeau",
    "foot": "right",
+   "cc": "FRA",
    "url": "https://s3.eu-west-3.amazonaws.com/ligue1.image/players/2025/all/player_official_2025_915_114269-400x300.png"
   },
   {
@@ -725,6 +827,7 @@
    "name": "HASSEN",
    "norm": "hassen",
    "foot": "right",
+   "cc": "TUN",
    "url": "https://s3.eu-west-1.amazonaws.com/image.mpg/2025-empt-915-400x300.png"
   },
   {
@@ -732,6 +835,7 @@
    "name": "POUSSIN",
    "norm": "poussin",
    "foot": "right",
+   "cc": "FRA",
    "url": "https://s3.eu-west-3.amazonaws.com/ligue1.image/players/2025/all/player_official_2025_915_204715-400x300.png"
   },
   {
@@ -739,6 +843,7 @@
    "name": "AHAMADA",
    "norm": "ahamada",
    "foot": null,
+   "cc": "COM",
    "url": "https://s3.eu-west-1.amazonaws.com/image.mpg/2025-empt-915-400x300.png"
   },
   {
@@ -746,6 +851,7 @@
    "name": "DOUCOURE",
    "norm": "doucoure",
    "foot": "right",
+   "cc": "GIN",
    "url": "https://s3.eu-west-3.amazonaws.com/ligue1.image/players/2025/all/player_official_2025_915_503729-400x300.png"
   },
   {
@@ -753,6 +859,7 @@
    "name": "DURIVAUX",
    "norm": "durivaux",
    "foot": "right",
+   "cc": "FRA",
    "url": "https://s3.eu-west-3.amazonaws.com/ligue1.image/players/2025/all/player_official_2025_915_554577-400x300.png"
   },
   {
@@ -760,6 +867,7 @@
    "name": "ESCARTIN",
    "norm": "escartin",
    "foot": "right",
+   "cc": "FRA",
    "url": "https://s3.eu-west-3.amazonaws.com/ligue1.image/players/2025/all/player_official_2025_915_626752-400x300.png"
   },
   {
@@ -767,6 +875,7 @@
    "name": "GUINDO",
    "norm": "guindo",
    "foot": null,
+   "cc": "MLI",
    "url": "https://s3.eu-west-3.amazonaws.com/ligue1.image/players/2025/all/player_official_2025_915_703337-400x300.png"
   },
   {
@@ -774,6 +883,7 @@
    "name": "HACHEM",
    "norm": "hachem",
    "foot": "left",
+   "cc": "FRA",
    "url": "https://s3.eu-west-3.amazonaws.com/ligue1.image/players/2025/all/player_official_2025_915_564371-400x300.png"
   },
   {
@@ -781,6 +891,7 @@
    "name": "HUARD",
    "norm": "huard",
    "foot": "left",
+   "cc": "FRA",
    "url": "https://s3.eu-west-3.amazonaws.com/ligue1.image/players/2025/all/player_official_2025_915_488263-400x300.png"
   },
   {
@@ -788,6 +899,7 @@
    "name": "KANY",
    "norm": "kany",
    "foot": "right",
+   "cc": "FRA",
    "url": "https://s3.eu-west-3.amazonaws.com/ligue1.image/players/2025/all/player_official_2025_915_657511-400x300.png"
   },
   {
@@ -795,6 +907,7 @@
    "name": "LEMONNIER",
    "norm": "lemonnier",
    "foot": "right",
+   "cc": "FRA",
    "url": "https://s3.eu-west-3.amazonaws.com/ligue1.image/players/2025/all/player_official_2025_915_193285-400x300.png"
   },
   {
@@ -802,6 +915,7 @@
    "name": "MAGNIN",
    "norm": "magnin",
    "foot": "right",
+   "cc": "CHE",
    "url": "https://s3.eu-west-3.amazonaws.com/ligue1.image/players/2025/all/player_official_2025_915_560536-400x300.png"
   },
   {
@@ -809,6 +923,7 @@
    "name": "SYLLA",
    "norm": "sylla",
    "foot": "right",
+   "cc": "GIN",
    "url": "https://s3.eu-west-3.amazonaws.com/ligue1.image/players/2025/all/player_official_2025_915_591255-400x300.png"
   },
   {
@@ -816,6 +931,7 @@
    "name": "DANGER",
    "norm": "danger",
    "foot": "right",
+   "cc": "FRA",
    "url": "https://s3.eu-west-3.amazonaws.com/ligue1.image/players/2025/all/player_official_2025_915_199664-400x300.png"
   },
   {
@@ -823,6 +939,7 @@
    "name": "HAAG",
    "norm": "haag",
    "foot": "right",
+   "cc": "FRA",
    "url": "https://s3.eu-west-3.amazonaws.com/ligue1.image/players/2025/all/player_official_2025_915_471139-400x300.png"
   },
   {
@@ -830,6 +947,7 @@
    "name": "HALIFA",
    "norm": "halifa",
    "foot": null,
+   "cc": "FRA",
    "url": "https://s3.eu-west-3.amazonaws.com/ligue1.image/players/2025/all/player_official_2025_915_633084-400x300.png"
   },
   {
@@ -837,6 +955,7 @@
    "name": "KHAOUI",
    "norm": "khaoui",
    "foot": "right",
+   "cc": "TUN",
    "url": "https://s3.eu-west-3.amazonaws.com/ligue1.image/players/2025/all/player_official_2025_915_169427-400x300.png"
   },
   {
@@ -844,6 +963,7 @@
    "name": "KONATE",
    "norm": "konate",
    "foot": null,
+   "cc": "IRL",
    "url": "https://s3.eu-west-3.amazonaws.com/ligue1.image/players/2025/all/player_official_2025_915_703336-400x300.png"
   },
   {
@@ -851,6 +971,7 @@
    "name": "PIERRET",
    "norm": "pierret",
    "foot": "right",
+   "cc": "FRA",
    "url": "https://s3.eu-west-3.amazonaws.com/ligue1.image/players/2025/all/player_official_2025_915_501796-400x300.png"
   },
   {
@@ -858,6 +979,7 @@
    "name": "TRANI",
    "norm": "trani",
    "foot": null,
+   "cc": "FRA",
    "url": "https://s3.eu-west-3.amazonaws.com/ligue1.image/players/2025/all/player_official_2025_915_244079-400x300.png"
   },
   {
@@ -865,6 +987,7 @@
    "name": "BA",
    "norm": "ba",
    "foot": "right",
+   "cc": "SEN",
    "url": "https://s3.eu-west-3.amazonaws.com/ligue1.image/players/2025/all/player_official_2025_915_490099-400x300.png"
   },
   {
@@ -872,6 +995,7 @@
    "name": "BENALI",
    "norm": "benali",
    "foot": "right",
+   "cc": "DZA",
    "url": "https://s3.eu-west-1.amazonaws.com/image.mpg/2025-empt-915-400x300.png"
   },
   {
@@ -879,6 +1003,7 @@
    "name": "CABRAL",
    "norm": "cabral",
    "foot": "right",
+   "cc": "FRA",
    "url": "https://s3.eu-west-3.amazonaws.com/ligue1.image/players/2025/all/player_official_2025_915_467095-400x300.png"
   },
   {
@@ -886,6 +1011,7 @@
    "name": "CISSE",
    "norm": "cisse",
    "foot": "right",
+   "cc": "FRA",
    "url": "https://s3.eu-west-3.amazonaws.com/ligue1.image/players/2025/all/player_official_2025_915_628025-400x300.png"
   },
   {
@@ -893,6 +1019,7 @@
    "name": "DIAWAKANA",
    "norm": "diawakana",
    "foot": null,
+   "cc": "FRA",
    "url": "https://s3.eu-west-1.amazonaws.com/image.mpg/2025-empt-915-400x300.png"
   },
   {
@@ -900,6 +1027,7 @@
    "name": "DURAND",
    "norm": "durand",
    "foot": "right",
+   "cc": "FRA",
    "url": "https://s3.eu-west-3.amazonaws.com/ligue1.image/players/2025/all/player_official_2025_915_532759-400x300.png"
   },
   {
@@ -907,6 +1035,7 @@
    "name": "HACHEM",
    "norm": "hachem",
    "foot": null,
+   "cc": "FRA",
    "url": "https://s3.eu-west-3.amazonaws.com/ligue1.image/players/2025/all/player_official_2025_915_664869-400x300.png"
   },
   {
@@ -914,6 +1043,7 @@
    "name": "IKANGA",
    "norm": "ikanga",
    "foot": "right",
+   "cc": "FRA",
    "url": "https://s3.eu-west-3.amazonaws.com/ligue1.image/players/2025/all/player_official_2025_915_546040-400x300.png"
   }
  ],
@@ -923,6 +1053,7 @@
    "name": "BRAAT",
    "norm": "braat",
    "foot": "right",
+   "cc": "FRA",
    "url": "https://s3.eu-west-3.amazonaws.com/ligue1.image/players/2025/all/player_official_2025_3308_220110-400x300.png"
   },
   {
@@ -930,6 +1061,7 @@
    "name": "CROMBEZ",
    "norm": "crombez",
    "foot": "right",
+   "cc": "FRA",
    "url": "https://s3.eu-west-3.amazonaws.com/ligue1.image/players/2025/all/player_official_2025_3308_579587-400x300.png"
   },
   {
@@ -937,6 +1069,7 @@
    "name": "MARGUERON",
    "norm": "margueron",
    "foot": "right",
+   "cc": "FRA",
    "url": "https://s3.eu-west-3.amazonaws.com/ligue1.image/players/2025/all/player_official_2025_3308_466046-400x300.png"
   },
   {
@@ -944,6 +1077,7 @@
    "name": "GALVES",
    "norm": "galves",
    "foot": "right",
+   "cc": "FRA",
    "url": "https://s3.eu-west-3.amazonaws.com/ligue1.image/players/2025/all/player_official_2025_3308_560847-400x300.png"
   },
   {
@@ -951,6 +1085,7 @@
    "name": "JOLIBOIS",
    "norm": "jolibois",
    "foot": null,
+   "cc": "FRA",
    "url": "https://s3.eu-west-3.amazonaws.com/ligue1.image/players/2025/all/player_official_2025_3308_664848-400x300.png"
   },
   {
@@ -958,6 +1093,7 @@
    "name": "LAURENT",
    "norm": "laurent",
    "foot": "right",
+   "cc": "FRA",
    "url": "https://s3.eu-west-3.amazonaws.com/ligue1.image/players/2025/all/player_official_2025_3308_627230-400x300.png"
   },
   {
@@ -965,6 +1101,7 @@
    "name": "LIPINSKI",
    "norm": "lipinski",
    "foot": "left",
+   "cc": "FRA",
    "url": "https://s3.eu-west-3.amazonaws.com/ligue1.image/players/2025/all/player_official_2025_3308_611178-400x300.png"
   },
   {
@@ -972,6 +1109,7 @@
    "name": "MAGNIN",
    "norm": "magnin",
    "foot": "right",
+   "cc": "CHE",
    "url": "https://s3.eu-west-3.amazonaws.com/ligue1.image/players/2025/all/player_official_2025_3308_544805-400x300.png"
   },
   {
@@ -979,6 +1117,7 @@
    "name": "VANGI",
    "norm": "vangi",
    "foot": null,
+   "cc": "FRA",
    "url": "https://s3.eu-west-1.amazonaws.com/image.mpg/2025-empt-3308-400x300.png"
   },
   {
@@ -986,6 +1125,7 @@
    "name": "ACHI",
    "norm": "achi",
    "foot": "left",
+   "cc": "FRA",
    "url": "https://s3.eu-west-3.amazonaws.com/ligue1.image/players/2025/all/player_official_2025_3308_565817-400x300.png"
   },
   {
@@ -993,6 +1133,7 @@
    "name": "BENCHAMMA",
    "norm": "benchamma",
    "foot": "right",
+   "cc": "FRA",
    "url": "https://s3.eu-west-3.amazonaws.com/ligue1.image/players/2025/all/player_official_2025_3308_477720-400x300.png"
   },
   {
@@ -1000,6 +1141,7 @@
    "name": "DAHALANI",
    "norm": "dahalani",
    "foot": null,
+   "cc": "FRA",
    "url": "https://s3.eu-west-3.amazonaws.com/ligue1.image/players/2025/all/player_official_2025_3308_703348-400x300.png"
   },
   {
@@ -1007,6 +1149,7 @@
    "name": "JOLY",
    "norm": "joly",
    "foot": null,
+   "cc": "FRA",
    "url": "https://s3.eu-west-3.amazonaws.com/ligue1.image/players/2025/all/player_official_2025_3308_564809-400x300.png"
   },
   {
@@ -1014,6 +1157,7 @@
    "name": "MENDES",
    "norm": "mendes",
    "foot": "right",
+   "cc": "CPV",
    "url": "https://s3.eu-west-3.amazonaws.com/ligue1.image/players/2025/all/player_official_2025_3308_627705-400x300.png"
   },
   {
@@ -1021,6 +1165,7 @@
    "name": "PONTI",
    "norm": "ponti",
    "foot": "left",
+   "cc": "MDG",
    "url": "https://s3.eu-west-3.amazonaws.com/ligue1.image/players/2025/all/player_official_2025_3308_501302-400x300.png"
   },
   {
@@ -1028,6 +1173,7 @@
    "name": "SAKA",
    "norm": "saka",
    "foot": "right",
+   "cc": "FRA",
    "url": "https://s3.eu-west-3.amazonaws.com/ligue1.image/players/2025/all/player_official_2025_3308_638416-400x300.png"
   },
   {
@@ -1035,6 +1181,7 @@
    "name": "TROUILLET",
    "norm": "trouillet",
    "foot": "right",
+   "cc": "FRA",
    "url": "https://s3.eu-west-3.amazonaws.com/ligue1.image/players/2025/all/player_official_2025_3308_505193-400x300.png"
   },
   {
@@ -1042,6 +1189,7 @@
    "name": "YOUNOUSSA",
    "norm": "younoussa",
    "foot": "right",
+   "cc": "CMR",
    "url": "https://s3.eu-west-3.amazonaws.com/ligue1.image/players/2025/all/player_official_2025_3308_511568-400x300.png"
   },
   {
@@ -1049,6 +1197,7 @@
    "name": "ARCONTE",
    "norm": "arconte",
    "foot": "right",
+   "cc": "GLP",
    "url": "https://s3.eu-west-3.amazonaws.com/ligue1.image/players/2025/all/player_official_2025_3308_533003-400x300.png"
   },
   {
@@ -1056,6 +1205,7 @@
    "name": "BAALOUDJ",
    "norm": "baaloudj",
    "foot": "right",
+   "cc": "DZA",
    "url": "https://s3.eu-west-3.amazonaws.com/ligue1.image/players/2025/all/player_official_2025_3308_554583-400x300.png"
   },
   {
@@ -1063,6 +1213,7 @@
    "name": "BALDE",
    "norm": "balde",
    "foot": "right",
+   "cc": "FRA",
    "url": "https://s3.eu-west-3.amazonaws.com/ligue1.image/players/2025/all/player_official_2025_3308_546613-400x300.png"
   },
   {
@@ -1070,6 +1221,7 @@
    "name": "CORREDOR",
    "norm": "corredor",
    "foot": "right",
+   "cc": "FRA",
    "url": "https://s3.eu-west-3.amazonaws.com/ligue1.image/players/2025/all/player_official_2025_3308_672409-400x300.png"
   },
   {
@@ -1077,6 +1229,7 @@
    "name": "ISSANCHOU",
    "norm": "issanchou",
    "foot": null,
+   "cc": "FRA",
    "url": "https://s3.eu-west-3.amazonaws.com/ligue1.image/players/2025/all/player_official_2025_3308_674515-400x300.png"
   },
   {
@@ -1084,6 +1237,7 @@
    "name": "JEAN-LAMBERT",
    "norm": "jeanlambert",
    "foot": "left",
+   "cc": "FRA",
    "url": "https://s3.eu-west-3.amazonaws.com/ligue1.image/players/2025/all/player_official_2025_3308_490061-400x300.png"
   },
   {
@@ -1091,6 +1245,7 @@
    "name": "NAGERA",
    "norm": "nagera",
    "foot": "right",
+   "cc": "FRA",
    "url": "https://s3.eu-west-3.amazonaws.com/ligue1.image/players/2025/all/player_official_2025_3308_496630-400x300.png"
   },
   {
@@ -1098,6 +1253,7 @@
    "name": "TEBILY",
    "norm": "tebily",
    "foot": "right",
+   "cc": "FRA",
    "url": "https://s3.eu-west-3.amazonaws.com/ligue1.image/players/2025/all/player_official_2025_3308_482598-400x300.png"
   }
  ],
@@ -1107,6 +1263,7 @@
    "name": "CORNÉLIS",
    "norm": "cornelis",
    "foot": null,
+   "cc": "FRA",
    "url": "https://s3.eu-west-1.amazonaws.com/image.mpg/2025-empt-1423-400x300.png"
   },
   {
@@ -1114,6 +1271,7 @@
    "name": "JAOUEN",
    "norm": "jaouen",
    "foot": "right",
+   "cc": "FRA",
    "url": "https://s3.eu-west-3.amazonaws.com/ligue1.image/players/2025/all/player_official_2025_1423_554578-400x300.png"
   },
   {
@@ -1121,6 +1279,7 @@
    "name": "OLLIERO",
    "norm": "olliero",
    "foot": "right",
+   "cc": "FRA",
    "url": "https://s3.eu-west-3.amazonaws.com/ligue1.image/players/2025/all/player_official_2025_1423_216610-400x300.png"
   },
   {
@@ -1128,6 +1287,7 @@
    "name": "SYLLA",
    "norm": "sylla",
    "foot": "right",
+   "cc": "GIN",
    "url": "https://s3.eu-west-3.amazonaws.com/ligue1.image/players/2025/all/player_official_2025_1423_609970-400x300.png"
   },
   {
@@ -1135,6 +1295,7 @@
    "name": "AKIEME",
    "norm": "akieme",
    "foot": "left",
+   "cc": "ESP",
    "url": "https://s3.eu-west-3.amazonaws.com/ligue1.image/players/2025/all/player_official_2025_1423_220871-400x300.png"
   },
   {
@@ -1142,6 +1303,7 @@
    "name": "BUSI",
    "norm": "busi",
    "foot": "right",
+   "cc": "BEL",
    "url": "https://s3.eu-west-3.amazonaws.com/ligue1.image/players/2025/all/player_official_2025_1423_459897-400x300.png"
   },
   {
@@ -1149,6 +1311,7 @@
    "name": "DEBONDT",
    "norm": "debondt",
    "foot": null,
+   "cc": "BEL",
    "url": "https://s3.eu-west-1.amazonaws.com/image.mpg/2025-empt-1423-400x300.png"
   },
   {
@@ -1156,6 +1319,7 @@
    "name": "KONE",
    "norm": "kone",
    "foot": "right",
+   "cc": "FRA",
    "url": "https://s3.eu-west-3.amazonaws.com/ligue1.image/players/2025/all/player_official_2025_1423_657512-400x300.png"
   },
   {
@@ -1163,6 +1327,7 @@
    "name": "KOTTO",
    "norm": "kotto",
    "foot": "left",
+   "cc": "CMR",
    "url": "https://s3.eu-west-3.amazonaws.com/ligue1.image/players/2025/all/player_official_2025_1423_531158-400x300.png"
   },
   {
@@ -1170,6 +1335,7 @@
    "name": "MAMBUKU",
    "norm": "mambuku",
    "foot": "right",
+   "cc": "ITA",
    "url": "https://s3.eu-west-1.amazonaws.com/image.mpg/2025-empt-1423-400x300.png"
   },
   {
@@ -1177,6 +1343,7 @@
    "name": "N'TAMON",
    "norm": "ntamon",
    "foot": "right",
+   "cc": "CIV",
    "url": "https://s3.eu-west-3.amazonaws.com/ligue1.image/players/2025/all/player_official_2025_1423_621433-400x300.png"
   },
   {
@@ -1184,6 +1351,7 @@
    "name": "OCHOCHE",
    "norm": "ochoche",
    "foot": "right",
+   "cc": "NGA",
    "url": "https://s3.eu-west-1.amazonaws.com/image.mpg/2025-empt-1423-400x300.png"
   },
   {
@@ -1191,6 +1359,7 @@
    "name": "OKUMU",
    "norm": "okumu",
    "foot": "right",
+   "cc": "KEN",
    "url": "https://s3.eu-west-3.amazonaws.com/ligue1.image/players/2025/all/player_official_2025_1423_433421-400x300.png"
   },
   {
@@ -1198,6 +1367,7 @@
    "name": "PALLOIS",
    "norm": "pallois",
    "foot": "left",
+   "cc": "FRA",
    "url": "https://s3.eu-west-3.amazonaws.com/ligue1.image/players/2025/all/player_official_2025_1423_82313-400x300.png"
   },
   {
@@ -1205,6 +1375,7 @@
    "name": "SEKINE",
    "norm": "sekine",
    "foot": "right",
+   "cc": "JPN",
    "url": "https://s3.eu-west-3.amazonaws.com/ligue1.image/players/2025/all/player_official_2025_1423_622791-400x300.png"
   },
   {
@@ -1212,6 +1383,7 @@
    "name": "BENHATTAB",
    "norm": "benhattab",
    "foot": "right",
+   "cc": "FRA",
    "url": "https://s3.eu-west-3.amazonaws.com/ligue1.image/players/2025/all/player_official_2025_1423_511600-400x300.png"
   },
   {
@@ -1219,6 +1391,7 @@
    "name": "DANSOKHO",
    "norm": "dansokho",
    "foot": null,
+   "cc": "FRA",
    "url": "https://s3.eu-west-1.amazonaws.com/image.mpg/2025-empt-1423-400x300.png"
   },
   {
@@ -1226,6 +1399,7 @@
    "name": "DIARRA",
    "norm": "diarra",
    "foot": "right",
+   "cc": "MLI",
    "url": "https://s3.eu-west-3.amazonaws.com/ligue1.image/players/2025/all/player_official_2025_1423_632850-400x300.png"
   },
   {
@@ -1233,6 +1407,7 @@
    "name": "DIARRASSOUBA",
    "norm": "diarrassouba",
    "foot": null,
+   "cc": "FRA",
    "url": "https://s3.eu-west-3.amazonaws.com/ligue1.image/players/2025/all/player_official_2025_1423_713411-400x300.png"
   },
   {
@@ -1240,6 +1415,7 @@
    "name": "FOFANA",
    "norm": "fofana",
    "foot": "right",
+   "cc": "CIV",
    "url": "https://s3.eu-west-3.amazonaws.com/ligue1.image/players/2025/all/player_official_2025_1423_554929-400x300.png"
   },
   {
@@ -1247,6 +1423,7 @@
    "name": "GBANE",
    "norm": "gbane",
    "foot": "right",
+   "cc": "CIV",
    "url": "https://s3.eu-west-3.amazonaws.com/ligue1.image/players/2025/all/player_official_2025_1423_558945-400x300.png"
   },
   {
@@ -1254,6 +1431,7 @@
    "name": "LEONI",
    "norm": "leoni",
    "foot": "left",
+   "cc": "BEL",
    "url": "https://s3.eu-west-3.amazonaws.com/ligue1.image/players/2025/all/player_official_2025_1423_438011-400x300.png"
   },
   {
@@ -1261,6 +1439,7 @@
    "name": "NAKAMURA",
    "norm": "nakamura",
    "foot": "right",
+   "cc": "JPN",
    "url": "https://s3.eu-west-3.amazonaws.com/ligue1.image/players/2025/all/player_official_2025_1423_219274-400x300.png"
   },
   {
@@ -1268,6 +1447,7 @@
    "name": "PATRICK",
    "norm": "patrick",
    "foot": "right",
+   "cc": "IRL",
    "url": "https://s3.eu-west-3.amazonaws.com/ligue1.image/players/2025/all/player_official_2025_1423_521510-400x300.png"
   },
   {
@@ -1275,6 +1455,7 @@
    "name": "TIA",
    "norm": "tia",
    "foot": "right",
+   "cc": "MLI",
    "url": "https://s3.eu-west-3.amazonaws.com/ligue1.image/players/2025/all/player_official_2025_1423_618845-400x300.png"
   },
   {
@@ -1282,6 +1463,7 @@
    "name": "ZABI",
    "norm": "zabi",
    "foot": "right",
+   "cc": "CIV",
    "url": "https://s3.eu-west-3.amazonaws.com/ligue1.image/players/2025/all/player_official_2025_1423_683822-400x300.png"
   },
   {
@@ -1289,6 +1471,7 @@
    "name": "BOJANG",
    "norm": "bojang",
    "foot": null,
+   "cc": "GMB",
    "url": "https://s3.eu-west-3.amazonaws.com/ligue1.image/players/2025/all/player_official_2025_1423_612668-400x300.png"
   },
   {
@@ -1296,6 +1479,7 @@
    "name": "DARAMY",
    "norm": "daramy",
    "foot": "right",
+   "cc": "DNK",
    "url": "https://s3.eu-west-3.amazonaws.com/ligue1.image/players/2025/all/player_official_2025_1423_466812-400x300.png"
   },
   {
@@ -1303,6 +1487,7 @@
    "name": "GADOU",
    "norm": "gadou",
    "foot": null,
+   "cc": "FRA",
    "url": "https://s3.eu-west-3.amazonaws.com/ligue1.image/players/2025/all/player_official_2025_1423_689862-400x300.png"
   },
   {
@@ -1310,6 +1495,7 @@
    "name": "IBRAHIM",
    "norm": "ibrahim",
    "foot": "both",
+   "cc": "NGA",
    "url": "https://s3.eu-west-3.amazonaws.com/ligue1.image/players/2025/all/player_official_2025_1423_682311-400x300.png"
   },
   {
@@ -1317,6 +1503,7 @@
    "name": "SYLLA",
    "norm": "sylla",
    "foot": null,
+   "cc": "FRA",
    "url": "https://s3.eu-west-3.amazonaws.com/ligue1.image/players/2025/all/player_official_2025_1423_729578-400x300.png"
   }
  ],
@@ -1326,6 +1513,7 @@
    "name": "CALLENS",
    "norm": "callens",
    "foot": "left",
+   "cc": "FRA",
    "url": "https://s3.eu-west-3.amazonaws.com/ligue1.image/players/2025/all/player_official_2025_11426_457225-400x300.png"
   },
   {
@@ -1333,6 +1521,7 @@
    "name": "ESCALES",
    "norm": "escales",
    "foot": "right",
+   "cc": "FRA",
    "url": "https://s3.eu-west-3.amazonaws.com/ligue1.image/players/2025/all/player_official_2025_11426_208134-400x300.png"
   },
   {
@@ -1340,6 +1529,7 @@
    "name": "GONZALEZ",
    "norm": "gonzalez",
    "foot": "right",
+   "cc": "FRA",
    "url": "https://s3.eu-west-3.amazonaws.com/ligue1.image/players/2025/all/player_official_2025_11426_662132-400x300.png"
   },
   {
@@ -1347,6 +1537,7 @@
    "name": "NEDELEC",
    "norm": "nedelec",
    "foot": null,
+   "cc": "FRA",
    "url": "https://s3.eu-west-3.amazonaws.com/ligue1.image/players/2025/all/player_official_2025_11426_703112-400x300.png"
   },
   {
@@ -1354,6 +1545,7 @@
    "name": "DEBBICHE",
    "norm": "debbiche",
    "foot": "right",
+   "cc": "TUN",
    "url": "https://s3.eu-west-3.amazonaws.com/ligue1.image/players/2025/all/player_official_2025_11426_665187-400x300.png"
   },
   {
@@ -1361,6 +1553,7 @@
    "name": "DELPHIS",
    "norm": "delphis",
    "foot": "right",
+   "cc": "FRA",
    "url": "https://s3.eu-west-3.amazonaws.com/ligue1.image/players/2025/all/player_official_2025_11426_628432-400x300.png"
   },
   {
@@ -1368,6 +1561,7 @@
    "name": "DROUHIN",
    "norm": "drouhin",
    "foot": "right",
+   "cc": "FRA",
    "url": "https://s3.eu-west-3.amazonaws.com/ligue1.image/players/2025/all/player_official_2025_11426_628883-400x300.png"
   },
   {
@@ -1375,6 +1569,7 @@
    "name": "KOUADIO",
    "norm": "kouadio",
    "foot": "right",
+   "cc": "FRA",
    "url": "https://s3.eu-west-3.amazonaws.com/ligue1.image/players/2025/all/player_official_2025_11426_627730-400x300.png"
   },
   {
@@ -1382,6 +1577,7 @@
    "name": "KOUTOUNE",
    "norm": "koutoune",
    "foot": "right",
+   "cc": "MAR",
    "url": "https://s3.eu-west-3.amazonaws.com/ligue1.image/players/2025/all/player_official_2025_11426_619512-400x300.png"
   },
   {
@@ -1389,6 +1585,7 @@
    "name": "LAJUGIE",
    "norm": "lajugie",
    "foot": "right",
+   "cc": "FRA",
    "url": "https://s3.eu-west-3.amazonaws.com/ligue1.image/players/2025/all/player_official_2025_11426_209873-400x300.png"
   },
   {
@@ -1396,6 +1593,7 @@
    "name": "MAKUTUNGU",
    "norm": "makutungu",
    "foot": "left",
+   "cc": "FRA",
    "url": "https://s3.eu-west-3.amazonaws.com/ligue1.image/players/2025/all/player_official_2025_11426_533133-400x300.png"
   },
   {
@@ -1403,6 +1601,7 @@
    "name": "NSAKALA",
    "norm": "nsakala",
    "foot": "left",
+   "cc": "COD",
    "url": "https://s3.eu-west-3.amazonaws.com/ligue1.image/players/2025/all/player_official_2025_11426_56663-400x300.png"
   },
   {
@@ -1410,6 +1609,7 @@
    "name": "PATTERSON",
    "norm": "patterson",
    "foot": "right",
+   "cc": "ENG",
    "url": "https://s3.eu-west-1.amazonaws.com/image.mpg/2025-empt-11426-400x300.png"
   },
   {
@@ -1417,6 +1617,7 @@
    "name": "RIOU",
    "norm": "riou",
    "foot": "left",
+   "cc": "FRA",
    "url": "https://s3.eu-west-3.amazonaws.com/ligue1.image/players/2025/all/player_official_2025_11426_681578-400x300.png"
   },
   {
@@ -1424,6 +1625,7 @@
    "name": "ROWE",
    "norm": "rowe",
    "foot": "right",
+   "cc": "ENG",
    "url": "https://s3.eu-west-3.amazonaws.com/ligue1.image/players/2025/all/player_official_2025_11426_569577-400x300.png"
   },
   {
@@ -1431,6 +1633,7 @@
    "name": "VEILLON",
    "norm": "veillon",
    "foot": null,
+   "cc": "FRA",
    "url": "https://s3.eu-west-3.amazonaws.com/ligue1.image/players/2025/all/player_official_2025_11426_519317-400x300.png"
   },
   {
@@ -1438,6 +1641,7 @@
    "name": "CASADEI",
    "norm": "casadei",
    "foot": null,
+   "cc": "FRA",
    "url": "https://s3.eu-west-3.amazonaws.com/ligue1.image/players/2025/all/player_official_2025_11426_585580-400x300.png"
   },
   {
@@ -1445,6 +1649,7 @@
    "name": "FERRO",
    "norm": "ferro",
    "foot": "right",
+   "cc": "FRA",
    "url": "https://s3.eu-west-3.amazonaws.com/ligue1.image/players/2025/all/player_official_2025_11426_620412-400x300.png"
   },
   {
@@ -1452,6 +1657,7 @@
    "name": "HBOUCH",
    "norm": "hbouch",
    "foot": null,
+   "cc": "FRA",
    "url": "https://s3.eu-west-3.amazonaws.com/ligue1.image/players/2025/all/player_official_2025_11426_664852-400x300.png"
   },
   {
@@ -1459,6 +1665,7 @@
    "name": "KASHI",
    "norm": "kashi",
    "foot": "right",
+   "cc": "DZA",
    "url": "https://s3.eu-west-3.amazonaws.com/ligue1.image/players/2025/all/player_official_2025_11426_50199-400x300.png"
   },
   {
@@ -1466,6 +1673,7 @@
    "name": "PAJOT",
    "norm": "pajot",
    "foot": "right",
+   "cc": "FRA",
    "url": "https://s3.eu-west-3.amazonaws.com/ligue1.image/players/2025/all/player_official_2025_11426_85548-400x300.png"
   },
   {
@@ -1473,6 +1681,7 @@
    "name": "RAACHE",
    "norm": "raache",
    "foot": null,
+   "cc": "FRA",
    "url": "https://s3.eu-west-3.amazonaws.com/ligue1.image/players/2025/all/player_official_2025_11426_681853-400x300.png"
   },
   {
@@ -1480,6 +1689,7 @@
    "name": "VENOT",
    "norm": "venot",
    "foot": null,
+   "cc": "FRA",
    "url": "https://s3.eu-west-3.amazonaws.com/ligue1.image/players/2025/all/player_official_2025_11426_570148-400x300.png"
   },
   {
@@ -1487,6 +1697,7 @@
    "name": "BILLEMAZ",
    "norm": "billemaz",
    "foot": "left",
+   "cc": "FRA",
    "url": "https://s3.eu-west-3.amazonaws.com/ligue1.image/players/2025/all/player_official_2025_11426_449088-400x300.png"
   },
   {
@@ -1494,6 +1705,7 @@
    "name": "GOMES RODRIGUEZ",
    "norm": "gomes rodriguez",
    "foot": "right",
+   "cc": "ENG",
    "url": "https://s3.eu-west-3.amazonaws.com/ligue1.image/players/2025/all/player_official_2025_11426_586627-400x300.png"
   },
   {
@@ -1501,6 +1713,7 @@
    "name": "JACOB",
    "norm": "jacob",
    "foot": "right",
+   "cc": "FRA",
    "url": "https://s3.eu-west-3.amazonaws.com/ligue1.image/players/2025/all/player_official_2025_11426_193276-400x300.png"
   },
   {
@@ -1508,6 +1721,7 @@
    "name": "LAROSE",
    "norm": "larose",
    "foot": "left",
+   "cc": "FRA",
    "url": "https://s3.eu-west-3.amazonaws.com/ligue1.image/players/2025/all/player_official_2025_11426_245199-400x300.png"
   },
   {
@@ -1515,6 +1729,7 @@
    "name": "PARIS",
    "norm": "paris",
    "foot": null,
+   "cc": "FRA",
    "url": "https://s3.eu-west-3.amazonaws.com/ligue1.image/players/2025/all/player_official_2025_11426_666640-400x300.png"
   },
   {
@@ -1522,6 +1737,7 @@
    "name": "RAMBAUD",
    "norm": "rambaud",
    "foot": null,
+   "cc": "FRA",
    "url": "https://s3.eu-west-3.amazonaws.com/ligue1.image/players/2025/all/player_official_2025_11426_488582-400x300.png"
   },
   {
@@ -1529,6 +1745,7 @@
    "name": "SAHI DION",
    "norm": "sahi dion",
    "foot": "left",
+   "cc": "CIV",
    "url": "https://s3.eu-west-3.amazonaws.com/ligue1.image/players/2025/all/player_official_2025_11426_535795-400x300.png"
   },
   {
@@ -1536,6 +1753,7 @@
    "name": "TOURE",
    "norm": "toure",
    "foot": "right",
+   "cc": "CIV",
    "url": "https://s3.eu-west-3.amazonaws.com/ligue1.image/players/2025/all/player_official_2025_11426_620135-400x300.png"
   },
   {
@@ -1543,6 +1761,7 @@
    "name": "VENIERE",
    "norm": "veniere",
    "foot": "left",
+   "cc": "FRA",
    "url": "https://s3.eu-west-3.amazonaws.com/ligue1.image/players/2025/all/player_official_2025_11426_682307-400x300.png"
   }
  ],
@@ -1552,6 +1771,7 @@
    "name": "DZODIC",
    "norm": "dzodic",
    "foot": null,
+   "cc": "SRB",
    "url": "https://s3.eu-west-3.amazonaws.com/ligue1.image/players/2025/all/player_official_2025_147_620486-400x300.png"
   },
   {
@@ -1559,6 +1779,7 @@
    "name": "KAMDEM KAMGAING",
    "norm": "kamdem kamgaing",
    "foot": null,
+   "cc": "CMR",
    "url": "https://s3.eu-west-1.amazonaws.com/image.mpg/2025-empt-147-400x300.png"
   },
   {
@@ -1566,6 +1787,7 @@
    "name": "MICHEL",
    "norm": "michel",
    "foot": "right",
+   "cc": "FRA",
    "url": "https://s3.eu-west-3.amazonaws.com/ligue1.image/players/2025/all/player_official_2025_147_119744-400x300.png"
   },
   {
@@ -1573,6 +1795,7 @@
    "name": "NGAPANDOUENTNBU",
    "norm": "ngapandouentnbu",
    "foot": "right",
+   "cc": "CMR",
    "url": "https://s3.eu-west-3.amazonaws.com/ligue1.image/players/2025/all/player_official_2025_147_490135-400x300.png"
   },
   {
@@ -1580,6 +1803,7 @@
    "name": "CHENNAHI",
    "norm": "chennahi",
    "foot": "right",
+   "cc": "FRA",
    "url": "https://s3.eu-west-3.amazonaws.com/ligue1.image/players/2025/all/player_official_2025_147_632437-400x300.png"
   },
   {
@@ -1587,6 +1811,7 @@
    "name": "EBENER",
    "norm": "ebener",
    "foot": null,
+   "cc": "FRA",
    "url": "https://s3.eu-west-3.amazonaws.com/ligue1.image/players/2025/all/player_official_2025_147_633457-400x300.png"
   },
   {
@@ -1594,6 +1819,7 @@
    "name": "EL HANNACH",
    "norm": "el hannach",
    "foot": "right",
+   "cc": "MAR",
    "url": "https://s3.eu-west-3.amazonaws.com/ligue1.image/players/2025/all/player_official_2025_147_499453-400x300.png"
   },
   {
@@ -1601,6 +1827,7 @@
    "name": "JULLIEN",
    "norm": "jullien",
    "foot": "right",
+   "cc": "GLP",
    "url": "https://s3.eu-west-3.amazonaws.com/ligue1.image/players/2025/all/player_official_2025_147_114546-400x300.png"
   },
   {
@@ -1608,6 +1835,7 @@
    "name": "LAPORTE",
    "norm": "laporte",
    "foot": "right",
+   "cc": "FRA",
    "url": "https://s3.eu-west-3.amazonaws.com/ligue1.image/players/2025/all/player_official_2025_147_205552-400x300.png"
   },
   {
@@ -1615,6 +1843,7 @@
    "name": "MINCARELLI",
    "norm": "mincarelli",
    "foot": "left",
+   "cc": "FRA",
    "url": "https://s3.eu-west-3.amazonaws.com/ligue1.image/players/2025/all/player_official_2025_147_629591-400x300.png"
   },
   {
@@ -1622,6 +1851,7 @@
    "name": "MOHAMED",
    "norm": "mohamed",
    "foot": null,
+   "cc": "FRA",
    "url": "https://s3.eu-west-3.amazonaws.com/ligue1.image/players/2025/all/player_official_2025_147_632592-400x300.png"
   },
   {
@@ -1629,6 +1859,7 @@
    "name": "MOUANGA BOUDZOUMOU",
    "norm": "mouanga boudzoumou",
    "foot": "right",
+   "cc": "FRA",
    "url": "https://s3.eu-west-3.amazonaws.com/ligue1.image/players/2025/all/player_official_2025_147_564924-400x300.png"
   },
   {
@@ -1636,6 +1867,7 @@
    "name": "NDOLLO",
    "norm": "ndollo",
    "foot": null,
+   "cc": "CMR",
    "url": "https://s3.eu-west-3.amazonaws.com/ligue1.image/players/2025/all/player_official_2025_147_644779-400x300.png"
   },
   {
@@ -1643,6 +1875,7 @@
    "name": "SAINTE-LUCE",
    "norm": "sainteluce",
    "foot": "left",
+   "cc": "FRA",
    "url": "https://s3.eu-west-3.amazonaws.com/ligue1.image/players/2025/all/player_official_2025_147_435615-400x300.png"
   },
   {
@@ -1650,6 +1883,7 @@
    "name": "TCHATO",
    "norm": "tchato",
    "foot": "right",
+   "cc": "CMR",
    "url": "https://s3.eu-west-3.amazonaws.com/ligue1.image/players/2025/all/player_official_2025_147_531301-400x300.png"
   },
   {
@@ -1657,6 +1891,7 @@
    "name": "DA SILVA",
    "norm": "da silva",
    "foot": null,
+   "cc": "FRA",
    "url": "https://s3.eu-west-3.amazonaws.com/ligue1.image/players/2025/all/player_official_2025_147_666279-400x300.png"
   },
   {
@@ -1664,6 +1899,7 @@
    "name": "DJEMBA MBAPPE",
    "norm": "djemba mbappe",
    "foot": null,
+   "cc": "CMR",
    "url": "https://s3.eu-west-1.amazonaws.com/image.mpg/2025-empt-147-400x300.png"
   },
   {
@@ -1671,6 +1907,7 @@
    "name": "PEREIRA DA SILVA",
    "norm": "pereira da silva",
    "foot": "right",
+   "cc": "FRA",
    "url": "https://s3.eu-west-3.amazonaws.com/ligue1.image/players/2025/all/player_official_2025_147_546782-400x300.png"
   },
   {
@@ -1678,6 +1915,7 @@
    "name": "FAYAD",
    "norm": "fayad",
    "foot": "right",
+   "cc": "FRA",
    "url": "https://s3.eu-west-3.amazonaws.com/ligue1.image/players/2025/all/player_official_2025_147_584635-400x300.png"
   },
   {
@@ -1685,6 +1923,7 @@
    "name": "GUEGUIN",
    "norm": "gueguin",
    "foot": "left",
+   "cc": "FRA",
    "url": "https://s3.eu-west-3.amazonaws.com/ligue1.image/players/2025/all/player_official_2025_147_574449-400x300.png"
   },
   {
@@ -1692,6 +1931,7 @@
    "name": "HOMSSA",
    "norm": "homssa",
    "foot": null,
+   "cc": "FRA",
    "url": "https://s3.eu-west-3.amazonaws.com/ligue1.image/players/2025/all/player_official_2025_147_729233-400x300.png"
   },
   {
@@ -1699,6 +1939,7 @@
    "name": "SAVANIER",
    "norm": "savanier",
    "foot": "right",
+   "cc": "FRA",
    "url": "https://s3.eu-west-3.amazonaws.com/ligue1.image/players/2025/all/player_official_2025_147_102636-400x300.png"
   },
   {
@@ -1706,6 +1947,7 @@
    "name": "SISHUBA",
    "norm": "sishuba",
    "foot": "right",
+   "cc": "BEL",
    "url": "https://s3.eu-west-3.amazonaws.com/ligue1.image/players/2025/all/player_official_2025_147_616174-400x300.png"
   },
   {
@@ -1713,6 +1955,7 @@
    "name": "VIDAL",
    "norm": "vidal",
    "foot": null,
+   "cc": "FRA",
    "url": "https://s3.eu-west-3.amazonaws.com/ligue1.image/players/2025/all/player_official_2025_147_632605-400x300.png"
   },
   {
@@ -1720,6 +1963,7 @@
    "name": "ZEGHADI",
    "norm": "zeghadi",
    "foot": null,
+   "cc": "DZA",
    "url": "https://s3.eu-west-1.amazonaws.com/image.mpg/2025-empt-147-400x300.png"
   },
   {
@@ -1727,6 +1971,7 @@
    "name": "EL MAHBOUB",
    "norm": "el mahboub",
    "foot": null,
+   "cc": "FRA",
    "url": "https://s3.eu-west-3.amazonaws.com/ligue1.image/players/2025/all/player_official_2025_147_705809-400x300.png"
   },
   {
@@ -1734,6 +1979,7 @@
    "name": "ISSOUFOU",
    "norm": "issoufou",
    "foot": "left",
+   "cc": "FRA",
    "url": "https://s3.eu-west-3.amazonaws.com/ligue1.image/players/2025/all/player_official_2025_147_620414-400x300.png"
   },
   {
@@ -1741,6 +1987,7 @@
    "name": "MBUKU",
    "norm": "mbuku",
    "foot": "left",
+   "cc": "COD",
    "url": "https://s3.eu-west-3.amazonaws.com/ligue1.image/players/2025/all/player_official_2025_147_476892-400x300.png"
   },
   {
@@ -1748,6 +1995,7 @@
    "name": "MENDY",
    "norm": "mendy",
    "foot": "right",
+   "cc": "GNB",
    "url": "https://s3.eu-west-3.amazonaws.com/ligue1.image/players/2025/all/player_official_2025_147_189542-400x300.png"
   },
   {
@@ -1755,6 +2003,7 @@
    "name": "MOLEBE",
    "norm": "molebe",
    "foot": "right",
+   "cc": "FRA",
    "url": "https://s3.eu-west-3.amazonaws.com/ligue1.image/players/2025/all/player_official_2025_147_658063-400x300.png"
   },
   {
@@ -1762,6 +2011,7 @@
    "name": "PAYS",
    "norm": "pays",
    "foot": "left",
+   "cc": "FRA",
    "url": "https://s3.eu-west-3.amazonaws.com/ligue1.image/players/2025/all/player_official_2025_147_644165-400x300.png"
   },
   {
@@ -1769,6 +2019,7 @@
    "name": "THILAND-HERARD",
    "norm": "thilandherard",
    "foot": null,
+   "cc": "FRA",
    "url": "https://s3.eu-west-3.amazonaws.com/ligue1.image/players/2025/all/player_official_2025_147_632604-400x300.png"
   }
  ],
@@ -1778,6 +2029,7 @@
    "name": "DUVAL",
    "norm": "duval",
    "foot": null,
+   "cc": "FRA",
    "url": "https://s3.eu-west-1.amazonaws.com/image.mpg/2025-empt-5420-400x300.png"
   },
   {
@@ -1785,6 +2037,7 @@
    "name": "RAVEYRE",
    "norm": "raveyre",
    "foot": "right",
+   "cc": "FRA",
    "url": "https://s3.eu-west-3.amazonaws.com/ligue1.image/players/2025/all/player_official_2025_5420_578499-400x300.png"
   },
   {
@@ -1792,6 +2045,7 @@
    "name": "SALLES",
    "norm": "salles",
    "foot": "right",
+   "cc": "FRA",
    "url": "https://s3.eu-west-3.amazonaws.com/ligue1.image/players/2025/all/player_official_2025_5420_184203-400x300.png"
   },
   {
@@ -1799,6 +2053,7 @@
    "name": "BASSE",
    "norm": "basse",
    "foot": "left",
+   "cc": "SEN",
    "url": "https://s3.eu-west-3.amazonaws.com/ligue1.image/players/2025/all/player_official_2025_5420_612588-400x300.png"
   },
   {
@@ -1806,6 +2061,7 @@
    "name": "BRIANCON",
    "norm": "briancon",
    "foot": "right",
+   "cc": "FRA",
    "url": "https://s3.eu-west-3.amazonaws.com/ligue1.image/players/2025/all/player_official_2025_5420_184961-400x300.png"
   },
   {
@@ -1813,6 +2069,7 @@
    "name": "GLOSSOA",
    "norm": "glossoa",
    "foot": "right",
+   "cc": "FRA",
    "url": "https://s3.eu-west-3.amazonaws.com/ligue1.image/players/2025/all/player_official_2025_5420_645325-400x300.png"
   },
   {
@@ -1820,6 +2077,7 @@
    "name": "KALULU",
    "norm": "kalulu",
    "foot": "right",
+   "cc": "FRA",
    "url": "https://s3.eu-west-3.amazonaws.com/ligue1.image/players/2025/all/player_official_2025_5420_633077-400x300.png"
   },
   {
@@ -1827,6 +2085,7 @@
    "name": "KANTE",
    "norm": "kante",
    "foot": "right",
+   "cc": "GIN",
    "url": "https://s3.eu-west-3.amazonaws.com/ligue1.image/players/2025/all/player_official_2025_5420_454689-400x300.png"
   },
   {
@@ -1834,6 +2093,7 @@
    "name": "KARAMOKO",
    "norm": "karamoko",
    "foot": "left",
+   "cc": "FRA",
    "url": "https://s3.eu-west-3.amazonaws.com/ligue1.image/players/2025/all/player_official_2025_5420_586437-400x300.png"
   },
   {
@@ -1841,6 +2101,7 @@
    "name": "LEBOUATH",
    "norm": "lebouath",
    "foot": null,
+   "cc": "FRA",
    "url": "https://s3.eu-west-3.amazonaws.com/ligue1.image/players/2025/all/player_official_2025_5420_682317-400x300.png"
   },
   {
@@ -1848,6 +2109,7 @@
    "name": "POUILLY",
    "norm": "pouilly",
    "foot": "right",
+   "cc": "FRA",
    "url": "https://s3.eu-west-3.amazonaws.com/ligue1.image/players/2025/all/player_official_2025_5420_584862-400x300.png"
   },
   {
@@ -1855,6 +2117,7 @@
    "name": "RUIZ",
    "norm": "ruiz",
    "foot": "right",
+   "cc": "FRA",
    "url": "https://s3.eu-west-3.amazonaws.com/ligue1.image/players/2025/all/player_official_2025_5420_199668-400x300.png"
   },
   {
@@ -1862,6 +2125,7 @@
    "name": "VERHAEGHE",
    "norm": "verhaeghe",
    "foot": "right",
+   "cc": "FRA",
    "url": "https://s3.eu-west-1.amazonaws.com/image.mpg/2025-empt-5420-400x300.png"
   },
   {
@@ -1869,6 +2133,7 @@
    "name": "ANZIANI",
    "norm": "anziani",
    "foot": "right",
+   "cc": "FRA",
    "url": "https://s3.eu-west-3.amazonaws.com/ligue1.image/players/2025/all/player_official_2025_5420_430994-400x300.png"
   },
   {
@@ -1876,6 +2141,7 @@
    "name": "BEUSNARD",
    "norm": "beusnard",
    "foot": "left",
+   "cc": "FRA",
    "url": "https://s3.eu-west-3.amazonaws.com/ligue1.image/players/2025/all/player_official_2025_5420_457982-400x300.png"
   },
   {
@@ -1883,6 +2149,7 @@
    "name": "BOBICHON",
    "norm": "bobichon",
    "foot": "right",
+   "cc": "FRA",
    "url": "https://s3.eu-west-3.amazonaws.com/ligue1.image/players/2025/all/player_official_2025_5420_198990-400x300.png"
   },
   {
@@ -1890,6 +2157,7 @@
    "name": "FALL",
    "norm": "fall",
    "foot": "right",
+   "cc": "SEN",
    "url": "https://s3.eu-west-3.amazonaws.com/ligue1.image/players/2025/all/player_official_2025_5420_609642-400x300.png"
   },
   {
@@ -1897,6 +2165,7 @@
    "name": "GASNIER",
    "norm": "gasnier",
    "foot": "right",
+   "cc": "FRA",
    "url": "https://s3.eu-west-3.amazonaws.com/ligue1.image/players/2025/all/player_official_2025_5420_503723-400x300.png"
   },
   {
@@ -1904,6 +2173,7 @@
    "name": "MEDDAH",
    "norm": "meddah",
    "foot": "right",
+   "cc": "FRA",
    "url": "https://s3.eu-west-3.amazonaws.com/ligue1.image/players/2025/all/player_official_2025_5420_488441-400x300.png"
   },
   {
@@ -1911,6 +2181,7 @@
    "name": "TOUZGHAR",
    "norm": "touzghar",
    "foot": "left",
+   "cc": "MAR",
    "url": "https://s3.eu-west-3.amazonaws.com/ligue1.image/players/2025/all/player_official_2025_5420_606698-400x300.png"
   },
   {
@@ -1918,6 +2189,7 @@
    "name": "DONG",
    "norm": "dong",
    "foot": "right",
+   "cc": "FRA",
    "url": "https://s3.eu-west-3.amazonaws.com/ligue1.image/players/2025/all/player_official_2025_5420_578428-400x300.png"
   },
   {
@@ -1925,6 +2197,7 @@
    "name": "MBAYE",
    "norm": "mbaye",
    "foot": null,
+   "cc": "SEN",
    "url": "https://s3.eu-west-1.amazonaws.com/image.mpg/2025-empt-5420-400x300.png"
   },
   {
@@ -1932,6 +2205,7 @@
    "name": "NIHOUARN",
    "norm": "nihouarn",
    "foot": null,
+   "cc": "FRA",
    "url": "https://s3.eu-west-3.amazonaws.com/ligue1.image/players/2025/all/player_official_2025_5420_694310-400x300.png"
   },
   {
@@ -1939,6 +2213,7 @@
    "name": "SADIK",
    "norm": "sadik",
    "foot": "left",
+   "cc": "MAR",
    "url": "https://s3.eu-west-3.amazonaws.com/ligue1.image/players/2025/all/player_official_2025_5420_596385-400x300.png"
   },
   {
@@ -1946,6 +2221,7 @@
    "name": "SISSOKO",
    "norm": "sissoko",
    "foot": "right",
+   "cc": "FRA",
    "url": "https://s3.eu-west-3.amazonaws.com/ligue1.image/players/2025/all/player_official_2025_5420_630700-400x300.png"
   },
   {
@@ -1953,6 +2229,7 @@
    "name": "VERSINI",
    "norm": "versini",
    "foot": null,
+   "cc": "FRA",
    "url": "https://s3.eu-west-3.amazonaws.com/ligue1.image/players/2025/all/player_official_2025_5420_612865-400x300.png"
   },
   {
@@ -1960,6 +2237,7 @@
    "name": "ZULIANI",
    "norm": "zuliani",
    "foot": "left",
+   "cc": "DZA",
    "url": "https://s3.eu-west-3.amazonaws.com/ligue1.image/players/2025/all/player_official_2025_5420_606695-400x300.png"
   }
  ],
@@ -1969,6 +2247,7 @@
    "name": "LAVIN",
    "norm": "lavin",
    "foot": "right",
+   "cc": "ESP",
    "url": "https://s3.eu-west-3.amazonaws.com/ligue1.image/players/2025/all/player_official_2025_3288_199253-400x300.png"
   },
   {
@@ -1976,6 +2255,7 @@
    "name": "MOULUN",
    "norm": "moulun",
    "foot": null,
+   "cc": "FRA",
    "url": "https://s3.eu-west-1.amazonaws.com/image.mpg/2025-empt-3288-400x300.png"
   },
   {
@@ -1983,6 +2263,7 @@
    "name": "NIFLORE",
    "norm": "niflore",
    "foot": "right",
+   "cc": "FRA",
    "url": "https://s3.eu-west-3.amazonaws.com/ligue1.image/players/2025/all/player_official_2025_3288_620411-400x300.png"
   },
   {
@@ -1990,6 +2271,7 @@
    "name": "SISSOKHO",
    "norm": "sissokho",
    "foot": null,
+   "cc": "SEN",
    "url": "https://s3.eu-west-3.amazonaws.com/ligue1.image/players/2025/all/player_official_2025_3288_696058-400x300.png"
   },
   {
@@ -1997,6 +2279,7 @@
    "name": "TOU",
    "norm": "tou",
    "foot": "right",
+   "cc": "BFA",
    "url": "https://s3.eu-west-1.amazonaws.com/image.mpg/2025-empt-3288-400x300.png"
   },
   {
@@ -2004,6 +2287,7 @@
    "name": "BEBEY SAKE",
    "norm": "bebey sake",
    "foot": null,
+   "cc": "FRA",
    "url": "https://s3.eu-west-1.amazonaws.com/image.mpg/2025-empt-3288-400x300.png"
   },
   {
@@ -2011,6 +2295,7 @@
    "name": "BOUCARD",
    "norm": "boucard",
    "foot": null,
+   "cc": "FRA",
    "url": "https://s3.eu-west-1.amazonaws.com/image.mpg/2025-empt-3288-400x300.png"
   },
   {
@@ -2018,6 +2303,7 @@
    "name": "DZIKI",
    "norm": "dziki",
    "foot": null,
+   "cc": "COG",
    "url": "https://s3.eu-west-3.amazonaws.com/ligue1.image/players/2025/all/player_official_2025_3288_634362-400x300.png"
   },
   {
@@ -2025,6 +2311,7 @@
    "name": "GEORGEN",
    "norm": "georgen",
    "foot": "right",
+   "cc": "FRA",
    "url": "https://s3.eu-west-3.amazonaws.com/ligue1.image/players/2025/all/player_official_2025_3288_199663-400x300.png"
   },
   {
@@ -2032,6 +2319,7 @@
    "name": "LAGAE",
    "norm": "lagae",
    "foot": "left",
+   "cc": "BEL",
    "url": "https://s3.eu-west-3.amazonaws.com/ligue1.image/players/2025/all/player_official_2025_3288_555452-400x300.png"
   },
   {
@@ -2039,6 +2327,7 @@
    "name": "LINGUET",
    "norm": "linguet",
    "foot": "right",
+   "cc": "FRA",
    "url": "https://s3.eu-west-3.amazonaws.com/ligue1.image/players/2025/all/player_official_2025_3288_471141-400x300.png"
   },
   {
@@ -2046,6 +2335,7 @@
    "name": "MAKHLOUFI",
    "norm": "makhloufi",
    "foot": null,
+   "cc": "FRA",
    "url": "https://s3.eu-west-3.amazonaws.com/ligue1.image/players/2025/all/player_official_2025_3288_633165-400x300.png"
   },
   {
@@ -2053,6 +2343,7 @@
    "name": "MAYELA",
    "norm": "mayela",
    "foot": null,
+   "cc": "FRA",
    "url": "https://s3.eu-west-3.amazonaws.com/ligue1.image/players/2025/all/player_official_2025_3288_665347-400x300.png"
   },
   {
@@ -2060,6 +2351,7 @@
    "name": "NDOYE",
    "norm": "ndoye",
    "foot": null,
+   "cc": "SEN",
    "url": "https://s3.eu-west-3.amazonaws.com/ligue1.image/players/2025/all/player_official_2025_3288_632026-400x300.png"
   },
   {
@@ -2067,6 +2359,7 @@
    "name": "SASSO",
    "norm": "sasso",
    "foot": "right",
+   "cc": "FRA",
    "url": "https://s3.eu-west-3.amazonaws.com/ligue1.image/players/2025/all/player_official_2025_3288_73954-400x300.png"
   },
   {
@@ -2074,6 +2367,7 @@
    "name": "BARDELI",
    "norm": "bardeli",
    "foot": "right",
+   "cc": "FRA",
    "url": "https://s3.eu-west-3.amazonaws.com/ligue1.image/players/2025/all/player_official_2025_3288_492841-400x300.png"
   },
   {
@@ -2081,6 +2375,7 @@
    "name": "BOKELE",
    "norm": "bokele",
    "foot": "right",
+   "cc": "CMR",
    "url": "https://s3.eu-west-3.amazonaws.com/ligue1.image/players/2025/all/player_official_2025_3288_647560-400x300.png"
   },
   {
@@ -2088,6 +2383,7 @@
    "name": "DECHERF",
    "norm": "decherf",
    "foot": null,
+   "cc": "FRA",
    "url": "https://s3.eu-west-1.amazonaws.com/image.mpg/2025-empt-3288-400x300.png"
   },
   {
@@ -2095,6 +2391,7 @@
    "name": "DIONG",
    "norm": "diong",
    "foot": "right",
+   "cc": "SEN",
    "url": "https://s3.eu-west-3.amazonaws.com/ligue1.image/players/2025/all/player_official_2025_3288_632810-400x300.png"
   },
   {
@@ -2102,6 +2399,7 @@
    "name": "DIOP",
    "norm": "diop",
    "foot": null,
+   "cc": "SEN",
    "url": "https://s3.eu-west-3.amazonaws.com/ligue1.image/players/2025/all/player_official_2025_3288_674528-400x300.png"
   },
   {
@@ -2109,6 +2407,7 @@
    "name": "DOUCET",
    "norm": "doucet",
    "foot": "right",
+   "cc": "FRA",
    "url": "https://s3.eu-west-3.amazonaws.com/ligue1.image/players/2025/all/player_official_2025_3288_564918-400x300.png"
   },
   {
@@ -2116,6 +2415,7 @@
    "name": "EGUARAS",
    "norm": "eguaras",
    "foot": "right",
+   "cc": "ESP",
    "url": "https://s3.eu-west-3.amazonaws.com/ligue1.image/players/2025/all/player_official_2025_3288_112543-400x300.png"
   },
   {
@@ -2123,6 +2423,7 @@
    "name": "FELIPE",
    "norm": "felipe",
    "foot": "left",
+   "cc": "BRA",
    "url": "https://s3.eu-west-3.amazonaws.com/ligue1.image/players/2025/all/player_official_2025_3288_165684-400x300.png"
   },
   {
@@ -2130,6 +2431,7 @@
    "name": "MASSOCK",
    "norm": "massock",
    "foot": null,
+   "cc": "FRA",
    "url": "https://s3.eu-west-3.amazonaws.com/ligue1.image/players/2025/all/player_official_2025_3288_702837-400x300.png"
   },
   {
@@ -2137,6 +2439,7 @@
    "name": "SANGANTE",
    "norm": "sangante",
    "foot": "left",
+   "cc": "GNB",
    "url": "https://s3.eu-west-3.amazonaws.com/ligue1.image/players/2025/all/player_official_2025_3288_220924-400x300.png"
   },
   {
@@ -2144,6 +2447,7 @@
    "name": "SEKONGO",
    "norm": "sekongo",
    "foot": null,
+   "cc": "MLI",
    "url": "https://s3.eu-west-3.amazonaws.com/ligue1.image/players/2025/all/player_official_2025_3288_662079-400x300.png"
   },
   {
@@ -2151,6 +2455,7 @@
    "name": "DAHO",
    "norm": "daho",
    "foot": null,
+   "cc": "FRA",
    "url": "https://s3.eu-west-3.amazonaws.com/ligue1.image/players/2025/all/player_official_2025_3288_621948-400x300.png"
   },
   {
@@ -2158,6 +2463,7 @@
    "name": "ESSIMI",
    "norm": "essimi",
    "foot": "right",
+   "cc": "FRA",
    "url": "https://s3.eu-west-3.amazonaws.com/ligue1.image/players/2025/all/player_official_2025_3288_488581-400x300.png"
   },
   {
@@ -2165,6 +2471,7 @@
    "name": "KANTE",
    "norm": "kante",
    "foot": "left",
+   "cc": "GMB",
    "url": "https://s3.eu-west-3.amazonaws.com/ligue1.image/players/2025/all/player_official_2025_3288_213579-400x300.png"
   },
   {
@@ -2172,6 +2479,7 @@
    "name": "ROBINET",
    "norm": "robinet",
    "foot": "right",
+   "cc": "FRA",
    "url": "https://s3.eu-west-3.amazonaws.com/ligue1.image/players/2025/all/player_official_2025_3288_205292-400x300.png"
   },
   {
@@ -2179,6 +2487,7 @@
    "name": "SEHA",
    "norm": "seha",
    "foot": null,
+   "cc": "FRA",
    "url": "https://s3.eu-west-3.amazonaws.com/ligue1.image/players/2025/all/player_official_2025_3288_659395-400x300.png"
   },
   {
@@ -2186,6 +2495,7 @@
    "name": "SYLVESTRE",
    "norm": "sylvestre",
    "foot": "left",
+   "cc": "FRA",
    "url": "https://s3.eu-west-3.amazonaws.com/ligue1.image/players/2025/all/player_official_2025_3288_469204-400x300.png"
   },
   {
@@ -2193,6 +2503,7 @@
    "name": "ZOSSOU",
    "norm": "zossou",
    "foot": "right",
+   "cc": "CIV",
    "url": "https://s3.eu-west-3.amazonaws.com/ligue1.image/players/2025/all/player_official_2025_3288_669341-400x300.png"
   }
  ],
@@ -2202,6 +2513,7 @@
    "name": "BARTOUCHE-SELBONNE",
    "norm": "bartoucheselbonne",
    "foot": "right",
+   "cc": "GLP",
    "url": "https://s3.eu-west-3.amazonaws.com/ligue1.image/players/2025/all/player_official_2025_428_469324-400x300.png"
   },
   {
@@ -2209,6 +2521,7 @@
    "name": "MAREC",
    "norm": "marec",
    "foot": "right",
+   "cc": "FRA",
    "url": "https://s3.eu-west-3.amazonaws.com/ligue1.image/players/2025/all/player_official_2025_428_627985-400x300.png"
   },
   {
@@ -2216,6 +2529,7 @@
    "name": "MESSOBO AMBASSA",
    "norm": "messobo ambassa",
    "foot": null,
+   "cc": "CMR",
    "url": "https://s3.eu-west-1.amazonaws.com/image.mpg/2025-empt-428-400x300.png"
   },
   {
@@ -2223,6 +2537,7 @@
    "name": "ORTOLA",
    "norm": "ortola",
    "foot": "left",
+   "cc": "ESP",
    "url": "https://s3.eu-west-3.amazonaws.com/ligue1.image/players/2025/all/player_official_2025_428_94220-400x300.png"
   },
   {
@@ -2230,6 +2545,7 @@
    "name": "ABDALLAH",
    "norm": "abdallah",
    "foot": "left",
+   "cc": "COM",
    "url": "https://s3.eu-west-3.amazonaws.com/ligue1.image/players/2025/all/player_official_2025_428_245726-400x300.png"
   },
   {
@@ -2237,6 +2553,7 @@
    "name": "DEMOUCHY",
    "norm": "demouchy",
    "foot": "right",
+   "cc": "FRA",
    "url": "https://s3.eu-west-3.amazonaws.com/ligue1.image/players/2025/all/player_official_2025_428_545011-400x300.png"
   },
   {
@@ -2244,6 +2561,7 @@
    "name": "DIAKITE",
    "norm": "diakite",
    "foot": null,
+   "cc": "FRA",
    "url": "https://s3.eu-west-1.amazonaws.com/image.mpg/2025-empt-428-400x300.png"
   },
   {
@@ -2251,6 +2569,7 @@
    "name": "FONDJA",
    "norm": "fondja",
    "foot": null,
+   "cc": "FRA",
    "url": "https://s3.eu-west-1.amazonaws.com/image.mpg/2025-empt-428-400x300.png"
   },
   {
@@ -2258,6 +2577,7 @@
    "name": "GASSAMA",
    "norm": "gassama",
    "foot": null,
+   "cc": "MLI",
    "url": "https://s3.eu-west-3.amazonaws.com/ligue1.image/players/2025/all/player_official_2025_428_694675-400x300.png"
   },
   {
@@ -2265,6 +2585,7 @@
    "name": "GOMIS",
    "norm": "gomis",
    "foot": "right",
+   "cc": "SEN",
    "url": "https://s3.eu-west-3.amazonaws.com/ligue1.image/players/2025/all/player_official_2025_428_585485-400x300.png"
   },
   {
@@ -2272,6 +2593,7 @@
    "name": "MATUMONA",
    "norm": "matumona",
    "foot": null,
+   "cc": "FRA",
    "url": "https://s3.eu-west-3.amazonaws.com/ligue1.image/players/2025/all/player_official_2025_428_665235-400x300.png"
   },
   {
@@ -2279,6 +2601,7 @@
    "name": "NAIR",
    "norm": "nair",
    "foot": "right",
+   "cc": "DZA",
    "url": "https://s3.eu-west-3.amazonaws.com/ligue1.image/players/2025/all/player_official_2025_428_626521-400x300.png"
   },
   {
@@ -2286,6 +2609,7 @@
    "name": "OTT",
    "norm": "ott",
    "foot": "both",
+   "cc": "FRA",
    "url": "https://s3.eu-west-3.amazonaws.com/ligue1.image/players/2025/all/player_official_2025_428_505062-400x300.png"
   },
   {
@@ -2293,6 +2617,7 @@
    "name": "PLANEIX",
    "norm": "planeix",
    "foot": "right",
+   "cc": "FRA",
    "url": "https://s3.eu-west-3.amazonaws.com/ligue1.image/players/2025/all/player_official_2025_428_652157-400x300.png"
   },
   {
@@ -2300,6 +2625,7 @@
    "name": "SEYMOUR",
    "norm": "seymour",
    "foot": null,
+   "cc": "GLP",
    "url": "https://s3.eu-west-1.amazonaws.com/image.mpg/2025-empt-428-400x300.png"
   },
   {
@@ -2307,6 +2633,7 @@
    "name": "SISSOKO",
    "norm": "sissoko",
    "foot": "right",
+   "cc": "MLI",
    "url": "https://s3.eu-west-3.amazonaws.com/ligue1.image/players/2025/all/player_official_2025_428_437204-400x300.png"
   },
   {
@@ -2314,6 +2641,7 @@
    "name": "AHILE",
    "norm": "ahile",
    "foot": null,
+   "cc": "FRA",
    "url": "https://s3.eu-west-3.amazonaws.com/ligue1.image/players/2025/all/player_official_2025_428_686546-400x300.png"
   },
   {
@@ -2321,6 +2649,7 @@
    "name": "DEMONCY",
    "norm": "demoncy",
    "foot": "right",
+   "cc": "FRA",
    "url": "https://s3.eu-west-3.amazonaws.com/ligue1.image/players/2025/all/player_official_2025_428_213196-400x300.png"
   },
   {
@@ -2328,6 +2657,7 @@
    "name": "HATCHI",
    "norm": "hatchi",
    "foot": "right",
+   "cc": "GLP",
    "url": "https://s3.eu-west-3.amazonaws.com/ligue1.image/players/2025/all/player_official_2025_428_669181-400x300.png"
   },
   {
@@ -2335,6 +2665,7 @@
    "name": "HEMIA",
    "norm": "hemia",
    "foot": "right",
+   "cc": "FRA",
    "url": "https://s3.eu-west-3.amazonaws.com/ligue1.image/players/2025/all/player_official_2025_428_563113-400x300.png"
   },
   {
@@ -2342,6 +2673,7 @@
    "name": "KOFFI",
    "norm": "koffi",
    "foot": "right",
+   "cc": "FRA",
    "url": "https://s3.eu-west-3.amazonaws.com/ligue1.image/players/2025/all/player_official_2025_428_198188-400x300.png"
   },
   {
@@ -2349,6 +2681,7 @@
    "name": "LOUISERRE",
    "norm": "louiserre",
    "foot": "right",
+   "cc": "FRA",
    "url": "https://s3.eu-west-3.amazonaws.com/ligue1.image/players/2025/all/player_official_2025_428_198189-400x300.png"
   },
   {
@@ -2356,6 +2689,7 @@
    "name": "MATONDO",
    "norm": "matondo",
    "foot": null,
+   "cc": "FRA",
    "url": "https://s3.eu-west-1.amazonaws.com/image.mpg/2025-empt-428-400x300.png"
   },
   {
@@ -2363,6 +2697,7 @@
    "name": "MATONDO",
    "norm": "matondo",
    "foot": null,
+   "cc": "FRA",
    "url": "https://s3.eu-west-3.amazonaws.com/ligue1.image/players/2025/all/player_official_2025_428_503712-400x300.png"
   },
   {
@@ -2370,6 +2705,7 @@
    "name": "MBEMBA",
    "norm": "mbemba",
    "foot": null,
+   "cc": "FRA",
    "url": "https://s3.eu-west-3.amazonaws.com/ligue1.image/players/2025/all/player_official_2025_428_607984-400x300.png"
   },
   {
@@ -2377,6 +2713,7 @@
    "name": "NJOYA",
    "norm": "njoya",
    "foot": null,
+   "cc": "FRA",
    "url": "https://s3.eu-west-3.amazonaws.com/ligue1.image/players/2025/all/player_official_2025_428_632445-400x300.png"
   },
   {
@@ -2384,6 +2721,7 @@
    "name": "NLANDU",
    "norm": "nlandu",
    "foot": null,
+   "cc": "FRA",
    "url": "https://s3.eu-west-3.amazonaws.com/ligue1.image/players/2025/all/player_official_2025_428_492842-400x300.png"
   },
   {
@@ -2391,6 +2729,7 @@
    "name": "SAGNA",
    "norm": "sagna",
    "foot": "right",
+   "cc": "SEN",
    "url": "https://s3.eu-west-3.amazonaws.com/ligue1.image/players/2025/all/player_official_2025_428_476403-400x300.png"
   },
   {
@@ -2398,6 +2737,7 @@
    "name": "SAMOURA",
    "norm": "samoura",
    "foot": null,
+   "cc": "FRA",
    "url": "https://s3.eu-west-3.amazonaws.com/ligue1.image/players/2025/all/player_official_2025_428_560238-400x300.png"
   },
   {
@@ -2405,6 +2745,7 @@
    "name": "SIDIBE",
    "norm": "sidibe",
    "foot": "right",
+   "cc": "MLI",
    "url": "https://s3.eu-west-3.amazonaws.com/ligue1.image/players/2025/all/player_official_2025_428_468489-400x300.png"
   },
   {
@@ -2412,6 +2753,7 @@
    "name": "IMARAZENE",
    "norm": "imarazene",
    "foot": null,
+   "cc": "FRA",
    "url": "https://s3.eu-west-1.amazonaws.com/image.mpg/2025-empt-428-400x300.png"
   },
   {
@@ -2419,6 +2761,7 @@
    "name": "KIELT",
    "norm": "kielt",
    "foot": null,
+   "cc": "FRA",
    "url": "https://s3.eu-west-3.amazonaws.com/ligue1.image/players/2025/all/player_official_2025_428_564812-400x300.png"
   },
   {
@@ -2426,6 +2769,7 @@
    "name": "MAFOUTA",
    "norm": "mafouta",
    "foot": "right",
+   "cc": "CAF",
    "url": "https://s3.eu-west-3.amazonaws.com/ligue1.image/players/2025/all/player_official_2025_428_442793-400x300.png"
   },
   {
@@ -2433,6 +2777,7 @@
    "name": "MIRAOUI",
    "norm": "miraoui",
    "foot": null,
+   "cc": "MAR",
    "url": "https://s3.eu-west-1.amazonaws.com/image.mpg/2025-empt-428-400x300.png"
   }
  ],
@@ -2442,6 +2787,7 @@
    "name": "ALLAIN",
    "norm": "allain",
    "foot": "right",
+   "cc": "FRA",
    "url": "https://s3.eu-west-3.amazonaws.com/ligue1.image/players/2025/all/player_official_2025_1272_110369-400x300.png"
   },
   {
@@ -2449,6 +2795,7 @@
    "name": "DIOP",
    "norm": "diop",
    "foot": "left",
+   "cc": "MRT",
    "url": "https://s3.eu-west-3.amazonaws.com/ligue1.image/players/2025/all/player_official_2025_1272_587304-400x300.png"
   },
   {
@@ -2456,6 +2803,7 @@
    "name": "PATTIER",
    "norm": "pattier",
    "foot": "right",
+   "cc": "FRA",
    "url": "https://s3.eu-west-3.amazonaws.com/ligue1.image/players/2025/all/player_official_2025_1272_437692-400x300.png"
   },
   {
@@ -2463,6 +2811,7 @@
    "name": "DELOS",
    "norm": "delos",
    "foot": "both",
+   "cc": "FRA",
    "url": "https://s3.eu-west-3.amazonaws.com/ligue1.image/players/2025/all/player_official_2025_1272_488367-400x300.png"
   },
   {
@@ -2470,6 +2819,7 @@
    "name": "MAMBO",
    "norm": "mambo",
    "foot": "left",
+   "cc": "FRA",
    "url": "https://s3.eu-west-3.amazonaws.com/ligue1.image/players/2025/all/player_official_2025_1272_484421-400x300.png"
   },
   {
@@ -2477,6 +2827,7 @@
    "name": "MEDROUB",
    "norm": "medroub",
    "foot": null,
+   "cc": "FRA",
    "url": "https://s3.eu-west-1.amazonaws.com/image.mpg/2025-empt-1272-400x300.png"
   },
   {
@@ -2484,6 +2835,7 @@
    "name": "MION",
    "norm": "mion",
    "foot": null,
+   "cc": "FRA",
    "url": "https://s3.eu-west-3.amazonaws.com/ligue1.image/players/2025/all/player_official_2025_1272_551974-400x300.png"
   },
   {
@@ -2491,6 +2843,7 @@
    "name": "MOUYOKOLO",
    "norm": "mouyokolo",
    "foot": "right",
+   "cc": "FRA",
    "url": "https://s3.eu-west-3.amazonaws.com/ligue1.image/players/2025/all/player_official_2025_1272_523232-400x300.png"
   },
   {
@@ -2498,6 +2851,7 @@
    "name": "N'GATTA",
    "norm": "ngatta",
    "foot": "right",
+   "cc": "CIV",
    "url": "https://s3.eu-west-3.amazonaws.com/ligue1.image/players/2025/all/player_official_2025_1272_629454-400x300.png"
   },
   {
@@ -2505,6 +2859,7 @@
    "name": "PAQUIEZ",
    "norm": "paquiez",
    "foot": "right",
+   "cc": "FRA",
    "url": "https://s3.eu-west-3.amazonaws.com/ligue1.image/players/2025/all/player_official_2025_1272_169860-400x300.png"
   },
   {
@@ -2512,6 +2867,7 @@
    "name": "TCHAPTCHET",
    "norm": "tchaptchet",
    "foot": "right",
+   "cc": "FRA",
    "url": "https://s3.eu-west-3.amazonaws.com/ligue1.image/players/2025/all/player_official_2025_1272_447093-400x300.png"
   },
   {
@@ -2519,6 +2875,7 @@
    "name": "VIDAL",
    "norm": "vidal",
    "foot": "right",
+   "cc": "FRA",
    "url": "https://s3.eu-west-3.amazonaws.com/ligue1.image/players/2025/all/player_official_2025_1272_456193-400x300.png"
   },
   {
@@ -2526,6 +2883,7 @@
    "name": "XANTIPPE",
    "norm": "xantippe",
    "foot": "left",
+   "cc": "FRA",
    "url": "https://s3.eu-west-3.amazonaws.com/ligue1.image/players/2025/all/player_official_2025_1272_538782-400x300.png"
   },
   {
@@ -2533,6 +2891,7 @@
    "name": "BENET",
    "norm": "benet",
    "foot": "right",
+   "cc": "FRA",
    "url": "https://s3.eu-west-3.amazonaws.com/ligue1.image/players/2025/all/player_official_2025_1272_193425-400x300.png"
   },
   {
@@ -2540,6 +2899,7 @@
    "name": "BERNADOU",
    "norm": "bernadou",
    "foot": "right",
+   "cc": "FRA",
    "url": "https://s3.eu-west-3.amazonaws.com/ligue1.image/players/2025/all/player_official_2025_1272_439365-400x300.png"
   },
   {
@@ -2547,6 +2907,7 @@
    "name": "D'ANTONA",
    "norm": "dantona",
    "foot": null,
+   "cc": "FRA",
    "url": "https://s3.eu-west-3.amazonaws.com/ligue1.image/players/2025/all/player_official_2025_1272_622267-400x300.png"
   },
   {
@@ -2554,6 +2915,7 @@
    "name": "DIBA",
    "norm": "diba",
    "foot": "right",
+   "cc": "SEN",
    "url": "https://s3.eu-west-3.amazonaws.com/ligue1.image/players/2025/all/player_official_2025_1272_585581-400x300.png"
   },
   {
@@ -2561,6 +2923,7 @@
    "name": "DRESSEL",
    "norm": "dressel",
    "foot": null,
+   "cc": "ENG",
    "url": "https://s3.eu-west-1.amazonaws.com/image.mpg/2025-empt-1272-400x300.png"
   },
   {
@@ -2568,6 +2931,7 @@
    "name": "MOUAZAN",
    "norm": "mouazan",
    "foot": "right",
+   "cc": "FRA",
    "url": "https://s3.eu-west-3.amazonaws.com/ligue1.image/players/2025/all/player_official_2025_1272_551971-400x300.png"
   },
   {
@@ -2575,6 +2939,7 @@
    "name": "ZAHUI",
    "norm": "zahui",
    "foot": "right",
+   "cc": "FRA",
    "url": "https://s3.eu-west-3.amazonaws.com/ligue1.image/players/2025/all/player_official_2025_1272_544820-400x300.png"
   },
   {
@@ -2582,6 +2947,7 @@
    "name": "BANGRE",
    "norm": "bangre",
    "foot": "left",
+   "cc": "BFA",
    "url": "https://s3.eu-west-3.amazonaws.com/ligue1.image/players/2025/all/player_official_2025_1272_535979-400x300.png"
   },
   {
@@ -2589,6 +2955,7 @@
    "name": "BECHIKH",
    "norm": "bechikh",
    "foot": "right",
+   "cc": "FRA",
    "url": "https://s3.eu-west-3.amazonaws.com/ligue1.image/players/2025/all/player_official_2025_1272_643303-400x300.png"
   },
   {
@@ -2596,6 +2963,7 @@
    "name": "BONNET",
    "norm": "bonnet",
    "foot": "right",
+   "cc": "FRA",
    "url": "https://s3.eu-west-3.amazonaws.com/ligue1.image/players/2025/all/player_official_2025_1272_487506-400x300.png"
   },
   {
@@ -2603,6 +2971,7 @@
    "name": "DIABY",
    "norm": "diaby",
    "foot": "right",
+   "cc": "GIN",
    "url": "https://s3.eu-west-3.amazonaws.com/ligue1.image/players/2025/all/player_official_2025_1272_561782-400x300.png"
   },
   {
@@ -2610,6 +2979,7 @@
    "name": "DJITTE",
    "norm": "djitte",
    "foot": "right",
+   "cc": "SEN",
    "url": "https://s3.eu-west-3.amazonaws.com/ligue1.image/players/2025/all/player_official_2025_1272_454687-400x300.png"
   },
   {
@@ -2617,6 +2987,7 @@
    "name": "LALLIAS",
    "norm": "lallias",
    "foot": null,
+   "cc": "FRA",
    "url": "https://s3.eu-west-3.amazonaws.com/ligue1.image/players/2025/all/player_official_2025_1272_627282-400x300.png"
   },
   {
@@ -2624,6 +2995,7 @@
    "name": "MAURIN",
    "norm": "maurin",
    "foot": "left",
+   "cc": "FRA",
    "url": "https://s3.eu-west-3.amazonaws.com/ligue1.image/players/2025/all/player_official_2025_1272_557668-400x300.png"
   }
  ],
@@ -2633,6 +3005,7 @@
    "name": "GUIVARCH",
    "norm": "guivarch",
    "foot": "right",
+   "cc": "FRA",
    "url": "https://s3.eu-west-3.amazonaws.com/ligue1.image/players/2025/all/player_official_2025_1983_212887-400x300.png"
   },
   {
@@ -2640,6 +3013,7 @@
    "name": "N'DIAYE",
    "norm": "ndiaye",
    "foot": "right",
+   "cc": "SEN",
    "url": "https://s3.eu-west-3.amazonaws.com/ligue1.image/players/2025/all/player_official_2025_1983_547069-400x300.png"
   },
   {
@@ -2647,6 +3021,7 @@
    "name": "RAMOUSSE",
    "norm": "ramousse",
    "foot": null,
+   "cc": "FRA",
    "url": "https://s3.eu-west-1.amazonaws.com/image.mpg/2025-empt-1983-400x300.png"
   },
   {
@@ -2654,6 +3029,7 @@
    "name": "RAYNAUD",
    "norm": "raynaud",
    "foot": null,
+   "cc": "FRA",
    "url": "https://s3.eu-west-1.amazonaws.com/image.mpg/2025-empt-1983-400x300.png"
   },
   {
@@ -2661,6 +3037,7 @@
    "name": "AWUDU",
    "norm": "awudu",
    "foot": "left",
+   "cc": "GHA",
    "url": "https://s3.eu-west-3.amazonaws.com/ligue1.image/players/2025/all/player_official_2025_1983_629204-400x300.png"
   },
   {
@@ -2668,6 +3045,7 @@
    "name": "BOTO",
    "norm": "boto",
    "foot": "left",
+   "cc": "MDG",
    "url": "https://s3.eu-west-3.amazonaws.com/ligue1.image/players/2025/all/player_official_2025_1983_199519-400x300.png"
   },
   {
@@ -2675,6 +3053,7 @@
    "name": "CAUFRIEZ",
    "norm": "caufriez",
    "foot": "right",
+   "cc": "BEL",
    "url": "https://s3.eu-west-3.amazonaws.com/ligue1.image/players/2025/all/player_official_2025_1983_212530-400x300.png"
   },
   {
@@ -2682,6 +3061,7 @@
    "name": "COULIBALY",
    "norm": "coulibaly",
    "foot": "right",
+   "cc": "FRA",
    "url": "https://s3.eu-west-3.amazonaws.com/ligue1.image/players/2025/all/player_official_2025_1983_682191-400x300.png"
   },
   {
@@ -2689,6 +3069,7 @@
    "name": "DONAVIN",
    "norm": "donavin",
    "foot": "left",
+   "cc": "FRA",
    "url": "https://s3.eu-west-3.amazonaws.com/ligue1.image/players/2025/all/player_official_2025_1983_629202-400x300.png"
   },
   {
@@ -2696,6 +3077,7 @@
    "name": "M'BAHIA",
    "norm": "mbahia",
    "foot": "right",
+   "cc": "CIV",
    "url": "https://s3.eu-west-3.amazonaws.com/ligue1.image/players/2025/all/player_official_2025_1983_653502-400x300.png"
   },
   {
@@ -2703,6 +3085,7 @@
    "name": "NSIMBA",
    "norm": "nsimba",
    "foot": "left",
+   "cc": "COD",
    "url": "https://s3.eu-west-1.amazonaws.com/image.mpg/2025-empt-1983-400x300.png"
   },
   {
@@ -2710,6 +3093,7 @@
    "name": "SALMIER",
    "norm": "salmier",
    "foot": "right",
+   "cc": "GUF",
    "url": "https://s3.eu-west-3.amazonaws.com/ligue1.image/players/2025/all/player_official_2025_1983_228319-400x300.png"
   },
   {
@@ -2717,6 +3101,7 @@
    "name": "SOW",
    "norm": "sow",
    "foot": "right",
+   "cc": "GIN",
    "url": "https://s3.eu-west-3.amazonaws.com/ligue1.image/players/2025/all/player_official_2025_1983_512771-400x300.png"
   },
   {
@@ -2724,6 +3109,7 @@
    "name": "TOURRAINE",
    "norm": "tourraine",
    "foot": "right",
+   "cc": "MAR",
    "url": "https://s3.eu-west-3.amazonaws.com/ligue1.image/players/2025/all/player_official_2025_1983_465528-400x300.png"
   },
   {
@@ -2731,6 +3117,7 @@
    "name": "ACKRA",
    "norm": "ackra",
    "foot": "right",
+   "cc": "FRA",
    "url": "https://s3.eu-west-3.amazonaws.com/ligue1.image/players/2025/all/player_official_2025_1983_630999-400x300.png"
   },
   {
@@ -2738,6 +3125,7 @@
    "name": "ADMAR",
    "norm": "admar",
    "foot": null,
+   "cc": "FRA",
    "url": "https://s3.eu-west-3.amazonaws.com/ligue1.image/players/2025/all/player_official_2025_1983_719779-400x300.png"
   },
   {
@@ -2745,6 +3133,7 @@
    "name": "ASTIC",
    "norm": "astic",
    "foot": null,
+   "cc": "FRA",
    "url": "https://s3.eu-west-3.amazonaws.com/ligue1.image/players/2025/all/player_official_2025_1983_622367-400x300.png"
   },
   {
@@ -2752,6 +3141,7 @@
    "name": "BAALLAL",
    "norm": "baallal",
    "foot": "right",
+   "cc": "MAR",
    "url": "https://s3.eu-west-3.amazonaws.com/ligue1.image/players/2025/all/player_official_2025_1983_596394-400x300.png"
   },
   {
@@ -2759,6 +3149,7 @@
    "name": "BERKANI",
    "norm": "berkani",
    "foot": "right",
+   "cc": "DZA",
    "url": "https://s3.eu-west-3.amazonaws.com/ligue1.image/players/2025/all/player_official_2025_1983_614828-400x300.png"
   },
   {
@@ -2766,6 +3157,7 @@
    "name": "GASTIEN",
    "norm": "gastien",
    "foot": "right",
+   "cc": "FRA",
    "url": "https://s3.eu-west-1.amazonaws.com/image.mpg/2025-empt-1983-400x300.png"
   },
   {
@@ -2773,6 +3165,7 @@
    "name": "KONÉ",
    "norm": "kone",
    "foot": "right",
+   "cc": "FRA",
    "url": "https://s3.eu-west-3.amazonaws.com/ligue1.image/players/2025/all/player_official_2025_1983_643343-400x300.png"
   },
   {
@@ -2780,6 +3173,7 @@
    "name": "SAIVET",
    "norm": "saivet",
    "foot": "right",
+   "cc": "SEN",
    "url": "https://s3.eu-west-3.amazonaws.com/ligue1.image/players/2025/all/player_official_2025_1983_43521-400x300.png"
   },
   {
@@ -2787,6 +3181,7 @@
    "name": "BAMBA",
    "norm": "bamba",
    "foot": "right",
+   "cc": "FRA",
    "url": "https://s3.eu-west-3.amazonaws.com/ligue1.image/players/2025/all/player_official_2025_1983_443202-400x300.png"
   },
   {
@@ -2794,6 +3189,7 @@
    "name": "BELLACHE",
    "norm": "bellache",
    "foot": null,
+   "cc": "DZA",
    "url": "https://s3.eu-west-3.amazonaws.com/ligue1.image/players/2025/all/player_official_2025_1983_577413-400x300.png"
   },
   {
@@ -2801,6 +3197,7 @@
    "name": "CAMBLAN",
    "norm": "camblan",
    "foot": "right",
+   "cc": "FRA",
    "url": "https://s3.eu-west-3.amazonaws.com/ligue1.image/players/2025/all/player_official_2025_1983_548831-400x300.png"
   },
   {
@@ -2808,6 +3205,7 @@
    "name": "CANTERO",
    "norm": "cantero",
    "foot": null,
+   "cc": "FRA",
    "url": "https://s3.eu-west-3.amazonaws.com/ligue1.image/players/2025/all/player_official_2025_1983_703381-400x300.png"
   },
   {
@@ -2815,6 +3213,7 @@
    "name": "DIEDHIOU",
    "norm": "diedhiou",
    "foot": "right",
+   "cc": "SEN",
    "url": "https://s3.eu-west-3.amazonaws.com/ligue1.image/players/2025/all/player_official_2025_1983_149535-400x300.png"
   },
   {
@@ -2822,6 +3221,7 @@
    "name": "DIOP",
    "norm": "diop",
    "foot": "right",
+   "cc": "SEN",
    "url": "https://s3.eu-west-3.amazonaws.com/ligue1.image/players/2025/all/player_official_2025_1983_666151-400x300.png"
   },
   {
@@ -2829,6 +3229,7 @@
    "name": "DOUANE",
    "norm": "douane",
    "foot": "right",
+   "cc": "DZA",
    "url": "https://s3.eu-west-3.amazonaws.com/ligue1.image/players/2025/all/player_official_2025_1983_565881-400x300.png"
   },
   {
@@ -2836,6 +3237,7 @@
    "name": "FAKILI",
    "norm": "fakili",
    "foot": "right",
+   "cc": "FRA",
    "url": "https://s3.eu-west-3.amazonaws.com/ligue1.image/players/2025/all/player_official_2025_1983_643350-400x300.png"
   },
   {
@@ -2843,6 +3245,7 @@
    "name": "GUINDO",
    "norm": "guindo",
    "foot": "right",
+   "cc": "MLI",
    "url": "https://s3.eu-west-3.amazonaws.com/ligue1.image/players/2025/all/player_official_2025_1983_624200-400x300.png"
   },
   {
@@ -2850,6 +3253,7 @@
    "name": "HUNOU",
    "norm": "hunou",
    "foot": "right",
+   "cc": "FRA",
    "url": "https://s3.eu-west-3.amazonaws.com/ligue1.image/players/2025/all/player_official_2025_1983_161472-400x300.png"
   },
   {
@@ -2857,6 +3261,7 @@
    "name": "SAID",
    "norm": "said",
    "foot": "right",
+   "cc": "DZA",
    "url": "https://s3.eu-west-3.amazonaws.com/ligue1.image/players/2025/all/player_official_2025_1983_666166-400x300.png"
   }
  ],
@@ -2866,6 +3271,7 @@
    "name": "BASILIO",
    "norm": "basilio",
    "foot": "right",
+   "cc": "FRA",
    "url": "https://s3.eu-west-3.amazonaws.com/ligue1.image/players/2025/all/player_official_2025_148_151065-400x300.png"
   },
   {
@@ -2873,6 +3279,7 @@
    "name": "LEMBET",
    "norm": "lembet",
    "foot": "right",
+   "cc": "CAF",
    "url": "https://s3.eu-west-3.amazonaws.com/ligue1.image/players/2025/all/player_official_2025_148_56667-400x300.png"
   },
   {
@@ -2880,6 +3287,7 @@
    "name": "NOEL",
    "norm": "noel",
    "foot": null,
+   "cc": "FRA",
    "url": "https://s3.eu-west-3.amazonaws.com/ligue1.image/players/2025/all/player_official_2025_148_690770-400x300.png"
   },
   {
@@ -2887,6 +3295,7 @@
    "name": "SOURZAC",
    "norm": "sourzac",
    "foot": "right",
+   "cc": "FRA",
    "url": "https://s3.eu-west-3.amazonaws.com/ligue1.image/players/2025/all/player_official_2025_148_102732-400x300.png"
   },
   {
@@ -2894,6 +3303,7 @@
    "name": "TOURÉ",
    "norm": "toure",
    "foot": "right",
+   "cc": "FRA",
    "url": "https://s3.eu-west-1.amazonaws.com/image.mpg/2025-empt-148-400x300.png"
   },
   {
@@ -2901,6 +3311,7 @@
    "name": "BOURGAULT",
    "norm": "bourgault",
    "foot": "left",
+   "cc": "FRA",
    "url": "https://s3.eu-west-3.amazonaws.com/ligue1.image/players/2025/all/player_official_2025_148_659788-400x300.png"
   },
   {
@@ -2908,6 +3319,7 @@
    "name": "CAMARA",
    "norm": "camara",
    "foot": "right",
+   "cc": "MRT",
    "url": "https://s3.eu-west-3.amazonaws.com/ligue1.image/players/2025/all/player_official_2025_148_591883-400x300.png"
   },
   {
@@ -2915,6 +3327,7 @@
    "name": "EXPERIENCE",
    "norm": "experience",
    "foot": "left",
+   "cc": "HTI",
    "url": "https://s3.eu-west-3.amazonaws.com/ligue1.image/players/2025/all/player_official_2025_148_534231-400x300.png"
   },
   {
@@ -2922,6 +3335,7 @@
    "name": "FERNANDEZ VELIZ",
    "norm": "fernandez veliz",
    "foot": "right",
+   "cc": "FRA",
    "url": "https://s3.eu-west-3.amazonaws.com/ligue1.image/players/2025/all/player_official_2025_148_544238-400x300.png"
   },
   {
@@ -2929,6 +3343,7 @@
    "name": "JULLOUX",
    "norm": "julloux",
    "foot": null,
+   "cc": "FRA",
    "url": "https://s3.eu-west-3.amazonaws.com/ligue1.image/players/2025/all/player_official_2025_148_462652-400x300.png"
   },
   {
@@ -2936,6 +3351,7 @@
    "name": "MAOUASSA",
    "norm": "maouassa",
    "foot": "left",
+   "cc": "FRA",
    "url": "https://s3.eu-west-3.amazonaws.com/ligue1.image/players/2025/all/player_official_2025_148_214473-400x300.png"
   },
   {
@@ -2943,6 +3359,7 @@
    "name": "MENDY",
    "norm": "mendy",
    "foot": "left",
+   "cc": "FRA",
    "url": "https://s3.eu-west-3.amazonaws.com/ligue1.image/players/2025/all/player_official_2025_148_644599-400x300.png"
   },
   {
@@ -2950,6 +3367,7 @@
    "name": "NAHOUNOU",
    "norm": "nahounou",
    "foot": null,
+   "cc": "FRA",
    "url": "https://s3.eu-west-3.amazonaws.com/ligue1.image/players/2025/all/player_official_2025_148_577171-400x300.png"
   },
   {
@@ -2957,6 +3375,7 @@
    "name": "SAINT RUF",
    "norm": "saint ruf",
    "foot": null,
+   "cc": "GLP",
    "url": "https://s3.eu-west-3.amazonaws.com/ligue1.image/players/2025/all/player_official_2025_148_106884-400x300.png"
   },
   {
@@ -2964,6 +3383,7 @@
    "name": "TACAFRED",
    "norm": "tacafred",
    "foot": null,
+   "cc": "FRA",
    "url": "https://s3.eu-west-3.amazonaws.com/ligue1.image/players/2025/all/player_official_2025_148_650433-400x300.png"
   },
   {
@@ -2971,6 +3391,7 @@
    "name": "BAMBA",
    "norm": "bamba",
    "foot": null,
+   "cc": "FRA",
    "url": "https://s3.eu-west-3.amazonaws.com/ligue1.image/players/2025/all/player_official_2025_148_653530-400x300.png"
   },
   {
@@ -2978,6 +3399,7 @@
    "name": "BARBIER",
    "norm": "barbier",
    "foot": null,
+   "cc": "FRA",
    "url": "https://s3.eu-west-3.amazonaws.com/ligue1.image/players/2025/all/player_official_2025_148_723613-400x300.png"
   },
   {
@@ -2985,6 +3407,7 @@
    "name": "BOURIAUD",
    "norm": "bouriaud",
    "foot": "left",
+   "cc": "FRA",
    "url": "https://s3.eu-west-3.amazonaws.com/ligue1.image/players/2025/all/player_official_2025_148_451546-400x300.png"
   },
   {
@@ -2992,6 +3415,7 @@
    "name": "CARLIER",
    "norm": "carlier",
    "foot": null,
+   "cc": "FRA",
    "url": "https://s3.eu-west-3.amazonaws.com/ligue1.image/players/2025/all/player_official_2025_148_432029-400x300.png"
   },
   {
@@ -2999,6 +3423,7 @@
    "name": "DELAVEAU",
    "norm": "delaveau",
    "foot": null,
+   "cc": "DZA",
    "url": "https://s3.eu-west-1.amazonaws.com/image.mpg/2025-empt-148-400x300.png"
   },
   {
@@ -3006,6 +3431,7 @@
    "name": "EL HANSAR",
    "norm": "el hansar",
    "foot": null,
+   "cc": "FRA",
    "url": "https://s3.eu-west-3.amazonaws.com/ligue1.image/players/2025/all/player_official_2025_148_703103-400x300.png"
   },
   {
@@ -3013,6 +3439,7 @@
    "name": "GÉLIN",
    "norm": "gelin",
    "foot": "right",
+   "cc": "FRA",
    "url": "https://s3.eu-west-3.amazonaws.com/ligue1.image/players/2025/all/player_official_2025_148_217992-400x300.png"
   },
   {
@@ -3020,6 +3447,7 @@
    "name": "SULJIC",
    "norm": "suljic",
    "foot": "left",
+   "cc": "BIH",
    "url": "https://s3.eu-west-3.amazonaws.com/ligue1.image/players/2025/all/player_official_2025_148_200964-400x300.png"
   },
   {
@@ -3027,6 +3455,7 @@
    "name": "ZTOUTI",
    "norm": "ztouti",
    "foot": null,
+   "cc": "FRA",
    "url": "https://s3.eu-west-3.amazonaws.com/ligue1.image/players/2025/all/player_official_2025_148_703784-400x300.png"
   },
   {
@@ -3034,6 +3463,7 @@
    "name": "BOKANGU",
    "norm": "bokangu",
    "foot": null,
+   "cc": "FRA",
    "url": "https://s3.eu-west-3.amazonaws.com/ligue1.image/players/2025/all/player_official_2025_148_533486-400x300.png"
   },
   {
@@ -3041,6 +3471,7 @@
    "name": "BOUABDELI",
    "norm": "bouabdeli",
    "foot": null,
+   "cc": "FRA",
    "url": "https://s3.eu-west-3.amazonaws.com/ligue1.image/players/2025/all/player_official_2025_148_564344-400x300.png"
   },
   {
@@ -3048,6 +3479,7 @@
    "name": "DABASSE",
    "norm": "dabasse",
    "foot": "right",
+   "cc": "FRA",
    "url": "https://s3.eu-west-3.amazonaws.com/ligue1.image/players/2025/all/player_official_2025_148_105708-400x300.png"
   },
   {
@@ -3055,6 +3487,7 @@
    "name": "FDAOUCH",
    "norm": "fdaouch",
    "foot": null,
+   "cc": "FRA",
    "url": "https://s3.eu-west-3.amazonaws.com/ligue1.image/players/2025/all/player_official_2025_148_563798-400x300.png"
   },
   {
@@ -3062,6 +3495,7 @@
    "name": "GUENDEZ",
    "norm": "guendez",
    "foot": null,
+   "cc": "FRA",
    "url": "https://s3.eu-west-3.amazonaws.com/ligue1.image/players/2025/all/player_official_2025_148_722876-400x300.png"
   },
   {
@@ -3069,6 +3503,7 @@
    "name": "JIMMY",
    "norm": "jimmy",
    "foot": "right",
+   "cc": "NGA",
    "url": "https://s3.eu-west-3.amazonaws.com/ligue1.image/players/2025/all/player_official_2025_148_610061-400x300.png"
   },
   {
@@ -3076,6 +3511,7 @@
    "name": "ORAKPO",
    "norm": "orakpo",
    "foot": "right",
+   "cc": "NGA",
    "url": "https://s3.eu-west-3.amazonaws.com/ligue1.image/players/2025/all/player_official_2025_148_662494-400x300.png"
   },
   {
@@ -3083,6 +3519,7 @@
    "name": "OUOTRO",
    "norm": "ouotro",
    "foot": "right",
+   "cc": "CIV",
    "url": "https://s3.eu-west-3.amazonaws.com/ligue1.image/players/2025/all/player_official_2025_148_606991-400x300.png"
   },
   {
@@ -3090,6 +3527,7 @@
    "name": "SISSOKO",
    "norm": "sissoko",
    "foot": "right",
+   "cc": "MLI",
    "url": "https://s3.eu-west-3.amazonaws.com/ligue1.image/players/2025/all/player_official_2025_148_671771-400x300.png"
   }
  ],
@@ -3099,6 +3537,7 @@
    "name": "KONE",
    "norm": "kone",
    "foot": "right",
+   "cc": "GIN",
    "url": "https://s3.eu-west-3.amazonaws.com/ligue1.image/players/2025/all/player_official_2025_2129_60083-400x300.png"
   },
   {
@@ -3106,6 +3545,7 @@
    "name": "LENOGUE",
    "norm": "lenogue",
    "foot": null,
+   "cc": "MTQ",
    "url": "https://s3.eu-west-3.amazonaws.com/ligue1.image/players/2025/all/player_official_2025_2129_215709-400x300.png"
   },
   {
@@ -3113,6 +3553,7 @@
    "name": "NNA NOUKEU",
    "norm": "nna noukeu",
    "foot": "right",
+   "cc": "CMR",
    "url": "https://s3.eu-west-3.amazonaws.com/ligue1.image/players/2025/all/player_official_2025_2129_490000-400x300.png"
   },
   {
@@ -3120,6 +3561,7 @@
    "name": "URIEV",
    "norm": "uriev",
    "foot": null,
+   "cc": "FRA",
    "url": "https://s3.eu-west-3.amazonaws.com/ligue1.image/players/2025/all/player_official_2025_2129_565432-400x300.png"
   },
   {
@@ -3127,6 +3569,7 @@
    "name": "BOYER",
    "norm": "boyer",
    "foot": null,
+   "cc": "FRA",
    "url": "https://s3.eu-west-3.amazonaws.com/ligue1.image/players/2025/all/player_official_2025_2129_444369-400x300.png"
   },
   {
@@ -3134,6 +3577,7 @@
    "name": "BURLET",
    "norm": "burlet",
    "foot": null,
+   "cc": "BEL",
    "url": "https://s3.eu-west-3.amazonaws.com/ligue1.image/players/2025/all/player_official_2025_2129_578618-400x300.png"
   },
   {
@@ -3141,6 +3585,7 @@
    "name": "DUFLOS",
    "norm": "duflos",
    "foot": null,
+   "cc": "FRA",
    "url": "https://s3.eu-west-3.amazonaws.com/ligue1.image/players/2025/all/player_official_2025_2129_533158-400x300.png"
   },
   {
@@ -3148,6 +3593,7 @@
    "name": "GOURVILLE",
    "norm": "gourville",
    "foot": "right",
+   "cc": "FRA",
    "url": "https://s3.eu-west-3.amazonaws.com/ligue1.image/players/2025/all/player_official_2025_2129_567950-400x300.png"
   },
   {
@@ -3155,6 +3601,7 @@
    "name": "KAPENGA",
    "norm": "kapenga",
    "foot": null,
+   "cc": "FRA",
    "url": "https://s3.eu-west-3.amazonaws.com/ligue1.image/players/2025/all/player_official_2025_2129_703174-400x300.png"
   },
   {
@@ -3162,6 +3609,7 @@
    "name": "KOUASSI",
    "norm": "kouassi",
    "foot": null,
+   "cc": "CIV",
    "url": "https://s3.eu-west-1.amazonaws.com/image.mpg/2025-empt-2129-400x300.png"
   },
   {
@@ -3169,6 +3617,7 @@
    "name": "MOCO",
    "norm": "moco",
    "foot": "right",
+   "cc": "GLP",
    "url": "https://s3.eu-west-3.amazonaws.com/ligue1.image/players/2025/all/player_official_2025_2129_628887-400x300.png"
   },
   {
@@ -3176,6 +3625,7 @@
    "name": "PINOT",
    "norm": "pinot",
    "foot": null,
+   "cc": "FRA",
    "url": "https://s3.eu-west-3.amazonaws.com/ligue1.image/players/2025/all/player_official_2025_2129_530271-400x300.png"
   },
   {
@@ -3183,6 +3633,7 @@
    "name": "PLATRET",
    "norm": "platret",
    "foot": "right",
+   "cc": "FRA",
    "url": "https://s3.eu-west-3.amazonaws.com/ligue1.image/players/2025/all/player_official_2025_2129_564941-400x300.png"
   },
   {
@@ -3190,6 +3641,7 @@
    "name": "SILIADIN",
    "norm": "siliadin",
    "foot": null,
+   "cc": "FRA",
    "url": "https://s3.eu-west-3.amazonaws.com/ligue1.image/players/2025/all/player_official_2025_2129_703178-400x300.png"
   },
   {
@@ -3197,6 +3649,7 @@
    "name": "THIAM",
    "norm": "thiam",
    "foot": "left",
+   "cc": "FRA",
    "url": "https://s3.eu-west-3.amazonaws.com/ligue1.image/players/2025/all/player_official_2025_2129_511180-400x300.png"
   },
   {
@@ -3204,6 +3657,7 @@
    "name": "ZOHORE",
    "norm": "zohore",
    "foot": "left",
+   "cc": "FRA",
    "url": "https://s3.eu-west-3.amazonaws.com/ligue1.image/players/2025/all/player_official_2025_2129_510894-400x300.png"
   },
   {
@@ -3211,6 +3665,7 @@
    "name": "BINET",
    "norm": "binet",
    "foot": "right",
+   "cc": "FRA",
    "url": "https://s3.eu-west-3.amazonaws.com/ligue1.image/players/2025/all/player_official_2025_2129_633057-400x300.png"
   },
   {
@@ -3218,6 +3673,7 @@
    "name": "BOITEAU",
    "norm": "boiteau",
    "foot": null,
+   "cc": "CAN",
    "url": "https://s3.eu-west-3.amazonaws.com/ligue1.image/players/2025/all/player_official_2025_2129_703177-400x300.png"
   },
   {
@@ -3225,6 +3681,7 @@
    "name": "BOULET",
    "norm": "boulet",
    "foot": null,
+   "cc": "FRA",
    "url": "https://s3.eu-west-3.amazonaws.com/ligue1.image/players/2025/all/player_official_2025_2129_579589-400x300.png"
   },
   {
@@ -3232,6 +3689,7 @@
    "name": "BULTEL",
    "norm": "bultel",
    "foot": null,
+   "cc": "FRA",
    "url": "https://s3.eu-west-3.amazonaws.com/ligue1.image/players/2025/all/player_official_2025_2129_664853-400x300.png"
   },
   {
@@ -3239,6 +3697,7 @@
    "name": "KEITA",
    "norm": "keita",
    "foot": null,
+   "cc": "FRA",
    "url": "https://s3.eu-west-3.amazonaws.com/ligue1.image/players/2025/all/player_official_2025_2129_696281-400x300.png"
   },
   {
@@ -3246,6 +3705,7 @@
    "name": "MARTIN",
    "norm": "martin",
    "foot": "right",
+   "cc": "FRA",
    "url": "https://s3.eu-west-3.amazonaws.com/ligue1.image/players/2025/all/player_official_2025_2129_84366-400x300.png"
   },
   {
@@ -3253,6 +3713,7 @@
    "name": "PAILLARD",
    "norm": "paillard",
    "foot": null,
+   "cc": "FRA",
    "url": "https://s3.eu-west-3.amazonaws.com/ligue1.image/players/2025/all/player_official_2025_2129_664857-400x300.png"
   },
   {
@@ -3260,6 +3721,7 @@
    "name": "CAPUANO",
    "norm": "capuano",
    "foot": "right",
+   "cc": "FRA",
    "url": "https://s3.eu-west-3.amazonaws.com/ligue1.image/players/2025/all/player_official_2025_2129_643726-400x300.png"
   },
   {
@@ -3267,6 +3729,7 @@
    "name": "EL FARISSI",
    "norm": "el farissi",
    "foot": null,
+   "cc": "FRA",
    "url": "https://s3.eu-west-3.amazonaws.com/ligue1.image/players/2025/all/player_official_2025_2129_443273-400x300.png"
   },
   {
@@ -3274,6 +3737,7 @@
    "name": "FATAR",
    "norm": "fatar",
    "foot": null,
+   "cc": "FRA",
    "url": "https://s3.eu-west-3.amazonaws.com/ligue1.image/players/2025/all/player_official_2025_2129_492845-400x300.png"
   },
   {
@@ -3281,6 +3745,7 @@
    "name": "FATOU",
    "norm": "fatou",
    "foot": null,
+   "cc": "FRA",
    "url": "https://s3.eu-west-3.amazonaws.com/ligue1.image/players/2025/all/player_official_2025_2129_489411-400x300.png"
   },
   {
@@ -3288,6 +3753,7 @@
    "name": "LECOLIER",
    "norm": "lecolier",
    "foot": null,
+   "cc": "FRA",
    "url": "https://s3.eu-west-3.amazonaws.com/ligue1.image/players/2025/all/player_official_2025_2129_621946-400x300.png"
   }
  ],
@@ -3297,6 +3763,7 @@
    "name": "DROYAUX",
    "norm": "droyaux",
    "foot": null,
+   "cc": "FRA",
    "url": "https://s3.eu-west-3.amazonaws.com/ligue1.image/players/2025/all/player_official_2025_2298_704654-400x300.png"
   },
   {
@@ -3304,6 +3771,7 @@
    "name": "HAUTBOIS",
    "norm": "hautbois",
    "foot": "right",
+   "cc": "FRA",
    "url": "https://s3.eu-west-3.amazonaws.com/ligue1.image/players/2025/all/player_official_2025_2298_81119-400x300.png"
   },
   {
@@ -3311,6 +3779,7 @@
    "name": "NTESSA",
    "norm": "ntessa",
    "foot": null,
+   "cc": "COG",
    "url": "https://s3.eu-west-3.amazonaws.com/ligue1.image/players/2025/all/player_official_2025_2298_698988-400x300.png"
   },
   {
@@ -3318,6 +3787,7 @@
    "name": "SAMASSA",
    "norm": "samassa",
    "foot": "right",
+   "cc": "MLI",
    "url": "https://s3.eu-west-3.amazonaws.com/ligue1.image/players/2025/all/player_official_2025_2298_57726-400x300.png"
   },
   {
@@ -3325,6 +3795,7 @@
    "name": "ADILEHOU",
    "norm": "adilehou",
    "foot": "right",
+   "cc": "BEN",
    "url": "https://s3.eu-west-3.amazonaws.com/ligue1.image/players/2025/all/player_official_2025_2298_233886-400x300.png"
   },
   {
@@ -3332,6 +3803,7 @@
    "name": "ARADJ",
    "norm": "aradj",
    "foot": "left",
+   "cc": "FRA",
    "url": "https://s3.eu-west-3.amazonaws.com/ligue1.image/players/2025/all/player_official_2025_2298_606699-400x300.png"
   },
   {
@@ -3339,6 +3811,7 @@
    "name": "BANE",
    "norm": "bane",
    "foot": "right",
+   "cc": "SEN",
    "url": "https://s3.eu-west-3.amazonaws.com/ligue1.image/players/2025/all/player_official_2025_2298_582933-400x300.png"
   },
   {
@@ -3346,6 +3819,7 @@
    "name": "BIANDA",
    "norm": "bianda",
    "foot": "left",
+   "cc": "FRA",
    "url": "https://s3.eu-west-3.amazonaws.com/ligue1.image/players/2025/all/player_official_2025_2298_429202-400x300.png"
   },
   {
@@ -3353,6 +3827,7 @@
    "name": "COMMARET",
    "norm": "commaret",
    "foot": null,
+   "cc": "FRA",
    "url": "https://s3.eu-west-3.amazonaws.com/ligue1.image/players/2025/all/player_official_2025_2298_482588-400x300.png"
   },
   {
@@ -3360,6 +3835,7 @@
    "name": "KOUASSI",
    "norm": "kouassi",
    "foot": "right",
+   "cc": "CIV",
    "url": "https://s3.eu-west-3.amazonaws.com/ligue1.image/players/2025/all/player_official_2025_2298_664900-400x300.png"
   },
   {
@@ -3367,6 +3843,7 @@
    "name": "OUANEH",
    "norm": "ouaneh",
    "foot": "right",
+   "cc": "FRA",
    "url": "https://s3.eu-west-3.amazonaws.com/ligue1.image/players/2025/all/player_official_2025_2298_218355-400x300.png"
   },
   {
@@ -3374,6 +3851,7 @@
    "name": "SAMB",
    "norm": "samb",
    "foot": "left",
+   "cc": "SEN",
    "url": "https://s3.eu-west-3.amazonaws.com/ligue1.image/players/2025/all/player_official_2025_2298_714862-400x300.png"
   },
   {
@@ -3381,6 +3859,7 @@
    "name": "TAVARES",
    "norm": "tavares",
    "foot": "right",
+   "cc": "PRT",
    "url": "https://s3.eu-west-3.amazonaws.com/ligue1.image/players/2025/all/player_official_2025_2298_84216-400x300.png"
   },
   {
@@ -3388,6 +3867,7 @@
    "name": "VARGAS",
    "norm": "vargas",
    "foot": "both",
+   "cc": "FRA",
    "url": "https://s3.eu-west-3.amazonaws.com/ligue1.image/players/2025/all/player_official_2025_2298_477730-400x300.png"
   },
   {
@@ -3395,6 +3875,7 @@
    "name": "BEAUDOUIN",
    "norm": "beaudouin",
    "foot": null,
+   "cc": "FRA",
    "url": "https://s3.eu-west-1.amazonaws.com/image.mpg/2025-empt-2298-400x300.png"
   },
   {
@@ -3402,6 +3883,7 @@
    "name": "BENARD",
    "norm": "benard",
    "foot": "right",
+   "cc": "FRA",
    "url": "https://s3.eu-west-3.amazonaws.com/ligue1.image/players/2025/all/player_official_2025_2298_629457-400x300.png"
   },
   {
@@ -3409,6 +3891,7 @@
    "name": "CLAVREUL",
    "norm": "clavreul",
    "foot": null,
+   "cc": "FRA",
    "url": "https://s3.eu-west-3.amazonaws.com/ligue1.image/players/2025/all/player_official_2025_2298_703101-400x300.png"
   },
   {
@@ -3416,6 +3899,7 @@
    "name": "MAGGIOTTI",
    "norm": "maggiotti",
    "foot": "right",
+   "cc": "FRA",
    "url": "https://s3.eu-west-3.amazonaws.com/ligue1.image/players/2025/all/player_official_2025_2298_564428-400x300.png"
   },
   {
@@ -3423,6 +3907,7 @@
    "name": "MANDOUKI",
    "norm": "mandouki",
    "foot": "right",
+   "cc": "MTQ",
    "url": "https://s3.eu-west-3.amazonaws.com/ligue1.image/players/2025/all/player_official_2025_2298_220936-400x300.png"
   },
   {
@@ -3430,6 +3915,7 @@
    "name": "MATETA",
    "norm": "mateta",
    "foot": null,
+   "cc": "FRA",
    "url": "https://s3.eu-west-1.amazonaws.com/image.mpg/2025-empt-2298-400x300.png"
   },
   {
@@ -3437,6 +3923,7 @@
    "name": "MONTET",
    "norm": "montet",
    "foot": "left",
+   "cc": "FRA",
    "url": "https://s3.eu-west-3.amazonaws.com/ligue1.image/players/2025/all/player_official_2025_2298_688536-400x300.png"
   },
   {
@@ -3444,6 +3931,7 @@
    "name": "SANNA",
    "norm": "sanna",
    "foot": "right",
+   "cc": "FRA",
    "url": "https://s3.eu-west-3.amazonaws.com/ligue1.image/players/2025/all/player_official_2025_2298_485100-400x300.png"
   },
   {
@@ -3451,6 +3939,7 @@
    "name": "SELLOUKI",
    "norm": "sellouki",
    "foot": "right",
+   "cc": "FRA",
    "url": "https://s3.eu-west-3.amazonaws.com/ligue1.image/players/2025/all/player_official_2025_2298_513351-400x300.png"
   },
   {
@@ -3458,6 +3947,7 @@
    "name": "SIDIBÉ",
    "norm": "sidibe",
    "foot": null,
+   "cc": "FRA",
    "url": "https://s3.eu-west-3.amazonaws.com/ligue1.image/players/2025/all/player_official_2025_2298_728862-400x300.png"
   },
   {
@@ -3465,6 +3955,7 @@
    "name": "THOMAS",
    "norm": "thomas",
    "foot": "right",
+   "cc": "FRA",
    "url": "https://s3.eu-west-3.amazonaws.com/ligue1.image/players/2025/all/player_official_2025_2298_466043-400x300.png"
   },
   {
@@ -3472,6 +3963,7 @@
    "name": "CAMARA",
    "norm": "camara",
    "foot": "right",
+   "cc": "MLI",
    "url": "https://s3.eu-west-3.amazonaws.com/ligue1.image/players/2025/all/player_official_2025_2298_530570-400x300.png"
   },
   {
@@ -3479,6 +3971,7 @@
    "name": "DAGO",
    "norm": "dago",
    "foot": "right",
+   "cc": "FRA",
    "url": "https://s3.eu-west-3.amazonaws.com/ligue1.image/players/2025/all/player_official_2025_2298_649638-400x300.png"
   },
   {
@@ -3486,6 +3979,7 @@
    "name": "HOUDAYER",
    "norm": "houdayer",
    "foot": null,
+   "cc": "FRA",
    "url": "https://s3.eu-west-3.amazonaws.com/ligue1.image/players/2025/all/player_official_2025_2298_724926-400x300.png"
   },
   {
@@ -3493,6 +3987,7 @@
    "name": "MADDY",
    "norm": "maddy",
    "foot": "right",
+   "cc": "NLD",
    "url": "https://s3.eu-west-3.amazonaws.com/ligue1.image/players/2025/all/player_official_2025_2298_465110-400x300.png"
   },
   {
@@ -3500,6 +3995,7 @@
    "name": "MBAYO",
    "norm": "mbayo",
    "foot": "left",
+   "cc": "BEL",
    "url": "https://s3.eu-west-3.amazonaws.com/ligue1.image/players/2025/all/player_official_2025_2298_470845-400x300.png"
   },
   {
@@ -3507,6 +4003,7 @@
    "name": "TCHOKOUNTE",
    "norm": "tchokounte",
    "foot": "right",
+   "cc": "FRA",
    "url": "https://s3.eu-west-3.amazonaws.com/ligue1.image/players/2025/all/player_official_2025_2298_220943-400x300.png"
   }
  ],
@@ -3516,6 +4013,7 @@
    "name": "CONTENA",
    "norm": "contena",
    "foot": null,
+   "cc": "FRA",
    "url": "https://s3.eu-west-3.amazonaws.com/ligue1.image/players/2025/all/player_official_2025_139_570679-400x300.png"
   },
   {
@@ -3523,6 +4021,7 @@
    "name": "FABRI",
    "norm": "fabri",
    "foot": "right",
+   "cc": "FRA",
    "url": "https://s3.eu-west-3.amazonaws.com/ligue1.image/players/2025/all/player_official_2025_139_107254-400x300.png"
   },
   {
@@ -3530,6 +4029,7 @@
    "name": "OLMETA",
    "norm": "olmeta",
    "foot": "right",
+   "cc": "FRA",
    "url": "https://s3.eu-west-3.amazonaws.com/ligue1.image/players/2025/all/player_official_2025_139_574453-400x300.png"
   },
   {
@@ -3537,6 +4037,7 @@
    "name": "PLACIDE",
    "norm": "placide",
    "foot": "right",
+   "cc": "HTI",
    "url": "https://s3.eu-west-3.amazonaws.com/ligue1.image/players/2025/all/player_official_2025_139_44429-400x300.png"
   },
   {
@@ -3544,6 +4045,7 @@
    "name": "AKUESON",
    "norm": "akueson",
    "foot": "right",
+   "cc": "TGO",
    "url": "https://s3.eu-west-3.amazonaws.com/ligue1.image/players/2025/all/player_official_2025_139_442586-400x300.png"
   },
   {
@@ -3551,6 +4053,7 @@
    "name": "ARISS",
    "norm": "ariss",
    "foot": "left",
+   "cc": "MAR",
    "url": "https://s3.eu-west-3.amazonaws.com/ligue1.image/players/2025/all/player_official_2025_139_628886-400x300.png"
   },
   {
@@ -3558,6 +4061,7 @@
    "name": "BASSET",
    "norm": "basset",
    "foot": null,
+   "cc": "FRA",
    "url": "https://s3.eu-west-3.amazonaws.com/ligue1.image/players/2025/all/player_official_2025_139_696279-400x300.png"
   },
   {
@@ -3565,6 +4069,7 @@
    "name": "BOHNERT",
    "norm": "bohnert",
    "foot": "right",
+   "cc": "LUX",
    "url": "https://s3.eu-west-3.amazonaws.com/ligue1.image/players/2025/all/player_official_2025_139_198862-400x300.png"
   },
   {
@@ -3572,6 +4077,7 @@
    "name": "DJÉDJÉ",
    "norm": "djedje",
    "foot": null,
+   "cc": "FRA",
    "url": "https://s3.eu-west-3.amazonaws.com/ligue1.image/players/2025/all/player_official_2025_139_710804-400x300.png"
   },
   {
@@ -3579,6 +4085,7 @@
    "name": "DOUCE",
    "norm": "douce",
    "foot": null,
+   "cc": "FRA",
    "url": "https://s3.eu-west-1.amazonaws.com/image.mpg/2025-empt-139-400x300.png"
   },
   {
@@ -3586,6 +4093,7 @@
    "name": "GUEVARA",
    "norm": "guevara",
    "foot": "right",
+   "cc": "COL",
    "url": "https://s3.eu-west-3.amazonaws.com/ligue1.image/players/2025/all/player_official_2025_139_644863-400x300.png"
   },
   {
@@ -3593,6 +4101,7 @@
    "name": "GUIDI",
    "norm": "guidi",
    "foot": "right",
+   "cc": "FRA",
    "url": "https://s3.eu-west-3.amazonaws.com/ligue1.image/players/2025/all/player_official_2025_139_454674-400x300.png"
   },
   {
@@ -3600,6 +4109,7 @@
    "name": "MEYNADIER",
    "norm": "meynadier",
    "foot": "right",
+   "cc": "FRA",
    "url": "https://s3.eu-west-3.amazonaws.com/ligue1.image/players/2025/all/player_official_2025_139_627295-400x300.png"
   },
   {
@@ -3607,6 +4117,7 @@
    "name": "RONCAGLIA",
    "norm": "roncaglia",
    "foot": "right",
+   "cc": "FRA",
    "url": "https://s3.eu-west-3.amazonaws.com/ligue1.image/players/2025/all/player_official_2025_139_473314-400x300.png"
   },
   {
@@ -3614,6 +4125,7 @@
    "name": "VICTOR LEBAS",
    "norm": "victor lebas",
    "foot": null,
+   "cc": "PRT",
    "url": "https://s3.eu-west-1.amazonaws.com/image.mpg/2025-empt-139-400x300.png"
   },
   {
@@ -3621,6 +4133,7 @@
    "name": "ZILLIOX",
    "norm": "zilliox",
    "foot": null,
+   "cc": "FRA",
    "url": "https://s3.eu-west-3.amazonaws.com/ligue1.image/players/2025/all/player_official_2025_139_565494-400x300.png"
   },
   {
@@ -3628,6 +4141,7 @@
    "name": "BOUTRAH",
    "norm": "boutrah",
    "foot": "right",
+   "cc": "FRA",
    "url": "https://s3.eu-west-3.amazonaws.com/ligue1.image/players/2025/all/player_official_2025_139_473307-400x300.png"
   },
   {
@@ -3635,6 +4149,7 @@
    "name": "DUCROCQ",
    "norm": "ducrocq",
    "foot": "right",
+   "cc": "FRA",
    "url": "https://s3.eu-west-3.amazonaws.com/ligue1.image/players/2025/all/player_official_2025_139_476987-400x300.png"
   },
   {
@@ -3642,6 +4157,7 @@
    "name": "EICKMAYER",
    "norm": "eickmayer",
    "foot": "right",
+   "cc": "FRA",
    "url": "https://s3.eu-west-3.amazonaws.com/ligue1.image/players/2025/all/player_official_2025_139_152487-400x300.png"
   },
   {
@@ -3649,6 +4165,7 @@
    "name": "JANNEH",
    "norm": "janneh",
    "foot": "right",
+   "cc": "GIN",
    "url": "https://s3.eu-west-3.amazonaws.com/ligue1.image/players/2025/all/player_official_2025_139_580277-400x300.png"
   },
   {
@@ -3656,6 +4173,7 @@
    "name": "PETRIGNANI",
    "norm": "petrignani",
    "foot": "left",
+   "cc": "FRA",
    "url": "https://s3.eu-west-3.amazonaws.com/ligue1.image/players/2025/all/player_official_2025_139_637278-400x300.png"
   },
   {
@@ -3663,6 +4181,7 @@
    "name": "TOMI",
    "norm": "tomi",
    "foot": "right",
+   "cc": "FRA",
    "url": "https://s3.eu-west-3.amazonaws.com/ligue1.image/players/2025/all/player_official_2025_139_472710-400x300.png"
   },
   {
@@ -3670,6 +4189,7 @@
    "name": "VINCENT",
    "norm": "vincent",
    "foot": "right",
+   "cc": "FRA",
    "url": "https://s3.eu-west-3.amazonaws.com/ligue1.image/players/2025/all/player_official_2025_139_107142-400x300.png"
   },
   {
@@ -3677,6 +4197,7 @@
    "name": "ZAOUAI",
    "norm": "zaouai",
    "foot": null,
+   "cc": "CIV",
    "url": "https://s3.eu-west-3.amazonaws.com/ligue1.image/players/2025/all/player_official_2025_139_701010-400x300.png"
   },
   {
@@ -3684,6 +4205,7 @@
    "name": "AIKI",
    "norm": "aiki",
    "foot": "right",
+   "cc": "FRA",
    "url": "https://s3.eu-west-3.amazonaws.com/ligue1.image/players/2025/all/player_official_2025_139_574448-400x300.png"
   },
   {
@@ -3691,6 +4213,7 @@
    "name": "BATHILY",
    "norm": "bathily",
    "foot": null,
+   "cc": "FRA",
    "url": "https://s3.eu-west-3.amazonaws.com/ligue1.image/players/2025/all/player_official_2025_139_633539-400x300.png"
   },
   {
@@ -3698,6 +4221,7 @@
    "name": "BELIANDJOU",
    "norm": "beliandjou",
    "foot": null,
+   "cc": "FRA",
    "url": "https://s3.eu-west-1.amazonaws.com/image.mpg/2025-empt-139-400x300.png"
   },
   {
@@ -3705,6 +4229,7 @@
    "name": "BELTAIEF",
    "norm": "beltaief",
    "foot": "right",
+   "cc": "DZA",
    "url": "https://s3.eu-west-3.amazonaws.com/ligue1.image/players/2025/all/player_official_2025_139_618867-400x300.png"
   },
   {
@@ -3712,6 +4237,7 @@
    "name": "BLE",
    "norm": "ble",
    "foot": "right",
+   "cc": "FRA",
    "url": "https://s3.eu-west-3.amazonaws.com/ligue1.image/players/2025/all/player_official_2025_139_681004-400x300.png"
   },
   {
@@ -3719,6 +4245,7 @@
    "name": "KARAMOKO",
    "norm": "karamoko",
    "foot": null,
+   "cc": "FRA",
    "url": "https://s3.eu-west-3.amazonaws.com/ligue1.image/players/2025/all/player_official_2025_139_496635-400x300.png"
   },
   {
@@ -3726,6 +4253,7 @@
    "name": "MERGHEM",
    "norm": "merghem",
    "foot": "left",
+   "cc": "DZA",
    "url": "https://s3.eu-west-3.amazonaws.com/ligue1.image/players/2025/all/player_official_2025_139_232252-400x300.png"
   },
   {
@@ -3733,6 +4261,7 @@
    "name": "PARRAVICINI",
    "norm": "parravicini",
    "foot": "right",
+   "cc": "ITA",
    "url": "https://s3.eu-west-3.amazonaws.com/ligue1.image/players/2025/all/player_official_2025_139_215242-400x300.png"
   },
   {
@@ -3740,6 +4269,7 @@
    "name": "SEBAS",
    "norm": "sebas",
    "foot": "right",
+   "cc": "MTQ",
    "url": "https://s3.eu-west-3.amazonaws.com/ligue1.image/players/2025/all/player_official_2025_139_581475-400x300.png"
   }
  ],
@@ -3749,6 +4279,7 @@
    "name": "ALEXANDRE",
    "norm": "alexandre",
    "foot": null,
+   "cc": "FRA",
    "url": "https://s3.eu-west-1.amazonaws.com/image.mpg/2025-empt-1430-400x300.png"
   },
   {
@@ -3756,6 +4287,7 @@
    "name": "BERNARDONI",
    "norm": "bernardoni",
    "foot": "left",
+   "cc": "FRA",
    "url": "https://s3.eu-west-3.amazonaws.com/ligue1.image/players/2025/all/player_official_2025_1430_200848-400x300.png"
   },
   {
@@ -3763,6 +4295,7 @@
    "name": "SAUVAGE",
    "norm": "sauvage",
    "foot": "right",
+   "cc": "FRA",
    "url": "https://s3.eu-west-3.amazonaws.com/ligue1.image/players/2025/all/player_official_2025_1430_102842-400x300.png"
   },
   {
@@ -3770,6 +4303,7 @@
    "name": "AMEGATSE",
    "norm": "amegatse",
    "foot": "left",
+   "cc": "FRA",
    "url": "https://s3.eu-west-3.amazonaws.com/ligue1.image/players/2025/all/player_official_2025_1430_690425-400x300.png"
   },
   {
@@ -3777,6 +4311,7 @@
    "name": "APPIAH",
    "norm": "appiah",
    "foot": "right",
+   "cc": "ENG",
    "url": "https://s3.eu-west-3.amazonaws.com/ligue1.image/players/2025/all/player_official_2025_1430_220701-400x300.png"
   },
   {
@@ -3784,6 +4319,7 @@
    "name": "BAKAYOKO",
    "norm": "bakayoko",
    "foot": "left",
+   "cc": "FRA",
    "url": "https://s3.eu-west-3.amazonaws.com/ligue1.image/players/2025/all/player_official_2025_1430_636048-400x300.png"
   },
   {
@@ -3791,6 +4327,7 @@
    "name": "CHABANE",
    "norm": "chabane",
    "foot": "right",
+   "cc": "MAR",
    "url": "https://s3.eu-west-3.amazonaws.com/ligue1.image/players/2025/all/player_official_2025_1430_658093-400x300.png"
   },
   {
@@ -3798,6 +4335,7 @@
    "name": "DIARRASSOUBA",
    "norm": "diarrassouba",
    "foot": null,
+   "cc": "FRA",
    "url": "https://s3.eu-west-1.amazonaws.com/image.mpg/2025-empt-1430-400x300.png"
   },
   {
@@ -3805,6 +4343,7 @@
    "name": "DRAMÉ",
    "norm": "drame",
    "foot": null,
+   "cc": "FRA",
    "url": "https://s3.eu-west-1.amazonaws.com/image.mpg/2025-empt-1430-400x300.png"
   },
   {
@@ -3812,6 +4351,7 @@
    "name": "KAÏBOUE",
    "norm": "kaiboue",
    "foot": "right",
+   "cc": "FRA",
    "url": "https://s3.eu-west-3.amazonaws.com/ligue1.image/players/2025/all/player_official_2025_1430_456194-400x300.png"
   },
   {
@@ -3819,6 +4359,7 @@
    "name": "KORE",
    "norm": "kore",
    "foot": "right",
+   "cc": "FRA",
    "url": "https://s3.eu-west-3.amazonaws.com/ligue1.image/players/2025/all/player_official_2025_1430_546199-400x300.png"
   },
   {
@@ -3826,6 +4367,7 @@
    "name": "LO",
    "norm": "lo",
    "foot": "right",
+   "cc": "SEN",
    "url": "https://s3.eu-west-3.amazonaws.com/ligue1.image/players/2025/all/player_official_2025_1430_490032-400x300.png"
   },
   {
@@ -3833,6 +4375,7 @@
    "name": "LOUIS",
    "norm": "louis",
    "foot": "right",
+   "cc": "FRA",
    "url": "https://s3.eu-west-3.amazonaws.com/ligue1.image/players/2025/all/player_official_2025_1430_645639-400x300.png"
   },
   {
@@ -3840,6 +4383,7 @@
    "name": "ROUSSILLON",
    "norm": "roussillon",
    "foot": "left",
+   "cc": "GLP",
    "url": "https://s3.eu-west-3.amazonaws.com/ligue1.image/players/2025/all/player_official_2025_1430_93289-400x300.png"
   },
   {
@@ -3847,6 +4391,7 @@
    "name": "TALBOT",
    "norm": "talbot",
    "foot": "right",
+   "cc": "FRA",
    "url": "https://s3.eu-west-3.amazonaws.com/ligue1.image/players/2025/all/player_official_2025_1430_696921-400x300.png"
   },
   {
@@ -3854,6 +4399,7 @@
    "name": "ABDELKRIM",
    "norm": "abdelkrim",
    "foot": null,
+   "cc": "FRA",
    "url": "https://s3.eu-west-3.amazonaws.com/ligue1.image/players/2025/all/player_official_2025_1430_682024-400x300.png"
   },
   {
@@ -3861,6 +4407,7 @@
    "name": "AISSAT",
    "norm": "aissat",
    "foot": "right",
+   "cc": "FRA",
    "url": "https://s3.eu-west-3.amazonaws.com/ligue1.image/players/2025/all/player_official_2025_1430_682025-400x300.png"
   },
   {
@@ -3868,6 +4415,7 @@
    "name": "ALVERO",
    "norm": "alvero",
    "foot": "right",
+   "cc": "FRA",
    "url": "https://s3.eu-west-3.amazonaws.com/ligue1.image/players/2025/all/player_official_2025_1430_560848-400x300.png"
   },
   {
@@ -3875,6 +4423,7 @@
    "name": "CARRARO INJAI",
    "norm": "carraro injai",
    "foot": null,
+   "cc": "FRA",
    "url": "https://s3.eu-west-3.amazonaws.com/ligue1.image/players/2025/all/player_official_2025_1430_682026-400x300.png"
   },
   {
@@ -3882,6 +4431,7 @@
    "name": "DAF",
    "norm": "daf",
    "foot": "right",
+   "cc": "FRA",
    "url": "https://s3.eu-west-3.amazonaws.com/ligue1.image/players/2025/all/player_official_2025_1430_696922-400x300.png"
   },
   {
@@ -3889,6 +4439,7 @@
    "name": "FOFANA",
    "norm": "fofana",
    "foot": "right",
+   "cc": "CIV",
    "url": "https://s3.eu-west-3.amazonaws.com/ligue1.image/players/2025/all/player_official_2025_1430_585495-400x300.png"
   },
   {
@@ -3896,6 +4447,7 @@
    "name": "KANDIL",
    "norm": "kandil",
    "foot": "left",
+   "cc": "MAR",
    "url": "https://s3.eu-west-3.amazonaws.com/ligue1.image/players/2025/all/player_official_2025_1430_549734-400x300.png"
   },
   {
@@ -3903,6 +4455,7 @@
    "name": "LOBRY",
    "norm": "lobry",
    "foot": "left",
+   "cc": "FRA",
    "url": "https://s3.eu-west-3.amazonaws.com/ligue1.image/players/2025/all/player_official_2025_1430_462552-400x300.png"
   },
   {
@@ -3910,6 +4463,7 @@
    "name": "LUTIN",
    "norm": "lutin",
    "foot": "left",
+   "cc": "COM",
    "url": "https://s3.eu-west-3.amazonaws.com/ligue1.image/players/2025/all/player_official_2025_1430_608058-400x300.png"
   },
   {
@@ -3917,6 +4471,7 @@
    "name": "MONCONDUIT",
    "norm": "monconduit",
    "foot": "right",
+   "cc": "FRA",
    "url": "https://s3.eu-west-3.amazonaws.com/ligue1.image/players/2025/all/player_official_2025_1430_96616-400x300.png"
   },
   {
@@ -3924,6 +4479,7 @@
    "name": "MOUSSIER",
    "norm": "moussier",
    "foot": "right",
+   "cc": "FRA",
    "url": "https://s3.eu-west-1.amazonaws.com/image.mpg/2025-empt-1430-400x300.png"
   },
   {
@@ -3931,6 +4487,7 @@
    "name": "NDUQUIDI",
    "norm": "nduquidi",
    "foot": "right",
+   "cc": "FRA",
    "url": "https://s3.eu-west-3.amazonaws.com/ligue1.image/players/2025/all/player_official_2025_1430_587783-400x300.png"
   },
   {
@@ -3938,6 +4495,7 @@
    "name": "NTAMACK",
    "norm": "ntamack",
    "foot": "right",
+   "cc": "FRA",
    "url": "https://s3.eu-west-3.amazonaws.com/ligue1.image/players/2025/all/player_official_2025_1430_554587-400x300.png"
   },
   {
@@ -3945,6 +4503,7 @@
    "name": "SOMON",
    "norm": "somon",
    "foot": null,
+   "cc": "FRA",
    "url": "https://s3.eu-west-1.amazonaws.com/image.mpg/2025-empt-1430-400x300.png"
   },
   {
@@ -3952,6 +4511,7 @@
    "name": "TINE",
    "norm": "tine",
    "foot": "right",
+   "cc": "SEN",
    "url": "https://s3.eu-west-1.amazonaws.com/image.mpg/2025-empt-1430-400x300.png"
   },
   {
@@ -3959,6 +4519,7 @@
    "name": "AKINLEYE",
    "norm": "akinleye",
    "foot": null,
+   "cc": "FRA",
    "url": "https://s3.eu-west-1.amazonaws.com/image.mpg/2025-empt-1430-400x300.png"
   },
   {
@@ -3966,6 +4527,7 @@
    "name": "AVERLANT",
    "norm": "averlant",
    "foot": "right",
+   "cc": "GAB",
    "url": "https://s3.eu-west-3.amazonaws.com/ligue1.image/players/2025/all/player_official_2025_1430_473517-400x300.png"
   },
   {
@@ -3973,6 +4535,7 @@
    "name": "HAMACHE",
    "norm": "hamache",
    "foot": "right",
+   "cc": "FRA",
    "url": "https://s3.eu-west-3.amazonaws.com/ligue1.image/players/2025/all/player_official_2025_1430_545713-400x300.png"
   },
   {
@@ -3980,6 +4543,7 @@
    "name": "LEAUTEY",
    "norm": "leautey",
    "foot": "left",
+   "cc": "FRA",
    "url": "https://s3.eu-west-3.amazonaws.com/ligue1.image/players/2025/all/player_official_2025_1430_245882-400x300.png"
   },
   {
@@ -3987,6 +4551,7 @@
    "name": "MANITU",
    "norm": "manitu",
    "foot": "left",
+   "cc": "COD",
    "url": "https://s3.eu-west-3.amazonaws.com/ligue1.image/players/2025/all/player_official_2025_1430_665177-400x300.png"
   },
   {
@@ -3994,6 +4559,7 @@
    "name": "MLAKAR",
    "norm": "mlakar",
    "foot": "right",
+   "cc": "SVN",
    "url": "https://s3.eu-west-3.amazonaws.com/ligue1.image/players/2025/all/player_official_2025_1430_207025-400x300.png"
   },
   {
@@ -4001,6 +4567,7 @@
    "name": "PAUL",
    "norm": "paul",
    "foot": null,
+   "cc": "FRA",
    "url": "https://s3.eu-west-1.amazonaws.com/image.mpg/2025-empt-1430-400x300.png"
   },
   {
@@ -4008,6 +4575,7 @@
    "name": "RAFII",
    "norm": "rafii",
    "foot": "right",
+   "cc": "FRA",
    "url": "https://s3.eu-west-3.amazonaws.com/ligue1.image/players/2025/all/player_official_2025_1430_687742-400x300.png"
   },
   {
@@ -4015,6 +4583,7 @@
    "name": "SANE",
    "norm": "sane",
    "foot": "right",
+   "cc": "SEN",
    "url": "https://s3.eu-west-1.amazonaws.com/image.mpg/2025-empt-1430-400x300.png"
   },
   {
@@ -4022,6 +4591,7 @@
    "name": "TRAORE",
    "norm": "traore",
    "foot": null,
+   "cc": "FRA",
    "url": "https://s3.eu-west-1.amazonaws.com/image.mpg/2025-empt-1430-400x300.png"
   }
  ]
