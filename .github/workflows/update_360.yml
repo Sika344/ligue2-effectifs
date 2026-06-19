@@ -53,6 +53,8 @@ jobs:
         run: |
           git config user.name "github-actions"
           git config user.email "github-actions@users.noreply.github.com"
-          git add _360_probe.json frames_*.json analytics_360.json 2>/dev/null || true
+          git add _360_probe.json 2>/dev/null || true
+          git add analytics_360.json 2>/dev/null || true
+          for f in frames_*.json; do [ -e "$f" ] && git add "$f"; done
           git commit -m "MAJ 360 (${{ github.event.inputs.mode }})" || echo "no changes"
           git push
