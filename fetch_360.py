@@ -22,6 +22,15 @@ HEAD = {"User-Agent": "ligue2-effectifs/1.0"}
 INTEREST = {"Pass", "Shot", "Ball Receipt*", "Ball Receipt"}
 
 
+def ris_of(f):
+    """La spec v2 nomme la cle soit ball_receipt_in_space soit ball_receipt_space."""
+    return bool(f.get("ball_receipt_in_space") or f.get("ball_receipt_space"))
+
+
+def ris_dist(f):
+    return f.get("ball_receipt_exceeds_distance")
+
+
 def now():
     return datetime.datetime.utcnow().strftime("%Y-%m-%d %H:%M UTC")
 
@@ -136,7 +145,7 @@ def export_match(match_id, cap=140):
             continue
         typ = e["type"] or ""
         lb = bool(f.get("line_breaking_pass"))
-        ris = bool(f.get("ball_receipt_in_space"))
+        ris = ris_of(f)
         is_shot = typ == "Shot"
         # on ne garde que les actions parlantes
         if not (lb or ris or is_shot):
@@ -202,7 +211,7 @@ def do_leaderboard(maxn=None):
             pl, tm = e["player"], e["team"]
             if f.get("line_breaking_pass") and e["type"] == "Pass":
                 d = lb.setdefault(pl, {"team": tm, "c": 0}); d["c"] += 1
-            if f.get("ball_receipt_in_space"):
+            if ris_of(f):
                 d = rs.setdefault(pl, {"team": tm, "c": 0, "c5": 0, "c10": 0})
                 d["c"] += 1
                 ex = f.get("ball_receipt_exceeds_distance") or 0
