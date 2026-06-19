@@ -44,6 +44,12 @@ TEAM_NAME_MAP = {
     "US Boulogne": "Boulogne",
 }
 
+# Corrections manuelles du pied quand LFP/StatsBomb se trompent.
+# Cle = (cle equipe canonique, nom normalise). Valeur = "left" / "right".
+FOOT_OVERRIDES = {
+    ("Amiens", "kaiboue"): "left",
+}
+
 # StatsBomb position_id -> (posDesc compatible roleOf, pos grossier)
 POS = {
     1: ("GK", "GK"),
@@ -295,6 +301,10 @@ def build():
             foot = pe.get("foot")
         # nom d affichage : officiel LFP si dispo
         name = (le.get("name") if le else None) or (pe.get("name") if pe else None) or sname
+        # correction manuelle eventuelle du pied
+        _ov = FOOT_OVERRIDES.get((canon, norm(name)))
+        if _ov:
+            foot = _ov
         # drapeau : nationalite LFP, repli ancienne donnee
         cc = (le.get("cc") if le else None) or (pe.get("ccode") if pe else None)
         ccode = cc
