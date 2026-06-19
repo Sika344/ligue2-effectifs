@@ -1,0 +1,108 @@
+{
+ "comp": 8,
+ "season": 318,
+ "updated": "2026-06-19 22:56 UTC",
+ "matches_total": 308,
+ "sampled": 10,
+ "coverage": [
+  {
+   "match_id": 4002936,
+   "date": "2026-05-09",
+   "home": "Stade Lavallois",
+   "away": "US Boulogne",
+   "hs": 2.0,
+   "as": 1.0,
+   "frames": 2960
+  },
+  {
+   "match_id": 4002932,
+   "date": "2026-05-09",
+   "home": "FC Annecy",
+   "away": "Rodez",
+   "hs": 1.0,
+   "as": 2.0,
+   "frames": 2770
+  },
+  {
+   "match_id": 4002930,
+   "date": "2026-05-09",
+   "home": "Nancy",
+   "away": "Dunkerque",
+   "hs": 3.0,
+   "as": 2.0,
+   "frames": 3421
+  },
+  {
+   "match_id": 4002934,
+   "date": "2026-05-09",
+   "home": "Bastia",
+   "away": "Le Mans",
+   "hs": NaN,
+   "as": NaN,
+   "frames": 0
+  },
+  {
+   "match_id": 4002935,
+   "date": "2026-05-09",
+   "home": "Grenoble Foot",
+   "away": "Troyes",
+   "hs": 1.0,
+   "as": 0.0,
+   "frames": 3660
+  },
+  {
+   "match_id": 4002938,
+   "date": "2026-05-09",
+   "home": "Stade de Reims",
+   "away": "Pau",
+   "hs": 5.0,
+   "as": 3.0,
+   "frames": 3690
+  },
+  {
+   "match_id": 4002931,
+   "date": "2026-05-09",
+   "home": "Red Star FC",
+   "away": "Montpellier",
+   "hs": 1.0,
+   "as": 1.0,
+   "frames": 3186
+  },
+  {
+   "match_id": 4002937,
+   "date": "2026-05-09",
+   "home": "Clermont Foot",
+   "away": "Guingamp",
+   "hs": 1.0,
+   "as": 0.0,
+   "frames": 3554
+  },
+  {
+   "match_id": 4058744,
+   "date": "2026-05-12",
+   "home": "Red Star FC",
+   "away": "Rodez",
+   "hs": 2.0,
+   "as": 3.0,
+   "frames": 3077
+  },
+  {
+   "match_id": 4059094,
+   "date": "2026-05-15",
+   "home": "Saint-Étienne",
+   "away": "Rodez",
+   "hs": 0.0,
+   "as": 0.0,
+   "frames": 2659
+  }
+ ],
+ "best_match": {
+  "match_id": 4002938,
+  "date": "2026-05-09",
+  "home": "Stade de Reims",
+  "away": "Pau",
+  "hs": 5.0,
+  "as": 3.0,
+  "frames": 3690
+ }
+}
