@@ -1,0 +1,45 @@
+name: update-statsbomb
+
+on:
+  workflow_dispatch:
+    inputs:
+      comp_id:
+        description: "StatsBomb competition_id (Ligue 2)"
+        required: true
+      season_id:
+        description: "StatsBomb season_id (saison 2025/2026)"
+        required: true
+      season_label:
+        description: "Libelle saison affiche"
+        required: false
+        default: "2025/2026"
+
+jobs:
+  run:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install deps
+        run: pip install statsbombpy pandas pycountry
+
+      - name: Fetch player-stats and build ligue2.json
+        env:
+          SB_USERNAME: ${{ secrets.SB_USERNAME }}
+          SB_PASSWORD: ${{ secrets.SB_PASSWORD }}
+          SB_COMP_ID: ${{ github.event.inputs.comp_id }}
+          SB_SEASON_ID: ${{ github.event.inputs.season_id }}
+          SB_SEASON_LABEL: ${{ github.event.inputs.season_label }}
+        run: python fetch_statsbomb.py
+
+      - name: Commit if changed
+        run: |
+          git config user.name "github-actions"
+          git config user.email "github-actions@users.noreply.github.com"
+          git add ligue2.json
+          git commit -m "MAJ effectifs via StatsBomb player-stats" || echo "rien a committer"
+          git push
