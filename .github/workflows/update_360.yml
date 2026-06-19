@@ -1,0 +1,58 @@
+name: Update 360 analytics
+on:
+  workflow_dispatch:
+    inputs:
+      mode:
+        description: "probe | match | leaderboard"
+        required: true
+        default: "probe"
+      match_id:
+        description: "match_id (mode match)"
+        required: false
+      max:
+        description: "limite de matchs (mode leaderboard, vide = tous)"
+        required: false
+      comp_id:
+        description: "competition_id"
+        required: true
+        default: "8"
+      season_id:
+        description: "season_id"
+        required: true
+        default: "318"
+jobs:
+  run:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    env:
+      SB_USERNAME: ${{ secrets.SB_USERNAME }}
+      SB_PASSWORD: ${{ secrets.SB_PASSWORD }}
+      COMP_ID: ${{ github.event.inputs.comp_id }}
+      SEASON_ID: ${{ github.event.inputs.season_id }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - run: pip install statsbombpy requests pandas
+      - name: Run
+        run: |
+          if [ "${{ github.event.inputs.mode }}" = "match" ]; then
+            python fetch_360.py match --match_id "${{ github.event.inputs.match_id }}"
+          elif [ "${{ github.event.inputs.mode }}" = "leaderboard" ]; then
+            if [ -n "${{ github.event.inputs.max }}" ]; then
+              python fetch_360.py leaderboard --max "${{ github.event.inputs.max }}"
+            else
+              python fetch_360.py leaderboard
+            fi
+          else
+            python fetch_360.py probe
+          fi
+      - name: Commit
+        run: |
+          git config user.name "github-actions"
+          git config user.email "github-actions@users.noreply.github.com"
+          git add _360_probe.json frames_*.json analytics_360.json 2>/dev/null || true
+          git commit -m "MAJ 360 (${{ github.event.inputs.mode }})" || echo "no changes"
+          git push
