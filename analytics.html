@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ligue 2 — Analytics 360 (StatsBomb)</title>
+<style>
+  :root{
+    --navy:#0a1733; --navy2:#0d1f44; --gold:#c9a24b; --orange:#ff7a18;
+    --field:#eef1f5; --line:#b7c0cd; --ink:#11203f; --muted:#69748c;
+    --mate:#2563eb; --opp:#ef4444; --actor:#0a1733;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{font-family:"Segoe UI",system-ui,-apple-system,sans-serif;background:#070b16;color:#fff;-webkit-font-smoothing:antialiased}
+  .topbar{display:flex;align-items:center;gap:14px;flex-wrap:wrap;padding:10px 16px;background:#0a1428;border-bottom:1px solid rgba(255,255,255,.06)}
+  .topbar h2{font-size:16px;font-weight:800;letter-spacing:.02em}
+  .topbar .tag{font-size:11px;color:#9fb0c8;background:#11203a;padding:3px 8px;border-radius:20px}
+  .topbar a{margin-left:auto;color:var(--orange);font-weight:700;text-decoration:none;font-size:14px}
+  .wrap{max-width:1180px;margin:0 auto;padding:16px 12px 50px}
+  .card{background:linear-gradient(135deg,var(--navy),var(--navy2));border-radius:14px;padding:16px;box-shadow:0 12px 40px rgba(0,0,0,.45);margin-bottom:20px;position:relative}
+  .card h3{font-size:15px;letter-spacing:.04em;color:#fff;margin-bottom:4px;text-transform:uppercase}
+  .card .sub{font-size:12px;color:#9fb0c8;margin-bottom:14px}
+  .controls{display:flex;gap:8px;flex-wrap:wrap;align-items:center;margin-bottom:12px}
+  .controls select{background:#16234a;color:#fff;border:1px solid rgba(255,255,255,.18);border-radius:8px;padding:8px 10px;font-size:13px;font-weight:600;cursor:pointer;max-width:75vw}
+  .chip{font-size:12px;font-weight:700;padding:6px 12px;border-radius:20px;border:1px solid rgba(255,255,255,.18);background:#16234a;color:#cfe0ff;cursor:pointer;user-select:none}
+  .chip.on{background:var(--gold);color:#111;border-color:var(--gold)}
+  .pitchbox{display:grid;grid-template-columns:1.6fr 1fr;gap:16px;align-items:start}
+  @media(max-width:820px){.pitchbox{grid-template-columns:1fr}}
+  .pitch{width:100%;background:linear-gradient(180deg,#f3f5f8,#e9edf2);border-radius:10px;border:1px solid rgba(0,0,0,.08)}
+  .meta{background:#0c1730;border:1px solid rgba(255,255,255,.08);border-radius:10px;padding:14px}
+  .meta .ev{font-size:18px;font-weight:800;margin-bottom:2px}
+  .meta .evsub{font-size:12px;color:#9fb0c8;margin-bottom:12px}
+  .kv{display:flex;justify-content:space-between;gap:10px;padding:7px 0;border-top:1px solid rgba(255,255,255,.06);font-size:13px}
+  .kv span:first-child{color:#9fb0c8}
+  .kv b{font-weight:800}
+  .badge{display:inline-block;font-size:11px;font-weight:800;padding:2px 8px;border-radius:20px;margin-top:8px}
+  .badge.lb{background:#1f7a3d;color:#d8ffe6}
+  .badge.ris{background:#7a4a1f;color:#ffe6c9}
+  .legend{display:flex;gap:14px;flex-wrap:wrap;font-size:11px;color:#cdd7e6;margin-top:10px}
+  .legend i{display:inline-block;width:11px;height:11px;border-radius:50%;margin-right:5px;vertical-align:middle}
+  table{width:100%;border-collapse:collapse;font-size:13px}
+  th,td{padding:8px 10px;text-align:left}
+  thead th{font-size:11px;text-transform:uppercase;letter-spacing:.04em;color:#9fb0c8;border-bottom:1px solid rgba(255,255,255,.12)}
+  tbody tr{border-bottom:1px solid rgba(255,255,255,.05)}
+  tbody tr:nth-child(-n+3) td:first-child{color:var(--gold);font-weight:800}
+  td.num{text-align:right;font-variant-numeric:tabular-nums;font-weight:800;color:var(--orange)}
+  td.c{text-align:right;font-variant-numeric:tabular-nums;color:#cdd7e6}
+  .grid2{display:grid;grid-template-columns:1fr 1fr;gap:20px}
+  @media(max-width:820px){.grid2{grid-template-columns:1fr}}
+  .empty{color:#9fb0c8;font-size:13px;padding:10px 0}
+</style>
+</head>
+<body>
+  <div class="topbar">
+    <h2>⚽ Analytics 360</h2>
+    <span class="tag">StatsBomb 360 · Ligue 2 2025/2026</span>
+    <a href="index.html">← Effectifs</a>
+  </div>
+
+  <div class="wrap">
+    <!-- VIEWER -->
+    <div class="card">
+      <h3>Freeze-frame d'un match</h3>
+      <div class="sub" id="matchLabel">Chargement…</div>
+      <div class="controls">
+        <span class="chip on" data-f="all">Toutes</span>
+        <span class="chip" data-f="shot">Tirs</span>
+        <span class="chip" data-f="lb">Passes qui cassent les lignes</span>
+        <select id="evSel"></select>
+      </div>
+      <div class="pitchbox">
+        <div><svg id="pitch" class="pitch" viewBox="-3 -3 126 86" xmlns="http://www.w3.org/2000/svg"></svg>
+          <div class="legend" id="legend"></div>
+        </div>
+        <div class="meta" id="meta"></div>
+      </div>
+    </div>
+
+    <!-- LEADERBOARDS -->
+    <div class="card">
+      <h3>Classements de la saison</h3>
+      <div class="sub" id="lbSub">Chargement…</div>
+      <div class="grid2">
+        <div>
+          <h4 style="font-size:13px;color:#fff;margin-bottom:6px">🎯 Passes qui cassent les lignes</h4>
+          <table><thead><tr><th>#</th><th>Joueur</th><th>Club</th><th style="text-align:right">Passes</th></tr></thead>
+            <tbody id="lbBody"></tbody></table>
+        </div>
+        <div>
+          <h4 style="font-size:13px;color:#fff;margin-bottom:6px">📥 Réceptions dans l'espace</h4>
+          <table><thead><tr><th>#</th><th>Joueur</th><th>Club</th><th style="text-align:right">≥10y</th><th style="text-align:right">Tot.</th></tr></thead>
+            <tbody id="rsBody"></tbody></table>
+        </div>
+      </div>
+    </div>
+  </div>
+
+<script>
+const MATCH_ID = 4002938; // match exporte (modifiable via le workflow update-360 mode=match)
+let DATA=null, FILTER="all";
+
+// ---------- terrain ----------
+function drawPitch(svg){
+  const NS="http://www.w3.org/2000/svg";
+  const add=(t,a)=>{const e=document.createElementNS(NS,t);for(const k in a)e.setAttribute(k,a[k]);svg.appendChild(e);return e;};
+  const L="#9aa6b6", W=0.4;
+  add("rect",{x:0,y:0,width:120,height:80,fill:"none",stroke:L,"stroke-width":W});
+  add("line",{x1:60,y1:0,x2:60,y2:80,stroke:L,"stroke-width":W});
+  add("circle",{cx:60,cy:40,r:10,fill:"none",stroke:L,"stroke-width":W});
+  add("circle",{cx:60,cy:40,r:0.6,fill:L});
+  // surfaces
+  add("rect",{x:0,y:18,width:18,height:44,fill:"none",stroke:L,"stroke-width":W});
+  add("rect",{x:102,y:18,width:18,height:44,fill:"none",stroke:L,"stroke-width":W});
+  add("rect",{x:0,y:30,width:6,height:20,fill:"none",stroke:L,"stroke-width":W});
+  add("rect",{x:114,y:30,width:6,height:20,fill:"none",stroke:L,"stroke-width":W});
+  // buts
+  add("rect",{x:-1.5,y:36,width:1.5,height:8,fill:"none",stroke:L,"stroke-width":W});
+  add("rect",{x:120,y:36,width:1.5,height:8,fill:"none",stroke:L,"stroke-width":W});
+}
+function clearLayer(svg){ [...svg.querySelectorAll(".dyn")].forEach(n=>n.remove()); }
+
+function renderFrame(e){
+  const svg=document.getElementById("pitch");
+  clearLayer(svg);
+  const NS="http://www.w3.org/2000/svg";
+  const add=(t,a)=>{const el=document.createElementNS(NS,t);for(const k in a)el.setAttribute(k,a[k]);el.setAttribute("class","dyn");svg.appendChild(el);return el;};
+  // zone visible
+  if(e.va && e.va.length>=6){
+    let pts="";for(let i=0;i<e.va.length;i+=2)pts+=e.va[i]+","+e.va[i+1]+" ";
+    add("polygon",{points:pts.trim(),fill:"rgba(201,162,75,.10)",stroke:"rgba(201,162,75,.35)","stroke-width":0.3});
+  }
+  // fleche passe/tir
+  if(e.loc && e.end){
+    add("line",{x1:e.loc[0],y1:e.loc[1],x2:e.end[0],y2:e.end[1],
+      stroke:e.type==="Shot"?"#111":(e.lb?"#1f7a3d":"#444"),"stroke-width":e.lb?0.9:0.6,
+      "stroke-dasharray":e.type==="Shot"?"0":"1.6 1","marker-end":"url(#ah)"});
+  }
+  // joueurs
+  (e.ff||[]).forEach(p=>{
+    if(p.x==null)return;
+    let fill=p.m?getC("--mate"):getC("--opp");
+    if(p.a)fill=getC("--gold");
+    add("circle",{cx:p.x,cy:p.y,r:p.a?1.9:1.5,fill,stroke:p.k?"#16a34a":"#fff","stroke-width":p.k?0.8:0.35});
+  });
+  // legende dynamique
+  const opp = e.team===DATA.home?DATA.away:DATA.home;
+  document.getElementById("legend").innerHTML =
+    `<span><i style="background:${getC('--gold')}"></i>${e.player||'porteur'} (actor)</span>`+
+    `<span><i style="background:${getC('--mate')}"></i>${e.team||'équipe'}</span>`+
+    `<span><i style="background:${getC('--opp')}"></i>${opp||'adversaire'}</span>`+
+    `<span><i style="background:#fff;border:1px solid #16a34a"></i>gardien</span>`;
+  // panneau
+  const m=document.getElementById("meta");
+  const typeFr=e.type==="Shot"?"Tir":(e.type==="Pass"?"Passe":e.type);
+  m.innerHTML =
+    `<div class="ev">${e.min}'${e.sec!=null?"'"+String(e.sec).padStart(2,'0'):""} · ${typeFr}</div>`+
+    `<div class="evsub">${e.player||"?"} — ${e.team||"?"}</div>`+
+    kv("Défenseurs côté but", e.ngs!=null?e.ngs:"—")+
+    kv("Distance défenseur le + proche", e.dnd!=null?e.dnd.toFixed(2)+" m":"—")+
+    (e.type==="Shot"?kv("Type","Tir cadré/tenté"):"")+
+    (e.lb?`<span class="badge lb">Passe qui casse une ligne</span>`:"")+
+    (e.ris?`<span class="badge ris">Réception dans l'espace${e.ris_d?" ≥"+e.ris_d+"y":""}</span>`:"");
+}
+function kv(k,v){return `<div class="kv"><span>${k}</span><b>${v}</b></div>`;}
+function getC(v){return getComputedStyle(document.documentElement).getPropertyValue(v).trim();}
+
+function fillSelect(){
+  const sel=document.getElementById("evSel");
+  let evs=DATA.events.slice();
+  if(FILTER==="shot")evs=evs.filter(e=>e.type==="Shot");
+  else if(FILTER==="lb")evs=evs.filter(e=>e.lb);
+  evs.sort((a,b)=>(a.min-b.min)||((a.sec||0)-(b.sec||0)));
+  sel.innerHTML="";
+  evs.forEach((e,i)=>{
+    const o=document.createElement("option");
+    const t=e.type==="Shot"?"Tir":"Passe";
+    o.value=DATA.events.indexOf(e);
+    o.textContent=`${e.min}' · ${t} · ${e.player||"?"}${e.lb?" (ligne)":""}`;
+    sel.appendChild(o);
+  });
+  if(evs.length){sel.value=DATA.events.indexOf(evs[0]);renderFrame(evs[0]);}
+  else{clearLayer(document.getElementById("pitch"));document.getElementById("meta").innerHTML='<div class="empty">Aucune action pour ce filtre.</div>';}
+}
+
+// ---------- chargement ----------
+async function loadViewer(){
+  const svg=document.getElementById("pitch");
+  // defs fleche
+  svg.insertAdjacentHTML("afterbegin",
+    '<defs><marker id="ah" markerWidth="5" markerHeight="5" refX="4" refY="2.5" orient="auto"><path d="M0,0 L5,2.5 L0,5 z" fill="#333"/></marker></defs>');
+  drawPitch(svg);
+  try{
+    const r=await fetch(`frames_${MATCH_ID}.json?_=`+Date.now());
+    DATA=await r.json();
+    document.getElementById("matchLabel").textContent=`${DATA.label} · ${DATA.date} · ${DATA.count} actions analysées`;
+    fillSelect();
+  }catch(err){
+    document.getElementById("matchLabel").textContent="Match 360 indisponible.";
+  }
+  document.getElementById("evSel").addEventListener("change",e=>{
+    renderFrame(DATA.events[+e.target.value]);
+  });
+  document.querySelectorAll(".chip").forEach(c=>c.addEventListener("click",()=>{
+    document.querySelectorAll(".chip").forEach(x=>x.classList.remove("on"));
+    c.classList.add("on");FILTER=c.dataset.f;fillSelect();
+  }));
+}
+
+async function loadLeaderboards(){
+  try{
+    const r=await fetch("analytics_360.json?_="+Date.now());
+    if(!r.ok)throw 0;
+    const d=await r.json();
+    document.getElementById("lbSub").textContent=
+      `${d.matches_processed} matchs analysés · ${d.frames_total.toLocaleString('fr')} frames · MAJ ${d.updated}`;
+    const lb=document.getElementById("lbBody");
+    lb.innerHTML=d.line_breaking.slice(0,25).map((p,i)=>
+      `<tr><td>${i+1}</td><td>${p.player}</td><td class="c">${p.team||""}</td><td class="num">${p.c}</td></tr>`).join("")
+      || '<tr><td colspan="4" class="empty">—</td></tr>';
+    const rs=document.getElementById("rsBody");
+    rs.innerHTML=d.receptions_space.slice(0,25).map((p,i)=>
+      `<tr><td>${i+1}</td><td>${p.player}</td><td class="c">${p.team||""}</td><td class="c">${p.c10}</td><td class="num">${p.c}</td></tr>`).join("")
+      || '<tr><td colspan="5" class="empty">—</td></tr>';
+  }catch(err){
+    document.getElementById("lbSub").textContent="Classements en cours de calcul (relance le workflow « Update 360 » en mode leaderboard). La page se remplira au prochain chargement.";
+  }
+}
+
+loadViewer();
+loadLeaderboards();
+</script>
+</body>
+</html>
