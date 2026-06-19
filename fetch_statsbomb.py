@@ -56,6 +56,31 @@ POS = {
 }
 POS_RANK = {"GK": 0, "DEF": 1, "MID": 2, "ATT": 3}
 
+# primary_position en libelle (StatsBomb renvoie parfois le nom et pas l id)
+POS_NAME = {
+    "goalkeeper": ("GK", "GK"),
+    "right back": ("RB", "DEF"), "right center back": ("CB", "DEF"), "center back": ("CB", "DEF"),
+    "left center back": ("CB", "DEF"), "left back": ("LB", "DEF"),
+    "right wing back": ("RWB", "DEF"), "left wing back": ("LWB", "DEF"),
+    "right defensive midfield": ("CDM", "MID"), "center defensive midfield": ("CDM", "MID"),
+    "left defensive midfield": ("CDM", "MID"),
+    "right midfield": ("RM", "MID"), "right center midfield": ("CM", "MID"),
+    "center midfield": ("CM", "MID"), "left center midfield": ("CM", "MID"), "left midfield": ("LM", "MID"),
+    "right wing": ("RW", "MID"), "right attacking midfield": ("CAM", "MID"),
+    "center attacking midfield": ("CAM", "MID"), "left attacking midfield": ("CAM", "MID"),
+    "left wing": ("LW", "MID"),
+    "right center forward": ("CF", "ATT"), "center forward": ("ST", "ATT"), "striker": ("ST", "ATT"),
+    "left center forward": ("CF", "ATT"), "secondary striker": ("CF", "ATT"),
+}
+def map_pos(v):
+    if v is None or (isinstance(v, float) and v != v):
+        return (None, None)
+    try:
+        return POS.get(int(v), (None, None))
+    except Exception:
+        pass
+    return POS_NAME.get(str(v).strip().lower(), (None, None))
+
 # --- drapeaux ISO3 -> emoji (repris de fetch_api.py) ---
 try:
     import pycountry
@@ -70,15 +95,22 @@ _ISO3_FIX = {"NIR": "GB", "KOS": "XK", "KVX": "XK"}
 def flag(ccode):
     if not ccode:
         return ""
-    cc = str(ccode).upper()
+    cc = str(ccode).strip().upper()
     if cc in _TAG:
         return _TAG[cc]
     a2 = None
-    if cc in _ISO3_FIX:
+    if len(cc) == 2 and cc.isalpha():
+        a2 = cc
+    elif cc in _ISO3_FIX:
         a2 = _ISO3_FIX[cc]
-    elif pycountry:
+    elif len(cc) == 3 and pycountry:
         c = pycountry.countries.get(alpha_3=cc)
         a2 = c.alpha_2 if c else None
+    elif pycountry:
+        try:
+            a2 = pycountry.countries.lookup(cc).alpha_2
+        except Exception:
+            a2 = None
     if not a2 or len(a2) != 2:
         return ""
     return chr(0x1F1E6 + ord(a2[0]) - 65) + chr(0x1F1E6 + ord(a2[1]) - 65)
@@ -216,13 +248,8 @@ def build():
         le = match(lfp_idx, sname)
         pe = match(prev_idx, sname)
 
-        # poste
-        pid = r.get("primary_position")
-        try:
-            pid = int(pid)
-        except Exception:
-            pid = None
-        posDesc, pos = POS.get(pid, (None, None))
+        # poste (StatsBomb prioritaire)
+        posDesc, pos = map_pos(r.get("primary_position"))
         if not pos and pe:
             posDesc, pos = pe.get("posDesc"), pe.get("pos")
 
@@ -253,16 +280,25 @@ def build():
             height = None
         age = age_from(r.get("birth_date")) or (pe.get("age") if pe else None)
 
-        # numero / photo / pied : LFP prioritaire, repli ancien JSON
+        # numero / photo / pied : LFP prioritaire
         num = le.get("num") if le else (pe.get("num") if pe else None)
         photo = le.get("url") if le else (pe.get("photo") if pe else None)
         photoLFP = bool(le and le.get("url"))
-        foot = (le.get("foot") if le else None) or (pe.get("foot") if pe else None)
+        foot = (le.get("foot") if le else None)
+        if not foot:
+            lf = fnum(r.get("player_season_left_foot_ratio"))
+            if lf is not None:
+                if lf > 1:
+                    lf = lf / 100.0
+                foot = "left" if lf >= 0.6 else ("right" if lf <= 0.4 else None)
+        if not foot and pe:
+            foot = pe.get("foot")
         # nom d affichage : officiel LFP si dispo
         name = (le.get("name") if le else None) or (pe.get("name") if pe else None) or sname
-        # drapeau : ancien JSON (FotMob) en attendant l enrichissement LFP nationalite
-        ccode = pe.get("ccode") if pe else None
-        fl = (pe.get("flag") if pe else None) or flag(ccode)
+        # drapeau : nationalite LFP, repli ancienne donnee
+        cc = (le.get("cc") if le else None) or (pe.get("ccode") if pe else None)
+        ccode = cc
+        fl = flag(cc) or (pe.get("flag") if pe else "")
 
         player = {
             "num": num, "name": name, "fullname": full,

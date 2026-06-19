@@ -45,10 +45,14 @@ for name, sid in CLUBS.items():
         assets = c4.get("assets", {}) if isinstance(c4, dict) else {}
         bust = (assets.get("bustPictures") or {}).get("medium")
         if not bust: continue
+        country = p.get("country") if isinstance(p.get("country"), dict) else {}
+        cc = (p.get("countryShortCode") or p.get("nationality")
+              or country.get("shortName") or country.get("code"))
         entries.append({"num": c4.get("jerseyNumber"),
                         "name": (p.get("lastName") or "").upper(),
                         "norm": norm(p.get("lastName")),
                         "foot": p.get("preferredFoot"),
+                        "cc": cc,
                         "url": bust})
     out[name] = entries
     print(f"{name:<16} {len(entries)} photos")
