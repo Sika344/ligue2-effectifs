@@ -24,8 +24,24 @@ SEASON_LABEL = os.environ.get("SB_SEASON_LABEL", "2025/2026").strip()
 # Map team StatsBomb -> cle canonique (a completer une fois les noms SB connus).
 # Laisse vide : un appariement flou se charge du reste, et tout non-resolu est logue.
 TEAM_NAME_MAP = {
-    # "Saint-Etienne": "Saint-Etienne",
-    # "Paris FC": "Paris FC",
+    "Amiens": "Amiens",
+    "Bastia": "SC Bastia",
+    "Clermont Foot": "Clermont Foot",
+    "Dunkerque": "Dunkerque",
+    "FC Annecy": "Annecy FC",
+    "Grenoble Foot": "Grenoble",
+    "Guingamp": "Guingamp",
+    "Le Mans": "Le Mans",
+    "Montpellier": "Montpellier",
+    "Nancy": "Nancy",
+    "Pau": "Pau",
+    "Red Star FC": "Red Star",
+    "Rodez": "Rodez",
+    "Saint-Étienne": "Saint-Etienne",
+    "Stade Lavallois": "Laval",
+    "Stade de Reims": "Reims",
+    "Troyes": "Troyes",
+    "US Boulogne": "Boulogne",
 }
 
 # StatsBomb position_id -> (posDesc compatible roleOf, pos grossier)
