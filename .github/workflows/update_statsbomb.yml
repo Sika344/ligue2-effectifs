@@ -6,9 +6,11 @@ on:
       comp_id:
         description: "StatsBomb competition_id (Ligue 2)"
         required: true
+        default: "8"
       season_id:
         description: "StatsBomb season_id (saison 2025/2026)"
         required: true
+        default: "318"
       season_label:
         description: "Libelle saison affiche"
         required: false
