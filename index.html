@@ -67,7 +67,7 @@
   <div class="topbar">
     <select id="teamSelect"></select>
     <span class="meta" id="metaInfo">chargement…</span>
-    <label class="opt"><input type="checkbox" id="hideYouth"> Masquer les jeunes hors groupe</label>
+    <label class="opt"><input type="checkbox" id="hideYouth"> Masquer ceux qui ne jouent pas</label>
     <button id="dl" style="margin-left:auto;background:#16234a;color:#fff;border:1px solid rgba(255,255,255,.18);border-radius:8px;padding:8px 12px;font-weight:700;font-size:13px;cursor:pointer">⬇ PNG</button>
     <button id="dlk" style="margin-left:8px;background:var(--gold);color:#111;border:none;border-radius:8px;padding:8px 12px;font-weight:700;font-size:13px;cursor:pointer">⬇ Keynote (.pptx)</button>
     <a href="compo.html" style="margin-left:14px">Construire une compo →</a>
@@ -201,7 +201,10 @@ function render(name){
   let squad=team.squad.filter(p=>p.num!=null);
   if(squad.length<11) squad=team.squad.slice();
   if(document.getElementById("hideYouth").checked){
-    const f=squad.filter(p=>!(p.age!=null && p.age<=20 && (p.g||0)===0 && (p.a||0)===0 && (p.num||0)>=30));
+    const f=squad.filter(p=>{
+      if(p.mins!=null) return p.mins>=90;
+      return !(p.age!=null && p.age<=20 && (p.g||0)===0 && (p.a||0)===0 && (p.num||0)>=30);
+    });
     if(f.length>=11) squad=f;
   }
   document.getElementById("metaInfo").textContent=`${squad.length} joueurs • saison ${DATA.season} • MAJ ${DATA.updated}`;
