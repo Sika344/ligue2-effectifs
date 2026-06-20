@@ -62,6 +62,7 @@
 </style>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/pptxgenjs@3.12.0/dist/pptxgen.bundle.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
 </head>
 <body>
   <div class="topbar">
@@ -241,6 +242,42 @@ function exportPNG(){ return withBtn("dl", async()=>{
   const c=await boardCanvas();
   const a=document.createElement("a"); a.download="effectif_"+teamSlug()+".png"; a.href=c.toDataURL("image/png"); a.click();
 }); }
+// Enveloppe les formes nommees "P<idx>_..." dans un groupe <p:grpSp> par joueur (carte + boite stats + textes).
+function groupPlayersInSlideXml(xml){
+  const NSP="http://schemas.openxmlformats.org/presentationml/2006/main";
+  const NSA="http://schemas.openxmlformats.org/drawingml/2006/main";
+  const doc=new DOMParser().parseFromString(xml,"application/xml");
+  const spTree=doc.getElementsByTagName("p:spTree")[0]; if(!spTree) return xml;
+  const kids=[];
+  for(let n=spTree.firstChild;n;n=n.nextSibling){ if(n.nodeType===1 && (n.tagName==="p:pic"||n.tagName==="p:sp")) kids.push(n); }
+  let maxId=1; const cnv=doc.getElementsByTagName("p:cNvPr");
+  for(let i=0;i<cnv.length;i++){ const v=parseInt(cnv[i].getAttribute("id")||"0",10); if(v>maxId)maxId=v; }
+  const nameOf=node=>{ const c=node.getElementsByTagName("p:cNvPr")[0]; return c?(c.getAttribute("name")||""):""; };
+  const xfrmOf=node=>{ const x=node.getElementsByTagName("a:off")[0],e=node.getElementsByTagName("a:ext")[0];
+    return (x&&e)?{x:+x.getAttribute("x"),y:+x.getAttribute("y"),cx:+e.getAttribute("cx"),cy:+e.getAttribute("cy")}:null; };
+  const groups=new Map(), order=[];
+  kids.forEach(node=>{ const m=nameOf(node).match(/^P(\d+)_/);
+    if(m){ const k=m[1]; if(!groups.has(k)){groups.set(k,[]);order.push(k);} groups.get(k).push(node); } });
+  const el=(ns,n,attrs)=>{ const e=doc.createElementNS(ns,n); if(attrs)for(const a in attrs)e.setAttribute(a,String(attrs[a])); return e; };
+  order.forEach(k=>{
+    const nodes=groups.get(k); if(!nodes.length) return;
+    let minX=Infinity,minY=Infinity,maxX=-Infinity,maxY=-Infinity;
+    nodes.forEach(nd=>{ const f=xfrmOf(nd); if(!f)return; minX=Math.min(minX,f.x);minY=Math.min(minY,f.y);maxX=Math.max(maxX,f.x+f.cx);maxY=Math.max(maxY,f.y+f.cy); });
+    if(!isFinite(minX)) return;
+    const gx=minX,gy=minY,gcx=maxX-minX,gcy=maxY-minY;
+    const grp=el(NSP,"p:grpSp");
+    const nv=el(NSP,"p:nvGrpSpPr");
+    nv.appendChild(el(NSP,"p:cNvPr",{id:++maxId,name:"Joueur "+k}));
+    nv.appendChild(el(NSP,"p:cNvGrpSpPr")); nv.appendChild(el(NSP,"p:nvPr"));
+    const pr=el(NSP,"p:grpSpPr"); const xf=el(NSA,"a:xfrm");
+    xf.appendChild(el(NSA,"a:off",{x:gx,y:gy})); xf.appendChild(el(NSA,"a:ext",{cx:gcx,cy:gcy}));
+    xf.appendChild(el(NSA,"a:chOff",{x:gx,y:gy})); xf.appendChild(el(NSA,"a:chExt",{cx:gcx,cy:gcy}));
+    pr.appendChild(xf); grp.appendChild(nv); grp.appendChild(pr);
+    spTree.insertBefore(grp,nodes[0]);
+    nodes.forEach(nd=>{ spTree.removeChild(nd); grp.appendChild(nd); });
+  });
+  return new XMLSerializer().serializeToString(doc);
+}
 async function pptxLayered(fileName){
   const board=document.getElementById("board");
   const layer=document.getElementById("layer");
@@ -272,7 +309,7 @@ async function pptxLayered(fileName){
     const items=[];
     for(const c of cards){
       const r=c.getBoundingClientRect();
-      // --- ligne taille/age editable : on la mesure puis on la masque avant la capture ---
+      // --- mesures (avant tout masquage) ---
       const bioEl=c.querySelector(".bio"); let bio=null;
       if(bioEl && (bioEl.textContent||"").trim()){
         const br=bioEl.getBoundingClientRect(), bs=getComputedStyle(bioEl);
@@ -282,10 +319,9 @@ async function pptxLayered(fileName){
           fw:br.width/r.width, fh:br.height/r.height,
           px:parseFloat(bs.fontSize)||9.5,
           color:((+m[0])<<16|(+m[1])<<8|(+m[2])).toString(16).padStart(6,"0") };
-        bioEl.style.visibility="hidden";
       }
-      // --- boite buts/passes editable : on mesure les chiffres puis on les masque avant la capture ---
-      const vEls=[...c.querySelectorAll(".stats .v")]; let stats=null;
+      const statsBox=c.querySelector(".stats");
+      const vEls=[...c.querySelectorAll(".stats .v")]; let stats=null, sbox=null;
       if(vEls.length){
         let L=Infinity,T=Infinity,Rr=-Infinity,Bb=-Infinity;
         vEls.forEach(v=>{const q=v.getBoundingClientRect(); L=Math.min(L,q.left);T=Math.min(T,q.top);Rr=Math.max(Rr,q.right);Bb=Math.max(Bb,q.bottom);});
@@ -296,37 +332,56 @@ async function pptxLayered(fileName){
           fx:(L-r.left)/r.width, fy:(T-r.top)/r.height, fw:(Rr-L)/r.width, fh:(Bb-T)/r.height,
           px:parseFloat(vs.fontSize)||12, pitch,
           color:((+mm[0])<<16|(+mm[1])<<8|(+mm[2])).toString(16).padStart(6,"0") };
-        vEls.forEach(v=>v.style.visibility="hidden");
       }
+      if(statsBox){
+        const sb=statsBox.getBoundingClientRect();
+        sbox={ x:(sb.left-bRect.left)/bRect.width, y:(sb.top-bRect.top)/bRect.height,
+               w:sb.width/bRect.width, h:sb.height/bRect.height, data:null };
+      }
+      // --- capture carte principale : sans la taille/age ni la boite stats (ajoutees a part) ---
+      if(bioEl) bioEl.style.visibility="hidden";
+      if(statsBox) statsBox.style.visibility="hidden";
       const cc=await html2canvas(c,{useCORS:true,backgroundColor:null,scale:3,logging:false});
+      // --- capture de la boite stats seule (cadre + icones, sans les chiffres) ---
+      if(statsBox && sbox){
+        statsBox.style.visibility="";
+        vEls.forEach(v=>v.style.visibility="hidden");
+        const sc=await html2canvas(statsBox,{useCORS:true,backgroundColor:null,scale:3,logging:false});
+        sbox.data=sc.toDataURL("image/png");
+        vEls.forEach(v=>v.style.visibility="");
+      }
       if(bioEl) bioEl.style.visibility="";
-      vEls.forEach(v=>v.style.visibility="");
       items.push({data:cc.toDataURL("image/png"),
         x:(r.left-bRect.left)/bRect.width, y:(r.top-bRect.top)/bRect.height,
-        w:r.width/bRect.width, h:r.height/bRect.height, bio, stats});
+        w:r.width/bRect.width, h:r.height/bRect.height, bio, stats, sbox});
     }
     const aspect=bRect.width/bRect.height, W=13.333, H=Math.round(W/aspect*100)/100;
     const pptx=new PptxGenJS(); pptx.defineLayout({name:"BOARD",width:W,height:H}); pptx.layout="BOARD";
     const s=pptx.addSlide(); s.background={color:"070B16"};
-    s.addImage({data:bg.toDataURL("image/png"),x:0,y:0,w:W,h:H});
-    items.forEach(it=>{
-      const cx=it.x*W, cy=it.y*H, cw=it.w*W, ch=it.h*H;
+    s.addImage({data:bg.toDataURL("image/png"),x:0,y:0,w:W,h:H,objectName:"BG"});
+    items.forEach((it,idx)=>{
+      const cx=it.x*W, cy=it.y*H, cw=it.w*W, ch=it.h*H, P="P"+idx+"_";
       s.addImage({data:it.data, x:Math.round(cx*100)/100, y:Math.round(cy*100)/100,
-        w:Math.round(cw*100)/100, h:Math.round(ch*100)/100});
+        w:Math.round(cw*100)/100, h:Math.round(ch*100)/100, objectName:P+"card"});
+      if(it.sbox && it.sbox.data){
+        s.addImage({data:it.sbox.data,
+          x:Math.round(it.sbox.x*W*100)/100, y:Math.round(it.sbox.y*H*100)/100,
+          w:Math.round(it.sbox.w*W*100)/100, h:Math.round(it.sbox.h*H*100)/100, objectName:P+"statsbox"});
+      }
       if(it.bio){
         s.addText(it.bio.text,{
           x:Math.round((cx+it.bio.fx*cw)*100)/100, y:Math.round((cy+it.bio.fy*ch)*100)/100,
           w:Math.round((it.bio.fw*cw)*100)/100, h:Math.round((it.bio.fh*ch)*100)/100,
           align:"center", valign:"middle", margin:0,
           fontFace:"Arial", fontSize:Math.round(it.bio.px*(W/bRect.width)*72*10)/10,
-          color:it.bio.color });
+          color:it.bio.color, objectName:P+"bio" });
       }
       if(it.stats){
         const so={ x:Math.round((cx+it.stats.fx*cw)*100)/100, y:Math.round((cy+it.stats.fy*ch)*100)/100,
           w:Math.round((it.stats.fw*cw)*100)/100, h:Math.round((it.stats.fh*ch)*100)/100,
           align:"center", valign:"top", margin:0, bold:true,
           fontFace:"Arial", fontSize:Math.round(it.stats.px*(W/bRect.width)*72*10)/10,
-          color:it.stats.color };
+          color:it.stats.color, objectName:P+"stats" };
         if(it.stats.pitch>0) so.lineSpacing=Math.round(it.stats.pitch*(W/bRect.width)*72*10)/10;
         s.addText(it.stats.text, so);
       }
@@ -339,12 +394,21 @@ async function pptxLayered(fileName){
         fontFace:tFrac.face, fontSize:Math.round(tFrac.fontFrac*W*72*10)/10,
         bold:tFrac.bold, color:"FFFFFF",
         charSpacing:Math.round(tFrac.spaceFrac*W*72),
-        shadow:{type:"outer",color:"000000",opacity:0.55,blur:4,offset:2,angle:90}});
+        shadow:{type:"outer",color:"000000",opacity:0.55,blur:4,offset:2,angle:90}, objectName:"TITLE"});
     }
-    await pptx.writeFile({fileName});
+    if(typeof JSZip==="undefined"){ await pptx.writeFile({fileName}); return; }
+    // groupage : chaque joueur (carte + boite stats + textes) devient un groupe deplacable dans Keynote
+    const blob=await pptx.write({outputType:"blob"});
+    const zip=await JSZip.loadAsync(blob);
+    let sx=await zip.file("ppt/slides/slide1.xml").async("string");
+    sx=groupPlayersInSlideXml(sx);
+    zip.file("ppt/slides/slide1.xml",sx);
+    const out=await zip.generateAsync({type:"blob",mimeType:"application/vnd.openxmlformats-officedocument.presentationml.presentation"});
+    const a=document.createElement("a"); a.href=URL.createObjectURL(out); a.download=fileName; a.click();
+    setTimeout(()=>URL.revokeObjectURL(a.href),2000);
   } finally {
     if(titleEl) titleEl.style.visibility="";
-    board.querySelectorAll(".bio, .stats .v").forEach(e=>e.style.visibility="");
+    board.querySelectorAll(".bio, .stats, .stats .v").forEach(e=>e.style.visibility="");
     imgs.forEach((im,i)=>im.src=src0[i]);
     hide.forEach((e,i)=>e.style.display=prevH[i]);
   }
