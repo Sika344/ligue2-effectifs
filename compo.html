@@ -355,8 +355,8 @@ async function pptxLayered(fileName){
     }
     const aspect=bRect.width/bRect.height, W=13.333, H=Math.round(W/aspect*100)/100;
     const pptx=new PptxGenJS(); pptx.defineLayout({name:"BOARD",width:W,height:H}); pptx.layout="BOARD";
-    const s=pptx.addSlide(); s.background={color:"070B16"};
-    s.addImage({data:bg.toDataURL("image/png"),x:0,y:0,w:W,h:H,objectName:"BG"});
+    const s=pptx.addSlide();
+    s.background={data:bg.toDataURL("image/png")};   // terrain = fond de diapo (PNG verrouille, non selectionnable dans Keynote)
     items.forEach((it,idx)=>{
       const cx=it.x*W, cy=it.y*H, cw=it.w*W, ch=it.h*H, P="P"+idx+"_";
       s.addImage({data:it.data, x:Math.round(cx*100)/100, y:Math.round(cy*100)/100,
