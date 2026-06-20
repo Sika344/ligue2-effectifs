@@ -248,12 +248,27 @@ async function pptxLayered(fileName){
   const prevH=hide.map(e=>e.style.display); hide.forEach(e=>e.style.display="none");
   const imgs=[...board.querySelectorAll("img")]; const src0=imgs.map(im=>im.src);
   await Promise.all(imgs.map(async im=>{ if(im.src.indexOf("data:")===0)return; try{ im.src=await toDataURL(im.src); }catch(e){} }));
+  let titleEl=null, tFrac=null;
   try{
     const bRect=board.getBoundingClientRect();
     const cards=[...layer.children].filter(c=>!c.classList.contains("empty"));
+    // --- titre editable : on mesure le h1 puis on le masque pour ne PAS l'aplatir dans l'image de fond ---
+    titleEl=board.querySelector(".header h1");
+    if(titleEl){
+      const tr=titleEl.getBoundingClientRect(), cs=getComputedStyle(titleEl);
+      tFrac={ text:(titleEl.textContent||"").trim(),
+        x:(tr.left-bRect.left)/bRect.width, y:(tr.top-bRect.top)/bRect.height,
+        w:tr.width/bRect.width, h:tr.height/bRect.height,
+        fontFrac:(parseFloat(cs.fontSize)||32)/bRect.width,
+        spaceFrac:(parseFloat(cs.letterSpacing)||0)/bRect.width,
+        bold:(cs.fontWeight==="bold"||(parseInt(cs.fontWeight,10)||400)>=600),
+        face:(cs.fontFamily.split(",")[0]||"Georgia").replace(/["']/g,"").trim() };
+      titleEl.style.visibility="hidden";
+    }
     const ld=layer.style.display; layer.style.display="none";
     const bg=await html2canvas(board,{useCORS:true,backgroundColor:null,scale:2,logging:false});
     layer.style.display=ld;
+    if(titleEl) titleEl.style.visibility="";
     const items=[];
     for(const c of cards){
       const r=c.getBoundingClientRect();
@@ -269,8 +284,19 @@ async function pptxLayered(fileName){
     items.forEach(it=>s.addImage({data:it.data,
       x:Math.round(it.x*W*100)/100, y:Math.round(it.y*H*100)/100,
       w:Math.round(it.w*W*100)/100, h:Math.round(it.h*H*100)/100}));
+    if(tFrac && tFrac.text){
+      s.addText(tFrac.text,{
+        x:Math.round(tFrac.x*W*100)/100, y:Math.round(tFrac.y*H*100)/100,
+        w:Math.round(tFrac.w*W*100)/100, h:Math.round(tFrac.h*H*100)/100,
+        align:"center", valign:"middle", margin:0,
+        fontFace:tFrac.face, fontSize:Math.round(tFrac.fontFrac*W*72*10)/10,
+        bold:tFrac.bold, color:"FFFFFF",
+        charSpacing:Math.round(tFrac.spaceFrac*W*72),
+        shadow:{type:"outer",color:"000000",opacity:0.55,blur:4,offset:2,angle:90}});
+    }
     await pptx.writeFile({fileName});
   } finally {
+    if(titleEl) titleEl.style.visibility="";
     imgs.forEach((im,i)=>im.src=src0[i]);
     hide.forEach((e,i)=>e.style.display=prevH[i]);
   }
