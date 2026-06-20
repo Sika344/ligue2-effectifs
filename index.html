@@ -284,11 +284,26 @@ async function pptxLayered(fileName){
           color:((+m[0])<<16|(+m[1])<<8|(+m[2])).toString(16).padStart(6,"0") };
         bioEl.style.visibility="hidden";
       }
+      // --- boite buts/passes editable : on mesure les chiffres puis on les masque avant la capture ---
+      const vEls=[...c.querySelectorAll(".stats .v")]; let stats=null;
+      if(vEls.length){
+        let L=Infinity,T=Infinity,Rr=-Infinity,Bb=-Infinity;
+        vEls.forEach(v=>{const q=v.getBoundingClientRect(); L=Math.min(L,q.left);T=Math.min(T,q.top);Rr=Math.max(Rr,q.right);Bb=Math.max(Bb,q.bottom);});
+        const vs=getComputedStyle(vEls[0]); const mm=(vs.color.match(/\d+/g)||[230,126,34]);
+        let pitch=0;
+        if(vEls.length>=2){const a0=vEls[0].getBoundingClientRect(),a1=vEls[1].getBoundingClientRect(); pitch=((a1.top+a1.bottom)-(a0.top+a0.bottom))/2;}
+        stats={ text:vEls.map(v=>v.textContent.trim()).join("\n"),
+          fx:(L-r.left)/r.width, fy:(T-r.top)/r.height, fw:(Rr-L)/r.width, fh:(Bb-T)/r.height,
+          px:parseFloat(vs.fontSize)||12, pitch,
+          color:((+mm[0])<<16|(+mm[1])<<8|(+mm[2])).toString(16).padStart(6,"0") };
+        vEls.forEach(v=>v.style.visibility="hidden");
+      }
       const cc=await html2canvas(c,{useCORS:true,backgroundColor:null,scale:3,logging:false});
       if(bioEl) bioEl.style.visibility="";
+      vEls.forEach(v=>v.style.visibility="");
       items.push({data:cc.toDataURL("image/png"),
         x:(r.left-bRect.left)/bRect.width, y:(r.top-bRect.top)/bRect.height,
-        w:r.width/bRect.width, h:r.height/bRect.height, bio});
+        w:r.width/bRect.width, h:r.height/bRect.height, bio, stats});
     }
     const aspect=bRect.width/bRect.height, W=13.333, H=Math.round(W/aspect*100)/100;
     const pptx=new PptxGenJS(); pptx.defineLayout({name:"BOARD",width:W,height:H}); pptx.layout="BOARD";
@@ -306,6 +321,15 @@ async function pptxLayered(fileName){
           fontFace:"Arial", fontSize:Math.round(it.bio.px*(W/bRect.width)*72*10)/10,
           color:it.bio.color });
       }
+      if(it.stats){
+        const so={ x:Math.round((cx+it.stats.fx*cw)*100)/100, y:Math.round((cy+it.stats.fy*ch)*100)/100,
+          w:Math.round((it.stats.fw*cw)*100)/100, h:Math.round((it.stats.fh*ch)*100)/100,
+          align:"center", valign:"top", margin:0, bold:true,
+          fontFace:"Arial", fontSize:Math.round(it.stats.px*(W/bRect.width)*72*10)/10,
+          color:it.stats.color };
+        if(it.stats.pitch>0) so.lineSpacing=Math.round(it.stats.pitch*(W/bRect.width)*72*10)/10;
+        s.addText(it.stats.text, so);
+      }
     });
     if(tFrac && tFrac.text){
       s.addText(tFrac.text,{
@@ -320,7 +344,7 @@ async function pptxLayered(fileName){
     await pptx.writeFile({fileName});
   } finally {
     if(titleEl) titleEl.style.visibility="";
-    board.querySelectorAll(".bio").forEach(e=>e.style.visibility="");
+    board.querySelectorAll(".bio, .stats .v").forEach(e=>e.style.visibility="");
     imgs.forEach((im,i)=>im.src=src0[i]);
     hide.forEach((e,i)=>e.style.display=prevH[i]);
   }
