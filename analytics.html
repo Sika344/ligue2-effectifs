@@ -54,7 +54,12 @@
   <div class="topbar">
     <h2>⚽ Analytics 360</h2>
     <span class="tag">StatsBomb 360 · Ligue 2 2025/2026</span>
-    <a href="index.html">← Effectifs</a>
+    <select id="pageNav" onchange="if(this.value)location.href=this.value" style="margin-left:auto;margin-right:4px;background:#16234a;color:#fff;border:1px solid rgba(255,255,255,.18);border-radius:8px;padding:8px 12px;font-weight:700;font-size:13px;cursor:pointer">
+      <option value="index.html">Effectif</option>
+      <option value="compo.html">Compo</option>
+      <option value="compo-sans-stats.html">Compo sans stats</option>
+      <option value="analytics.html" selected>Analytics 360</option>
+    </select>
   </div>
 
   <div class="wrap">
