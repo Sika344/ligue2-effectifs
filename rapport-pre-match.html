@@ -308,7 +308,7 @@ document.getElementById("dlk").onclick=async()=>{
   const club=document.getElementById("clubSelect").value;
   const boards=[...document.querySelectorAll(".board-snap")];
   const b=document.getElementById("dlk"), o=b.textContent; b.textContent="…"; b.disabled=true;
-  try{ const pptx=new pptxgenjs(); pptx.defineLayout({name:"L2",width:13.33,height:7.5}); pptx.layout="L2";
+  try{ const pptx=new (window.PptxGenJS||window.pptxgenjs||window.pptxgen)(); pptx.defineLayout({name:"L2",width:13.33,height:7.5}); pptx.layout="L2";
     for(const board of boards){ const c=await snap(board);
       const ar=c.width/c.height; let w=12.6,h=w/ar; if(h>7.0){h=7.0;w=h*ar;}
       const s=pptx.addSlide(); s.background={color:"070B16"}; s.addImage({data:c.toDataURL("image/png"),x:(13.33-w)/2,y:(7.5-h)/2,w,h});
