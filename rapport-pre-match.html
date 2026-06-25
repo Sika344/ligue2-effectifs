@@ -5,67 +5,76 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Rapport pré-match — Ligue 2</title>
 <style>
-  :root{
-    --navy:#0a1733; --navy2:#0d1f44; --gold:#c9a24b; --orange:#ff7a18;
-    --field:#eef1f5; --line:#b7c0cd; --ink:#11203f; --muted:#69748c;
-  }
+  :root{ --ink:#11203f; --muted:#8b94a6; --gold:#c9a24b; }
   *{box-sizing:border-box;margin:0;padding:0}
   body{font-family:"Segoe UI",system-ui,-apple-system,sans-serif;background:#070b16;color:#fff;-webkit-font-smoothing:antialiased}
 
-  /* ---- Top bar (même ADN que le reste du site) ---- */
   .topbar{display:flex;align-items:center;gap:12px;flex-wrap:wrap;padding:10px 16px;background:#0a1428;border-bottom:1px solid rgba(255,255,255,.06)}
   .topbar select,.topbar button{background:#16234a;color:#fff;border:1px solid rgba(255,255,255,.18);border-radius:8px;padding:8px 12px;font-size:14px;font-weight:700;cursor:pointer}
   .topbar .meta{font-size:12px;color:#9fb0c8}
   .topbar .right{margin-left:auto;display:flex;gap:8px;flex-wrap:wrap}
   #dlk{background:var(--gold);color:#111;border:none}
 
-  .frame{max-width:1180px;margin:16px auto;padding:0 12px}
+  .frame{max-width:1340px;margin:16px auto;padding:0 12px}
+  .board{position:relative;background:#fff;overflow:hidden;box-shadow:0 12px 40px rgba(0,0,0,.45)}
 
-  /* ---- Le slide (board) ---- */
-  .board{position:relative;background:#fff;overflow:hidden;box-shadow:0 12px 40px rgba(0,0,0,.45);border-radius:0}
-
-  /* bandeau identité site (texturé) */
   .brand{position:relative;display:flex;align-items:center;justify-content:center;gap:14px;
-    padding:8px 0;border-bottom:2px solid var(--gold);
-    background:url('data:image/jpeg;base64,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') center/cover}
+    padding:8px 0;border-bottom:2px solid var(--gold);background:url('data:image/jpeg;base64,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') center/cover}
   .brand .crest{width:30px;height:30px;border-radius:50%;display:flex;align-items:center;justify-content:center;
-    font-weight:800;font-size:12px;color:#fff;letter-spacing:.02em;box-shadow:0 2px 4px rgba(0,0,0,.5)}
+    font-weight:800;font-size:12px;color:#fff;box-shadow:0 2px 4px rgba(0,0,0,.5)}
   .brand .word{font-family:Georgia,"Times New Roman",serif;letter-spacing:.32em;font-size:14px;font-weight:700;color:#fff;text-transform:uppercase}
 
-  /* en-tête match style StatsBomb */
-  .mhead{text-align:center;padding:18px 16px 6px;color:var(--ink)}
-  .mtitle{font-size:clamp(22px,3.4vw,34px);font-weight:800;letter-spacing:-.01em;display:flex;justify-content:center;align-items:center;gap:.5ch;flex-wrap:wrap}
-  .mtitle .score{color:var(--ink)}
-  .msub{margin-top:6px;font-size:clamp(12px,1.6vw,15px);color:#3a4660;font-weight:600}
-  .msub b{color:var(--ink)}
-  .msub .sep{display:inline-block;width:26px}
+  .mhead{text-align:center;padding:16px 16px 4px;color:var(--ink)}
+  .mtitle{font-size:clamp(20px,3vw,32px);font-weight:800;display:flex;justify-content:center;align-items:center;gap:.5ch;flex-wrap:wrap}
+  .msub{margin-top:5px;font-size:clamp(11px,1.5vw,14px);color:#3a4660;font-weight:600}
+  .msub b{color:var(--ink)} .msub .sep{display:inline-block;width:22px}
 
-  /* terrain horizontal */
-  .pitchwrap{position:relative;width:100%;aspect-ratio:1000/620;background:#fff}
+  .sheet{display:grid;grid-template-columns:248px 1fr 248px;color:var(--ink)}
+  .panel{padding:14px 16px 18px}
+  .phead{font-size:18px;font-weight:800;margin-bottom:2px}
+  .psub{font-size:13px;font-weight:800;margin:12px 0 6px;color:var(--ink)}
+  .mgr{font-size:13.5px}
+  .muted{color:var(--muted);font-size:12.5px;font-style:italic;margin:4px 0}
+
+  .prow{display:flex;align-items:flex-start;gap:8px;padding:3px 0}
+  .pnum{font-weight:800;font-size:15px;min-width:22px;text-align:right;line-height:1.15}
+  .pinfo{flex:1;min-width:0}
+  .pn{font-size:13px;font-weight:700;line-height:1.15;color:var(--ink)}
+  .pr{font-size:11px;color:var(--muted);font-style:italic;line-height:1.1}
+  .pevt{display:flex;align-items:center;gap:5px;flex-shrink:0;padding-top:1px}
+  .tri{display:inline-block;width:0;height:0;border-top:5px solid transparent;border-bottom:5px solid transparent;border-left:8px solid currentColor;margin-right:2px}
+  .ev{display:inline-flex;align-items:center;font-size:11px;font-weight:800;line-height:1}
+  .ev.out{color:#c0392b} .ev.in{color:#2e8b3d}
+  .yc{display:inline-block;background:#f3c623;color:#3a2e00;font-size:10px;font-weight:800;border-radius:3px;padding:1px 4px}
+
+  .pitchwrap{position:relative;width:100%;aspect-ratio:1000/620;background:#fff;margin-top:6px}
   .pitchwrap svg.lines{position:absolute;inset:0;width:100%;height:100%}
   .players{position:absolute;inset:0}
   .pl{position:absolute;transform:translate(-50%,-50%);text-align:center;z-index:2;width:74px}
-  .disc{width:60px;height:60px;border-radius:50%;margin:0 auto;display:flex;flex-direction:column;
+  .disc{width:58px;height:58px;border-radius:50%;margin:0 auto;display:flex;flex-direction:column;
     align-items:center;justify-content:center;color:#fff;box-shadow:0 2px 6px rgba(0,0,0,.30);padding-top:2px}
-  .disc .num{font-weight:800;font-size:23px;line-height:1}
-  .disc .pos{font-weight:800;font-size:10px;line-height:1;margin-top:2px;letter-spacing:.02em;opacity:.95}
+  .disc .num{font-weight:800;font-size:22px;line-height:1}
+  .disc .pos{font-weight:800;font-size:10px;line-height:1;margin-top:2px;opacity:.95}
 
-  /* libellés formation bas */
-  .fbar{display:flex;justify-content:space-between;align-items:center;padding:10px 18px 14px;color:var(--ink)}
-  .fbar div{font-size:clamp(12px,1.8vw,16px);font-weight:700}
-  .fbar b{font-weight:900}
+  .fbar{display:flex;justify-content:space-between;align-items:center;padding:8px 6px 0}
+  .fbar div{font-size:clamp(12px,1.6vw,15px);font-weight:700} .fbar b{font-weight:900}
 
-  /* overlay "à compléter" pour les matchs non remplis */
+  .goals{text-align:center;padding:12px 6px 16px}
+  .goals .glab{font-size:16px;font-weight:800;margin-bottom:8px}
+  .goals .grow{display:flex;justify-content:center;gap:22px;flex-wrap:wrap}
+  .gitem{display:flex;flex-direction:column;align-items:center;gap:3px}
+  .gdisc{width:48px;height:48px;border-radius:50%;display:flex;align-items:center;justify-content:center;color:#fff;font-weight:800;font-size:20px;box-shadow:0 2px 5px rgba(0,0,0,.28)}
+  .gmin{font-size:13px;font-weight:800;color:var(--ink)}
+
   .pending{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;
     background:rgba(245,247,250,.92);color:#3a4660;text-align:center;gap:8px;z-index:5}
   .pending .big{font-size:20px;font-weight:800;color:var(--ink)}
-  .pending .small{font-size:13px;max-width:60%;line-height:1.5}
+  .pending .small{font-size:13px;max-width:70%;line-height:1.5}
 
-  .note{max-width:1180px;margin:12px auto 30px;padding:0 16px;color:#9fb0c8;font-size:12.5px;line-height:1.6}
-  .note code{background:#11203a;padding:2px 6px;border-radius:4px;color:#cfe}
-  .note b{color:#fff}
+  .note{max-width:1340px;margin:12px auto 30px;padding:0 16px;color:#9fb0c8;font-size:12.5px;line-height:1.6}
+  .note code{background:#11203a;padding:2px 6px;border-radius:4px;color:#cfe} .note b{color:#fff}
 
-  @media(max-width:760px){ .disc{width:46px;height:46px;font-size:19px} .pos{font-size:9px} .pl{width:58px} }
+  @media(max-width:900px){ .sheet{grid-template-columns:1fr} .disc{width:50px;height:50px} }
 </style>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/pptxgenjs@3.12.0/dist/pptxgen.bundle.js"></script>
@@ -89,47 +98,43 @@
 
   <div class="frame">
     <div class="board" id="board">
-      <div class="brand">
-        <span class="crest" id="brandCrest">M</span>
-        <span class="word">Rapport pré-match</span>
-      </div>
+      <div class="brand"><span class="crest" id="brandCrest">M</span><span class="word">Rapport pré-match</span></div>
       <div class="mhead">
         <div class="mtitle" id="mtitle"></div>
         <div class="msub" id="msub"></div>
       </div>
-      <div class="pitchwrap">
-        <svg class="lines" viewBox="0 0 1000 620" preserveAspectRatio="none">
-          <g fill="none" stroke="#c2cad6" stroke-width="2.5">
-            <rect x="12" y="12" width="976" height="596" rx="3"/>
-            <line x1="500" y1="12" x2="500" y2="608"/>
-            <circle cx="500" cy="310" r="74"/>
-            <!-- left box -->
-            <rect x="12" y="158" width="150" height="304"/>
-            <rect x="12" y="232" width="58" height="156"/>
-            <path d="M162,250 A74,74 0 0,1 162,370"/>
-            <!-- right box -->
-            <rect x="838" y="158" width="150" height="304"/>
-            <rect x="930" y="232" width="58" height="156"/>
-            <path d="M838,250 A74,74 0 0,0 838,370"/>
-            <!-- corners -->
-            <path d="M12,26 A14,14 0 0,1 26,12"/>
-            <path d="M974,12 A14,14 0 0,1 988,26"/>
-            <path d="M988,594 A14,14 0 0,1 974,608"/>
-            <path d="M26,608 A14,14 0 0,1 12,594"/>
-          </g>
-          <circle cx="500" cy="310" r="3.5" fill="#c2cad6"/>
-          <circle cx="120" cy="310" r="3.5" fill="#c2cad6"/>
-          <circle cx="880" cy="310" r="3.5" fill="#c2cad6"/>
-        </svg>
-        <div class="players" id="players"></div>
-        <div class="pending" id="pending" style="display:none">
-          <div class="big">Compo à compléter</div>
-          <div class="small" id="pendingTxt"></div>
+      <div class="sheet">
+        <div class="panel left" id="panelL"></div>
+        <div class="panel center">
+          <div class="pitchwrap">
+            <svg class="lines" viewBox="0 0 1000 620" preserveAspectRatio="none">
+              <g fill="none" stroke="#c2cad6" stroke-width="2.5">
+                <rect x="12" y="12" width="976" height="596" rx="3"/>
+                <line x1="500" y1="12" x2="500" y2="608"/>
+                <circle cx="500" cy="310" r="74"/>
+                <rect x="12" y="158" width="150" height="304"/>
+                <rect x="12" y="232" width="58" height="156"/>
+                <path d="M162,250 A74,74 0 0,1 162,370"/>
+                <rect x="838" y="158" width="150" height="304"/>
+                <rect x="930" y="232" width="58" height="156"/>
+                <path d="M838,250 A74,74 0 0,0 838,370"/>
+                <path d="M12,26 A14,14 0 0,1 26,12"/><path d="M974,12 A14,14 0 0,1 988,26"/>
+                <path d="M988,594 A14,14 0 0,1 974,608"/><path d="M26,608 A14,14 0 0,1 12,594"/>
+              </g>
+              <circle cx="500" cy="310" r="3.5" fill="#c2cad6"/>
+              <circle cx="120" cy="310" r="3.5" fill="#c2cad6"/>
+              <circle cx="880" cy="310" r="3.5" fill="#c2cad6"/>
+            </svg>
+            <div class="players" id="players"></div>
+            <div class="pending" id="pending" style="display:none">
+              <div class="big">Compo à compléter</div>
+              <div class="small" id="pendingTxt"></div>
+            </div>
+          </div>
+          <div class="fbar"><div id="fHome"></div><div id="fAway"></div></div>
+          <div class="goals" id="goals"></div>
         </div>
-      </div>
-      <div class="fbar">
-        <div id="fHome"></div>
-        <div id="fAway"></div>
+        <div class="panel right" id="panelR"></div>
       </div>
     </div>
   </div>
@@ -137,204 +142,191 @@
   <div class="note" id="buildNote"></div>
 
 <script>
-/* ============================================================
-   MOTEUR — gabarits de formation (repère canonique : équipe
-   qui attaque vers la droite, "gauche = haut").
-   d = profondeur (0 = sa ligne de but → 1 = ligne médiane)
-   t = position verticale (0 = haut → 1 = bas)
-   L'équipe de droite est rendue en rotation 180° (x et y inversés),
-   comme sur les visuels StatsBomb.
-   ============================================================ */
 const FORMATIONS = {
-  "3-5-2":{GK:[.10,.52],LCB:[.34,.32],CB:[.34,.52],RCB:[.34,.72],LWB:[.38,.11],RWB:[.38,.93],
-           CDM:[.50,.52],LCM:[.71,.34],RCM:[.71,.70],LCF:[.91,.34],RCF:[.91,.70]},
-  "3-4-2-1":{GK:[.10,.52],LCB:[.34,.32],CB:[.34,.52],RCB:[.34,.72],LWB:[.38,.11],RWB:[.38,.93],
-             LDM:[.55,.34],RDM:[.55,.70],LAM:[.74,.34],RAM:[.74,.70],CF:[.90,.52]},
-  "3-4-3":{GK:[.10,.52],LCB:[.34,.32],CB:[.34,.52],RCB:[.34,.72],LWB:[.55,.12],LCM:[.55,.40],RCM:[.55,.64],RWB:[.55,.92],
-           LW:[.88,.18],CF:[.92,.52],RW:[.88,.86]},
-  "5-3-2":{GK:[.10,.52],LWB:[.36,.08],LCB:[.32,.34],CB:[.32,.52],RCB:[.32,.70],RWB:[.36,.96],
-           CDM:[.58,.52],LCM:[.60,.32],RCM:[.60,.72],LCF:[.90,.38],RCF:[.90,.66]},
-  "4-2-3-1":{GK:[.10,.52],LB:[.32,.10],LCB:[.32,.38],RCB:[.32,.62],RB:[.32,.90],
-             LDM:[.52,.40],RDM:[.52,.64],LM:[.74,.12],CAM:[.74,.52],RM:[.74,.92],CF:[.91,.52]},
-  "4-3-3":{GK:[.10,.52],LB:[.32,.10],LCB:[.32,.38],RCB:[.32,.62],RB:[.32,.90],
-           CDM:[.55,.52],LCM:[.62,.32],RCM:[.62,.72],LW:[.88,.14],CF:[.92,.52],RW:[.88,.90]},
-  "4-4-2":{GK:[.10,.52],LB:[.32,.10],LCB:[.32,.38],RCB:[.32,.62],RB:[.32,.90],
-           LM:[.62,.12],LCM:[.60,.40],RCM:[.60,.64],RM:[.62,.92],LCF:[.90,.38],RCF:[.90,.66]},
-  "4-4-1-1":{GK:[.10,.52],LB:[.32,.10],LCB:[.32,.38],RCB:[.32,.62],RB:[.32,.90],
-             LM:[.60,.12],LCM:[.58,.40],RCM:[.58,.64],RM:[.60,.92],CAM:[.78,.52],CF:[.92,.52]},
-  "4-5-1":{GK:[.10,.52],LB:[.32,.10],LCB:[.32,.38],RCB:[.32,.62],RB:[.32,.90],
-           LM:[.62,.10],LCM:[.60,.34],CDM:[.55,.52],RCM:[.60,.70],RM:[.62,.92],CF:[.92,.52]},
-  "4-1-4-1":{GK:[.10,.52],LB:[.32,.10],LCB:[.32,.38],RCB:[.32,.62],RB:[.32,.90],
-             CDM:[.52,.52],LM:[.72,.12],LCM:[.70,.40],RCM:[.70,.64],RM:[.72,.92],CF:[.92,.52]}
+  "3-5-2":{GK:[.10,.52],LCB:[.34,.32],CB:[.34,.52],RCB:[.34,.72],LWB:[.38,.11],RWB:[.38,.93],CDM:[.50,.52],LCM:[.71,.34],RCM:[.71,.70],LCF:[.91,.34],RCF:[.91,.70]},
+  "3-4-2-1":{GK:[.10,.52],LCB:[.34,.32],CB:[.34,.52],RCB:[.34,.72],LWB:[.38,.11],RWB:[.38,.93],LDM:[.55,.34],RDM:[.55,.70],LAM:[.74,.34],RAM:[.74,.70],CF:[.90,.52]},
+  "3-4-3":{GK:[.10,.52],LCB:[.34,.32],CB:[.34,.52],RCB:[.34,.72],LWB:[.55,.12],LCM:[.55,.40],RCM:[.55,.64],RWB:[.55,.92],LW:[.88,.18],CF:[.92,.52],RW:[.88,.86]},
+  "5-3-2":{GK:[.10,.52],LWB:[.36,.08],LCB:[.32,.34],CB:[.32,.52],RCB:[.32,.70],RWB:[.36,.96],CDM:[.58,.52],LCM:[.60,.32],RCM:[.60,.72],LCF:[.90,.38],RCF:[.90,.66]},
+  "4-2-3-1":{GK:[.10,.52],LB:[.32,.10],LCB:[.32,.38],RCB:[.32,.62],RB:[.32,.90],LDM:[.52,.40],RDM:[.52,.64],LM:[.74,.12],CAM:[.74,.52],RM:[.74,.92],CF:[.91,.52]},
+  "4-3-3":{GK:[.10,.52],LB:[.32,.10],LCB:[.32,.38],RCB:[.32,.62],RB:[.32,.90],CDM:[.55,.52],LCM:[.62,.32],RCM:[.62,.72],LW:[.88,.14],CF:[.92,.52],RW:[.88,.90]},
+  "4-4-2":{GK:[.10,.52],LB:[.32,.10],LCB:[.32,.38],RCB:[.32,.62],RB:[.32,.90],LM:[.62,.12],LCM:[.60,.40],RCM:[.60,.64],RM:[.62,.92],LCF:[.90,.38],RCF:[.90,.66]},
+  "4-4-1-1":{GK:[.10,.52],LB:[.32,.10],LCB:[.32,.38],RCB:[.32,.62],RB:[.32,.90],LM:[.60,.12],LCM:[.58,.40],RCM:[.58,.64],RM:[.60,.92],CAM:[.78,.52],CF:[.92,.52]},
+  "4-5-1":{GK:[.10,.52],LB:[.32,.10],LCB:[.32,.38],RCB:[.32,.62],RB:[.32,.90],LM:[.62,.10],LCM:[.60,.34],CDM:[.55,.52],RCM:[.60,.70],RM:[.62,.92],CF:[.92,.52]},
+  "4-1-4-1":{GK:[.10,.52],LB:[.32,.10],LCB:[.32,.38],RCB:[.32,.62],RB:[.32,.90],CDM:[.52,.52],LM:[.72,.12],LCM:[.70,.40],RCM:[.70,.64],RM:[.72,.92],CF:[.92,.52]}
 };
 
-/* ============================================================
-   DONNÉES — 6 derniers matchs de Montpellier (focus du rapport).
-   side:'home' => équipe à gauche ; 'away' => équipe à droite.
-   Le 1er slide (Red Star) est VÉRIFIÉ (issu de ta capture).
-   Les suivants : score/adversaire connus, compos à confirmer.
-   ============================================================ */
-const MHSC = {name:"Montpellier", short:"MHSC", color:"#ee6a4d", textDark:false};
-
 const MATCHES = [
-  { /* 1 — VÉRIFIÉ */
-    label:"J34 · vs Red Star (E)", comp:"Ligue 2 BKT", date:"2026-05-09",
-    kickoff:"18:00 UTC", venue:"Stade de Paris",
-    home:{name:"Red Star FC", short:"RED", color:"#1b6b3a", textDark:false,
-          formation:"3-5-2",
-          players:[["16","GK"],["3","LCB"],["5","CB"],["20","RCB"],["7","LWB"],["2","RWB"],
-                   ["27","CDM"],["98","LCM"],["4","RCM"],["91","LCF"],["23","RCF"]],
-          score:1},
-    away:{...MHSC, formation:"3-4-2-1",
-          players:[["31","GK"],["23","LCB"],["6","CB"],["15","RCB"],["21","LWB"],["29","RWB"],
-                   ["20","LDM"],["44","RDM"],["8","LAM"],["18","RAM"],["14","CF"]],
-          score:1}
+  { label:"J34 · vs Red Star (E)", comp:"Ligue 2 BKT", date:"2026-05-09", kickoff:"18:00 UTC", venue:"Stade de Paris",
+    home:{ name:"Red Star FC", short:"RED", color:"#1b6b3a", manager:"Grégory Poirier", formation:"3-5-2",
+      players:[
+        {num:16,pos:"GK", name:"Gaëtan Poussin",   role:"Gardien"},
+        {num:3, pos:"LCB",name:"Matthieu Huard",   role:"Déf. central gauche"},
+        {num:5, pos:"CB", name:"Josué Escartin",   role:"Défenseur central", yc:61},
+        {num:20,pos:"RCB",name:"Dylan Durivaux",   role:"Déf. central droit"},
+        {num:7, pos:"LWB",name:"Damien Durand",    role:"Piston gauche", off:68},
+        {num:2, pos:"RWB",name:"Théo Magnin",      role:"Piston droit", off:79},
+        {num:27,pos:"CDM",name:"Bradley Danger",   role:"Milieu défensif"},
+        {num:98,pos:"LCM",name:"Ryad Hachem",      role:"Milieu centre gauche", off:79},
+        {num:4, pos:"RCM",name:"Balthazar Pierret",role:"Milieu centre droit"},
+        {num:91,pos:"LCF",name:"Kévin Cabral",     role:"Att. centre gauche", off:64},
+        {num:23,pos:"RCF",name:"Jovany Ikanga",    role:"Att. centre droit", off:64}
+      ],
+      subs:[
+        {num:29,name:"Hacene Benali",      on:64},
+        {num:21,name:"Abdelsamad Hachem",  on:64},
+        {num:81,name:"Giovanni Haag",      on:68},
+        {num:9, name:"Pape Meïssa Ba",     on:79},
+        {num:10,name:"Saîf-Eddine Khaoui", on:79}
+      ],
+      goals:[{num:91,min:44}], score:1 },
+    away:{ name:"Montpellier", short:"MHSC", color:"#ee6a4d", manager:"Zoumana Camara", formation:"3-4-2-1",
+      players:[
+        {num:31,pos:"GK", name:"S. Ngapandouetnbu",  role:"Gardien"},
+        {num:23,pos:"LCB",name:"Yael Mouanga",       role:"Déf. central gauche"},
+        {num:6, pos:"CB", name:"Christopher Jullien", role:"Défenseur central", off:73},
+        {num:15,pos:"RCB",name:"Julien Laporte",     role:"Déf. central droit"},
+        {num:21,pos:"LWB",name:"Lucas Mincarelli",   role:"Piston gauche"},
+        {num:29,pos:"RWB",name:"Enzo Tchato",        role:"Piston droit", yc:37, off:72},
+        {num:20,pos:"LDM",name:"Nabil Homssa",       role:"Milieu défensif gauche", off:60},
+        {num:44,pos:"RDM",name:"Théo Chennahi",      role:"Milieu défensif droit"},
+        {num:8, pos:"LAM",name:"Yanis Issoufou",     role:"Milieu offensif gauche"},
+        {num:18,pos:"RAM",name:"Nicolas Pays",       role:"Milieu offensif droit", off:60},
+        {num:14,pos:"CF", name:"Enzo Molebe",        role:"Avant-centre", off:60}
+      ],
+      subs:[
+        {num:7, name:"Nathanaël Mbuku",    on:60},
+        {num:17,name:"Théo Sainte-Luce",   on:60},
+        {num:39,name:"R. Herard",          on:60},
+        {num:3, name:"Naoufel El Hannach", on:72},
+        {num:11,name:"Téji Savanier",      on:73}
+      ],
+      goals:[{num:18,min:88}], score:1 }
   },
-  { /* 2 */
-    label:"vs Clermont", comp:"Ligue 2 BKT", date:"à confirmer", kickoff:"", venue:"",
-    pending:true,
-    home:{name:"Montpellier", short:"MHSC", color:"#ee6a4d", formation:"4-2-3-1", players:[], score:1},
-    away:{name:"Clermont Foot", short:"CF63", color:"#b21f2c", formation:"", players:[], score:2}
-  },
-  { /* 3 */
-    label:"vs Amiens", comp:"Ligue 2 BKT", date:"à confirmer", kickoff:"", venue:"",
-    pending:true,
-    home:{name:"Montpellier", short:"MHSC", color:"#ee6a4d", formation:"4-2-3-1", players:[], score:2},
-    away:{name:"Amiens SC", short:"ASC", color:"#1b1b1b", formation:"", players:[], score:0}
-  },
-  { /* 4 */
-    label:"vs Grenoble", comp:"Ligue 2 BKT", date:"à confirmer", kickoff:"", venue:"",
-    pending:true,
-    home:{name:"Montpellier", short:"MHSC", color:"#ee6a4d", formation:"4-2-3-1", players:[], score:2},
-    away:{name:"Grenoble", short:"GF38", color:"#1f3b7a", formation:"", players:[], score:1}
-  },
-  { /* 5 */
-    label:"vs Annecy", comp:"Ligue 2 BKT", date:"à confirmer", kickoff:"", venue:"",
-    pending:true,
-    home:{name:"Montpellier", short:"MHSC", color:"#ee6a4d", formation:"4-2-3-1", players:[], score:0},
-    away:{name:"Annecy FC", short:"ANN", color:"#e2231a", formation:"", players:[], score:0}
-  },
-  { /* 6 */
-    label:"Match J29 (à identifier)", comp:"Ligue 2 BKT", date:"à confirmer", kickoff:"", venue:"",
-    pending:true,
-    home:{name:"Montpellier", short:"MHSC", color:"#ee6a4d", formation:"4-2-3-1", players:[], score:0},
-    away:{name:"Adversaire", short:"???", color:"#5a647a", formation:"", players:[], score:0}
-  }
+  { label:"vs Clermont", comp:"Ligue 2 BKT", date:"à confirmer", kickoff:"", venue:"", pending:true,
+    home:{name:"Montpellier", short:"MHSC", color:"#ee6a4d", formation:"4-2-3-1", players:[], subs:[], goals:[], score:1},
+    away:{name:"Clermont Foot", short:"CF63", color:"#b21f2c", formation:"", players:[], subs:[], goals:[], score:2} },
+  { label:"vs Amiens", comp:"Ligue 2 BKT", date:"à confirmer", kickoff:"", venue:"", pending:true,
+    home:{name:"Montpellier", short:"MHSC", color:"#ee6a4d", formation:"4-2-3-1", players:[], subs:[], goals:[], score:2},
+    away:{name:"Amiens SC", short:"ASC", color:"#1b1b1b", formation:"", players:[], subs:[], goals:[], score:0} },
+  { label:"vs Grenoble", comp:"Ligue 2 BKT", date:"à confirmer", kickoff:"", venue:"", pending:true,
+    home:{name:"Montpellier", short:"MHSC", color:"#ee6a4d", formation:"4-2-3-1", players:[], subs:[], goals:[], score:2},
+    away:{name:"Grenoble", short:"GF38", color:"#1f3b7a", formation:"", players:[], subs:[], goals:[], score:1} },
+  { label:"vs Annecy", comp:"Ligue 2 BKT", date:"à confirmer", kickoff:"", venue:"", pending:true,
+    home:{name:"Montpellier", short:"MHSC", color:"#ee6a4d", formation:"4-2-3-1", players:[], subs:[], goals:[], score:0},
+    away:{name:"Annecy FC", short:"ANN", color:"#e2231a", formation:"", players:[], subs:[], goals:[], score:0} },
+  { label:"Match J29 (à identifier)", comp:"Ligue 2 BKT", date:"à confirmer", kickoff:"", venue:"", pending:true,
+    home:{name:"Montpellier", short:"MHSC", color:"#ee6a4d", formation:"4-2-3-1", players:[], subs:[], goals:[], score:0},
+    away:{name:"Adversaire", short:"???", color:"#5a647a", formation:"", players:[], subs:[], goals:[], score:0} }
 ];
 
-/* ---------- rendu ---------- */
+const MHSC_SHORT="MHSC", MHSC_COLOR="#ee6a4d";
 let current = 0;
 
-function lum(hex){ const h=hex.replace('#',''); const r=parseInt(h.slice(0,2),16),g=parseInt(h.slice(2,4),16),b=parseInt(h.slice(4,6),16);
-  return (0.299*r+0.587*g+0.114*b)/255; }
-
 function placePlayers(team, side){
-  const tmpl = FORMATIONS[team.formation];
-  const frag = [];
-  team.players.forEach(([num,pos])=>{
-    const coord = (tmpl && tmpl[pos]) || [0.5,0.5];
-    let d=coord[0], t=coord[1], x, y;
-    if(side==='home'){ x = 3 + d*0.5*94; y = 4 + t*92; }
-    else { x = 97 - d*0.5*94; y = 96 - t*92; }   // rotation 180°
-    frag.push(
-      `<div class="pl" style="left:${x.toFixed(2)}%;top:${y.toFixed(2)}%">
-         <div class="disc" style="background:${team.color}">
-           <span class="num">${num}</span><span class="pos">${pos}</span>
-         </div>
-       </div>`);
+  const tmpl=FORMATIONS[team.formation]; const frag=[];
+  (team.players||[]).forEach(p=>{
+    const c=(tmpl&&tmpl[p.pos])||[0.5,0.5]; let d=c[0],t=c[1],x,y;
+    if(side==='home'){ x=3+d*0.5*94; y=4+t*92; } else { x=97-d*0.5*94; y=96-t*92; }
+    frag.push(`<div class="pl" style="left:${x.toFixed(2)}%;top:${y.toFixed(2)}%">
+      <div class="disc" style="background:${team.color}"><span class="num">${p.num}</span><span class="pos">${p.pos}</span></div></div>`);
   });
   return frag.join("");
 }
 
+function evt(p){
+  let s="";
+  if(p.yc) s+=`<span class="yc">${p.yc}'</span>`;
+  if(p.rc) s+=`<span class="yc" style="background:#d11;color:#fff">${p.rc}'</span>`;
+  if(p.off) s+=`<span class="ev out"><span class="tri"></span>${p.off}'</span>`;
+  if(p.on)  s+=`<span class="ev in"><span class="tri"></span>${p.on}'</span>`;
+  return s?`<span class="pevt">${s}</span>`:"";
+}
+
+function panel(team, side){
+  const col=team.color;
+  let h=`<div class="phead" style="color:${col}">${side==='home'?"Équipe domicile":"Équipe extérieur"}</div>`;
+  if(team.manager){ h+=`<div class="psub">Entraîneur</div><div class="mgr">${team.manager}</div>`; }
+  h+=`<div class="psub">Onze de départ</div>`;
+  if(team.players && team.players.length){
+    team.players.forEach(p=>{ h+=`<div class="prow"><span class="pnum" style="color:${col}">${p.num}</span>
+      <div class="pinfo"><div class="pn">${p.name}</div><div class="pr">${p.role||""}</div></div>${evt(p)}</div>`; });
+  } else h+=`<div class="muted">À compléter</div>`;
+  h+=`<div class="psub">Remplaçants</div>`;
+  if(team.subs && team.subs.length){
+    team.subs.forEach(p=>{ h+=`<div class="prow"><span class="pnum" style="color:${col}">${p.num}</span>
+      <div class="pinfo"><div class="pn">${p.name}</div></div>${evt(p)}</div>`; });
+  } else h+=`<div class="muted">À compléter</div>`;
+  return h;
+}
+
+function goalsBlock(H,A){
+  const items=[];
+  (H.goals||[]).forEach(g=>items.push({c:H.color,n:g.num,m:g.min}));
+  (A.goals||[]).forEach(g=>items.push({c:A.color,n:g.num,m:g.min}));
+  if(!items.length) return "";
+  return `<div class="glab">Buts</div><div class="grow">`+
+    items.map(g=>`<div class="gitem"><div class="gdisc" style="background:${g.c}">${g.n}</div><div class="gmin">${g.m}'</div></div>`).join("")+`</div>`;
+}
+
 function render(){
-  const m = MATCHES[current];
-  const H = m.home, A = m.away;
-
-  // titre coloré
+  const m=MATCHES[current], H=m.home, A=m.away;
   document.getElementById("mtitle").innerHTML =
-    `<span style="color:${H.color}">${H.name} ${H.score}</span>`+
-    `<span class="score"> – </span>`+
-    `<span style="color:${A.color}">${A.score} ${A.name}</span>`;
-
-  // sous-titre kickoff / venue
+    `<span style="color:${H.color}">${H.name} ${H.score}</span><span> – </span><span style="color:${A.color}">${A.score} ${A.name}</span>`;
   const sub=[];
   if(m.kickoff||m.date) sub.push(`<b>Coup d'envoi&nbsp;:</b> ${[m.kickoff,m.date].filter(Boolean).join(', ')||'—'}`);
   if(m.venue) sub.push(`<span class="sep"></span><b>Stade&nbsp;:</b> ${m.venue}`);
-  if(m.comp) sub.push(`<span class="sep"></span>${m.comp}`);
-  document.getElementById("msub").innerHTML = sub.join(" ");
+  if(m.comp)  sub.push(`<span class="sep"></span>${m.comp}`);
+  document.getElementById("msub").innerHTML=sub.join(" ");
 
-  // joueurs
-  document.getElementById("players").innerHTML =
-    placePlayers(H,'home') + placePlayers(A,'away');
-
-  // formations bas
+  document.getElementById("players").innerHTML = placePlayers(H,'home')+placePlayers(A,'away');
   document.getElementById("fHome").innerHTML = H.formation?`Formation&nbsp;: <b>${H.formation}</b>`:"";
   document.getElementById("fAway").innerHTML = A.formation?`Formation&nbsp;: <b>${A.formation}</b>`:"";
+  document.getElementById("panelL").innerHTML = panel(H,'home');
+  document.getElementById("panelR").innerHTML = panel(A,'away');
+  document.getElementById("goals").innerHTML = goalsBlock(H,A);
 
-  // overlay à compléter
   const pend=document.getElementById("pending");
   if(m.pending){ pend.style.display="flex";
-    document.getElementById("pendingTxt").textContent =
-      "Score connu — compositions exactes à vérifier match par match avant publication.";
-  } else pend.style.display="none";
+    document.getElementById("pendingTxt").textContent="Score connu — feuille de match à vérifier avant publication."; }
+  else pend.style.display="none";
 
-  // bandeau marque
-  const bc=document.getElementById("brandCrest"); bc.textContent=MHSC.short[0];
-  bc.style.background=MHSC.color;
-
-  // sélecteur + meta
-  document.getElementById("metaInfo").textContent =
-    `Slide ${current+1}/${MATCHES.length} — ${MHSC.name}, 6 derniers matchs`;
+  const bc=document.getElementById("brandCrest"); bc.textContent=MHSC_SHORT[0]; bc.style.background=MHSC_COLOR;
+  document.getElementById("metaInfo").textContent=`Slide ${current+1}/${MATCHES.length} — Montpellier, 6 derniers matchs`;
 }
 
 function buildSelect(){
   const sel=document.getElementById("matchSelect");
-  sel.innerHTML = MATCHES.map((m,i)=>{
-    const opp = m.home.short==="MHSC" ? m.away.name : m.home.name;
-    const sc = `${m.home.score}-${m.away.score}`;
-    const tag = m.pending ? " · à compléter" : " · ✓";
-    return `<option value="${i}">Match ${i+1} — ${opp} (${sc})${tag}</option>`;
+  sel.innerHTML=MATCHES.map((m,i)=>{
+    const opp=m.home.short==="MHSC"?m.away.name:m.home.name;
+    return `<option value="${i}">Match ${i+1} — ${opp} (${m.home.score}-${m.away.score})${m.pending?" · à compléter":" · ✓"}</option>`;
   }).join("");
-  sel.onchange = ()=>{ current=+sel.value; render(); };
+  sel.onchange=()=>{ current=+sel.value; render(); };
 }
 
-/* ---------- export ---------- */
-async function boardCanvas(){
-  const board=document.getElementById("board");
-  return await html2canvas(board,{useCORS:true,backgroundColor:"#ffffff",scale:2,logging:false});
-}
-async function withBtn(id,fn){
-  const b=document.getElementById(id), o=b.textContent; b.textContent="…"; b.disabled=true;
-  try{ await fn(); }catch(e){ alert("Export échoué : "+e); } finally{ b.textContent=o; b.disabled=false; }
-}
+async function boardCanvas(){ return await html2canvas(document.getElementById("board"),{useCORS:true,backgroundColor:"#ffffff",scale:2,logging:false}); }
+async function withBtn(id,fn){ const b=document.getElementById(id),o=b.textContent; b.textContent="…"; b.disabled=true;
+  try{ await fn(); }catch(e){ alert("Export échoué : "+e); } finally{ b.textContent=o; b.disabled=false; } }
 function slug(){ const m=MATCHES[current]; const opp=(m.home.short==="MHSC"?m.away.short:m.home.short)||"match";
   return `rapport_${current+1}_${opp}`.replace(/[^a-z0-9_]+/gi,"_"); }
 
-document.getElementById("dl").onclick = ()=>withBtn("dl", async()=>{
-  const c=await boardCanvas();
-  const a=document.createElement("a"); a.download=slug()+".png"; a.href=c.toDataURL("image/png"); a.click();
-});
+document.getElementById("dl").onclick=()=>withBtn("dl", async()=>{
+  const c=await boardCanvas(); const a=document.createElement("a"); a.download=slug()+".png"; a.href=c.toDataURL("image/png"); a.click(); });
 
-document.getElementById("dlk").onclick = ()=>withBtn("dlk", async()=>{
+document.getElementById("dlk").onclick=()=>withBtn("dlk", async()=>{
   const pptx=new pptxgenjs(); pptx.defineLayout({name:"L2",width:13.33,height:7.5}); pptx.layout="L2";
   const keep=current;
   for(let i=0;i<MATCHES.length;i++){
     current=i; render(); await new Promise(r=>setTimeout(r,140));
-    const c=await boardCanvas();
-    const ar=c.width/c.height; let w=12.4, h=w/ar; if(h>6.9){h=6.9;w=h*ar;}
+    const c=await boardCanvas(); const ar=c.width/c.height; let w=12.6,h=w/ar; if(h>7.0){h=7.0;w=h*ar;}
     const slide=pptx.addSlide(); slide.background={color:"070B16"};
-    slide.addImage({data:c.toDataURL("image/png"), x:(13.33-w)/2, y:(7.5-h)/2, w, h});
+    slide.addImage({data:c.toDataURL("image/png"),x:(13.33-w)/2,y:(7.5-h)/2,w,h});
   }
-  current=keep; render();
-  await pptx.writeFile({fileName:"rapport-pre-match_montpellier.pptx"});
-});
+  current=keep; render(); await pptx.writeFile({fileName:"rapport-pre-match_montpellier.pptx"}); });
 
-/* ---------- note de bas de page ---------- */
 document.getElementById("buildNote").innerHTML =
-  `<b>Slide 1 (Red Star 1-1 Montpellier)</b> : compo vérifiée d'après ta capture — Red Star en 3-5-2, MHSC en 3-4-2-1. `+
-  `Les <b>5 autres</b> affichent le bon adversaire et le bon score, mais la composition reste à remplir (on les fait un par un, vérifiés). `+
-  `Pour ajouter/corriger une compo : éditer le tableau <code>MATCHES</code> (formation + couples <code>[numéro, poste]</code>). `+
-  `Gabarits dispo : <code>3-5-2, 3-4-2-1, 3-4-3, 5-3-2, 4-2-3-1, 4-3-3, 4-4-2, 4-4-1-1, 4-5-1, 4-1-4-1</code>.`;
+  `<b>Slide 1 (Red Star 1-1 Montpellier)</b> : feuille de match complète et vérifiée — onze, remplaçants, entrées/sorties, cartons et buteurs. `+
+  `Les <b>5 autres</b> : bon adversaire + bon score, feuille à compléter (on les fait un par un). `+
+  `Édition : tableau <code>MATCHES</code> — joueur <code>{num,pos,name,role,off,yc,rc}</code>, remplaçant <code>{num,name,on}</code>, but <code>{num,min}</code>.`;
 
 buildSelect(); render();
 </script>
