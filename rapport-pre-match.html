@@ -25,7 +25,7 @@
   .brand .word{font-family:Georgia,"Times New Roman",serif;letter-spacing:.32em;font-size:14px;font-weight:700;color:#fff;text-transform:uppercase}
 
   .mhead{text-align:center;padding:16px 16px 4px;color:var(--ink)}
-  .mtitle{font-size:clamp(20px,3vw,32px);font-weight:800;display:flex;justify-content:center;align-items:center;gap:.5ch;flex-wrap:wrap}
+  .mtitle{font-size:clamp(20px,3vw,32px);font-weight:800;text-align:center;line-height:1.2}
   .msub{margin-top:5px;font-size:clamp(11px,1.5vw,14px);color:#3a4660;font-weight:600}
   .msub b{color:var(--ink)} .msub .sep{display:inline-block;width:22px}
 
@@ -340,22 +340,30 @@ async function snapLayeredBoard(board){
     return { kind:"eff", bg:bg.toDataURL("image/png"), items, ar:bRect.width/bRect.height, bw:bRect.width };
   }
 
-  // --- feuille de match : pastilles joueurs ---
+  // --- feuille de match : pastilles joueurs (mesurees ici, dessinees en vectoriel dans le pptx) ---
   const pl=board.querySelector(".players");
   const toks=pl?[...pl.querySelectorAll(".pl")]:[];
   if(pl && toks.length){
-    const items=[];
+    const discs=[];
     for(const t of toks){
-      const r=t.getBoundingClientRect();
-      const tc=await html2canvas(t,{useCORS:true,backgroundColor:null,scale:3,logging:false});
-      items.push({ data:tc.toDataURL("image/png"),
-        x:(r.left-bRect.left)/bRect.width, y:(r.top-bRect.top)/bRect.height,
-        w:r.width/bRect.width, h:r.height/bRect.height });
+      const d=t.querySelector(".disc"); if(!d) continue;
+      const r=d.getBoundingClientRect();
+      const cs=getComputedStyle(d); const mm=(cs.backgroundColor.match(/\d+/g)||[20,20,20]);
+      const numEl=t.querySelector(".num"), posEl=t.querySelector(".pos");
+      discs.push({
+        cx:((r.left+r.right)/2-bRect.left)/bRect.width,
+        cy:((r.top+r.bottom)/2-bRect.top)/bRect.height,
+        d:r.width/bRect.width,
+        num:numEl?numEl.textContent.trim():"", pos:posEl?posEl.textContent.trim():"",
+        color:((+mm[0])<<16|(+mm[1])<<8|(+mm[2])).toString(16).padStart(6,"0"),
+        numPx:numEl?parseFloat(getComputedStyle(numEl).fontSize)||16:16,
+        posPx:posEl?parseFloat(getComputedStyle(posEl).fontSize)||8:8
+      });
     }
     const prev=pl.style.display; pl.style.display="none";
     const bg=await html2canvas(board,{useCORS:true,backgroundColor:null,scale:2,logging:false});
     pl.style.display=prev;
-    return { kind:"match", bg:bg.toDataURL("image/png"), items, ar:bRect.width/bRect.height };
+    return { kind:"match", bg:bg.toDataURL("image/png"), discs, ar:bRect.width/bRect.height, bw:bRect.width };
   }
 
   // --- repli image plate ---
@@ -419,10 +427,17 @@ document.getElementById("dlk").onclick=async()=>{
       const X=(13.33-W)/2, Y=(7.5-H)/2;
       s.addImage({data:L.bg,x:X,y:Y,w:W,h:H,objectName:"terrain"});
       if(L.kind==="match"){
-        L.items.forEach((it,idx)=>{ s.addImage({data:it.data,
-          x:Math.round((X+it.x*W)*100)/100, y:Math.round((Y+it.y*H)*100)/100,
-          w:Math.round((it.w*W)*100)/100, h:Math.round((it.h*H)*100)/100,
-          objectName:"M"+idx+"_tok"}); });
+        const k=W/L.bw; const ELL=(pptx.ShapeType&&pptx.ShapeType.ellipse)||"ellipse";
+        L.discs.forEach((dd,idx)=>{
+          const diam=dd.d*W, ex=X+dd.cx*W-diam/2, ey=Y+dd.cy*H-diam/2;
+          s.addText(
+            [{text:dd.num,options:{fontSize:Math.round(dd.numPx*k*72*10)/10,bold:true,breakLine:true}},
+             {text:dd.pos,options:{fontSize:Math.round(dd.posPx*k*72*10)/10,bold:true}}],
+            { shape:ELL, x:Math.round(ex*100)/100, y:Math.round(ey*100)/100,
+              w:Math.round(diam*100)/100, h:Math.round(diam*100)/100,
+              fill:{color:dd.color}, line:{type:"none"}, align:"center", valign:"middle",
+              color:"FFFFFF", margin:0, objectName:"tok"+idx });
+        });
       } else { // eff : carte + chiffres editables, groupes par joueur
         const k=W/L.bw;
         L.items.forEach((it,idx)=>{
