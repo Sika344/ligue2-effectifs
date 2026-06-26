@@ -283,57 +283,60 @@ function boardHTML(m, club, col){
 function clubColor(club){ for(const m of (DATA.byClub[club]||[])){ if(m.home.name===club) return m.home.color; if(m.away.name===club) return m.away.color; } return "#0a1733"; }
 function slugify(s){ return (s||"").replace(/[^a-z0-9_]+/gi,"_"); }
 
-/* ===== xG / xG concédés par 15 min ===== */
+/* ===== xG / xG concédés par 15 min (saison, depuis xg.json) ===== */
+let XG = null;   // contenu de xg.json (auto-actualisé par une GitHub Action)
 function xgBuckets(club){
-  if(typeof DATA!=='undefined' && DATA.xg && DATA.xg[club]){
-    const x=DATA.xg[club];
-    return {for:x.for.slice(0,6), against:x.against.slice(0,6),
-            metric:'xG', season:x.season||'2025-2026'};
+  if(XG && XG.teams){
+    const names=Object.keys(XG.teams);
+    const k = XG.teams[club] ? club : matchTeam(club, names);
+    if(k && XG.teams[k]){
+      const x=XG.teams[k];
+      return {for:(x.for||[]).slice(0,6), against:(x.against||[]).slice(0,6),
+              season:(XG.season||'2025-2026'), matches:x.matches};
+    }
   }
-  // repli : buts par 15 min depuis les matchs bakés (en attendant les xG réels)
-  const ms=DATA.byClub[club]||[]; const F=[0,0,0,0,0,0], A=[0,0,0,0,0,0];
-  const bk=m=>Math.max(0,Math.min(5,Math.floor((m-1)/15)));
-  ms.forEach(m=>{ const isHome=m.home.name===club; const us=isHome?m.home:m.away, them=isHome?m.away:m.home;
-    (us.goals||[]).forEach(g=>{F[bk(g.min)]++;}); (them.goals||[]).forEach(g=>{A[bk(g.min)]++;}); });
-  return {for:F, against:A, metric:'Buts', season:'5 derniers matchs'};
+  return null; // pas encore de données xG (xg.json absent ou club non trouvé)
 }
 function niceStep(x){ if(!isFinite(x)||x<=0) return 1;
   const p=Math.pow(10,Math.floor(Math.log10(x))), n=x/p; let m;
   if(n<1.5)m=1; else if(n<3)m=2; else if(n<4)m=2.5; else if(n<7.5)m=5; else m=10; return m*p; }
-function fmtVal(v,metric){ if(metric==='xG'){ return (+(+v).toFixed(2)).toString(); } return Math.round(v).toString(); }
-function barChartSVG(title, vals, accent, metric){
+function fmtVal(v){ return (+(+v).toFixed(2)).toString(); }
+function barChartSVG(title, vals, accent){
   const W=1060,H=372,padL=66,padR=18,padT=58,padB=46;
   const x0=padL, x1=W-padR, y0=padT, y1=H-padB, plotW=x1-x0, plotH=y1-y0;
   const labels=['xg 0-15','xg 15-30','xg 30-45','xg 45-60','xg 60-75','xg 75-90'];
   const realMax=Math.max(0,...vals), maxV=Math.max(realMax,1e-4);
   const top=Math.max(maxV*1.06, niceStep(maxV/4));
-  const step=niceStep(maxV/4); const ticks=[0];
+  const step=niceStep(maxV/4); let ticks=[0];
   if(realMax>0){ for(let t=step; t<=realMax+1e-9 && ticks.length<14; t+=step) ticks.push(+t.toFixed(6)); }
+  { const seen=new Set(), tk=[]; ticks.forEach(t=>{const l=fmtVal(t); if(!seen.has(l)){seen.add(l);tk.push(t);}}); ticks=tk; }
   const Y=v=> y1-(v/top)*plotH;
   let g='';
   ticks.forEach(t=>{ const y=Y(t);
     g+=`<line x1="${x0}" y1="${y.toFixed(1)}" x2="${x1}" y2="${y.toFixed(1)}" stroke="#d6d6d6" stroke-width="1"/>`;
-    g+=`<text x="${x0-10}" y="${(y+4).toFixed(1)}" text-anchor="end" font-size="15" fill="#666" font-family="Segoe UI,Arial,sans-serif">${fmtVal(t,metric)}</text>`; });
+    g+=`<text x="${x0-10}" y="${(y+4).toFixed(1)}" text-anchor="end" font-size="15" fill="#666" font-family="Segoe UI,Arial,sans-serif">${fmtVal(t)}</text>`; });
   const slot=plotW/6, bw=slot*0.6;
   vals.forEach((v,i)=>{ const cx=x0+slot*(i+0.5), bx=cx-bw/2, by=Y(Math.max(0,v)), bh=Math.max(0,y1-by);
     g+=`<line x1="${cx.toFixed(1)}" y1="${y0}" x2="${cx.toFixed(1)}" y2="${y1}" stroke="#e3e3e3" stroke-width="1"/>`;
     g+=`<rect x="${bx.toFixed(1)}" y="${by.toFixed(1)}" width="${bw.toFixed(1)}" height="${bh.toFixed(1)}" fill="${accent}"/>`;
     const inside=bh>30, ly= inside ? (by+Math.min(bh*0.42,42)) : (by-9);
-    g+=`<text x="${cx.toFixed(1)}" y="${ly.toFixed(1)}" text-anchor="middle" font-size="20" font-weight="700" fill="${inside?'#fff':'#1a2240'}" font-family="Segoe UI,Arial,sans-serif">${fmtVal(v,metric)}</text>`;
+    g+=`<text x="${cx.toFixed(1)}" y="${ly.toFixed(1)}" text-anchor="middle" font-size="20" font-weight="700" fill="${inside?'#fff':'#1a2240'}" font-family="Segoe UI,Arial,sans-serif">${fmtVal(v)}</text>`;
     g+=`<text x="${cx.toFixed(1)}" y="${(y1+22).toFixed(1)}" text-anchor="middle" font-size="14" fill="#555" font-family="Segoe UI,Arial,sans-serif">${labels[i]}</text>`; });
   g=`<text x="${x0-2}" y="32" font-size="22" font-weight="800" fill="#1b2340" font-family="Segoe UI,Arial,sans-serif">${title}</text>`+g;
   return `<svg viewBox="0 0 ${W} ${H}" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="${title}"><rect x="0" y="0" width="${W}" height="${H}" fill="#ececec"/>${g}</svg>`;
 }
 function chartsBlockHTML(club){
-  const X=xgBuckets(club), s=X.season;
-  const t1=(X.metric==='xG'?'xG créés':'Buts marqués')+' par 15 minutes  |  '+club+'  |  '+s;
-  const t2=(X.metric==='xG'?'xG concédés':'Buts encaissés')+' par 15 minutes  |  '+club+'  |  '+s;
-  const note = X.metric==='xG' ? '' :
-    '<div class="xgnote">Aperçu basé sur les buts des 5 matchs affichés. Les <b>xG réels par tranche</b> apparaîtront ici après régénération du rapport avec <code>build_rapport.py</code> (voir note plus bas).</div>';
-  return '<div class="matchblock"><div class="mbtools"><span class="mlbl">'+(X.metric==='xG'?'xG':'Buts')+' par 15 min · '+club+'</span><button class="pngbtn" data-board="board-xg">⬇ PNG</button></div>'+
-    '<div class="board board-snap xgboard" id="board-xg">'+barChartSVG(t1,X.for,'#0d1b8c',X.metric)+barChartSVG(t2,X.against,'#0d1b8c',X.metric)+note+'</div></div>';
+  const X=xgBuckets(club);
+  if(!X){
+    return '<div class="matchblock"><div class="mbtools"><span class="mlbl">xG par 15 min · '+club+'</span></div>'+
+      '<div class="board xgboard" id="board-xg"><div class="xgnote" style="padding:26px 16px;font-size:13px">Les <b>xG créés / concédés par 15 min</b> (saison complète) s\'afficheront ici dès que <code>xg.json</code> sera présent à la racine du repo.<br>Ce fichier est généré et <b>auto-actualisé</b> par <code>build_xg.py</code> via une GitHub Action.</div></div></div>';
+  }
+  const sub = X.matches ? (X.season+' · '+X.matches+' matchs') : X.season;
+  const t1='xG créés par 15 minutes  |  '+club+'  |  '+sub;
+  const t2='xG concédés par 15 minutes  |  '+club+'  |  '+sub;
+  return '<div class="matchblock"><div class="mbtools"><span class="mlbl">xG par 15 min · '+club+'</span><button class="pngbtn" data-board="board-xg">⬇ PNG</button></div>'+
+    '<div class="board board-snap xgboard" id="board-xg">'+barChartSVG(t1,X.for,'#0d1b8c')+barChartSVG(t2,X.against,'#0d1b8c')+'</div></div>';
 }
-
 function renderClub(club){
   const ms=DATA.byClub[club]||[]; const col=clubColor(club); const blocks=[];
   const jt = LIGUE2 && LIGUE2.teams ? matchTeam(club, Object.keys(LIGUE2.teams)) : null;
@@ -556,7 +559,10 @@ function start(){
   document.getElementById("buildNote").innerHTML="Sélectionne un club : son <b>effectif</b> (photos LFP, comme l'onglet Effectif) puis ses <b>5 derniers matchs</b> s'affichent à la suite. Export PNG par diapo, ou Keynote (.pptx) pour tout.";
   renderClub(def);
 }
-fetch("ligue2.json?_="+Date.now()).then(r=>r.ok?r.json():null).then(j=>{LIGUE2=j;start();}).catch(()=>start());
+Promise.all([
+  fetch("ligue2.json?_="+Date.now()).then(r=>r.ok?r.json():null).catch(()=>null),
+  fetch("xg.json?_="+Date.now()).then(r=>r.ok?r.json():null).catch(()=>null)
+]).then(([j,x])=>{ LIGUE2=j; XG=x; start(); }).catch(()=>start());
 </script>
 </body>
 </html>
