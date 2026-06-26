@@ -228,7 +228,7 @@ function matchTeam(club, names){
 function placePlayers(team, side){
   const frag=[];
   (team.players||[]).forEach(p=>{ let d=p.x,t=p.y,x,y;
-    if(side==='home'){ x=3+d*0.5*94; y=4+t*92; } else { x=97-d*0.5*94; y=96-t*92; }
+    if(side==='home'){ x=3+d*0.5*94; y=4+t*92; } else { x=97-d*0.5*94; y=4+t*92; }
     frag.push(`<div class="pl" style="left:${x.toFixed(2)}%;top:${y.toFixed(2)}%"><div class="disc" style="background:${team.color}"><span class="num">${p.num}</span><span class="pos">${p.pos}</span></div></div>`);
   });
   return frag.join("");
@@ -360,10 +360,21 @@ async function snapLayeredBoard(board){
         posPx:posEl?parseFloat(getComputedStyle(posEl).fontSize)||8:8
       });
     }
-    const prev=pl.style.display; pl.style.display="none";
+    // titre mesure puis masque : html2canvas casse le gros titre gras -> redessine en natif
+    const titleEl=board.querySelector(".mtitle"); let title=null;
+    if(titleEl){
+      const tr=titleEl.getBoundingClientRect(), ts=getComputedStyle(titleEl);
+      const runs=[...titleEl.children].map(sp=>{ const c=(getComputedStyle(sp).color.match(/\d+/g)||[20,20,20]);
+        return { text:(sp.textContent||"").replace(/\u00a0/g," "),
+          color:((+c[0])<<16|(+c[1])<<8|(+c[2])).toString(16).padStart(6,"0") }; });
+      title={ runs, y:(tr.top-bRect.top)/bRect.height, h:tr.height/bRect.height,
+        px:parseFloat(ts.fontSize)||28, face:(ts.fontFamily.split(",")[0]||"Arial").replace(/["']/g,"").trim() };
+    }
+    const prevP=pl.style.display; pl.style.display="none";
+    const prevT=titleEl?titleEl.style.visibility:""; if(titleEl) titleEl.style.visibility="hidden";
     const bg=await html2canvas(board,{useCORS:true,backgroundColor:null,scale:2,logging:false});
-    pl.style.display=prev;
-    return { kind:"match", bg:bg.toDataURL("image/png"), discs, ar:bRect.width/bRect.height, bw:bRect.width };
+    pl.style.display=prevP; if(titleEl) titleEl.style.visibility=prevT;
+    return { kind:"match", bg:bg.toDataURL("image/png"), discs, title, ar:bRect.width/bRect.height, bw:bRect.width };
   }
 
   // --- repli image plate ---
@@ -438,6 +449,13 @@ document.getElementById("dlk").onclick=async()=>{
               fill:{color:dd.color}, line:{type:"none"}, align:"center", valign:"middle",
               color:"FFFFFF", margin:0, objectName:"tok"+idx });
         });
+        if(L.title && L.title.runs.length){
+          const T=L.title, runs=T.runs.map(r=>({text:r.text,options:{color:r.color}}));
+          s.addText(runs,{ x:Math.round(X*100)/100, y:Math.round((Y+T.y*H)*100)/100,
+            w:Math.round(W*100)/100, h:Math.round(T.h*H*100)/100,
+            align:"center", valign:"middle", margin:0, bold:true,
+            fontFace:T.face||"Arial", fontSize:Math.round(T.px*k*72*10)/10, objectName:"titre" });
+        }
       } else { // eff : carte + chiffres editables, groupes par joueur
         const k=W/L.bw;
         L.items.forEach((it,idx)=>{
