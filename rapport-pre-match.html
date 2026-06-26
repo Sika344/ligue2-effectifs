@@ -50,11 +50,11 @@
   .pitchwrap{position:relative;width:100%;aspect-ratio:1000/620;background:#fff;margin-top:6px}
   .pitchwrap svg.lines{position:absolute;inset:0;width:100%;height:100%}
   .players{position:absolute;inset:0}
-  .pl{position:absolute;transform:translate(-50%,-50%);text-align:center;z-index:2;width:74px}
-  .disc{width:58px;height:58px;border-radius:50%;margin:0 auto;display:flex;flex-direction:column;
+  .pl{position:absolute;transform:translate(-50%,-50%);text-align:center;z-index:2;width:52px}
+  .disc{width:46px;height:46px;border-radius:50%;margin:0 auto;display:flex;flex-direction:column;
     align-items:center;justify-content:center;color:#fff;box-shadow:0 2px 6px rgba(0,0,0,.30);padding-top:2px}
-  .disc .num{font-weight:800;font-size:22px;line-height:1}
-  .disc .pos{font-weight:800;font-size:10px;line-height:1;margin-top:2px;opacity:.95}
+  .disc .num{font-weight:800;font-size:17px;line-height:1}
+  .disc .pos{font-weight:800;font-size:9px;line-height:1;margin-top:1px;opacity:.95}
 
   .fbar{display:flex;justify-content:space-between;align-items:center;padding:8px 6px 0}
   .fbar div{font-size:clamp(12px,1.6vw,15px);font-weight:700} .fbar b{font-weight:900}
@@ -74,7 +74,7 @@
   .note{max-width:1340px;margin:12px auto 30px;padding:0 16px;color:#9fb0c8;font-size:12.5px;line-height:1.6}
   .note code{background:#11203a;padding:2px 6px;border-radius:4px;color:#cfe} .note b{color:#fff}
 
-  @media(max-width:900px){ .sheet{grid-template-columns:1fr} .disc{width:50px;height:50px} }
+  @media(max-width:900px){ .sheet{grid-template-columns:1fr} .disc{width:40px;height:40px} }
 </style>
 <style>
   :root{ --navy:#0a1733; --navy2:#0d1f44; --field:#eef1f5; --line:#b7c0cd; --box:#cad0db; --orange:#ff7a18; }
@@ -265,7 +265,7 @@ function subtitle(m){ const s=[];
 }
 function boardHTML(m, club, col){
   const H=m.home, A=m.away;
-  const title=`<span style="color:${H.color}">${H.name} ${H.score}</span><span> – </span><span style="color:${A.color}">${A.score} ${A.name}</span>`;
+  const title=`<span style="color:${H.color}">${H.name}&nbsp;${H.score}</span><span>&nbsp;–&nbsp;</span><span style="color:${A.color}">${A.score}&nbsp;${A.name}</span>`;
   return `<div class="brand"><span class="crest" style="background:${col}">${club[0]}</span><span class="word">Rapport pré-match</span></div>
     <div class="mhead"><div class="mtitle">${title}</div><div class="msub">${subtitle(m)}</div></div>
     <div class="sheet"><div class="panel left">${panel(H,'home')}</div>
