@@ -559,10 +559,33 @@ function start(){
   document.getElementById("buildNote").innerHTML="Sélectionne un club : son <b>effectif</b> (photos LFP, comme l'onglet Effectif) puis ses <b>5 derniers matchs</b> s'affichent à la suite. Export PNG par diapo, ou Keynote (.pptx) pour tout.";
   renderClub(def);
 }
+/* ---- Override données joueurs : corrige n°/nom, masque les partis (clé = sbId, cf. CLAUDE.md) ---- */
+const PLAYER_OVERRIDES = {
+  132337: { num: 77, name: "EVERSON JR" }, // était "DA SILVA" #37
+  166384: { num: 24 },                     // Junior Ndiaye
+  440216: { num: 14 },                     // Victor Orakpo
+  30661:  { hide: true },                  // Becir Omeragic (parti)
+  32672:  { hide: true },                  // Tanguy Coulibaly (parti)
+  29969:  { hide: true },                  // Joris Chotard (parti)
+};
+function applyPlayerOverrides(data){
+  if(!data || !data.teams) return data;
+  for(const team of Object.values(data.teams)){
+    if(!team || !Array.isArray(team.squad)) continue;
+    team.squad = team.squad.filter(p=>{
+      const o = p && PLAYER_OVERRIDES[p.sbId];
+      if(!o) return true;
+      if(o.hide) return false;      // joueur parti → retiré
+      Object.assign(p, o);          // applique n°/nom
+      return true;
+    });
+  }
+  return data;
+}
 Promise.all([
   fetch("ligue2.json?_="+Date.now()).then(r=>r.ok?r.json():null).catch(()=>null),
   fetch("xg.json?_="+Date.now()).then(r=>r.ok?r.json():null).catch(()=>null)
-]).then(([j,x])=>{ LIGUE2=j; XG=x; start(); }).catch(()=>start());
+]).then(([j,x])=>{ LIGUE2=j; applyPlayerOverrides(LIGUE2); XG=x; start(); }).catch(()=>start());
 </script>
 </body>
 </html>

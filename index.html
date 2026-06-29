@@ -420,8 +420,31 @@ async function pptxLayered(fileName){
 }
 function exportPPTX(){ return withBtn("dlk", ()=>pptxLayered("effectif_"+teamSlug()+".pptx")); }
 
+/* ---- Override données joueurs : corrige n°/nom, masque les partis (clé = sbId, cf. CLAUDE.md) ---- */
+const PLAYER_OVERRIDES = {
+  132337: { num: 77, name: "EVERSON JR" }, // était "DA SILVA" #37
+  166384: { num: 24 },                     // Junior Ndiaye
+  440216: { num: 14 },                     // Victor Orakpo
+  30661:  { hide: true },                  // Becir Omeragic (parti)
+  32672:  { hide: true },                  // Tanguy Coulibaly (parti)
+  29969:  { hide: true },                  // Joris Chotard (parti)
+};
+function applyPlayerOverrides(data){
+  if(!data || !data.teams) return data;
+  for(const team of Object.values(data.teams)){
+    if(!team || !Array.isArray(team.squad)) continue;
+    team.squad = team.squad.filter(p=>{
+      const o = p && PLAYER_OVERRIDES[p.sbId];
+      if(!o) return true;
+      if(o.hide) return false;      // joueur parti → retiré
+      Object.assign(p, o);          // applique n°/nom
+      return true;
+    });
+  }
+  return data;
+}
 function boot(data,demo){
-  DATA=data;
+  DATA=data; applyPlayerOverrides(DATA);
   const _bi=document.getElementById("bannerImg"); if(_bi) _bi.src=BANNER;
   const sel=document.getElementById("teamSelect"); sel.innerHTML="";
   Object.keys(DATA.teams).sort().forEach(t=>{const o=document.createElement("option");o.value=t;o.textContent=t;sel.appendChild(o);});
