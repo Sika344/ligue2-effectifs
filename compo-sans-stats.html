@@ -176,7 +176,7 @@ function cardInner(p){
   const num=(p.num==null)?"":p.num;
   const photo = p.photo
     ? `<img class="photo" data-num="${num}" src="${p.photo}" alt="">`
-    : `<div class="jersey">${num||"?"}</div>`;
+    : `<img class="photo avatar" src="${AVATAR}" alt="">`;
   const bio=[p.height?`${p.height} cm`:null,(p.age!=null)?`${p.age} ans`:null].filter(Boolean).join(" - ");
   const stats="";  // version sans buts/passes decisives
   return `${p.foot==='left'?'<span class="gleft">G</span>':''}<div class="top"><div class="idcol"><div class="flag">${p.flag||""}</div><div class="num">${num}</div></div><div class="photo-wrap">${photo}</div></div>
@@ -187,9 +187,10 @@ function placeholderInner(slot){
   return `<div class="ph">+</div><div class="phlab">${slot.gk?"Gardien":"Joueur"}</div>`;
 }
 
+const AVATAR='data:image/svg+xml,'+encodeURIComponent('<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 72"><circle cx="32" cy="22" r="15" fill="#b4bfd6"/><path d="M8 72 C8 52 19 44 32 44 C45 44 56 52 56 72 Z" fill="#b4bfd6"/></svg>');
 function wirePhotos(root){
   root.querySelectorAll("img.photo").forEach(img=>{
-    const swap=()=>{const d=document.createElement("div");d.className="jersey";d.textContent=img.dataset.num||"?";if(img.parentNode)img.replaceWith(d);};
+    const swap=()=>{const a=document.createElement("img");a.className="photo avatar";a.src=AVATAR;a.alt="";if(img.parentNode)img.replaceWith(a);};
     img.addEventListener("error",swap);
     if(img.complete && img.naturalWidth===0) swap();
   });
