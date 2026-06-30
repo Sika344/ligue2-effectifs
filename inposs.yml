@@ -1,0 +1,50 @@
+
+# .github/workflows/inposs.yml
+# Régénère inposs.json (6 KPI in-possession, saison complète) et le committe s'il a changé.
+# Pré-requis : les secrets de dépôt SB_USERNAME et SB_PASSWORD (déjà en place pour xg.yml).
+# Placer ce fichier dans .github/workflows/inposs.yml et build_inposs.py à la racine du repo.
+
+name: Build in-possession KPIs
+
+on:
+  schedule:
+    - cron: "45 4 * * *"      # tous les jours à 04:45 UTC (décalé de xg.yml à 04:30)
+  workflow_dispatch: {}        # déclenchement manuel possible
+
+permissions:
+  contents: write
+
+concurrency:
+  group: build-inposs
+  cancel-in-progress: true
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install deps
+        run: pip install statsbombpy pandas
+
+      - name: Generate inposs.json
+        env:
+          SB_USERNAME: ${{ secrets.SB_USERNAME }}
+          SB_PASSWORD: ${{ secrets.SB_PASSWORD }}
+        run: python build_inposs.py
+
+      - name: Commit if changed
+        run: |
+          if [ -n "$(git status --porcelain inposs.json)" ]; then
+            git config user.name "github-actions[bot]"
+            git config user.email "github-actions[bot]@users.noreply.github.com"
+            git add inposs.json
+            git commit -m "chore: maj inposs.json (KPI in-possession)"
+            git push
+          else
+            echo "inposs.json inchangé."
+          fi
