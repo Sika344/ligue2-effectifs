@@ -136,7 +136,8 @@
   .inpovl{position:absolute;inset:0;pointer-events:none}
   .inplogo{position:absolute;width:var(--cw);aspect-ratio:1;display:flex;align-items:center;justify-content:center}
   .inplogo img{width:100%;height:100%;object-fit:contain}
-  .inplogo.mtp{border-radius:50%;background:var(--navy,#0a1733);box-shadow:0 0 0 2.5px var(--gold,#c9a24b);padding:8%}
+  .inplogo.dim{opacity:.5}                                                        /* clubs non sélectionnés estompés */
+  .inplogo.sel{opacity:1;z-index:2;filter:drop-shadow(0 1px 2px rgba(0,0,0,.35))} /* club analysé (menu déroulant) mis en avant */
 </style>
 </head>
 
@@ -374,16 +375,19 @@ const INP_SUBTITLE = {
 };
 
 /* rapproche les 18 clubs (logos via ligue2.json) de leurs valeurs (clé nom StatsBomb dans inposs.json) */
-function inpRows(kpi){
+function inpRows(kpi, selClub){
   if(!INP || !INP.teams || !LIGUE2 || !LIGUE2.teams) return null;
   const inpNames = Object.keys(INP.teams);
+  const l2names  = Object.keys(LIGUE2.teams);
+  const selName  = selClub ? (matchTeam(selClub, l2names) || selClub) : "Montpellier";
+  const selN     = norm(selName);
   const rows=[];
   for(const [name, t] of Object.entries(LIGUE2.teams)){
     const k = INP.teams[name] ? name : matchTeam(name, inpNames);
     if(!k || !INP.teams[k]) continue;
     const v = INP.teams[k][kpi];
     if(v==null || isNaN(v)) continue;
-    rows.push({ name, val:+v, logo:(t&&t.logo)||"", mtp:norm(name)===norm("Montpellier") });
+    rows.push({ name, val:+v, logo:(t&&t.logo)||"", sel:norm(name)===selN });
   }
   return rows.length ? rows : null;
 }
@@ -401,9 +405,9 @@ function inpFmt(v, suffix){
   return s + (suffix||"");
 }
 /* un panneau = SVG (axe, P50/P90, ticks) + overlay HTML des écussons (export OK via inline <img>) */
-function inpPanelHTML(kpi){
+function inpPanelHTML(kpi, selClub){
   const suffix = INP_SUFFIX[kpi]||"";
-  const rows = inpRows(kpi);
+  const rows = inpRows(kpi, selClub);
   const sub = INP_SUBTITLE[kpi]||"";
   if(!rows){
     return '<div class="inppanel"><div class="inptitle">'+kpi+'</div>'+
@@ -450,7 +454,7 @@ function inpPanelHTML(kpi){
   const ovl = placed.map(p=>{
     const left = (p.x/VBW*100) - CW/2;
     const top  = (cy/VBH*100) - (CW*(VBW/VBH))/2;
-    const cls = "inplogo"+(p.mtp?" mtp":"");
+    const cls = "inplogo"+(p.sel?" sel":" dim");
     const title = p.name+" · "+inpFmt(p.val,suffix);
     const img = p.logo ? '<img src="'+p.logo+'" alt="'+p.name+'" loading="eager">' : '';
     return '<span class="'+cls+'" style="left:'+left.toFixed(2)+'%;top:'+top.toFixed(2)+'%" title="'+title+'">'+img+'</span>';
@@ -466,8 +470,8 @@ function inpossBlockHTML(club){
     return '<div class="matchblock"><div class="mbtools"><span class="mlbl">IN-POSSESSION · '+club+'</span></div>'+
       '<div class="board inpboard"><div class="xgnote" style="padding:26px 16px">La diapo <b>IN-POSSESSION</b> (6 KPI, 18 clubs Ligue 2) s\'affichera ici dès que <code>inposs.json</code> sera présent à la racine du repo.<br>Ce fichier est généré et <b>auto-actualisé</b> par <code>build_inposs.py</code> via une GitHub Action.</div></div></div>';
   }
-  const sub = (INP.season||'2025-2026')+' · Ligue 2 — 18 clubs · MHSC surligné';
-  const panels = INP_KPIS.map(inpPanelHTML).join("");
+  const sub = (INP.season||'2025-2026')+' · Ligue 2 — 18 clubs · '+club+' en surbrillance';
+  const panels = INP_KPIS.map(k=>inpPanelHTML(k, club)).join("");
   return '<div class="matchblock"><div class="mbtools"><span class="mlbl">IN-POSSESSION · '+club+'</span><button class="pngbtn" data-board="board-inposs">⬇ PNG</button></div>'+
     '<div class="board board-snap inpboard" id="board-inposs">'+
       '<div class="inphead"><span class="ttl">IN-POSSESSION</span><span class="sub">'+sub+'</span></div>'+
