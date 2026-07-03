@@ -409,11 +409,10 @@ function inpPanelHTML(kpi){
     return '<div class="inppanel"><div class="inptitle">'+kpi+'</div>'+
       '<div style="font-size:12px;color:#8a93a6;padding:14px 2px">Données indisponibles.</div></div>';
   }
-  const VBW=520, VBH=150, Lx=30, Rx=30, plotW=VBW-Lx-Rx;
-  const by=104, rowStep=21, topY=20, axisBot=128;
-  const CW=5.0;                               // largeur écusson (% de la largeur du panneau)
-  const crestVB=CW/100*VBW, minGap=crestVB+2; // anti-chevauchement (unités viewBox)
-  const maxRow=Math.max(0, Math.floor((by-22)/rowStep));
+  const VBW=520, VBH=116, Lx=30, Rx=30, plotW=VBW-Lx-Rx;
+  const by=80, topY=16, axisBot=96;           // baseline UNIQUE (style strip plot StatsBomb)
+  const CW=4.5;                               // largeur écusson (% de la largeur du panneau)
+  const crestVB=CW/100*VBW, minGap=crestVB;   // écart mini = les écussons se touchent, restent lisibles
 
   const vals=rows.map(r=>r.val);
   let mn=Math.min(...vals), mx=Math.max(...vals);
@@ -438,19 +437,22 @@ function inpPanelHTML(kpi){
     g+='<text x="'+x.toFixed(1)+'" y="'+(topY-5)+'" text-anchor="middle" font-size="11" font-weight="700" fill="#9aa3b5" font-family="Segoe UI,Arial,sans-serif">'+lab+'</text>';
   });
 
-  // placement écussons + anti-chevauchement
-  const placed = rows.map(r=>({...r, x:xOf(r.val)})).sort((a,b)=>a.x-b.x);
-  const lastX=[];
+  // placement écussons — LIGNE UNIQUE sur la baseline (style StatsBomb IQ).
+  // Dodge horizontal minimal : logos opaques -> on les fait se toucher plutôt que se chevaucher.
+  const placed = rows.map(r=>({...r, x0:xOf(r.val), x:xOf(r.val)})).sort((a,b)=>a.x0-b.x0);
+  // passe vers la droite : garantit l'écart mini
+  let prev=-1e9; for(const p of placed){ p.x=Math.max(p.x0, prev+minGap); prev=p.x; }
+  // recadre si le paquet déborde (droite puis gauche)
+  const rEdge=VBW-Rx, lEdge=Lx;
+  if(placed.length){ const ov=placed[placed.length-1].x-rEdge; if(ov>0) for(const p of placed) p.x-=ov; }
+  if(placed.length && placed[0].x<lEdge){ const sh=lEdge-placed[0].x; for(const p of placed) p.x+=sh; }
+  const cy=by;                                 // tous les écussons alignés sur la même baseline
   const ovl = placed.map(p=>{
-    let row=0; while(row<lastX.length && (p.x-lastX[row])<minGap) row++;
-    if(row>maxRow) row=maxRow;
-    lastX[row]=p.x;
-    const cy = by - row*rowStep;
     const left = (p.x/VBW*100) - CW/2;
     const top  = (cy/VBH*100) - (CW*(VBW/VBH))/2;
     const cls = "inplogo"+(p.mtp?" mtp":"");
     const title = p.name+" · "+inpFmt(p.val,suffix);
-    const img = p.logo ? '<img src="'+p.logo+'" alt="'+p.name+'" loading="eager" crossorigin="anonymous">' : '';
+    const img = p.logo ? '<img src="'+p.logo+'" alt="'+p.name+'" loading="eager">' : '';
     return '<span class="'+cls+'" style="left:'+left.toFixed(2)+'%;top:'+top.toFixed(2)+'%" title="'+title+'">'+img+'</span>';
   }).join("");
 
