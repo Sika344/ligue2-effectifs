@@ -376,19 +376,30 @@ const INP_SUBTITLE = {
 };
 
 /* rapproche les 18 clubs (logos via ligue2.json) de leurs valeurs (clé nom StatsBomb dans inposs.json) */
+/* écussons de secours pour les équipes montées/descendues absentes de ligue2.json (clé = nom StatsBomb) */
+const INP_CRESTS = {
+  "Troyes":   "https://images.fotmob.com/image_resources/logo/teamlogo/10242.png", // ESTAC (montée)
+  "Le Mans":  "https://images.fotmob.com/image_resources/logo/teamlogo/8682.png",  // Le Mans (montée)
+  "Amiens":   "https://images.fotmob.com/image_resources/logo/teamlogo/8587.png",  // Amiens (descente)
+  "Bastia":   "https://images.fotmob.com/image_resources/logo/teamlogo/7794.png"   // Bastia (descente)
+};
+/* logo d'une équipe inposs : ligue2.json (nom LFP) sinon carte de secours */
+function inpLogo(inpName){
+  if(LIGUE2 && LIGUE2.teams){
+    if(LIGUE2.teams[inpName] && LIGUE2.teams[inpName].logo) return LIGUE2.teams[inpName].logo;
+    const k = matchTeam(inpName, Object.keys(LIGUE2.teams));
+    if(k && LIGUE2.teams[k] && LIGUE2.teams[k].logo) return LIGUE2.teams[k].logo;
+  }
+  return INP_CRESTS[inpName] || "";
+}
 function inpRows(kpi, selClub){
-  if(!INP || !INP.teams || !LIGUE2 || !LIGUE2.teams) return null;
-  const inpNames = Object.keys(INP.teams);
-  const l2names  = Object.keys(LIGUE2.teams);
-  const selName  = selClub ? (matchTeam(selClub, l2names) || selClub) : "Montpellier";
-  const selN     = norm(selName);
+  if(!INP || !INP.teams) return null;
+  const selN = norm(selClub || "Montpellier");
   const rows=[];
-  for(const [name, t] of Object.entries(LIGUE2.teams)){
-    const k = INP.teams[name] ? name : matchTeam(name, inpNames);
-    if(!k || !INP.teams[k]) continue;
-    const v = INP.teams[k][kpi];
+  for(const [name, t] of Object.entries(INP.teams)){
+    const v = t ? t[kpi] : null;
     if(v==null || isNaN(v)) continue;
-    rows.push({ name, val:+v, logo:(t&&t.logo)||"", sel:norm(name)===selN });
+    rows.push({ name, val:+v, logo:inpLogo(name), sel:norm(name)===selN });
   }
   return rows.length ? rows : null;
 }
