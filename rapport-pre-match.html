@@ -364,7 +364,7 @@ function chartsBlockHTML(club){
 }
 /* ===== Diapo IN-POSSESSION (strip plots équipe, depuis inposs.json) ===== */
 let INP = null;   // contenu de inposs.json (auto-actualisé par une GitHub Action)
-const INP_KPIS = ["NP xG","Directness","Box Penetration","Counter attacking shots","Cross to pass ratio – Box entry","Crosses into box"];
+const INP_KPIS = ["NP xG","Directness","Box Penetration","Counter attacking shots","Cross to pass ratio – Box entry","Crosses into box","Set pieces xG","Counter attacking shots conceded"];
 const INP_SUFFIX = {"Cross to pass ratio – Box entry":"%"};
 const INP_SUBTITLE = {
   "NP xG":"xG hors penalty · /match",
@@ -372,7 +372,9 @@ const INP_SUBTITLE = {
   "Box Penetration":"entrées surface (passes + conduites) · /match",
   "Counter attacking shots":"tirs sur contre · /match",
   "Cross to pass ratio – Box entry":"part des entrées surface par centre",
-  "Crosses into box":"centres dans la surface · /match"
+  "Crosses into box":"centres dans la surface · /match",
+  "Set pieces xG":"xG sur coups de pied arrêtés · /match",
+  "Counter attacking shots conceded":"tirs sur contre concédés · /match"
 };
 
 /* rapproche les 18 clubs (logos via ligue2.json) de leurs valeurs (clé nom StatsBomb dans inposs.json) */
