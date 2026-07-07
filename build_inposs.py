@@ -1,20 +1,24 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 """
-build_inposs.py — 6 KPI "IN-POSSESSION" par équipe, sur TOUTE la saison Ligue 2.
+build_inposs.py — 8 KPI "IN-POSSESSION" par équipe, sur TOUTE la saison Ligue 2.
 Écrit inposs.json à la racine du repo. La page rapport-pre-match.html le charge au
 runtime (comme ligue2.json / xg.json) ; une GitHub Action le régénère => auto-actualisé.
 
 Identifiants StatsBomb via variables d'environnement SB_USERNAME / SB_PASSWORD
 (statsbombpy les lit automatiquement). Ne jamais committer les identifiants.
 
-Les 6 KPI (définitions validées par Geoffrey) :
+Les 8 KPI (définitions validées par Geoffrey) :
   - NP xG ............................ somme des shot_statsbomb_xg hors penalty   [moyenne/match]
   - Directness ...................... VITESSE de progression vers le but (m/s)    [agrégat saison]
   - Box Penetration ................. entrées dans la surface (passes complétées + conduites)  [moyenne/match]
   - Counter attacking shots ......... tirs play_pattern == "From Counter"          [moyenne/match]
   - Cross to pass ratio – Box entry . part des entrées surface réalisées par centre (%)  [agrégat saison]
   - Crosses into box ................ centres (pass_cross) finissant dans la surface  [moyenne/match]
+  - Set pieces xG ................... somme des shot_statsbomb_xg hors penalty sur coups de pied
+                                      arrêtés (play_pattern in From Corner / From Free Kick /
+                                      From Throw In)  [moyenne/match]
+  - Counter attacking shots conceded  tirs From Counter CONCÉDÉS (tirs de l'adversaire)  [moyenne/match]
 
 Choix d'agrégation :
   - KPI de comptage (NP xG, Box Penetration, Counter shots, Crosses into box) -> MOYENNE PAR MATCH
@@ -51,7 +55,12 @@ KPIS = [
     "Counter attacking shots",
     "Cross to pass ratio – Box entry",
     "Crosses into box",
+    "Set pieces xG",
+    "Counter attacking shots conceded",
 ]
+
+# play_patterns considérés comme coup de pied arrêté (Set pieces xG)
+SET_PIECE_PATTERNS = ("From Corner", "From Free Kick", "From Throw In")
 
 # --- géométrie terrain (yards) ---
 GOAL = (120.0, 40.0)
@@ -98,6 +107,8 @@ def new_acc():
         "box_entries": 0,      # entrées surface (passes complétées + conduites)
         "cross_entries": 0,    # entrées surface réalisées par un centre
         "counter": 0,          # tirs From Counter
+        "counter_conceded": 0, # tirs From Counter concédés (adversaire)
+        "setpiece_xg": 0.0,    # somme xG hors penalty sur coups de pied arrêtés
         "crosses_box": 0,      # centres finissant dans la surface
         "prog_m": 0.0,         # progression nette vers le but (m), passes complétées + conduites
         "dur_s": 0.0,          # durée totale (s) de ces actions
@@ -112,7 +123,10 @@ def accumulate(df, a):
 
         if t == "Shot":
             if e.get("shot_type") != "Penalty":
-                a["np_xg"] += safe_float(e.get("shot_statsbomb_xg"))
+                xg = safe_float(e.get("shot_statsbomb_xg"))
+                a["np_xg"] += xg
+                if e.get("play_pattern") in SET_PIECE_PATTERNS:
+                    a["setpiece_xg"] += xg
             if e.get("play_pattern") == "From Counter":
                 a["counter"] += 1
             continue
@@ -202,6 +216,11 @@ def main():
             sub = ev[ev["team"] == team]
             if len(sub):
                 accumulate(sub, a)
+                # tirs From Counter concédés = tirs From Counter de l'adversaire sur ce match
+                opp_counter = ev[(ev["team"] != team)
+                                 & (ev["type"] == "Shot")
+                                 & (ev["play_pattern"] == "From Counter")]
+                a["counter_conceded"] += len(opp_counter)
 
         m = a["matches"]
         if m == 0:
@@ -215,12 +234,15 @@ def main():
             "Counter attacking shots": round(a["counter"] / m, 2),
             "Cross to pass ratio – Box entry": round(100.0 * a["cross_entries"] / box, 1) if box > 0 else 0.0,
             "Crosses into box": round(a["crosses_box"] / m, 2),
+            "Set pieces xG": round(a["setpiece_xg"] / m, 3),
+            "Counter attacking shots conceded": round(a["counter_conceded"] / m, 2),
             "matches": m,
         }
         t = teams_out[team]
         print(f"  ✓ {team}: {m} matchs | NPxG {t['NP xG']} | Direct {t['Directness']} "
               f"| BoxPen {t['Box Penetration']} | CounterSh {t['Counter attacking shots']} "
-              f"| Cross% {t['Cross to pass ratio – Box entry']} | CrossBox {t['Crosses into box']}")
+              f"| Cross% {t['Cross to pass ratio – Box entry']} | CrossBox {t['Crosses into box']} "
+              f"| SetPcXG {t['Set pieces xG']} | CounterShConc {t['Counter attacking shots conceded']}")
 
     out = {
         "competition": "Ligue 2",
