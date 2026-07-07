@@ -143,6 +143,7 @@
 
 <body>
   <div class="topbar">
+    <select id="seasonSelect"></select>
     <select id="clubSelect"></select>
     <span class="meta" id="metaInfo"></span>
     <div class="right">
@@ -299,7 +300,7 @@ function boardHTML(m, club, col){
         <div class="goals">${goalsBlock(H,A)}</div></div>
       <div class="panel right">${panel(A,'away')}</div></div>`;
 }
-function clubColor(club){ for(const m of (DATA.byClub[club]||[])){ if(m.home.name===club) return m.home.color; if(m.away.name===club) return m.away.color; } return "#0a1733"; }
+function clubColor(club){ for(const m of (SEASON_DATA.byClub[club]||[])){ if(m.home.name===club) return m.home.color; if(m.away.name===club) return m.away.color; } return "#0a1733"; }
 function slugify(s){ return (s||"").replace(/[^a-z0-9_]+/gi,"_"); }
 
 /* ===== xG / xG concédés par 15 min (saison, depuis xg.json) ===== */
@@ -480,7 +481,7 @@ function inpossBlockHTML(club){
 }
 
 function renderClub(club){
-  const ms=DATA.byClub[club]||[]; const col=clubColor(club); const blocks=[];
+  const ms=SEASON_DATA.byClub[club]||[]; const col=clubColor(club); const blocks=[];
   const jt = LIGUE2 && LIGUE2.teams ? matchTeam(club, Object.keys(LIGUE2.teams)) : null;
   if(jt){ blocks.push(`<div class="matchblock"><div class="mbtools"><span class="mlbl">Effectif · ${club}</span><button class="pngbtn" data-board="board-eff">⬇ PNG</button></div>
       <div class="effboard board-snap" id="board-eff">${effectifBoardHTML(LIGUE2.teams[jt])}</div></div>`); }
@@ -694,13 +695,57 @@ document.getElementById("dlk").onclick=async()=>{
   }catch(e){ alert("Export échoué : "+e);} finally{ b.textContent=o; b.disabled=false; }
 };
 
-function start(){
+/* ===== Sélecteur de saison ===== */
+const CURRENT_SEASON = "2025-2026";
+const SEASONS = ["2026-2027", "2025-2026", "2024-2025"];   // ordre d'affichage
+let SEASON_DATA = DATA;              // {clubs, byClub} de la saison active (2025-2026 = baké)
+let CUR = { ligue2:null, xg:null, inp:null };  // blobs saison courante, mis en cache au démarrage
+
+function fetchJSON(url){ return fetch(url+"?_="+Date.now()).then(r=>r.ok?r.json():null).catch(()=>null); }
+
+function noData(){
   const sel=document.getElementById("clubSelect");
-  sel.innerHTML=DATA.clubs.map(c=>`<option value="${c}">${c}</option>`).join("");
-  const def = DATA.clubs.includes("Montpellier") ? "Montpellier" : DATA.clubs[0];
+  sel.innerHTML='<option value="">—</option>'; sel.value="";
+  document.getElementById("stack").innerHTML='<div class="note" style="padding:26px 16px;text-align:center">Données à venir pour cette saison.</div>';
+  document.getElementById("buildNote").innerHTML="";
+}
+
+function buildClubSelect(){
+  const cl=(SEASON_DATA&&SEASON_DATA.clubs)||[];
+  if(!cl.length){ noData(); return; }
+  const sel=document.getElementById("clubSelect");
+  sel.innerHTML=cl.map(c=>`<option value="${c}">${c}</option>`).join("");
+  const def = cl.includes("Montpellier") ? "Montpellier" : cl[0];
   sel.value=def; sel.onchange=()=>renderClub(sel.value);
   document.getElementById("buildNote").innerHTML="Sélectionne un club : son <b>effectif</b> (photos LFP, comme l'onglet Effectif) puis ses <b>5 derniers matchs</b> s'affichent à la suite. Export PNG par diapo, ou Keynote (.pptx) pour tout.";
   renderClub(def);
+}
+
+async function loadSeason(season){
+  if(season===CURRENT_SEASON){
+    SEASON_DATA = DATA;
+    LIGUE2 = CUR.ligue2; applyPlayerOverrides(LIGUE2); XG = CUR.xg; INP = CUR.inp;
+    buildClubSelect(); return;
+  }
+  // saisons non-courantes : JSON suffixés (fallback gracieux si absents)
+  document.getElementById("stack").innerHTML='<div class="note" style="padding:26px 16px;text-align:center">Chargement…</div>';
+  const [m,l,x,p] = await Promise.all([
+    fetchJSON("rapport_"+season+".json"),   // {clubs, byClub}
+    fetchJSON("ligue2_"+season+".json"),
+    fetchJSON("xg_"+season+".json"),
+    fetchJSON("inposs_"+season+".json")
+  ]);
+  if(!m || !m.byClub){ SEASON_DATA={clubs:[],byClub:{}}; LIGUE2=null; XG=null; INP=null; noData(); return; }
+  SEASON_DATA=m; LIGUE2=l; applyPlayerOverrides(LIGUE2); XG=x; INP=p;
+  buildClubSelect();
+}
+
+function start(){
+  const ss=document.getElementById("seasonSelect");
+  ss.innerHTML=SEASONS.map(s=>`<option value="${s}">Saison ${s}</option>`).join("");
+  ss.value=CURRENT_SEASON;
+  ss.onchange=()=>loadSeason(ss.value);
+  loadSeason(CURRENT_SEASON);
 }
 /* ---- Override données joueurs : corrige n°/nom, masque les partis (clé = sbId, cf. CLAUDE.md) ---- */
 const PLAYER_OVERRIDES = {
@@ -729,7 +774,7 @@ Promise.all([
   fetch("ligue2.json?_="+Date.now()).then(r=>r.ok?r.json():null).catch(()=>null),
   fetch("xg.json?_="+Date.now()).then(r=>r.ok?r.json():null).catch(()=>null),
   fetch("inposs.json?_="+Date.now()).then(r=>r.ok?r.json():null).catch(()=>null)
-]).then(([j,x,p])=>{ LIGUE2=j; applyPlayerOverrides(LIGUE2); XG=x; INP=p; start(); }).catch(()=>start());
+]).then(([j,x,p])=>{ CUR={ligue2:j,xg:x,inp:p}; LIGUE2=j; applyPlayerOverrides(LIGUE2); XG=x; INP=p; SEASON_DATA=DATA; start(); }).catch(()=>{ SEASON_DATA=DATA; start(); });
 </script>
 </body>
 </html>
