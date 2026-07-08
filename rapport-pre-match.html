@@ -394,11 +394,12 @@ function inpLogo(inpName){
   }
   return INP_CRESTS[inpName] || "";
 }
-function inpRows(kpi, selClub){
-  if(!INP || !INP.teams) return null;
+function inpRows(kpi, selClub, SRC){
+  SRC = SRC || INP;
+  if(!SRC || !SRC.teams) return null;
   const selN = norm(selClub || "Montpellier");
   const rows=[];
-  for(const [name, t] of Object.entries(INP.teams)){
+  for(const [name, t] of Object.entries(SRC.teams)){
     const v = t ? t[kpi] : null;
     if(v==null || isNaN(v)) continue;
     rows.push({ name, val:+v, logo:inpLogo(name), sel:norm(name)===selN });
@@ -419,10 +420,11 @@ function inpFmt(v, suffix){
   return s + (suffix||"");
 }
 /* un panneau = SVG (axe, P50/P90, ticks) + overlay HTML des écussons (export OK via inline <img>) */
-function inpPanelHTML(kpi, selClub){
-  const suffix = INP_SUFFIX[kpi]||"";
-  const rows = inpRows(kpi, selClub);
-  const sub = INP_SUBTITLE[kpi]||"";
+function inpPanelHTML(kpi, selClub, SRC, SUBS, SUFS){
+  SRC = SRC || INP; SUBS = SUBS || INP_SUBTITLE; SUFS = SUFS || INP_SUFFIX;
+  const suffix = SUFS[kpi]||"";
+  const rows = inpRows(kpi, selClub, SRC);
+  const sub = SUBS[kpi]||"";
   if(!rows){
     return '<div class="inppanel"><div class="inptitle">'+kpi+'</div>'+
       '<div style="font-size:12px;color:#8a93a6;padding:14px 2px">Données indisponibles.</div></div>';
@@ -482,13 +484,39 @@ function inpPanelHTML(kpi, selClub){
 function inpossBlockHTML(club){
   if(!INP || !INP.teams){
     return '<div class="matchblock"><div class="mbtools"><span class="mlbl">IN-POSSESSION · '+club+'</span></div>'+
-      '<div class="board inpboard"><div class="xgnote" style="padding:26px 16px">La diapo <b>IN-POSSESSION</b> (6 KPI, 18 clubs Ligue 2) s\'affichera ici dès que <code>inposs.json</code> sera présent à la racine du repo.<br>Ce fichier est généré et <b>auto-actualisé</b> par <code>build_inposs.py</code> via une GitHub Action.</div></div></div>';
+      '<div class="board inpboard"><div class="xgnote" style="padding:26px 16px">La diapo <b>IN-POSSESSION</b> (8 KPI, 18 clubs Ligue 2) s\'affichera ici dès que <code>inposs.json</code> sera présent à la racine du repo.<br>Ce fichier est généré et <b>auto-actualisé</b> par <code>build_inposs.py</code> via une GitHub Action.</div></div></div>';
   }
   const sub = (INP.season||'2025-2026')+' · Ligue 2 — 18 clubs · '+club+' en surbrillance';
   const panels = INP_KPIS.map(k=>inpPanelHTML(k, club)).join("");
   return '<div class="matchblock"><div class="mbtools"><span class="mlbl">IN-POSSESSION · '+club+'</span><button class="pngbtn" data-board="board-inposs">⬇ PNG</button></div>'+
     '<div class="board board-snap inpboard" id="board-inposs">'+
       '<div class="inphead"><span class="ttl">IN-POSSESSION</span><span class="sub">'+sub+'</span></div>'+
+      '<div class="inpgrid">'+panels+'</div>'+
+    '</div></div>';
+}
+
+/* ===== Diapo OUT OF POSSESSION (mêmes strip plots, depuis outposs.json) ===== */
+let OUTP = null;   // contenu de outposs.json (auto-actualisé par une GitHub Action)
+const OUT_KPIS = ["Pass per defensive action","High press shots","Counterpressures","Goals conceded","Non penalty xG conceded","Box cross conceded"];
+const OUT_SUFFIX = {};
+const OUT_SUBTITLE = {
+  "Pass per defensive action":"passes adverses par action défensive (PPDA) · bas = pressing agressif",
+  "High press shots":"tirs après récupération haute (≤8 s, dernier tiers) · /match",
+  "Counterpressures":"pressings dans les 5 s suivant une perte de balle · /match",
+  "Goals conceded":"buts encaissés · /match",
+  "Non penalty xG conceded":"xG concédés hors penalty · /match",
+  "Box cross conceded":"centres adverses dans la surface · /match"
+};
+function outpossBlockHTML(club){
+  if(!OUTP || !OUTP.teams){
+    return '<div class="matchblock"><div class="mbtools"><span class="mlbl">OUT OF POSSESSION · '+club+'</span></div>'+
+      '<div class="board inpboard"><div class="xgnote" style="padding:26px 16px">La diapo <b>OUT OF POSSESSION</b> (6 KPI défensifs, 18 clubs Ligue 2) s\'affichera ici dès que <code>outposs.json</code> sera présent à la racine du repo.<br>Ce fichier est généré et <b>auto-actualisé</b> par <code>build_outposs.py</code> via une GitHub Action.</div></div></div>';
+  }
+  const sub = (OUTP.season||'2025-2026')+' · Ligue 2 — 18 clubs · '+club+' en surbrillance';
+  const panels = OUT_KPIS.map(k=>inpPanelHTML(k, club, OUTP, OUT_SUBTITLE, OUT_SUFFIX)).join("");
+  return '<div class="matchblock"><div class="mbtools"><span class="mlbl">OUT OF POSSESSION · '+club+'</span><button class="pngbtn" data-board="board-outposs">⬇ PNG</button></div>'+
+    '<div class="board board-snap inpboard" id="board-outposs">'+
+      '<div class="inphead"><span class="ttl">OUT OF POSSESSION</span><span class="sub">'+sub+'</span></div>'+
       '<div class="inpgrid">'+panels+'</div>'+
     '</div></div>';
 }
@@ -502,6 +530,7 @@ function renderClub(club){
       <div class="board board-snap" id="board-${i}">${boardHTML(m, club, col)}</div></div>`); });
   blocks.push(chartsBlockHTML(club));
   blocks.push(inpossBlockHTML(club));
+  blocks.push(outpossBlockHTML(club));
   document.getElementById("stack").innerHTML = blocks.join("");
   if(jt) wirePhotos(document.getElementById("board-eff"));
   document.getElementById("metaInfo").textContent = `${club} — effectif + ${ms.length} derniers matchs`;
@@ -638,7 +667,7 @@ function groupPlayersInSlideXml(xml){
 async function pngBoard(boardId, club, btn){
   const o=btn.textContent; btn.textContent="…"; btn.disabled=true;
   try{ const c=await snap(document.getElementById(boardId));
-    const tag = boardId==="board-eff" ? "effectif" : boardId==="board-xg" ? "xg_15min" : boardId==="board-inposs" ? "in_possession" : ("match_"+(boardId.split("-")[1]*1+1));
+    const tag = boardId==="board-eff" ? "effectif" : boardId==="board-xg" ? "xg_15min" : boardId==="board-inposs" ? "in_possession" : boardId==="board-outposs" ? "out_of_possession" : ("match_"+(boardId.split("-")[1]*1+1));
     const a=document.createElement("a"); a.download=`${slugify(club)}_${tag}.png`; a.href=c.toDataURL("image/png"); a.click();
   }catch(e){ alert("Export PNG échoué : "+e);} finally{ btn.textContent=o; btn.disabled=false; }
 }
@@ -737,19 +766,20 @@ function buildClubSelect(){
 async function loadSeason(season){
   if(season===CURRENT_SEASON){
     SEASON_DATA = DATA;
-    LIGUE2 = CUR.ligue2; applyPlayerOverrides(LIGUE2); XG = CUR.xg; INP = CUR.inp;
+    LIGUE2 = CUR.ligue2; applyPlayerOverrides(LIGUE2); XG = CUR.xg; INP = CUR.inp; OUTP = CUR.outp;
     buildClubSelect(); return;
   }
   // saisons non-courantes : JSON suffixés (fallback gracieux si absents)
   document.getElementById("stack").innerHTML='<div class="note" style="padding:26px 16px;text-align:center">Chargement…</div>';
-  const [m,l,x,p] = await Promise.all([
+  const [m,l,x,p,o] = await Promise.all([
     fetchJSON("rapport_"+season+".json"),   // {clubs, byClub}
     fetchJSON("ligue2_"+season+".json"),
     fetchJSON("xg_"+season+".json"),
-    fetchJSON("inposs_"+season+".json")
+    fetchJSON("inposs_"+season+".json"),
+    fetchJSON("outposs_"+season+".json")
   ]);
-  if(!m || !m.byClub){ SEASON_DATA={clubs:[],byClub:{}}; LIGUE2=null; XG=null; INP=null; noData(); return; }
-  SEASON_DATA=m; LIGUE2=l; applyPlayerOverrides(LIGUE2); XG=x; INP=p;
+  if(!m || !m.byClub){ SEASON_DATA={clubs:[],byClub:{}}; LIGUE2=null; XG=null; INP=null; OUTP=null; noData(); return; }
+  SEASON_DATA=m; LIGUE2=l; applyPlayerOverrides(LIGUE2); XG=x; INP=p; OUTP=o;
   buildClubSelect();
 }
 
@@ -786,8 +816,9 @@ function applyPlayerOverrides(data){
 Promise.all([
   fetch("ligue2.json?_="+Date.now()).then(r=>r.ok?r.json():null).catch(()=>null),
   fetch("xg.json?_="+Date.now()).then(r=>r.ok?r.json():null).catch(()=>null),
-  fetch("inposs.json?_="+Date.now()).then(r=>r.ok?r.json():null).catch(()=>null)
-]).then(([j,x,p])=>{ CUR={ligue2:j,xg:x,inp:p}; LIGUE2=j; applyPlayerOverrides(LIGUE2); XG=x; INP=p; SEASON_DATA=DATA; start(); }).catch(()=>{ SEASON_DATA=DATA; start(); });
+  fetch("inposs.json?_="+Date.now()).then(r=>r.ok?r.json():null).catch(()=>null),
+  fetch("outposs.json?_="+Date.now()).then(r=>r.ok?r.json():null).catch(()=>null)
+]).then(([j,x,p,o])=>{ CUR={ligue2:j,xg:x,inp:p,outp:o}; LIGUE2=j; applyPlayerOverrides(LIGUE2); XG=x; INP=p; OUTP=o; SEASON_DATA=DATA; start(); }).catch(()=>{ SEASON_DATA=DATA; start(); });
 </script>
 </body>
 </html>

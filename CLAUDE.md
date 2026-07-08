@@ -1,7 +1,7 @@
 # CLAUDE.md — Projet `ligue2-effectifs`
 
 > Mémoire de contexte pour reprendre le projet sans repartir de zéro.
-> **Dernière mise à jour :** session du 8 juillet 2026 (2).
+> **Dernière mise à jour :** session du 8 juillet 2026 (3).
 
 ---
 
@@ -21,7 +21,7 @@ Site public de stats football (Ligue 2) hébergé sur **GitHub Pages**.
 | `compo.html` | COMPO (compo avec stats buts/passes par joueur) |
 | `compo-sans-stats.html` | COMPO sans stats (`const stats=""`) |
 | `analytics.html` | Analytics 360 |
-| `rapport-pre-match.html` | Rapport pré-match interactif (multi-slides) |
+| `rapport-pre-match.html` | Rapport pré-match interactif (Effectif, 5 matchs, xG 15 min, IN-POSSESSION, OUT OF POSSESSION) |
 
 ---
 
@@ -60,6 +60,7 @@ Claude **n'a pas** d'accès en écriture GitHub. Le cycle est :
 | `ligue2.json` | (Actions LFP, photos + logos joueurs/clubs) | — | — |
 | `xg.json` | `build_xg.py` | `xg.yml` | 04:30 UTC |
 | `inposs.json` | `build_inposs.py` | `inposs.yml` | 04:45 UTC |
+| `outposs.json` | `build_outposs.py` | `outposs.yml` | 05:00 UTC |
 
 ⚠️ **Piège YAML :** le bloc de triggers doit être indenté de 2 espaces sous `on:`, sinon erreur *"No event triggers defined in `on:`"*. Placer les `.yml` dans `.github/workflows/` (pas à la racine).
 
@@ -256,3 +257,36 @@ Rapprochement des noms en **3 passes conservatrices** (`fullname` uniquement, ja
 **Résultat (8 juil. 2026) :** 360/517 appariés (P1 352 · P2 5 · P3 3), **482 buts / 347 passes** injectés. Les 157 restants (recrues, jeunes, autres divisions) valent bien `0/0`. MHSC : Mendy 12b/5pd, Savanier 5b/3pd, Pays 4b/1pd, Everson Junior 1b/1pd.
 
 ⚠️ `ligue2.json` contient l'effectif **2026-27** (Dijon/Metz/Nantes/Sochaux) alors que la clé `season` dit `2025/2026` et que `xg.json`/`inposs.json` sont bien en 25-26. Les stats injectées sont celles de la **L2 25-26** (`statsSeason`). C'est l'origine du décalage de rosters documenté en §3.
+
+---
+
+## 14. Diapo OUT OF POSSESSION (6 KPI défensifs)
+
+Placée **juste sous IN-POSSESSION** dans `renderClub()`. Même visuel : bandeau navy/or, grille 2 colonnes, strip plots avec P50/P90, MHSC en `.sel`, les autres en `.dim`.
+
+**Pas de duplication du moteur de rendu.** `inpRows(kpi, selClub, SRC)` et `inpPanelHTML(kpi, selClub, SRC, SUBS, SUFS)` acceptent désormais une source ; les défauts (`INP`, `INP_SUBTITLE`, `INP_SUFFIX`) préservent le comportement de la diapo IN-POSSESSION. `outpossBlockHTML()` passe `OUTP`, `OUT_SUBTITLE`, `OUT_SUFFIX`. Le board est `#board-outposs` (classes `board board-snap inpboard`) → export Keynote via le chemin `flat` de `snapLayeredBoard`, comme inposs. Nom du PNG : `<club>_out_of_possession.png`.
+
+### Les 6 KPI (`OUT_KPIS` HTML = `KPIS` Python)
+| KPI | Définition | Agrégation |
+|---|---|---|
+| Pass per defensive action | passes adverses / actions défensives, dans les 60% hauts (PPDA). **Bas = pressing agressif** | agrégat saison |
+| High press shots | tir précédé d'une action défensive de l'équipe dans le dernier tiers (`x ≥ 80`) dans les **8 s** | moyenne/match |
+| Counterpressures | `type == "Pressure"` **et** `counterpress == True` | moyenne/match |
+| Goals conceded | score adverse du match (`home_score`/`away_score`, tirs au but exclus) | moyenne/match |
+| Non penalty xG conceded | somme `shot_statsbomb_xg` adverses hors penalty | moyenne/match |
+| Box cross conceded | centres adverses (`pass_cross`) finissant dans la surface | moyenne/match |
+
+### Constantes ajustables (`build_outposs.py`)
+- `PPDA_X_MIN = 48` → nos actions défensives dans nos 60% offensifs. Le miroir `PPDA_OPP_X_MAX = 72` borne les passes adverses dans **leurs** 60% défensifs.
+  ⚠️ Chez StatsBomb, la `location` d'un événement est **toujours** dans le repère de l'équipe qui le réalise, laquelle attaque vers `x = 120`. D'où le miroir `120 - 48`.
+- `DEF_ACTION_TYPES = Interception, Foul Committed, Dribbled Past` + `Duel` avec `duel_type == "Tackle"` (le « challenge » du PPDA classique). Les `Pressure` sont volontairement **exclues** du dénominateur PPDA.
+- `HIGH_PRESS_X_MIN = 80`, `HIGH_PRESS_WINDOW = 8.0` s, déclencheurs `Pressure / Interception / Duel / Ball Recovery / Foul Won`.
+- `period == 5` (tirs au but) exclu partout ; penalties exclus des tirs et des xG.
+
+### Vérifications faites (open data StatsBomb, mêmes colonnes que l'API payante)
+- `xG concédés` par une équipe == `xG hors penalty` créés par l'adversaire ✔
+- Σ `Counterpressures` des 2 équipes == nombre de `Pressure` avec `counterpress` du match ✔
+- Σ `Goals conceded` des 2 équipes == score total ✔
+- `counterpress` est un flag présent sur plusieurs types (`Pressure`, `Duel`, `Interception`…). On ne compte que les `Pressure`, conformément à la définition StatsBomb.
+
+**Point de reprise :** déposer `build_outposs.py` + `.github/workflows/outposs.yml`, puis Actions → **Build out-of-possession KPIs** → Run workflow. Tant qu'`outposs.json` est absent, la diapo affiche un message de repli (pas de crash).
