@@ -1,21 +1,30 @@
-
 # .github/workflows/inposs.yml
-# Régénère inposs.json (6 KPI in-possession, saison complète) et le committe s'il a changé.
-# Pré-requis : les secrets de dépôt SB_USERNAME et SB_PASSWORD (déjà en place pour xg.yml).
+# Régénère inposs.json (8 KPI in-possession équipe, saison complète) et le committe s'il a changé.
+# Pré-requis : secrets de dépôt SB_USERNAME et SB_PASSWORD
+#   (Settings → Secrets and variables → Actions → New repository secret).
 # Placer ce fichier dans .github/workflows/inposs.yml et build_inposs.py à la racine du repo.
+#
+# Saison : le cron traite toujours la saison courante (-> inposs.json).
+# Pour une saison passée : Actions → Build in-possession KPIs → Run workflow → saison = 2024-2025
+#   -> écrit inposs_2024-2025.json (nom attendu par le sélecteur de saison).
 
 name: Build in-possession KPIs
 
 on:
   schedule:
-    - cron: "45 4 * * *"      # tous les jours à 04:45 UTC (décalé de xg.yml à 04:30)
-  workflow_dispatch: {}        # déclenchement manuel possible
+    - cron: "45 4 * * *"      # tous les jours à 04:45 UTC (saison courante)
+  workflow_dispatch:
+    inputs:
+      season:
+        description: "Saison au format 2024-2025 (vide = saison courante)"
+        required: false
+        default: ""
 
 permissions:
   contents: write
 
 concurrency:
-  group: build-inposs
+  group: build-inposs-${{ inputs.season || 'current' }}
   cancel-in-progress: true
 
 jobs:
@@ -31,20 +40,23 @@ jobs:
       - name: Install deps
         run: pip install statsbombpy pandas
 
-      - name: Generate inposs.json
+      - name: Generate inposs JSON
         env:
           SB_USERNAME: ${{ secrets.SB_USERNAME }}
           SB_PASSWORD: ${{ secrets.SB_PASSWORD }}
+          SEASON: ${{ inputs.season }}
         run: python build_inposs.py
 
       - name: Commit if changed
+        env:
+          SEASON: ${{ inputs.season }}
         run: |
-          if [ -n "$(git status --porcelain inposs.json)" ]; then
+          if [ -n "$(git status --porcelain -- 'inposs*.json')" ]; then
             git config user.name "github-actions[bot]"
             git config user.email "github-actions[bot]@users.noreply.github.com"
-            git add inposs.json
-            git commit -m "chore: maj inposs.json (KPI in-possession)"
+            git add inposs*.json
+            git commit -m "chore: maj inposs (8 KPI in-possession) ${SEASON:-saison courante}"
             git push
           else
-            echo "inposs.json inchangé."
+            echo "Aucun inposs*.json modifié."
           fi

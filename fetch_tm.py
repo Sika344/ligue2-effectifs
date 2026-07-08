@@ -4,17 +4,22 @@
 Scraper Transfermarkt -> ligue2.json (à lancer EN LOCAL sur ton Mac, IP résidentielle).
 Dépendances :  pip install requests beautifulsoup4 lxml
 Usage       :  python fetch_tm.py            # saison 2025 (2025-26)
-               python fetch_tm.py 2024        # autre saison
+               python fetch_tm.py 2024        # autre saison -> ligue2_2024-2025.json
                python fetch_tm.py 2025 --push # scrape + git commit/push automatique
 
-Sortie : ligue2.json (format attendu par index.html).
+Sortie : ligue2.json pour la saison courante (CURRENT_TM_SEASON), sinon
+         ligue2_<saison>.json (ex. `python fetch_tm.py 2024` -> ligue2_2024-2025.json),
+         nom attendu par le sélecteur de saison de rapport-pre-match.html.
 Si une page se parse mal, le HTML brut est sauvé dans _tm_sample.html : envoie-le moi.
 """
 import sys, re, json, time, subprocess, unicodedata
 import requests
 from bs4 import BeautifulSoup
 
-SEASON = int(sys.argv[1]) if len(sys.argv) > 1 and sys.argv[1].isdigit() else 2025
+CURRENT_TM_SEASON = 2025       # saison courante -> sortie NON suffixée (ligue2.json)
+SEASON = int(sys.argv[1]) if len(sys.argv) > 1 and sys.argv[1].isdigit() else CURRENT_TM_SEASON
+SEASON_LABEL = f"{SEASON}-{SEASON+1}"
+OUT = "ligue2.json" if SEASON == CURRENT_TM_SEASON else f"ligue2_{SEASON_LABEL}.json"
 PUSH   = "--push" in sys.argv
 BASE   = "https://www.transfermarkt.fr"
 SLEEP  = 4                     # politesse entre clubs
@@ -230,16 +235,16 @@ def main():
         print(f"  [{i}/{len(clubs)}] {c['name']}: {len(squad)} joueurs, {nb} buts")
         time.sleep(SLEEP)
 
-    payload = {"season": f"{SEASON}-{SEASON+1}", "updated": time.strftime("%Y-%m-%d %H:%M"), "teams": teams}
-    with open("ligue2.json", "w", encoding="utf-8") as f:
+    payload = {"season": SEASON_LABEL, "updated": time.strftime("%Y-%m-%d %H:%M"), "teams": teams}
+    with open(OUT, "w", encoding="utf-8") as f:
         json.dump(payload, f, ensure_ascii=False, indent=2)
     total = sum(len(v["squad"]) for v in teams.values())
-    print(f"\n✅ ligue2.json écrit — {len(teams)} clubs / {total} joueurs")
+    print(f"\n✅ {OUT} écrit — {len(teams)} clubs / {total} joueurs")
 
     if PUSH:
         print("→ commit & push…")
-        subprocess.run(["git", "add", "ligue2.json"], check=False)
-        subprocess.run(["git", "commit", "-m", f"MAJ effectifs Ligue 2 (TM) {time.strftime('%F')}"], check=False)
+        subprocess.run(["git", "add", OUT], check=False)
+        subprocess.run(["git", "commit", "-m", f"MAJ effectifs Ligue 2 (TM) {SEASON_LABEL} {time.strftime('%F')}"], check=False)
         subprocess.run(["git", "push"], check=False)
 
 if __name__ == "__main__":

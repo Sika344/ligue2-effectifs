@@ -30,9 +30,17 @@ Géométrie StatsBomb : terrain 120 x 80 (yards), l'équipe en possession attaqu
 Surface adverse : x in [102, 120], y in [18, 62]. Distances converties en mètres (×0.9144) pour
 que Directness se lise comme une vraie vitesse en m/s.
 
+SAISON (paramétrable) :
+  - défaut = saison courante (CURRENT_SEASON) -> écrit `inposs.json`
+  - autre saison -> écrit `inposs_<saison>.json` (ex. inposs_2024-2025.json)
+  - la saison se passe en argv[1] OU via la variable d'environnement SEASON, au format
+    "2024-2025". Le season_id StatsBomb est résolu automatiquement via sb.competitions()
+    s'il n'est pas déjà connu dans SEASON_IDS.
+
 USAGE LOCAL (génère inposs.json tout de suite, sans attendre l'Action) :
     SB_USERNAME='…' SB_PASSWORD='…' python build_inposs.py
-Puis déposer inposs.json à la racine du repo (github.com/Sika344/ligue2-effectifs/upload/main).
+    SB_USERNAME='…' SB_PASSWORD='…' python build_inposs.py 2024-2025
+Puis déposer le JSON à la racine du repo (github.com/Sika344/ligue2-effectifs/upload/main).
 """
 
 import os
@@ -44,9 +52,11 @@ import datetime
 import pandas as pd
 from statsbombpy import sb
 
-COMPETITION_ID = 8        # Ligue 2
-SEASON_ID = 318           # 2025/2026
-SEASON_LABEL = "2025-2026"
+COMPETITION_ID = 8              # Ligue 2
+CURRENT_SEASON = "2025-2026"    # saison courante -> sortie NON suffixée (inposs.json)
+SEASON_IDS = {                  # ids connus (évite un appel réseau ; complété à la demande)
+    "2025-2026": 318,
+}
 
 KPIS = [
     "NP xG",
@@ -177,13 +187,43 @@ NEEDED_COLS = [
 ]
 
 
+def lookup_season_id(label):
+    """Retrouve le season_id StatsBomb depuis le libellé ("2024-2025" -> "2024/2025")."""
+    want = label.replace("-", "/")
+    comps = sb.competitions()
+    comps = comps[comps["competition_id"] == COMPETITION_ID]
+    hit = comps[comps["season_name"] == want]
+    if len(hit) == 0:
+        avail = ", ".join(f"{r.season_name}={r.season_id}" for r in comps.itertuples())
+        print(f"ERREUR : saison '{label}' introuvable pour competition_id={COMPETITION_ID}.\n"
+              f"Saisons disponibles : {avail or '(aucune)'}", file=sys.stderr)
+        sys.exit(1)
+    sid = int(hit.iloc[0]["season_id"])
+    print(f"season_id résolu via l'API : {label} -> {sid}")
+    return sid
+
+
+def resolve_season():
+    """Saison cible = argv[1], sinon $SEASON, sinon CURRENT_SEASON.
+    Renvoie (label, season_id, chemin_de_sortie)."""
+    label = (sys.argv[1] if len(sys.argv) > 1 else os.environ.get("SEASON", "")).strip()
+    if not label:
+        label = CURRENT_SEASON
+    sid = SEASON_IDS.get(label) or lookup_season_id(label)
+    out = "inposs.json" if label == CURRENT_SEASON else f"inposs_{label}.json"
+    return label, sid, out
+
+
 def main():
     if not (os.environ.get("SB_USERNAME") and os.environ.get("SB_PASSWORD")):
         print("ERREUR : SB_USERNAME / SB_PASSWORD manquants dans l'environnement.", file=sys.stderr)
         sys.exit(1)
 
-    print(f"Récupération des matchs (competition_id={COMPETITION_ID}, season_id={SEASON_ID})…")
-    matches = sb.matches(competition_id=COMPETITION_ID, season_id=SEASON_ID)
+    season_label, season_id, out_path = resolve_season()
+    print(f"Saison {season_label} -> {out_path}")
+
+    print(f"Récupération des matchs (competition_id={COMPETITION_ID}, season_id={season_id})…")
+    matches = sb.matches(competition_id=COMPETITION_ID, season_id=season_id)
 
     # match_ids par équipe (noms StatsBomb)
     per_team = {}
@@ -246,15 +286,15 @@ def main():
 
     out = {
         "competition": "Ligue 2",
-        "season": SEASON_LABEL,
-        "season_id": SEASON_ID,
+        "season": season_label,
+        "season_id": season_id,
         "updated": datetime.datetime.utcnow().replace(microsecond=0).isoformat() + "Z",
         "kpis": KPIS,
         "teams": teams_out,
     }
-    with open("inposs.json", "w", encoding="utf-8") as f:
+    with open(out_path, "w", encoding="utf-8") as f:
         json.dump(out, f, ensure_ascii=False, separators=(",", ":"))
-    print(f"\ninposs.json écrit : {len(teams_out)} équipes.")
+    print(f"\n{out_path} écrit : {len(teams_out)} équipes.")
 
 
 if __name__ == "__main__":

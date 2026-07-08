@@ -3,19 +3,28 @@
 # Pré-requis : ajouter les secrets de dépôt SB_USERNAME et SB_PASSWORD
 #   (Settings → Secrets and variables → Actions → New repository secret).
 # Placer ce fichier dans .github/workflows/xg.yml et build_xg.py à la racine du repo.
+#
+# Saison : le cron traite toujours la saison courante (-> xg.json).
+# Pour une saison passée : Actions → Build xG (15 min) → Run workflow → saison = 2024-2025
+#   -> écrit xg_2024-2025.json (nom attendu par le sélecteur de saison).
 
 name: Build xG (15 min)
 
 on:
   schedule:
-    - cron: "30 4 * * *"      # tous les jours à 04:30 UTC
-  workflow_dispatch: {}        # déclenchement manuel possible
+    - cron: "30 4 * * *"      # tous les jours à 04:30 UTC (saison courante)
+  workflow_dispatch:
+    inputs:
+      season:
+        description: "Saison au format 2024-2025 (vide = saison courante)"
+        required: false
+        default: ""
 
 permissions:
   contents: write
 
 concurrency:
-  group: build-xg
+  group: build-xg-${{ inputs.season || 'current' }}
   cancel-in-progress: true
 
 jobs:
@@ -31,20 +40,23 @@ jobs:
       - name: Install deps
         run: pip install statsbombpy pandas
 
-      - name: Generate xg.json
+      - name: Generate xG JSON
         env:
           SB_USERNAME: ${{ secrets.SB_USERNAME }}
           SB_PASSWORD: ${{ secrets.SB_PASSWORD }}
+          SEASON: ${{ inputs.season }}
         run: python build_xg.py
 
       - name: Commit if changed
+        env:
+          SEASON: ${{ inputs.season }}
         run: |
-          if [ -n "$(git status --porcelain xg.json)" ]; then
+          if [ -n "$(git status --porcelain -- 'xg*.json')" ]; then
             git config user.name "github-actions[bot]"
             git config user.email "github-actions[bot]@users.noreply.github.com"
-            git add xg.json
-            git commit -m "chore: maj xg.json (xG par 15 min)"
+            git add xg*.json
+            git commit -m "chore: maj xg (xG par 15 min) ${SEASON:-saison courante}"
             git push
           else
-            echo "xg.json inchangé."
+            echo "Aucun xg*.json modifié."
           fi
