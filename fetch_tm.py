@@ -6,6 +6,8 @@ Dépendances :  pip install requests beautifulsoup4 lxml
 Usage       :  python fetch_tm.py            # saison 2025 (2025-26)
                python fetch_tm.py 2024        # autre saison -> ligue2_2024-2025.json
                python fetch_tm.py 2025 --push # scrape + git commit/push automatique
+               python fetch_tm.py 2026 --stats-season 2025   # effectif 26-27, stats L2 25-26
+               python fetch_tm.py 2025 --comp ""             # stats toutes compétitions
 
 Sortie : ligue2.json pour la saison courante (CURRENT_TM_SEASON), sinon
          ligue2_<saison>.json (ex. `python fetch_tm.py 2024` -> ligue2_2024-2025.json),
@@ -21,6 +23,14 @@ SEASON = int(sys.argv[1]) if len(sys.argv) > 1 and sys.argv[1].isdigit() else CU
 SEASON_LABEL = f"{SEASON}-{SEASON+1}"
 OUT = "ligue2.json" if SEASON == CURRENT_TM_SEASON else f"ligue2_{SEASON_LABEL}.json"
 PUSH   = "--push" in sys.argv
+
+# Saison des STATS (buts / passes déc. / matchs). Par défaut = saison de l'effectif.
+# `--stats-season 2025` -> effectif de SEASON mais stats de 2025-26 (utile en intersaison).
+def _opt(flag, default=None):
+    return sys.argv[sys.argv.index(flag) + 1] if flag in sys.argv and sys.argv.index(flag) + 1 < len(sys.argv) else default
+STATS_SEASON = int(_opt("--stats-season", SEASON))
+# Compétition Transfermarkt pour les stats. FR2 = Ligue 2. "" = toutes compétitions.
+COMP = _opt("--comp", "FR2")
 BASE   = "https://www.transfermarkt.fr"
 SLEEP  = 4                     # politesse entre clubs
 
@@ -148,11 +158,32 @@ def parse_squad(html):
     out.sort(key=lambda p: (order.get(p["pos"], 9), p["num"] if isinstance(p["num"], int) else 999))
     return out, True
 
-def get_perf(slug, cid):
+def perf_url(slug, cid, season, comp=COMP):
+    """URL des performances club, BORNÉE à une saison (et à une compétition si comp).
+
+    ⚠️ PIÈGE : sans `reldata`, Transfermarkt renvoie la saison EN COURS. En intersaison
+    (juillet) elle n'a pas commencé -> tous les compteurs à 0. Il faut donc toujours
+    passer `reldata/<COMP>&<saison>` (`%26` = `&` encodé).
+      - reldata/FR2&2025 -> Ligue 2 2025-26 uniquement
+      - ?saison_id=2025  -> 2025-26 toutes compétitions (coupes incluses)
+    """
+    if comp:
+        return f"{BASE}/{slug}/leistungsdaten/verein/{cid}/reldata/{comp}%26{season}/plus/1"
+    return f"{BASE}/{slug}/leistungsdaten/verein/{cid}/plus/1?saison_id={season}"
+
+
+def get_perf(slug, cid, season=None, comp=COMP):
     """Page 'performances' du club -> {tid: {'g':buts, 'a':passes décisives, 'm':matchs}}."""
-    html = get(f"{BASE}/{slug}/leistungsdaten/verein/{cid}/plus/1")
+    season = STATS_SEASON if season is None else season
+    html = get(perf_url(slug, cid, season, comp))
     soup = BeautifulSoup(html, "lxml")
     table = soup.select_one("table.items")
+    if not table and comp:
+        # repli : la compétition n'existe pas pour ce club/saison -> toutes compétitions
+        print(f"     ⚠ {slug}: pas de table pour {comp}&{season}, repli toutes compétitions")
+        html = get(perf_url(slug, cid, season, comp=""))
+        soup = BeautifulSoup(html, "lxml")
+        table = soup.select_one("table.items")
     if not table:
         return {}, html
     hrow = table.select_one("thead tr") or table.select_one("tr")
@@ -196,6 +227,8 @@ def get_perf(slug, cid):
 
 def main():
     print(f"Saison {SEASON} — récupération des clubs de Ligue 2…")
+    if STATS_SEASON != SEASON:
+        print(f"  (stats prises sur la saison {STATS_SEASON}-{STATS_SEASON+1}, compétition {COMP or 'toutes'})")
     clubs = get_clubs(SEASON)
     if not clubs:
         print("❌ Aucun club trouvé. HTML sauvé dans _tm_sample.html — envoie-le moi."); sys.exit(1)
@@ -216,7 +249,7 @@ def main():
         if squad:
             time.sleep(SLEEP)
             try:
-                perf, psample = get_perf(c["slug"], c["id"])
+                perf, psample = get_perf(c["slug"], c["id"], STATS_SEASON, COMP)
             except Exception as e:
                 perf, psample = {}, None
                 print(f"     ⚠ perfs {c['name']}: {e}")
@@ -235,7 +268,10 @@ def main():
         print(f"  [{i}/{len(clubs)}] {c['name']}: {len(squad)} joueurs, {nb} buts")
         time.sleep(SLEEP)
 
-    payload = {"season": SEASON_LABEL, "updated": time.strftime("%Y-%m-%d %H:%M"), "teams": teams}
+    payload = {"season": SEASON_LABEL,
+               "statsSeason": f"{STATS_SEASON}-{STATS_SEASON+1}",
+               "statsComp": COMP or "all",
+               "updated": time.strftime("%Y-%m-%d %H:%M"), "teams": teams}
     with open(OUT, "w", encoding="utf-8") as f:
         json.dump(payload, f, ensure_ascii=False, indent=2)
     total = sum(len(v["squad"]) for v in teams.values())

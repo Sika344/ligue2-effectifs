@@ -1,7 +1,7 @@
 # CLAUDE.md — Projet `ligue2-effectifs`
 
 > Mémoire de contexte pour reprendre le projet sans repartir de zéro.
-> **Dernière mise à jour :** session du 8 juillet 2026.
+> **Dernière mise à jour :** session du 8 juillet 2026 (2).
 
 ---
 
@@ -177,6 +177,7 @@ Injecté dans les pages effectif ; clé = `sbId`. Corrige n°/nom mal étiqueté
 - `xg.yml` avait été mal placé à la racine ; `inposs.yml` avait été committé vide (1 octet).
 - Typo secret `SB_SURNAME` → correct : `SB_USERNAME`.
 - Rosters `ligue2.json` ≠ `inposs.json` → carte `INP_CRESTS` (cf. §6).
+- **Transfermarkt `/leistungsdaten/verein/<id>/plus/1` sans `reldata` renvoie la SAISON EN COURS.** Scrapé en intersaison → **0 but / 0 passe pour les 517 joueurs**. Toujours utiliser `reldata/FR2%26<saison>` (`%26` = `&`). `?saison_id=<saison>` marche aussi mais inclut les coupes. (cf. §13)
 - Credentials StatsBomb déjà exposés en chat par le passé → rotation du mot de passe recommandée (non confirmée).
 
 ---
@@ -217,3 +218,41 @@ Le sélecteur de saison exige **4 JSON suffixés** (`loadSeason()` les charge en
 6. Vérifier `INP_CRESTS` : compléter uniquement pour les clubs 24-25 **absents de `ligue2_2024-2025.json`** (a priori aucun, puisque `fetch_tm.py` récupère les écussons de tous les clubs de la saison scrapée).
 
 **Aucune modification de `rapport-pre-match.html` n'est nécessaire.**
+
+---
+
+## 13. Buts / passes décisives (`g` / `a` dans `ligue2.json`)
+
+**Symptôme (8 juil. 2026) :** tous les joueurs affichaient `0 but / 0 passe` sur `index.html`, `compo.html` et la diapo Effectif de `rapport-pre-match.html`.
+
+**Cause :** `fetch_tm.py::get_perf()` appelait `…/leistungsdaten/verein/<id>/plus/1` **sans borne de saison** → Transfermarkt sert la saison en cours (2026-27, pas commencée) → tous les compteurs à 0. La page *effectif* (`kader/.../saison_id/<SEASON>`) était bien bornée, pas la page *performances*.
+
+**URL correcte** (`%26` = `&` encodé) :
+`https://www.transfermarkt.fr/<slug>/leistungsdaten/verein/<id>/reldata/FR2%26<saison>/plus/1`
+
+| URL | Périmètre | Mendy 25-26 |
+|---|---|---|
+| `…/plus/1` | saison en cours | 0m 0b 0pd |
+| `…/reldata/FR2%262025/plus/1` | **Ligue 2 25-26 seule** | 33m 12b 5pd |
+| `…/plus/1?saison_id=2025` | 25-26 toutes compétitions | 37m 15b 5pd |
+
+### `fetch_tm.py` (corrigé)
+- `perf_url(slug, cid, season, comp)` + repli automatique « toutes compétitions » si la compétition n'existe pas pour ce club/saison.
+- Options : `--stats-season 2025` (effectif d'une saison, stats d'une autre), `--comp ""` (toutes compétitions). Payload enrichi de `statsSeason` / `statsComp`.
+
+### `stats_l2.py` (nouveau) — à préférer pour une simple mise à jour des stats
+`fetch_tm.py` **régénère tout** `ligue2.json` et **écrase les photos LFP** (`photo`, `photoLFP`, `foot`) ajoutées par un script local séparé. `stats_l2.py` n'écrit que `g`, `a`, `m` :
+
+    python stats_l2.py --season 2025           # cache réutilisé si _stats_cache.json existe
+    python stats_l2.py --season 2025 --no-cache
+
+Rapprochement des noms en **3 passes conservatrices** (`fullname` uniquement, jamais le patronyme seul) :
+- **P1** égalité stricte, alias `jr` → `junior` (« Everson Jr » TM = « Everson Junior » ligue2.json).
+- **P2** inclusion de tokens avec **même prénom ET même patronyme** (« Stone Mambo » ⊂ « Stone Muzalimoja Mambo »).
+- **P3** patronyme unique + orthographe très proche (Gautier/Gauthier Ott, Anto/Antoine Sekongo).
+
+⚠️ Le repli sur le patronyme seul produisait le faux positif **« Élie N'Gatta » → « Ange Loïc N'Gatta »** (joueurs différents) : l'apostrophe fait 2 tokens. Ne pas le réintroduire.
+
+**Résultat (8 juil. 2026) :** 360/517 appariés (P1 352 · P2 5 · P3 3), **482 buts / 347 passes** injectés. Les 157 restants (recrues, jeunes, autres divisions) valent bien `0/0`. MHSC : Mendy 12b/5pd, Savanier 5b/3pd, Pays 4b/1pd, Everson Junior 1b/1pd.
+
+⚠️ `ligue2.json` contient l'effectif **2026-27** (Dijon/Metz/Nantes/Sochaux) alors que la clé `season` dit `2025/2026` et que `xg.json`/`inposs.json` sont bien en 25-26. Les stats injectées sont celles de la **L2 25-26** (`statsSeason`). C'est l'origine du décalage de rosters documenté en §3.
