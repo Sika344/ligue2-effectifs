@@ -8,6 +8,16 @@
 # Pour une saison passée : Actions → Build out-of-possession KPIs → Run workflow → saison = 2024-2025
 #   -> écrit outposs_2024-2025.json (nom attendu par le sélecteur de saison).
 
+# .github/workflows/outposs.yml
+# Régénère outposs.json (6 KPI défensifs "out of possession", saison complète) et le committe s'il a changé.
+# Pré-requis : secrets de dépôt SB_USERNAME et SB_PASSWORD
+#   (Settings → Secrets and variables → Actions → New repository secret).
+# Placer ce fichier dans .github/workflows/outposs.yml et build_outposs.py à la racine du repo.
+#
+# Saison : le cron traite toujours la saison courante (-> outposs.json).
+# Pour une saison passée : Actions → Build out-of-possession KPIs → Run workflow → saison = 2024-2025
+#   -> écrit outposs_2024-2025.json (nom attendu par le sélecteur de saison).
+
 name: Build out-of-possession KPIs
 
 on:
@@ -51,12 +61,5 @@ jobs:
         env:
           SEASON: ${{ inputs.season }}
         run: |
-          if [ -n "$(git status --porcelain -- 'outposs*.json')" ]; then
-            git config user.name "github-actions[bot]"
-            git config user.email "github-actions[bot]@users.noreply.github.com"
-            git add outposs*.json
-            git commit -m "chore: maj outposs (6 KPI out of possession) ${SEASON:-saison courante}"
-            git push
-          else
+          if [ -z "$(git status --porcelain -- 'outposs*.json')" ]; then
             echo "Aucun outposs*.json modifié."
-          fi
