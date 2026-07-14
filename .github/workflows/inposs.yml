@@ -40,11 +40,26 @@ jobs:
       - name: Commit if changed
         run: |
           if [ -n "$(git status --porcelain inposs.json)" ]; then
-            git config user.name "github-actions[bot]"
+            git config user.name  "github-actions[bot]"
             git config user.email "github-actions[bot]@users.noreply.github.com"
             git add inposs.json
             git commit -m "chore: maj inposs.json (6 KPI in-possession)"
-            git push
+
+            # push avec rebase-and-retry : inposs (04:45) et outposs (05:00)
+            # peuvent se chevaucher ; on évite les rejets non-fast-forward
+            # si l'autre workflow vient de pousser sur main.
+            pushed=0
+            for i in 1 2 3 4 5; do
+              if git push; then
+                echo "push OK (tentative $i)"
+                pushed=1
+                break
+              fi
+              echo "push rejeté (tentative $i) — rebase puis nouvelle tentative…"
+              git pull --rebase --autostash origin main || true
+              sleep $((RANDOM % 5 + 2))
+            done
+            [ "$pushed" = 1 ] || { echo "échec du push après 5 tentatives"; exit 1; }
           else
             echo "inposs.json inchangé."
           fi
