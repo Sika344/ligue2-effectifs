@@ -187,6 +187,21 @@ const EFF_PITCH = `<svg class="lines" viewBox="0 0 1000 660" preserveAspectRatio
 /* ===== EFFECTIF : repris à l'identique de l'onglet Effectif ===== */
 const AVATAR='data:image/svg+xml,'+encodeURIComponent('<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 72"><circle cx="32" cy="22" r="15" fill="#b4bfd6"/><path d="M8 72 C8 52 19 44 32 44 C45 44 56 52 56 72 Z" fill="#b4bfd6"/></svg>');
 
+function _emptURL(id){return 'https://s3.eu-west-1.amazonaws.com/image.mpg/2025-empt-'+id+'-400x300.png';}
+function stampSquad(team){
+  if(!team||!team.squad) return;
+  var id=null;
+  for(var i=0;i<team.squad.length;i++){
+    var ph=team.squad[i].photo||'';
+    var m=ph.match(/player_official_2025_(\d+)_/)||ph.match(/2025-empt-(\d+)-/);
+    if(m){id=m[1];break;}
+  }
+  var av=id?_emptURL(id):AVATAR;
+  team.squad.forEach(function(p){p._avatar=av;});
+}
+function stampAvatars(D){ if(D&&D.teams) Object.keys(D.teams).forEach(function(k){stampSquad(D.teams[k]);}); }
+
+
 function roleOf(p){
   const d=((p.posDesc||"").split(",")[0]||"").toUpperCase();
   if(p.pos==="GK"||d==="GK") return "GK";
@@ -214,7 +229,7 @@ function placements(list){
 }
 function card(p){
   const num=(p.num==null)?"":p.num;
-  const photo = p.photo ? `<img class="photo" data-num="${num}" src="${p.photo}" alt="">` : `<img class="photo avatar" src="${AVATAR}" alt="">`;
+  const photo = p.photo ? `<img class="photo" data-num="${num}" data-avatar="${p._avatar||AVATAR}" src="${p.photo}" alt="">` : `<img class="photo avatar" data-avatar="${p._avatar||AVATAR}" src="${p._avatar||AVATAR}" alt="">`;
   const bio=[p.height?`${p.height} cm`:null,(p.age!=null)?`${p.age} ans`:null].filter(Boolean).join(" - ");
   const stats=(p.g!=null||p.a!=null)?`<div class="stats">
       <div class="row"><span class="v">${p.g??0}</span><img class="ic" width="13" height="13" src="${BALL}"></div>
@@ -225,12 +240,12 @@ function card(p){
 }
 function wirePhotos(root){
   root.querySelectorAll("img.photo").forEach(img=>{
-    const swap=()=>{const a=document.createElement("img");a.className="photo avatar";a.src=AVATAR;a.alt="";if(img.parentNode)img.replaceWith(a);};
+    const swap=()=>{const a=document.createElement("img");a.className="photo avatar";a.src=img.getAttribute('data-avatar')||AVATAR;a.alt="";if(img.parentNode)img.replaceWith(a);};
     img.addEventListener("error",swap);
     if(img.complete && img.naturalWidth===0) swap();
   });
 }
-function effectifBoardHTML(team){
+function effectifBoardHTML(team){ stampSquad(team);
   let squad=(team.squad||[]).filter(p=>p.num!=null);
   if(squad.length<11) squad=(team.squad||[]).slice();
   const cards=placements(squad).map(({p,x,y})=>`<div class="card" style="left:${x}%;top:${y}%">${card(p)}</div>`).join("");
@@ -766,7 +781,7 @@ function buildClubSelect(){
 async function loadSeason(season){
   if(season===CURRENT_SEASON){
     SEASON_DATA = DATA;
-    LIGUE2 = CUR.ligue2; applyPlayerOverrides(LIGUE2); XG = CUR.xg; INP = CUR.inp; OUTP = CUR.outp;
+    LIGUE2 = CUR.ligue2; applyPlayerOverrides(LIGUE2); stampAvatars(LIGUE2); XG = CUR.xg; INP = CUR.inp; OUTP = CUR.outp;
     buildClubSelect(); return;
   }
   // saisons non-courantes : JSON suffixés (fallback gracieux si absents)
