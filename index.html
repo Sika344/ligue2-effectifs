@@ -144,6 +144,21 @@ const BANNER='data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAMCAgMCAgM
 
 const AVATAR='data:image/svg+xml,'+encodeURIComponent('<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 72"><circle cx="32" cy="22" r="15" fill="#b4bfd6"/><path d="M8 72 C8 52 19 44 32 44 C45 44 56 52 56 72 Z" fill="#b4bfd6"/></svg>');
 
+function _emptURL(id){return 'https://s3.eu-west-1.amazonaws.com/image.mpg/2025-empt-'+id+'-400x300.png';}
+function stampSquad(team){
+  if(!team||!team.squad) return;
+  var id=null;
+  for(var i=0;i<team.squad.length;i++){
+    var ph=team.squad[i].photo||'';
+    var m=ph.match(/player_official_2025_(\d+)_/)||ph.match(/2025-empt-(\d+)-/);
+    if(m){id=m[1];break;}
+  }
+  var av=id?_emptURL(id):AVATAR;
+  team.squad.forEach(function(p){p._avatar=av;});
+}
+function stampAvatars(D){ if(D&&D.teams) Object.keys(D.teams).forEach(function(k){stampSquad(D.teams[k]);}); }
+
+
 function roleOf(p){
   const d=((p.posDesc||"").split(",")[0]||"").toUpperCase();
   if(p.pos==="GK"||d==="GK") return "GK";
@@ -184,8 +199,8 @@ function placements(list){
 function card(p){
   const num=(p.num==null)?"":p.num;
   const photo = p.photo
-    ? `<img class="photo" data-num="${num}" src="${p.photo}" alt="">`
-    : `<img class="photo avatar" src="${AVATAR}" alt="">`;
+    ? `<img class="photo" data-num="${num}" data-avatar="${p._avatar||AVATAR}" src="${p.photo}" alt="">`
+    : `<img class="photo avatar" data-avatar="${p._avatar||AVATAR}" src="${p._avatar||AVATAR}" alt="">`;
   const bio=[p.height?`${p.height} cm`:null,(p.age!=null)?`${p.age} ans`:null].filter(Boolean).join(" - ");
   const stats=(p.g!=null||p.a!=null)?`<div class="stats">
       <div class="row"><span class="v">${p.g??0}</span><img class="ic" width="13" height="13" src="${BALL}"></div>
@@ -198,7 +213,7 @@ function card(p){
 
 function wirePhotos(root){
   root.querySelectorAll("img.photo").forEach(img=>{
-    const swap=()=>{const a=document.createElement("img");a.className="photo avatar";a.src=AVATAR;a.alt="";if(img.parentNode)img.replaceWith(a);};
+    const swap=()=>{const a=document.createElement("img");a.className="photo avatar";a.src=img.getAttribute('data-avatar')||AVATAR;a.alt="";if(img.parentNode)img.replaceWith(a);};
     img.addEventListener("error",swap);
     if(img.complete && img.naturalWidth===0) swap();
   });
@@ -446,7 +461,7 @@ function applyPlayerOverrides(data){
   return data;
 }
 function boot(data,demo){
-  DATA=data; applyPlayerOverrides(DATA);
+  DATA=data; stampAvatars(DATA); applyPlayerOverrides(DATA);
   const _bi=document.getElementById("bannerImg"); if(_bi) _bi.src=BANNER;
   const sel=document.getElementById("teamSelect"); sel.innerHTML="";
   Object.keys(DATA.teams).sort().forEach(t=>{const o=document.createElement("option");o.value=t;o.textContent=t;sel.appendChild(o);});
