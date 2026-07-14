@@ -4,7 +4,84 @@
 #   (Settings → Secrets and variables → Actions → New repository secret).
 # Placer ce fichier dans .github/workflows/outposs.yml et build_outposs.py à la racine du repo.
 #
+# Saison : le cron traite toujours la saison co# .github/workflows/outposs.yml
+# Régénère outposs.json (6 KPI défensifs "out of possession", saison complète) et le committe s'il a changé.
+# Pré-requis : secrets de dépôt SB_USERNAME et SB_PASSWORD
+#   (Settings → Secrets and variables → Actions → New repository secret).
+# Placer ce fichier dans .github/workflows/outposs.yml et build_outposs.py à la racine du repo.
+#
 # Saison : le cron traite toujours la saison courante (-> outposs.json).
+# Pour une saison passée : Actions → Build out-of-possession KPIs → Run workflow → saison = 2024-2025
+#   -> écrit outposs_2024-2025.json (nom attendu par le sélecteur de saison).
+
+name: Build out-of-possession KPIs
+
+on:
+  schedule:
+    - cron: "0 5 * * *"       # tous les jours à 05:00 UTC (après inposs à 04:45)
+  workflow_dispatch:
+    inputs:
+      season:
+        description: "Saison au format 2024-2025 (vide = saison courante)"
+        required: false
+        default: ""
+
+permissions:
+  contents: write
+
+concurrency:
+  group: build-outposs-${{ inputs.season || 'current' }}
+  cancel-in-progress: true
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install deps
+        run: pip install statsbombpy pandas
+
+      - name: Generate outposs JSON
+        env:
+          SB_USERNAME: ${{ secrets.SB_USERNAME }}
+          SB_PASSWORD: ${{ secrets.SB_PASSWORD }}
+          SEASON: ${{ inputs.season }}
+        run: python build_outposs.py
+
+      - name: Commit if changed
+        env:
+          SEASON: ${{ inputs.season }}
+        run: |
+          if [ -z "$(git status --porcelain -- 'outposs*.json')" ]; then
+            echo "Aucun outposs*.json modifié."
+          else
+            git config user.name  "github-actions[bot]"
+            git config user.email "github-actions[bot]@users.noreply.github.com"
+            git add outposs*.json
+            git commit -m "chore: maj outposs.json (6 KPI out-of-possession)"
+
+            # push avec rebase-and-retry : outposs tourne en dernier (05:00),
+            # après xg (04:30) et inposs (04:45) ; on évite les rejets
+            # non-fast-forward si un autre workflow vient de pousser sur main.
+            pushed=0
+            for i in 1 2 3 4 5; do
+              if git push; then
+                echo "push OK (tentative $i)"
+                pushed=1
+                break
+              fi
+              echo "push rejeté (tentative $i) — rebase puis nouvelle tentative…"
+              git pull --rebase --autostash origin main || true
+              sleep $((RANDOM % 5 + 2))
+            done
+            [ "$pushed" = 1 ] || { echo "échec du push après 5 tentatives"; exit 1; }
+          fi
+urante (-> outposs.json).
 # Pour une saison passée : Actions → Build out-of-possession KPIs → Run workflow → saison = 2024-2025
 #   -> écrit outposs_2024-2025.json (nom attendu par le sélecteur de saison).
 
