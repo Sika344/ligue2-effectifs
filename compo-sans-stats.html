@@ -175,8 +175,8 @@ function optionsFor(slot, squad, myVal){
 function cardInner(p){
   const num=(p.num==null)?"":p.num;
   const photo = p.photo
-    ? `<img class="photo" data-num="${num}" src="${p.photo}" alt="">`
-    : `<img class="photo avatar" src="${AVATAR}" alt="">`;
+    ? `<img class="photo" data-num="${num}" data-avatar="${p._avatar||AVATAR}" src="${p.photo}" alt="">`
+    : `<img class="photo avatar" data-avatar="${p._avatar||AVATAR}" src="${p._avatar||AVATAR}" alt="">`;
   const bio=[p.height?`${p.height} cm`:null,(p.age!=null)?`${p.age} ans`:null].filter(Boolean).join(" - ");
   const stats="";  // version sans buts/passes decisives
   return `${p.foot==='left'?'<span class="gleft">G</span>':''}<div class="top"><div class="idcol"><div class="flag">${p.flag||""}</div><div class="num">${num}</div></div><div class="photo-wrap">${photo}</div></div>
@@ -188,9 +188,24 @@ function placeholderInner(slot){
 }
 
 const AVATAR='data:image/svg+xml,'+encodeURIComponent('<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 72"><circle cx="32" cy="22" r="15" fill="#b4bfd6"/><path d="M8 72 C8 52 19 44 32 44 C45 44 56 52 56 72 Z" fill="#b4bfd6"/></svg>');
+
+function _emptURL(id){return 'https://s3.eu-west-1.amazonaws.com/image.mpg/2025-empt-'+id+'-400x300.png';}
+function stampSquad(team){
+  if(!team||!team.squad) return;
+  var id=null;
+  for(var i=0;i<team.squad.length;i++){
+    var ph=team.squad[i].photo||'';
+    var m=ph.match(/player_official_2025_(\d+)_/)||ph.match(/2025-empt-(\d+)-/);
+    if(m){id=m[1];break;}
+  }
+  var av=id?_emptURL(id):AVATAR;
+  team.squad.forEach(function(p){p._avatar=av;});
+}
+function stampAvatars(D){ if(D&&D.teams) Object.keys(D.teams).forEach(function(k){stampSquad(D.teams[k]);}); }
+
 function wirePhotos(root){
   root.querySelectorAll("img.photo").forEach(img=>{
-    const swap=()=>{const a=document.createElement("img");a.className="photo avatar";a.src=AVATAR;a.alt="";if(img.parentNode)img.replaceWith(a);};
+    const swap=()=>{const a=document.createElement("img");a.className="photo avatar";a.src=img.getAttribute('data-avatar')||AVATAR;a.alt="";if(img.parentNode)img.replaceWith(a);};
     img.addEventListener("error",swap);
     if(img.complete && img.naturalWidth===0) swap();
   });
@@ -440,7 +455,7 @@ function applyPlayerOverrides(data){
   return data;
 }
 function init(data){
-  DATA=data; applyPlayerOverrides(DATA);
+  DATA=data; stampAvatars(DATA); applyPlayerOverrides(DATA);
   Object.keys(DATA.teams).sort().forEach(t=>teamSelect.add(new Option(t,t)));
   Object.keys(FORMATIONS).forEach(f=>formationSelect.add(new Option(f,f)));
   buildSlots(formationSelect.value);
