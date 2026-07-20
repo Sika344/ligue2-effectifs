@@ -1,7 +1,7 @@
 {
  "season": "2025/2026",
  "updated": "2026-07-20",
- "source": "FotMob (data) + LFP (photos)",
+ "source": "FotMob (effectifs) + LFP (photos) + StatsBomb (buts/passes)",
  "teams": {
   "Annecy FC": {
    "logo": "https://images.fotmob.com/image_resources/logo/teamlogo/293352.png",
@@ -20,7 +20,9 @@
      "g": 0,
      "a": 0,
      "photoLFP": true,
-     "foot": "right"
+     "foot": "right",
+     "mins": 2855,
+     "sbId": 22217
     },
     {
      "num": 16,
@@ -36,7 +38,9 @@
      "g": 0,
      "a": 0,
      "photoLFP": true,
-     "foot": "left"
+     "foot": "left",
+     "mins": 492,
+     "sbId": 36633
     },
     {
      "num": 30,
@@ -80,10 +84,12 @@
      "pos": "DEF",
      "posDesc": "CB",
      "photo": "https://s3.eu-west-3.amazonaws.com/ligue1.image/players/2025/all/player_official_2025_11426_209873-400x300.png",
-     "g": 0,
-     "a": 0,
+     "g": 5,
+     "a": 1,
      "photoLFP": true,
-     "foot": "right"
+     "foot": "right",
+     "mins": 2159,
+     "sbId": 45406
     },
     {
      "num": 18,
@@ -99,7 +105,9 @@
      "g": 0,
      "a": 0,
      "photoLFP": true,
-     "foot": "right"
+     "foot": "right",
+     "mins": 2476,
+     "sbId": 410445
     },
     {
      "num": 21,
@@ -115,7 +123,9 @@
      "g": 0,
      "a": 0,
      "photoLFP": true,
-     "foot": "left"
+     "foot": "left",
+     "mins": 84,
+     "sbId": 30280
     },
     {
      "num": 23,
@@ -130,7 +140,9 @@
      "photo": "https://s3.eu-west-3.amazonaws.com/ligue1.image/players/2025/all/player_official_2025_11426_519317-400x300.png",
      "g": 0,
      "a": 0,
-     "photoLFP": true
+     "photoLFP": true,
+     "mins": 1006,
+     "sbId": 51792
     },
     {
      "num": 26,
@@ -144,9 +156,11 @@
      "posDesc": "CB",
      "photo": "https://s3.eu-west-3.amazonaws.com/ligue1.image/players/2025/all/player_official_2025_11426_533133-400x300.png",
      "g": 0,
-     "a": 0,
+     "a": 1,
      "photoLFP": true,
-     "foot": "left"
+     "foot": "left",
+     "mins": 702,
+     "sbId": 45474
     },
     {
      "num": 27,
@@ -160,9 +174,11 @@
      "posDesc": "CB,LB",
      "photo": "https://s3.eu-west-3.amazonaws.com/ligue1.image/players/2025/all/player_official_2025_11426_627730-400x300.png",
      "g": 0,
-     "a": 0,
+     "a": 1,
      "photoLFP": true,
-     "foot": "right"
+     "foot": "right",
+     "mins": 2898,
+     "sbId": 134976
     },
     {
      "num": 34,
@@ -194,7 +210,9 @@
      "g": 0,
      "a": 0,
      "photoLFP": true,
-     "foot": "right"
+     "foot": "right",
+     "mins": 1922,
+     "sbId": 404679
     },
     {
      "num": null,
@@ -208,7 +226,9 @@
      "posDesc": "CM",
      "photo": "https://images.fotmob.com/image_resources/playerimages/1729331.png",
      "g": 0,
-     "a": 0
+     "a": 0,
+     "mins": 27,
+     "sbId": 469502
     },
     {
      "num": 5,
@@ -221,10 +241,12 @@
      "pos": "MID",
      "posDesc": "CM,CDM",
      "photo": "https://s3.eu-west-3.amazonaws.com/ligue1.image/players/2025/all/player_official_2025_11426_50199-400x300.png",
-     "g": 0,
-     "a": 0,
+     "g": 1,
+     "a": 1,
      "photoLFP": true,
-     "foot": "right"
+     "foot": "right",
+     "mins": 3285,
+     "sbId": 3915
     },
     {
      "num": 10,
@@ -251,10 +273,12 @@
      "pos": "MID",
      "posDesc": "CM",
      "photo": "https://s3.eu-west-3.amazonaws.com/ligue1.image/players/2025/all/player_official_2025_11426_85548-400x300.png",
-     "g": 0,
+     "g": 1,
      "a": 0,
      "photoLFP": true,
-     "foot": "right"
+     "foot": "right",
+     "mins": 689,
+     "sbId": 3414
     },
     {
      "num": 19,
@@ -267,10 +291,12 @@
      "pos": "MID",
      "posDesc": null,
      "photo": "https://s3.eu-west-3.amazonaws.com/ligue1.image/players/2025/all/player_official_2025_11426_682307-400x300.png",
-     "g": 0,
+     "g": 1,
      "a": 0,
      "photoLFP": true,
-     "foot": "left"
+     "foot": "left",
+     "mins": 177,
+     "sbId": 345660
     },
     {
      "num": 20,
@@ -283,10 +309,12 @@
      "pos": "MID",
      "posDesc": "CM,LW",
      "photo": "https://s3.eu-west-1.amazonaws.com/image.mpg/2025-empt-11426-400x300.png",
-     "g": 0,
-     "a": 0,
+     "g": 3,
+     "a": 1,
      "photoLFP": true,
-     "foot": "right"
+     "foot": "right",
+     "mins": 615,
+     "sbId": 440865
     },
     {
      "num": 22,
@@ -299,10 +327,12 @@
      "pos": "MID",
      "posDesc": "LM,LW,LWB,CM,CAM",
      "photo": "https://s3.eu-west-3.amazonaws.com/ligue1.image/players/2025/all/player_official_2025_11426_449088-400x300.png",
-     "g": 0,
-     "a": 0,
+     "g": 5,
+     "a": 7,
      "photoLFP": true,
-     "foot": "left"
+     "foot": "left",
+     "mins": 2745,
+     "sbId": 154220
     },
     {
      "num": 25,
@@ -316,8 +346,10 @@
      "posDesc": "CM,CDM",
      "photo": "https://s3.eu-west-3.amazonaws.com/ligue1.image/players/2025/all/player_official_2025_11426_570148-400x300.png",
      "g": 0,
-     "a": 0,
-     "photoLFP": true
+     "a": 1,
+     "photoLFP": true,
+     "mins": 1893,
+     "sbId": 485591
     },
     {
      "num": 29,
@@ -330,9 +362,11 @@
      "pos": "MID",
      "posDesc": "CDM,CM",
      "photo": "https://s3.eu-west-3.amazonaws.com/ligue1.image/players/2025/all/player_official_2025_11426_585580-400x300.png",
-     "g": 0,
+     "g": 1,
      "a": 0,
-     "photoLFP": true
+     "photoLFP": true,
+     "mins": 892,
+     "sbId": 313532
     },
     {
      "num": 36,
@@ -347,7 +381,9 @@
      "photo": "https://s3.eu-west-3.amazonaws.com/ligue1.image/players/2025/all/player_official_2025_11426_681853-400x300.png",
      "g": 0,
      "a": 0,
-     "photoLFP": true
+     "photoLFP": true,
+     "mins": 13,
+     "sbId": 338238
     },
     {
      "num": 42,
@@ -376,10 +412,12 @@
      "pos": "MID",
      "posDesc": "CAM",
      "photo": "https://s3.eu-west-3.amazonaws.com/ligue1.image/players/2025/all/player_official_2025_11426_535795-400x300.png",
-     "g": 0,
-     "a": 0,
+     "g": 5,
+     "a": 2,
      "photoLFP": true,
-     "foot": "left"
+     "foot": "left",
+     "mins": 571,
+     "sbId": 104656
     },
     {
      "num": null,
@@ -420,9 +458,11 @@
      "pos": "ATT",
      "posDesc": "ST,LW,CAM",
      "photo": "https://s3.eu-west-3.amazonaws.com/ligue1.image/players/2025/all/player_official_2025_11426_664852-400x300.png",
-     "g": 0,
-     "a": 0,
-     "photoLFP": true
+     "g": 2,
+     "a": 3,
+     "photoLFP": true,
+     "mins": 1461,
+     "sbId": 440537
     },
     {
      "num": 9,
@@ -435,9 +475,11 @@
      "pos": "ATT",
      "posDesc": "ST,RW",
      "photo": "https://s3.eu-west-3.amazonaws.com/ligue1.image/players/2025/all/player_official_2025_11426_488582-400x300.png",
-     "g": 0,
-     "a": 0,
-     "photoLFP": true
+     "g": 7,
+     "a": 3,
+     "photoLFP": true,
+     "mins": 1677,
+     "sbId": 351871
     },
     {
      "num": 28,
@@ -450,10 +492,12 @@
      "pos": "ATT",
      "posDesc": "RW,CAM",
      "photo": "https://s3.eu-west-3.amazonaws.com/ligue1.image/players/2025/all/player_official_2025_11426_245199-400x300.png",
-     "g": 0,
-     "a": 0,
+     "g": 7,
+     "a": 4,
      "photoLFP": true,
-     "foot": "left"
+     "foot": "left",
+     "mins": 1601,
+     "sbId": 154222
     },
     {
      "num": 33,
@@ -466,9 +510,11 @@
      "pos": "ATT",
      "posDesc": "ST",
      "photo": "https://s3.eu-west-3.amazonaws.com/ligue1.image/players/2025/all/player_official_2025_11426_666640-400x300.png",
-     "g": 0,
+     "g": 3,
      "a": 0,
-     "photoLFP": true
+     "photoLFP": true,
+     "mins": 865,
+     "sbId": 338233
     },
     {
      "num": 71,
@@ -481,10 +527,12 @@
      "pos": "ATT",
      "posDesc": "ST,RW",
      "photo": "https://s3.eu-west-3.amazonaws.com/ligue1.image/players/2025/all/player_official_2025_11426_620135-400x300.png",
-     "g": 0,
-     "a": 0,
+     "g": 3,
+     "a": 2,
      "photoLFP": true,
-     "foot": "right"
+     "foot": "right",
+     "mins": 1145,
+     "sbId": 350487
     }
    ]
   },
@@ -504,7 +552,9 @@
      "photo": "https://s3.eu-west-3.amazonaws.com/ligue1.image/players/2025/all/player_official_2025_2129_215709-400x300.png",
      "g": 0,
      "a": 0,
-     "photoLFP": true
+     "photoLFP": true,
+     "mins": 95,
+     "sbId": 95550
     },
     {
      "num": 16,
@@ -520,7 +570,9 @@
      "g": 0,
      "a": 0,
      "photoLFP": true,
-     "foot": "right"
+     "foot": "right",
+     "mins": 763,
+     "sbId": 182573
     },
     {
      "num": 30,
@@ -534,8 +586,10 @@
      "posDesc": "GK",
      "photo": "https://s3.eu-west-3.amazonaws.com/ligue1.image/players/2025/all/player_official_2025_2129_565432-400x300.png",
      "g": 0,
-     "a": 0,
-     "photoLFP": true
+     "a": 1,
+     "photoLFP": true,
+     "mins": 1110,
+     "sbId": 181011
     },
     {
      "num": 99,
@@ -551,7 +605,9 @@
      "g": 0,
      "a": 0,
      "photoLFP": true,
-     "foot": "right"
+     "foot": "right",
+     "mins": 1372,
+     "sbId": 42558
     },
     {
      "num": 4,
@@ -566,7 +622,9 @@
      "photo": "https://s3.eu-west-3.amazonaws.com/ligue1.image/players/2025/all/player_official_2025_2129_703174-400x300.png",
      "g": 0,
      "a": 0,
-     "photoLFP": true
+     "photoLFP": true,
+     "mins": 48,
+     "sbId": 540920
     },
     {
      "num": 12,
@@ -579,9 +637,11 @@
      "pos": "DEF",
      "posDesc": "LB,LWB,CB",
      "photo": "https://s3.eu-west-3.amazonaws.com/ligue1.image/players/2025/all/player_official_2025_2129_444369-400x300.png",
-     "g": 0,
-     "a": 0,
-     "photoLFP": true
+     "g": 2,
+     "a": 1,
+     "photoLFP": true,
+     "mins": 2867,
+     "sbId": 23553
     },
     {
      "num": 15,
@@ -594,9 +654,11 @@
      "pos": "DEF",
      "posDesc": "CB",
      "photo": "https://s3.eu-west-3.amazonaws.com/ligue1.image/players/2025/all/player_official_2025_2129_530271-400x300.png",
-     "g": 0,
+     "g": 3,
      "a": 0,
-     "photoLFP": true
+     "photoLFP": true,
+     "mins": 1961,
+     "sbId": 81717
     },
     {
      "num": 18,
@@ -610,9 +672,11 @@
      "posDesc": "RB,CB,RWB",
      "photo": "https://s3.eu-west-3.amazonaws.com/ligue1.image/players/2025/all/player_official_2025_2129_511180-400x300.png",
      "g": 0,
-     "a": 0,
+     "a": 2,
      "photoLFP": true,
-     "foot": "left"
+     "foot": "left",
+     "mins": 2834,
+     "sbId": 45041
     },
     {
      "num": 77,
@@ -627,7 +691,9 @@
      "photo": "https://s3.eu-west-1.amazonaws.com/image.mpg/2025-empt-2129-400x300.png",
      "g": 0,
      "a": 0,
-     "photoLFP": true
+     "photoLFP": true,
+     "mins": 321,
+     "sbId": 523963
     },
     {
      "num": 9,
@@ -642,7 +708,9 @@
      "photo": "https://s3.eu-west-3.amazonaws.com/ligue1.image/players/2025/all/player_official_2025_2129_621946-400x300.png",
      "g": 0,
      "a": 0,
-     "photoLFP": true
+     "photoLFP": true,
+     "mins": 228,
+     "sbId": 442825
     },
     {
      "num": 14,
@@ -655,9 +723,11 @@
      "pos": "MID",
      "posDesc": "CM,CDM,CAM",
      "photo": "https://s3.eu-west-3.amazonaws.com/ligue1.image/players/2025/all/player_official_2025_2129_664853-400x300.png",
-     "g": 0,
-     "a": 0,
-     "photoLFP": true
+     "g": 1,
+     "a": 1,
+     "photoLFP": true,
+     "mins": 1960,
+     "sbId": 440533
     },
     {
      "num": 19,
@@ -671,9 +741,11 @@
      "posDesc": "CM,CAM,CDM",
      "photo": "https://s3.eu-west-3.amazonaws.com/ligue1.image/players/2025/all/player_official_2025_2129_633057-400x300.png",
      "g": 0,
-     "a": 0,
+     "a": 2,
      "photoLFP": true,
-     "foot": "right"
+     "foot": "right",
+     "mins": 2803,
+     "sbId": 135832
     },
     {
      "num": 21,
@@ -686,10 +758,12 @@
      "pos": "MID",
      "posDesc": "RM,RW,RWB,CM",
      "photo": "https://s3.eu-west-3.amazonaws.com/ligue1.image/players/2025/all/player_official_2025_2129_564941-400x300.png",
-     "g": 0,
-     "a": 0,
+     "g": 2,
+     "a": 3,
      "photoLFP": true,
-     "foot": "right"
+     "foot": "right",
+     "mins": 1561,
+     "sbId": 133407
     },
     {
      "num": 22,
@@ -703,8 +777,10 @@
      "posDesc": "CAM,CM",
      "photo": "https://s3.eu-west-3.amazonaws.com/ligue1.image/players/2025/all/player_official_2025_2129_533158-400x300.png",
      "g": 0,
-     "a": 0,
-     "photoLFP": true
+     "a": 2,
+     "photoLFP": true,
+     "mins": 1678,
+     "sbId": 90742
     },
     {
      "num": 24,
@@ -719,7 +795,9 @@
      "photo": "https://s3.eu-west-3.amazonaws.com/ligue1.image/players/2025/all/player_official_2025_2129_703178-400x300.png",
      "g": 0,
      "a": 0,
-     "photoLFP": true
+     "photoLFP": true,
+     "mins": 191,
+     "sbId": 487589
     },
     {
      "num": 28,
@@ -734,7 +812,9 @@
      "photo": "https://s3.eu-west-3.amazonaws.com/ligue1.image/players/2025/all/player_official_2025_2129_664857-400x300.png",
      "g": 0,
      "a": 0,
-     "photoLFP": true
+     "photoLFP": true,
+     "mins": 17,
+     "sbId": 442827
     },
     {
      "num": 90,
@@ -748,9 +828,11 @@
      "posDesc": "CDM,CM",
      "photo": "https://s3.eu-west-3.amazonaws.com/ligue1.image/players/2025/all/player_official_2025_2129_84366-400x300.png",
      "g": 0,
-     "a": 0,
+     "a": 1,
      "photoLFP": true,
-     "foot": "right"
+     "foot": "right",
+     "mins": 1115,
+     "sbId": 2950
     },
     {
      "num": 97,
@@ -766,7 +848,9 @@
      "g": 0,
      "a": 0,
      "photoLFP": true,
-     "foot": "right"
+     "foot": "right",
+     "mins": 461,
+     "sbId": 405166
     },
     {
      "num": null,
@@ -794,7 +878,9 @@
      "posDesc": "CM",
      "photo": "https://images.fotmob.com/image_resources/playerimages/1428851.png",
      "g": 0,
-     "a": 0
+     "a": 0,
+     "mins": 298,
+     "sbId": 357802
     },
     {
      "num": 9,
@@ -807,9 +893,11 @@
      "pos": "ATT",
      "posDesc": "ST",
      "photo": "https://s3.eu-west-3.amazonaws.com/ligue1.image/players/2025/all/player_official_2025_2129_621946-400x300.png",
-     "g": 0,
-     "a": 0,
-     "photoLFP": true
+     "g": 3,
+     "a": 1,
+     "photoLFP": true,
+     "mins": 1030,
+     "sbId": 396756
     },
     {
      "num": 10,
@@ -822,9 +910,11 @@
      "pos": "ATT",
      "posDesc": "RW,ST,LW,LM",
      "photo": "https://s3.eu-west-3.amazonaws.com/ligue1.image/players/2025/all/player_official_2025_2129_443273-400x300.png",
-     "g": 0,
-     "a": 0,
-     "photoLFP": true
+     "g": 5,
+     "a": 3,
+     "photoLFP": true,
+     "mins": 2254,
+     "sbId": 359282
     },
     {
      "num": 17,
@@ -837,9 +927,11 @@
      "pos": "ATT",
      "posDesc": "ST",
      "photo": "https://s3.eu-west-3.amazonaws.com/ligue1.image/players/2025/all/player_official_2025_2129_489411-400x300.png",
-     "g": 0,
-     "a": 0,
-     "photoLFP": true
+     "g": 6,
+     "a": 2,
+     "photoLFP": true,
+     "mins": 1394,
+     "sbId": 440538
     },
     {
      "num": 23,
@@ -852,9 +944,11 @@
      "pos": "ATT",
      "posDesc": "LW,ST,RW,RM",
      "photo": "https://s3.eu-west-3.amazonaws.com/ligue1.image/players/2025/all/player_official_2025_2129_492845-400x300.png",
-     "g": 0,
-     "a": 0,
-     "photoLFP": true
+     "g": 3,
+     "a": 3,
+     "photoLFP": true,
+     "mins": 1810,
+     "sbId": 38923
     },
     {
      "num": 33,
@@ -869,7 +963,9 @@
      "photo": "https://s3.eu-west-3.amazonaws.com/ligue1.image/players/2025/all/player_official_2025_2129_579589-400x300.png",
      "g": 0,
      "a": 0,
-     "photoLFP": true
+     "photoLFP": true,
+     "mins": 123,
+     "sbId": 406595
     }
    ]
   },
@@ -890,7 +986,9 @@
      "g": 0,
      "a": 0,
      "photoLFP": true,
-     "foot": "right"
+     "foot": "right",
+     "mins": 97,
+     "sbId": 192425
     },
     {
      "num": 30,
@@ -906,7 +1004,9 @@
      "g": 0,
      "a": 0,
      "photoLFP": true,
-     "foot": "right"
+     "foot": "right",
+     "mins": 3244,
+     "sbId": 32927
     },
     {
      "num": 50,
@@ -950,7 +1050,9 @@
      "posDesc": "CB,LB",
      "photo": "https://images.fotmob.com/image_resources/playerimages/916916.png",
      "g": 0,
-     "a": 0
+     "a": 0,
+     "mins": 261,
+     "sbId": 23545
     },
     {
      "num": 12,
@@ -966,7 +1068,9 @@
      "g": 0,
      "a": 0,
      "photoLFP": true,
-     "foot": "left"
+     "foot": "left",
+     "mins": 916,
+     "sbId": 7589
     },
     {
      "num": 21,
@@ -979,10 +1083,12 @@
      "pos": "DEF",
      "posDesc": "CB",
      "photo": "https://s3.eu-west-3.amazonaws.com/ligue1.image/players/2025/all/player_official_2025_1983_228319-400x300.png",
-     "g": 0,
-     "a": 0,
+     "g": 1,
+     "a": 1,
      "photoLFP": true,
-     "foot": "right"
+     "foot": "right",
+     "mins": 2843,
+     "sbId": 2952
     },
     {
      "num": 28,
@@ -1028,9 +1134,11 @@
      "posDesc": "LWB,LB",
      "photo": "https://s3.eu-west-3.amazonaws.com/ligue1.image/players/2025/all/player_official_2025_1983_643343-400x300.png",
      "g": 0,
-     "a": 0,
+     "a": 2,
      "photoLFP": true,
-     "foot": "right"
+     "foot": "right",
+     "mins": 1069,
+     "sbId": 252340
     },
     {
      "num": 45,
@@ -1046,7 +1154,9 @@
      "g": 0,
      "a": 0,
      "photoLFP": true,
-     "foot": "left"
+     "foot": "left",
+     "mins": 20,
+     "sbId": 252338
     },
     {
      "num": 93,
@@ -1060,9 +1170,11 @@
      "posDesc": "RB,RWB,CB,LB",
      "photo": "https://s3.eu-west-3.amazonaws.com/ligue1.image/players/2025/all/player_official_2025_1983_682191-400x300.png",
      "g": 0,
-     "a": 0,
+     "a": 1,
      "photoLFP": true,
-     "foot": "right"
+     "foot": "right",
+     "mins": 2206,
+     "sbId": 135094
     },
     {
      "num": 97,
@@ -1078,7 +1190,9 @@
      "g": 0,
      "a": 0,
      "photoLFP": true,
-     "foot": "left"
+     "foot": "left",
+     "mins": 788,
+     "sbId": 7807
     },
     {
      "num": null,
@@ -1092,7 +1206,9 @@
      "posDesc": "RB,LB,CDM",
      "photo": "https://images.fotmob.com/image_resources/playerimages/1439465.png",
      "g": 0,
-     "a": 0
+     "a": 0,
+     "mins": 1126,
+     "sbId": 374052
     },
     {
      "num": 2,
@@ -1105,10 +1221,12 @@
      "pos": "MID",
      "posDesc": "CM,CDM,CAM",
      "photo": "https://s3.eu-west-3.amazonaws.com/ligue1.image/players/2025/all/player_official_2025_1983_596394-400x300.png",
-     "g": 0,
-     "a": 0,
+     "g": 1,
+     "a": 1,
      "photoLFP": true,
-     "foot": "right"
+     "foot": "right",
+     "mins": 2308,
+     "sbId": 406594
     },
     {
      "num": 8,
@@ -1123,7 +1241,9 @@
      "photo": "https://s3.eu-west-3.amazonaws.com/ligue1.image/players/2025/all/player_official_2025_1983_577413-400x300.png",
      "g": 0,
      "a": 0,
-     "photoLFP": true
+     "photoLFP": true,
+     "mins": 108,
+     "sbId": 238119
     },
     {
      "num": 13,
@@ -1136,9 +1256,11 @@
      "pos": "MID",
      "posDesc": "CDM,CAM",
      "photo": "https://s3.eu-west-3.amazonaws.com/ligue1.image/players/2025/all/player_official_2025_1983_622367-400x300.png",
-     "g": 0,
+     "g": 1,
      "a": 0,
-     "photoLFP": true
+     "photoLFP": true,
+     "mins": 460,
+     "sbId": 135098
     },
     {
      "num": 23,
@@ -1151,10 +1273,12 @@
      "pos": "MID",
      "posDesc": "CDM,CAM",
      "photo": "https://s3.eu-west-3.amazonaws.com/ligue1.image/players/2025/all/player_official_2025_1983_161472-400x300.png",
-     "g": 0,
+     "g": 2,
      "a": 0,
      "photoLFP": true,
-     "foot": "right"
+     "foot": "right",
+     "mins": 720,
+     "sbId": 3429
     },
     {
      "num": 24,
@@ -1184,9 +1308,11 @@
      "posDesc": "CDM,CM",
      "photo": "https://s3.eu-west-1.amazonaws.com/image.mpg/2025-empt-1983-400x300.png",
      "g": 0,
-     "a": 0,
+     "a": 3,
      "photoLFP": true,
-     "foot": "right"
+     "foot": "right",
+     "mins": 1753,
+     "sbId": 7626
     },
     {
      "num": 33,
@@ -1214,10 +1340,12 @@
      "pos": "MID",
      "posDesc": "CAM,CM",
      "photo": "https://s3.eu-west-3.amazonaws.com/ligue1.image/players/2025/all/player_official_2025_1983_630999-400x300.png",
-     "g": 0,
+     "g": 1,
      "a": 0,
      "photoLFP": true,
-     "foot": "right"
+     "foot": "right",
+     "mins": 1109,
+     "sbId": 345860
     },
     {
      "num": 11,
@@ -1233,7 +1361,9 @@
      "g": 0,
      "a": 0,
      "photoLFP": true,
-     "foot": "right"
+     "foot": "right",
+     "mins": 121,
+     "sbId": 188436
     },
     {
      "num": 17,
@@ -1249,7 +1379,9 @@
      "g": 0,
      "a": 0,
      "photoLFP": true,
-     "foot": "right"
+     "foot": "right",
+     "mins": 412,
+     "sbId": 415436
     },
     {
      "num": 77,
@@ -1262,9 +1394,11 @@
      "pos": "ATT",
      "posDesc": "RW,RM",
      "photo": "https://s3.eu-west-3.amazonaws.com/ligue1.image/players/2025/all/player_official_2025_1983_703381-400x300.png",
-     "g": 0,
+     "g": 1,
      "a": 0,
-     "photoLFP": true
+     "photoLFP": true,
+     "mins": 770,
+     "sbId": 228077
     },
     {
      "num": null,
@@ -1712,7 +1846,9 @@
      "g": 0,
      "a": 0,
      "photoLFP": true,
-     "foot": "left"
+     "foot": "left",
+     "mins": 646,
+     "sbId": 183068
     },
     {
      "num": 12,
@@ -1742,7 +1878,9 @@
      "photo": "https://s3.eu-west-3.amazonaws.com/ligue1.image/players/2025/all/player_official_2025_3288_665347-400x300.png",
      "g": 0,
      "a": 0,
-     "photoLFP": true
+     "photoLFP": true,
+     "mins": 1838,
+     "sbId": 331441
     },
     {
      "num": 24,
@@ -1757,7 +1895,9 @@
      "photo": "https://s3.eu-west-3.amazonaws.com/ligue1.image/players/2025/all/player_official_2025_3288_634362-400x300.png",
      "g": 0,
      "a": 0,
-     "photoLFP": true
+     "photoLFP": true,
+     "mins": 49,
+     "sbId": 428059
     },
     {
      "num": 26,
@@ -1771,9 +1911,11 @@
      "posDesc": "CB",
      "photo": "https://s3.eu-west-3.amazonaws.com/ligue1.image/players/2025/all/player_official_2025_3288_220924-400x300.png",
      "g": 0,
-     "a": 0,
+     "a": 3,
      "photoLFP": true,
-     "foot": "left"
+     "foot": "left",
+     "mins": 1950,
+     "sbId": 7568
     },
     {
      "num": 27,
@@ -1787,9 +1929,11 @@
      "posDesc": "RB",
      "photo": "https://s3.eu-west-3.amazonaws.com/ligue1.image/players/2025/all/player_official_2025_3288_471141-400x300.png",
      "g": 0,
-     "a": 0,
+     "a": 1,
      "photoLFP": true,
-     "foot": "right"
+     "foot": "right",
+     "mins": 1590,
+     "sbId": 24897
     },
     {
      "num": 30,
@@ -1805,7 +1949,9 @@
      "g": 0,
      "a": 0,
      "photoLFP": true,
-     "foot": "left"
+     "foot": "left",
+     "mins": 879,
+     "sbId": 29642
     },
     {
      "num": 33,
@@ -1833,9 +1979,11 @@
      "pos": "DEF",
      "posDesc": "LB",
      "photo": "https://s3.eu-west-3.amazonaws.com/ligue1.image/players/2025/all/player_official_2025_3288_633165-400x300.png",
-     "g": 0,
+     "g": 1,
      "a": 0,
-     "photoLFP": true
+     "photoLFP": true,
+     "mins": 252,
+     "sbId": 231976
     },
     {
      "num": null,
@@ -1862,9 +2010,11 @@
      "pos": "MID",
      "posDesc": "CAM,RW",
      "photo": "https://s3.eu-west-3.amazonaws.com/ligue1.image/players/2025/all/player_official_2025_3288_662079-400x300.png",
-     "g": 0,
-     "a": 0,
-     "photoLFP": true
+     "g": 9,
+     "a": 4,
+     "photoLFP": true,
+     "mins": 2704,
+     "sbId": 431376
     },
     {
      "num": 10,
@@ -1896,7 +2046,9 @@
      "g": 0,
      "a": 0,
      "photoLFP": true,
-     "foot": "right"
+     "foot": "right",
+     "mins": 479,
+     "sbId": 24317
     },
     {
      "num": 17,
@@ -1925,7 +2077,9 @@
      "photo": "https://s3.eu-west-3.amazonaws.com/ligue1.image/players/2025/all/player_official_2025_3288_674528-400x300.png",
      "g": 0,
      "a": 0,
-     "photoLFP": true
+     "photoLFP": true,
+     "mins": 82,
+     "sbId": 452009
     },
     {
      "num": 35,
@@ -1940,7 +2094,9 @@
      "photo": "https://s3.eu-west-1.amazonaws.com/image.mpg/2025-empt-3288-400x300.png",
      "g": 0,
      "a": 0,
-     "photoLFP": true
+     "photoLFP": true,
+     "mins": 51,
+     "sbId": 426560
     },
     {
      "num": 87,
@@ -1953,9 +2109,11 @@
      "pos": "MID",
      "posDesc": "CDM",
      "photo": "https://s3.eu-west-3.amazonaws.com/ligue1.image/players/2025/all/player_official_2025_3288_702837-400x300.png",
-     "g": 0,
-     "a": 0,
-     "photoLFP": true
+     "g": 1,
+     "a": 1,
+     "photoLFP": true,
+     "mins": 213,
+     "sbId": 416595
     },
     {
      "num": null,
@@ -2024,10 +2182,12 @@
      "pos": "ATT",
      "posDesc": "ST",
      "photo": "https://s3.eu-west-3.amazonaws.com/ligue1.image/players/2025/all/player_official_2025_3288_205292-400x300.png",
-     "g": 0,
-     "a": 0,
+     "g": 15,
+     "a": 2,
      "photoLFP": true,
-     "foot": "right"
+     "foot": "right",
+     "mins": 2610,
+     "sbId": 7610
     },
     {
      "num": 11,
@@ -2041,8 +2201,10 @@
      "posDesc": "RW",
      "photo": "https://s3.eu-west-3.amazonaws.com/ligue1.image/players/2025/all/player_official_2025_3288_621948-400x300.png",
      "g": 0,
-     "a": 0,
-     "photoLFP": true
+     "a": 1,
+     "photoLFP": true,
+     "mins": 741,
+     "sbId": 396754
     },
     {
      "num": 19,
@@ -2055,10 +2217,12 @@
      "pos": "ATT",
      "posDesc": "ST",
      "photo": "https://s3.eu-west-3.amazonaws.com/ligue1.image/players/2025/all/player_official_2025_3288_213579-400x300.png",
-     "g": 0,
+     "g": 1,
      "a": 0,
      "photoLFP": true,
-     "foot": "left"
+     "foot": "left",
+     "mins": 714,
+     "sbId": 8984
     },
     {
      "num": 77,
@@ -2071,10 +2235,12 @@
      "pos": "ATT",
      "posDesc": "LW,RW",
      "photo": "https://s3.eu-west-3.amazonaws.com/ligue1.image/players/2025/all/player_official_2025_3288_669341-400x300.png",
-     "g": 0,
-     "a": 0,
+     "g": 3,
+     "a": 2,
      "photoLFP": true,
-     "foot": "right"
+     "foot": "right",
+     "mins": 2147,
+     "sbId": 443389
     },
     {
      "num": null,
@@ -2109,7 +2275,9 @@
      "g": 0,
      "a": 0,
      "photoLFP": true,
-     "foot": "right"
+     "foot": "right",
+     "mins": 424,
+     "sbId": 22152
     },
     {
      "num": 4,
@@ -2122,10 +2290,12 @@
      "pos": "DEF",
      "posDesc": "CB",
      "photo": "https://s3.eu-west-3.amazonaws.com/ligue1.image/players/2025/all/player_official_2025_1272_484421-400x300.png",
-     "g": 0,
+     "g": 1,
      "a": 0,
      "photoLFP": true,
-     "foot": "left"
+     "foot": "left",
+     "mins": 1678,
+     "sbId": 30705
     },
     {
      "num": 5,
@@ -2138,10 +2308,12 @@
      "pos": "DEF",
      "posDesc": "CB",
      "photo": "https://s3.eu-west-3.amazonaws.com/ligue1.image/players/2025/all/player_official_2025_1272_456193-400x300.png",
-     "g": 0,
+     "g": 1,
      "a": 0,
      "photoLFP": true,
-     "foot": "right"
+     "foot": "right",
+     "mins": 2158,
+     "sbId": 33210
     },
     {
      "num": 21,
@@ -2157,7 +2329,9 @@
      "g": 0,
      "a": 0,
      "photoLFP": true,
-     "foot": "right"
+     "foot": "right",
+     "mins": 96,
+     "sbId": 77402
     },
     {
      "num": 24,
@@ -2171,9 +2345,11 @@
      "posDesc": "CB",
      "photo": "https://s3.eu-west-3.amazonaws.com/ligue1.image/players/2025/all/player_official_2025_1272_523232-400x300.png",
      "g": 0,
-     "a": 0,
+     "a": 2,
      "photoLFP": true,
-     "foot": "right"
+     "foot": "right",
+     "mins": 2550,
+     "sbId": 65435
     },
     {
      "num": 26,
@@ -2188,7 +2364,9 @@
      "photo": "https://s3.eu-west-3.amazonaws.com/ligue1.image/players/2025/all/player_official_2025_1272_551974-400x300.png",
      "g": 0,
      "a": 0,
-     "photoLFP": true
+     "photoLFP": true,
+     "mins": 1094,
+     "sbId": 407118
     },
     {
      "num": 27,
@@ -2201,10 +2379,12 @@
      "pos": "DEF",
      "posDesc": "LWB,LB,CM",
      "photo": "https://s3.eu-west-3.amazonaws.com/ligue1.image/players/2025/all/player_official_2025_1272_538782-400x300.png",
-     "g": 0,
-     "a": 0,
+     "g": 2,
+     "a": 1,
      "photoLFP": true,
-     "foot": "left"
+     "foot": "left",
+     "mins": 2532,
+     "sbId": 118372
     },
     {
      "num": 29,
@@ -2217,10 +2397,12 @@
      "pos": "DEF",
      "posDesc": "CB,RB",
      "photo": "https://s3.eu-west-3.amazonaws.com/ligue1.image/players/2025/all/player_official_2025_1272_169860-400x300.png",
-     "g": 0,
-     "a": 0,
+     "g": 1,
+     "a": 3,
      "photoLFP": true,
-     "foot": "right"
+     "foot": "right",
+     "mins": 2800,
+     "sbId": 7312
     },
     {
      "num": 50,
@@ -2262,10 +2444,12 @@
      "pos": "MID",
      "posDesc": "CM,CDM,CB",
      "photo": "https://s3.eu-west-3.amazonaws.com/ligue1.image/players/2025/all/player_official_2025_1272_439365-400x300.png",
-     "g": 0,
-     "a": 0,
+     "g": 1,
+     "a": 1,
      "photoLFP": true,
-     "foot": "right"
+     "foot": "right",
+     "mins": 1028,
+     "sbId": 39191
     },
     {
      "num": 8,
@@ -2278,10 +2462,12 @@
      "pos": "MID",
      "posDesc": "CM,CAM,CDM",
      "photo": "https://s3.eu-west-3.amazonaws.com/ligue1.image/players/2025/all/player_official_2025_1272_193425-400x300.png",
-     "g": 0,
-     "a": 0,
+     "g": 7,
+     "a": 2,
      "photoLFP": true,
-     "foot": "right"
+     "foot": "right",
+     "mins": 2667,
+     "sbId": 10707
     },
     {
      "num": 10,
@@ -2295,9 +2481,11 @@
      "posDesc": "CAM,CM,LM,ST",
      "photo": "https://s3.eu-west-3.amazonaws.com/ligue1.image/players/2025/all/player_official_2025_1272_551971-400x300.png",
      "g": 0,
-     "a": 0,
+     "a": 2,
      "photoLFP": true,
-     "foot": "right"
+     "foot": "right",
+     "mins": 901,
+     "sbId": 150292
     },
     {
      "num": 11,
@@ -2310,10 +2498,12 @@
      "pos": "MID",
      "posDesc": "CM,ST,CAM",
      "photo": "https://s3.eu-west-3.amazonaws.com/ligue1.image/players/2025/all/player_official_2025_1272_535979-400x300.png",
-     "g": 0,
-     "a": 0,
+     "g": 1,
+     "a": 2,
      "photoLFP": true,
-     "foot": "left"
+     "foot": "left",
+     "mins": 1020,
+     "sbId": 105921
     },
     {
      "num": 19,
@@ -2327,9 +2517,11 @@
      "posDesc": "RM,ST,RWB",
      "photo": "https://s3.eu-west-3.amazonaws.com/ligue1.image/players/2025/all/player_official_2025_1272_544820-400x300.png",
      "g": 0,
-     "a": 0,
+     "a": 2,
      "photoLFP": true,
-     "foot": "right"
+     "foot": "right",
+     "mins": 1792,
+     "sbId": 440057
     },
     {
      "num": 20,
@@ -2342,10 +2534,12 @@
      "pos": "MID",
      "posDesc": "RM",
      "photo": "https://s3.eu-west-3.amazonaws.com/ligue1.image/players/2025/all/player_official_2025_1272_557668-400x300.png",
-     "g": 0,
+     "g": 3,
      "a": 0,
      "photoLFP": true,
-     "foot": "left"
+     "foot": "left",
+     "mins": 779,
+     "sbId": 384249
     },
     {
      "num": 30,
@@ -2361,7 +2555,9 @@
      "g": 0,
      "a": 0,
      "photoLFP": true,
-     "foot": "right"
+     "foot": "right",
+     "mins": 1204,
+     "sbId": 286843
     },
     {
      "num": 49,
@@ -2376,7 +2572,9 @@
      "photo": "https://s3.eu-west-1.amazonaws.com/image.mpg/2025-empt-1272-400x300.png",
      "g": 0,
      "a": 0,
-     "photoLFP": true
+     "photoLFP": true,
+     "mins": 3,
+     "sbId": 166937
     },
     {
      "num": null,
@@ -2390,7 +2588,9 @@
      "posDesc": "ST",
      "photo": "https://images.fotmob.com/image_resources/playerimages/1166569.png",
      "g": 0,
-     "a": 0
+     "a": 0,
+     "mins": 227,
+     "sbId": 39274
     },
     {
      "num": null,
@@ -2431,10 +2631,12 @@
      "pos": "ATT",
      "posDesc": "ST",
      "photo": "https://s3.eu-west-3.amazonaws.com/ligue1.image/players/2025/all/player_official_2025_1272_454687-400x300.png",
-     "g": 0,
+     "g": 1,
      "a": 0,
      "photoLFP": true,
-     "foot": "right"
+     "foot": "right",
+     "mins": 665,
+     "sbId": 28414
     },
     {
      "num": 7,
@@ -2447,10 +2649,12 @@
      "pos": "ATT",
      "posDesc": "ST,LM,LW",
      "photo": "https://s3.eu-west-3.amazonaws.com/ligue1.image/players/2025/all/player_official_2025_1272_561782-400x300.png",
-     "g": 0,
-     "a": 0,
+     "g": 9,
+     "a": 1,
      "photoLFP": true,
-     "foot": "right"
+     "foot": "right",
+     "mins": 2364,
+     "sbId": 162131
     },
     {
      "num": 9,
@@ -2465,7 +2669,9 @@
      "photo": "https://s3.eu-west-3.amazonaws.com/ligue1.image/players/2025/all/player_official_2025_1272_627282-400x300.png",
      "g": 0,
      "a": 0,
-     "photoLFP": true
+     "photoLFP": true,
+     "mins": 585,
+     "sbId": 405684
     },
     {
      "num": 12,
@@ -2478,10 +2684,12 @@
      "pos": "ATT",
      "posDesc": "ST,CAM",
      "photo": "https://s3.eu-west-3.amazonaws.com/ligue1.image/players/2025/all/player_official_2025_1272_487506-400x300.png",
-     "g": 0,
+     "g": 1,
      "a": 0,
      "photoLFP": true,
-     "foot": "right"
+     "foot": "right",
+     "mins": 769,
+     "sbId": 28345
     },
     {
      "num": 22,
@@ -2497,7 +2705,9 @@
      "g": 0,
      "a": 0,
      "photoLFP": true,
-     "foot": "right"
+     "foot": "right",
+     "mins": 93,
+     "sbId": 386085
     },
     {
      "num": 23,
@@ -2525,9 +2735,11 @@
      "posDesc": "ST",
      "photo": "https://s3.eu-west-3.amazonaws.com/ligue1.image/players/2025/all/player_official_2025_1272_643303-400x300.png",
      "g": 0,
-     "a": 0,
+     "a": 1,
      "photoLFP": true,
-     "foot": "right"
+     "foot": "right",
+     "mins": 175,
+     "sbId": 331652
     },
     {
      "num": null,
@@ -2562,7 +2774,9 @@
      "g": 0,
      "a": 0,
      "photoLFP": true,
-     "foot": "right"
+     "foot": "right",
+     "mins": 1293,
+     "sbId": 81475
     },
     {
      "num": 16,
@@ -2578,7 +2792,9 @@
      "g": 0,
      "a": 0,
      "photoLFP": true,
-     "foot": "left"
+     "foot": "left",
+     "mins": 2071,
+     "sbId": 30594
     },
     {
      "num": 40,
@@ -2608,9 +2824,11 @@
      "posDesc": "RB,RM",
      "photo": "https://s3.eu-west-3.amazonaws.com/ligue1.image/players/2025/all/player_official_2025_428_198188-400x300.png",
      "g": 0,
-     "a": 0,
+     "a": 1,
      "photoLFP": true,
-     "foot": "right"
+     "foot": "right",
+     "mins": 1510,
+     "sbId": 40531
     },
     {
      "num": 3,
@@ -2624,8 +2842,10 @@
      "posDesc": "LB,RB",
      "photo": "https://s3.eu-west-3.amazonaws.com/ligue1.image/players/2025/all/player_official_2025_428_665235-400x300.png",
      "g": 0,
-     "a": 0,
-     "photoLFP": true
+     "a": 1,
+     "photoLFP": true,
+     "mins": 454,
+     "sbId": 426488
     },
     {
      "num": 7,
@@ -2638,10 +2858,12 @@
      "pos": "DEF",
      "posDesc": "CB",
      "photo": "https://s3.eu-west-3.amazonaws.com/ligue1.image/players/2025/all/player_official_2025_428_585485-400x300.png",
-     "g": 0,
+     "g": 4,
      "a": 0,
      "photoLFP": true,
-     "foot": "right"
+     "foot": "right",
+     "mins": 2580,
+     "sbId": 91208
     },
     {
      "num": 18,
@@ -2654,10 +2876,12 @@
      "pos": "DEF",
      "posDesc": "CB",
      "photo": "https://s3.eu-west-3.amazonaws.com/ligue1.image/players/2025/all/player_official_2025_428_626521-400x300.png",
-     "g": 0,
+     "g": 1,
      "a": 0,
      "photoLFP": true,
-     "foot": "right"
+     "foot": "right",
+     "mins": 1637,
+     "sbId": 422014
     },
     {
      "num": 22,
@@ -2671,9 +2895,11 @@
      "posDesc": "RB,CB",
      "photo": "https://s3.eu-west-3.amazonaws.com/ligue1.image/players/2025/all/player_official_2025_428_437204-400x300.png",
      "g": 0,
-     "a": 0,
+     "a": 1,
      "photoLFP": true,
-     "foot": "right"
+     "foot": "right",
+     "mins": 2648,
+     "sbId": 7608
     },
     {
      "num": 29,
@@ -2689,7 +2915,9 @@
      "g": 0,
      "a": 0,
      "photoLFP": true,
-     "foot": "left"
+     "foot": "left",
+     "mins": 2208,
+     "sbId": 32761
     },
     {
      "num": 36,
@@ -2702,10 +2930,12 @@
      "pos": "DEF",
      "posDesc": "CB",
      "photo": "https://s3.eu-west-3.amazonaws.com/ligue1.image/players/2025/all/player_official_2025_428_545011-400x300.png",
-     "g": 0,
+     "g": 1,
      "a": 0,
      "photoLFP": true,
-     "foot": "right"
+     "foot": "right",
+     "mins": 1872,
+     "sbId": 48399
     },
     {
      "num": 38,
@@ -2736,7 +2966,9 @@
      "photo": "https://s3.eu-west-1.amazonaws.com/image.mpg/2025-empt-428-400x300.png",
      "g": 0,
      "a": 0,
-     "photoLFP": true
+     "photoLFP": true,
+     "mins": 15,
+     "sbId": 459214
     },
     {
      "num": 4,
@@ -2752,7 +2984,9 @@
      "g": 0,
      "a": 0,
      "photoLFP": true,
-     "foot": "right"
+     "foot": "right",
+     "mins": 3067,
+     "sbId": 7810
     },
     {
      "num": 6,
@@ -2765,9 +2999,11 @@
      "pos": "MID",
      "posDesc": "CM",
      "photo": "https://s3.eu-west-3.amazonaws.com/ligue1.image/players/2025/all/player_official_2025_428_492842-400x300.png",
-     "g": 0,
+     "g": 2,
      "a": 0,
-     "photoLFP": true
+     "photoLFP": true,
+     "mins": 584,
+     "sbId": 39235
     },
     {
      "num": 8,
@@ -2780,10 +3016,12 @@
      "pos": "MID",
      "posDesc": "CM,CAM",
      "photo": "https://s3.eu-west-3.amazonaws.com/ligue1.image/players/2025/all/player_official_2025_428_468489-400x300.png",
-     "g": 0,
-     "a": 0,
+     "g": 2,
+     "a": 2,
      "photoLFP": true,
-     "foot": "right"
+     "foot": "right",
+     "mins": 2106,
+     "sbId": 21084
     },
     {
      "num": 11,
@@ -2796,10 +3034,12 @@
      "pos": "MID",
      "posDesc": "RM",
      "photo": "https://s3.eu-west-3.amazonaws.com/ligue1.image/players/2025/all/player_official_2025_428_476403-400x300.png",
-     "g": 0,
-     "a": 0,
+     "g": 1,
+     "a": 1,
      "photoLFP": true,
-     "foot": "right"
+     "foot": "right",
+     "mins": 1801,
+     "sbId": 44763
     },
     {
      "num": 24,
@@ -2813,9 +3053,11 @@
      "posDesc": "LM",
      "photo": "https://s3.eu-west-3.amazonaws.com/ligue1.image/players/2025/all/player_official_2025_428_505062-400x300.png",
      "g": 0,
-     "a": 0,
+     "a": 4,
      "photoLFP": true,
-     "foot": "both"
+     "foot": "both",
+     "mins": 1062,
+     "sbId": 35699
     },
     {
      "num": 32,
@@ -2830,7 +3072,9 @@
      "photo": "https://s3.eu-west-1.amazonaws.com/image.mpg/2025-empt-428-400x300.png",
      "g": 0,
      "a": 0,
-     "photoLFP": true
+     "photoLFP": true,
+     "mins": 40,
+     "sbId": 468631
     },
     {
      "num": 33,
@@ -2860,7 +3104,9 @@
      "photo": "https://s3.eu-west-3.amazonaws.com/ligue1.image/players/2025/all/player_official_2025_428_503712-400x300.png",
      "g": 0,
      "a": 0,
-     "photoLFP": true
+     "photoLFP": true,
+     "mins": 61,
+     "sbId": 179308
     },
     {
      "num": 39,
@@ -2873,9 +3119,11 @@
      "pos": "MID",
      "posDesc": "CM",
      "photo": "https://s3.eu-west-3.amazonaws.com/ligue1.image/players/2025/all/player_official_2025_428_686546-400x300.png",
-     "g": 0,
+     "g": 1,
      "a": 0,
-     "photoLFP": true
+     "photoLFP": true,
+     "mins": 1048,
+     "sbId": 328878
     },
     {
      "num": 10,
@@ -2888,10 +3136,12 @@
      "pos": "ATT",
      "posDesc": "ST,LW",
      "photo": "https://s3.eu-west-3.amazonaws.com/ligue1.image/players/2025/all/player_official_2025_428_563113-400x300.png",
-     "g": 0,
-     "a": 0,
+     "g": 3,
+     "a": 5,
      "photoLFP": true,
-     "foot": "right"
+     "foot": "right",
+     "mins": 1176,
+     "sbId": 176253
     },
     {
      "num": 19,
@@ -2904,9 +3154,11 @@
      "pos": "ATT",
      "posDesc": "ST",
      "photo": "https://s3.eu-west-3.amazonaws.com/ligue1.image/players/2025/all/player_official_2025_428_560238-400x300.png",
-     "g": 0,
-     "a": 0,
-     "photoLFP": true
+     "g": 3,
+     "a": 1,
+     "photoLFP": true,
+     "mins": 357,
+     "sbId": 153430
     },
     {
      "num": 27,
@@ -2919,9 +3171,11 @@
      "pos": "ATT",
      "posDesc": "ST,CAM",
      "photo": "https://s3.eu-west-3.amazonaws.com/ligue1.image/players/2025/all/player_official_2025_428_564812-400x300.png",
-     "g": 0,
-     "a": 0,
-     "photoLFP": true
+     "g": 4,
+     "a": 1,
+     "photoLFP": true,
+     "mins": 1418,
+     "sbId": 175518
     },
     {
      "num": 34,
@@ -2936,7 +3190,9 @@
      "photo": "https://s3.eu-west-3.amazonaws.com/ligue1.image/players/2025/all/player_official_2025_428_632445-400x300.png",
      "g": 0,
      "a": 0,
-     "photoLFP": true
+     "photoLFP": true,
+     "mins": 99,
+     "sbId": 139293
     }
    ]
   },
@@ -2957,7 +3213,9 @@
      "g": 0,
      "a": 0,
      "photoLFP": true,
-     "foot": "right"
+     "foot": "right",
+     "mins": 98,
+     "sbId": 45349
     },
     {
      "num": 30,
@@ -2973,7 +3231,9 @@
      "g": 0,
      "a": 0,
      "photoLFP": true,
-     "foot": "right"
+     "foot": "right",
+     "mins": 3235,
+     "sbId": 2967
     },
     {
      "num": 40,
@@ -3001,10 +3261,12 @@
      "pos": "DEF",
      "posDesc": "CB",
      "photo": "https://s3.eu-west-3.amazonaws.com/ligue1.image/players/2025/all/player_official_2025_2298_429202-400x300.png",
-     "g": 0,
+     "g": 1,
      "a": 0,
      "photoLFP": true,
-     "foot": "left"
+     "foot": "left",
+     "mins": 2571,
+     "sbId": 7813
     },
     {
      "num": 5,
@@ -3020,7 +3282,9 @@
      "g": 0,
      "a": 0,
      "photoLFP": true,
-     "foot": "right"
+     "foot": "right",
+     "mins": 96,
+     "sbId": 15308
     },
     {
      "num": 7,
@@ -3034,9 +3298,11 @@
      "posDesc": "RWB,RB,CAM",
      "photo": "https://s3.eu-west-3.amazonaws.com/ligue1.image/players/2025/all/player_official_2025_2298_477730-400x300.png",
      "g": 0,
-     "a": 0,
+     "a": 3,
      "photoLFP": true,
-     "foot": "both"
+     "foot": "both",
+     "mins": 1838,
+     "sbId": 35276
     },
     {
      "num": 12,
@@ -3051,7 +3317,9 @@
      "photo": "https://s3.eu-west-3.amazonaws.com/ligue1.image/players/2025/all/player_official_2025_2298_482588-400x300.png",
      "g": 0,
      "a": 0,
-     "photoLFP": true
+     "photoLFP": true,
+     "mins": 1284,
+     "sbId": 310535
     },
     {
      "num": 23,
@@ -3067,7 +3335,9 @@
      "g": 0,
      "a": 0,
      "photoLFP": true,
-     "foot": "right"
+     "foot": "right",
+     "mins": 1304,
+     "sbId": 20935
     },
     {
      "num": 24,
@@ -3083,7 +3353,9 @@
      "g": 0,
      "a": 0,
      "photoLFP": true,
-     "foot": "right"
+     "foot": "right",
+     "mins": 699,
+     "sbId": 460033
     },
     {
      "num": 35,
@@ -3096,10 +3368,12 @@
      "pos": "DEF",
      "posDesc": "LB,LWB",
      "photo": "https://s3.eu-west-3.amazonaws.com/ligue1.image/players/2025/all/player_official_2025_2298_714862-400x300.png",
-     "g": 0,
+     "g": 2,
      "a": 0,
      "photoLFP": true,
-     "foot": "left"
+     "foot": "left",
+     "mins": 752,
+     "sbId": 529196
     },
     {
      "num": null,
@@ -3156,10 +3430,12 @@
      "pos": "MID",
      "posDesc": "CM,CDM,RWB,LB,RW",
      "photo": "https://s3.eu-west-3.amazonaws.com/ligue1.image/players/2025/all/player_official_2025_2298_485100-400x300.png",
-     "g": 0,
-     "a": 0,
+     "g": 1,
+     "a": 1,
      "photoLFP": true,
-     "foot": "right"
+     "foot": "right",
+     "mins": 3080,
+     "sbId": 44774
     },
     {
      "num": 10,
@@ -3172,10 +3448,12 @@
      "pos": "MID",
      "posDesc": "RM,RW,CAM,LM,CM,ST",
      "photo": "https://s3.eu-west-3.amazonaws.com/ligue1.image/players/2025/all/player_official_2025_2298_513351-400x300.png",
-     "g": 0,
-     "a": 0,
+     "g": 4,
+     "a": 2,
      "photoLFP": true,
-     "foot": "right"
+     "foot": "right",
+     "mins": 2076,
+     "sbId": 86721
     },
     {
      "num": 13,
@@ -3205,7 +3483,9 @@
      "g": 0,
      "a": 0,
      "photoLFP": true,
-     "foot": "right"
+     "foot": "right",
+     "mins": 2685,
+     "sbId": 7586
     },
     {
      "num": 20,
@@ -3218,9 +3498,11 @@
      "pos": "MID",
      "posDesc": "LM",
      "photo": "https://s3.eu-west-3.amazonaws.com/ligue1.image/players/2025/all/player_official_2025_2298_703101-400x300.png",
-     "g": 0,
+     "g": 5,
      "a": 0,
-     "photoLFP": true
+     "photoLFP": true,
+     "mins": 964,
+     "sbId": 467813
     },
     {
      "num": 20,
@@ -3251,7 +3533,9 @@
      "g": 0,
      "a": 0,
      "photoLFP": true,
-     "foot": "left"
+     "foot": "left",
+     "mins": 322,
+     "sbId": 446510
     },
     {
      "num": 26,
@@ -3267,7 +3551,9 @@
      "g": 0,
      "a": 0,
      "photoLFP": true,
-     "foot": "right"
+     "foot": "right",
+     "mins": 752,
+     "sbId": 405170
     },
     {
      "num": 28,
@@ -3280,10 +3566,12 @@
      "pos": "MID",
      "posDesc": "CAM,ST,LM",
      "photo": "https://s3.eu-west-3.amazonaws.com/ligue1.image/players/2025/all/player_official_2025_2298_564428-400x300.png",
-     "g": 0,
+     "g": 1,
      "a": 0,
      "photoLFP": true,
-     "foot": "right"
+     "foot": "right",
+     "mins": 1086,
+     "sbId": 45532
     },
     {
      "num": 31,
@@ -3297,8 +3585,10 @@
      "posDesc": "CAM",
      "photo": "https://s3.eu-west-3.amazonaws.com/ligue1.image/players/2025/all/player_official_2025_2298_724926-400x300.png",
      "g": 0,
-     "a": 0,
-     "photoLFP": true
+     "a": 1,
+     "photoLFP": true,
+     "mins": 378,
+     "sbId": 536717
     },
     {
      "num": null,
@@ -3356,7 +3646,9 @@
      "g": 0,
      "a": 0,
      "photoLFP": true,
-     "foot": "right"
+     "foot": "right",
+     "mins": 299,
+     "sbId": 396490
     },
     {
      "num": 33,
@@ -3371,7 +3663,9 @@
      "photo": "https://s3.eu-west-1.amazonaws.com/image.mpg/2025-empt-2298-400x300.png",
      "g": 0,
      "a": 0,
-     "photoLFP": true
+     "photoLFP": true,
+     "mins": 13,
+     "sbId": 526707
     },
     {
      "num": null,
@@ -3385,7 +3679,9 @@
      "posDesc": "RM",
      "photo": "https://images.fotmob.com/image_resources/playerimages/1700199.png",
      "g": 0,
-     "a": 0
+     "a": 0,
+     "mins": 130,
+     "sbId": 452468
     },
     {
      "num": null,
@@ -3399,7 +3695,9 @@
      "posDesc": "ST",
      "photo": "https://images.fotmob.com/image_resources/playerimages/1514638.png",
      "g": 0,
-     "a": 0
+     "a": 0,
+     "mins": 387,
+     "sbId": 405985
     }
    ]
   },
@@ -3719,7 +4017,9 @@
      "g": 0,
      "a": 0,
      "photoLFP": true,
-     "foot": "right"
+     "foot": "right",
+     "mins": 97,
+     "sbId": 4437
     },
     {
      "num": 31,
@@ -3735,7 +4035,9 @@
      "g": 0,
      "a": 0,
      "photoLFP": true,
-     "foot": "right"
+     "foot": "right",
+     "mins": 3041,
+     "sbId": 44842
     },
     {
      "num": 50,
@@ -3750,7 +4052,9 @@
      "photo": "https://s3.eu-west-3.amazonaws.com/ligue1.image/players/2025/all/player_official_2025_147_620486-400x300.png",
      "g": 0,
      "a": 0,
-     "photoLFP": true
+     "photoLFP": true,
+     "mins": 203,
+     "sbId": 375314
     },
     {
      "num": 6,
@@ -3763,10 +4067,12 @@
      "pos": "DEF",
      "posDesc": "CB",
      "photo": "https://s3.eu-west-3.amazonaws.com/ligue1.image/players/2025/all/player_official_2025_147_114546-400x300.png",
-     "g": 0,
-     "a": 0,
+     "g": 2,
+     "a": 1,
      "photoLFP": true,
-     "foot": "right"
+     "foot": "right",
+     "mins": 1802,
+     "sbId": 3031
     },
     {
      "num": 15,
@@ -3779,10 +4085,12 @@
      "pos": "DEF",
      "posDesc": "CB",
      "photo": "https://s3.eu-west-3.amazonaws.com/ligue1.image/players/2025/all/player_official_2025_147_205552-400x300.png",
-     "g": 0,
+     "g": 1,
      "a": 0,
      "photoLFP": true,
-     "foot": "right"
+     "foot": "right",
+     "mins": 2746,
+     "sbId": 7570
     },
     {
      "num": 17,
@@ -3795,10 +4103,12 @@
      "pos": "DEF",
      "posDesc": "LB,CB",
      "photo": "https://s3.eu-west-3.amazonaws.com/ligue1.image/players/2025/all/player_official_2025_147_435615-400x300.png",
-     "g": 0,
-     "a": 0,
+     "g": 1,
+     "a": 1,
      "photoLFP": true,
-     "foot": "left"
+     "foot": "left",
+     "mins": 2031,
+     "sbId": 24815
     },
     {
      "num": 21,
@@ -3814,7 +4124,9 @@
      "g": 0,
      "a": 0,
      "photoLFP": true,
-     "foot": "left"
+     "foot": "left",
+     "mins": 1382,
+     "sbId": 224511
     },
     {
      "num": 23,
@@ -3830,7 +4142,9 @@
      "g": 0,
      "a": 0,
      "photoLFP": true,
-     "foot": "right"
+     "foot": "right",
+     "mins": 1497,
+     "sbId": 179297
     },
     {
      "num": 29,
@@ -3844,9 +4158,11 @@
      "posDesc": "RB,RWB",
      "photo": "https://s3.eu-west-3.amazonaws.com/ligue1.image/players/2025/all/player_official_2025_147_531301-400x300.png",
      "g": 0,
-     "a": 0,
+     "a": 3,
      "photoLFP": true,
-     "foot": "right"
+     "foot": "right",
+     "mins": 2563,
+     "sbId": 135043
     },
     {
      "num": 36,
@@ -3861,7 +4177,9 @@
      "photo": "https://s3.eu-west-3.amazonaws.com/ligue1.image/players/2025/all/player_official_2025_147_632592-400x300.png",
      "g": 0,
      "a": 0,
-     "photoLFP": true
+     "photoLFP": true,
+     "mins": 24,
+     "sbId": 415443
     },
     {
      "num": 38,
@@ -3904,10 +4222,12 @@
      "pos": "MID",
      "posDesc": "CDM,CAM",
      "photo": "https://s3.eu-west-3.amazonaws.com/ligue1.image/players/2025/all/player_official_2025_147_584635-400x300.png",
-     "g": 0,
-     "a": 0,
+     "g": 1,
+     "a": 1,
      "photoLFP": true,
-     "foot": "right"
+     "foot": "right",
+     "mins": 791,
+     "sbId": 291863
     },
     {
      "num": 20,
@@ -3922,7 +4242,9 @@
      "photo": "https://s3.eu-west-3.amazonaws.com/ligue1.image/players/2025/all/player_official_2025_147_729233-400x300.png",
      "g": 0,
      "a": 0,
-     "photoLFP": true
+     "photoLFP": true,
+     "mins": 69,
+     "sbId": 543001
     },
     {
      "num": 22,
@@ -3935,10 +4257,12 @@
      "pos": "MID",
      "posDesc": "CAM",
      "photo": "https://s3.eu-west-3.amazonaws.com/ligue1.image/players/2025/all/player_official_2025_147_574449-400x300.png",
-     "g": 0,
-     "a": 0,
+     "g": 1,
+     "a": 1,
      "photoLFP": true,
-     "foot": "left"
+     "foot": "left",
+     "mins": 241,
+     "sbId": 166383
     },
     {
      "num": 33,
@@ -3965,9 +4289,11 @@
      "pos": "MID",
      "posDesc": null,
      "photo": "https://s3.eu-west-3.amazonaws.com/ligue1.image/players/2025/all/player_official_2025_147_666279-400x300.png",
-     "g": 0,
+     "g": 1,
      "a": 0,
-     "photoLFP": true
+     "photoLFP": true,
+     "mins": 1715,
+     "sbId": 132337
     },
     {
      "num": 40,
@@ -3982,7 +4308,9 @@
      "photo": "https://s3.eu-west-3.amazonaws.com/ligue1.image/players/2025/all/player_official_2025_147_632605-400x300.png",
      "g": 0,
      "a": 0,
-     "photoLFP": true
+     "photoLFP": true,
+     "mins": 21,
+     "sbId": 431434
     },
     {
      "num": 44,
@@ -3995,10 +4323,12 @@
      "pos": "MID",
      "posDesc": "CDM,CAM",
      "photo": "https://s3.eu-west-3.amazonaws.com/ligue1.image/players/2025/all/player_official_2025_147_632437-400x300.png",
-     "g": 0,
-     "a": 0,
+     "g": 1,
+     "a": 1,
      "photoLFP": true,
-     "foot": "right"
+     "foot": "right",
+     "mins": 2418,
+     "sbId": 166382
     },
     {
      "num": 77,
@@ -4027,8 +4357,10 @@
      "pos": "MID",
      "posDesc": "CAM",
      "photo": "https://images.fotmob.com/image_resources/playerimages/1609215.png",
-     "g": 0,
-     "a": 0
+     "g": 1,
+     "a": 0,
+     "mins": 103,
+     "sbId": 166384
     },
     {
      "num": 8,
@@ -4041,10 +4373,12 @@
      "pos": "ATT",
      "posDesc": "LW",
      "photo": "https://s3.eu-west-3.amazonaws.com/ligue1.image/players/2025/all/player_official_2025_147_620414-400x300.png",
-     "g": 0,
-     "a": 0,
+     "g": 2,
+     "a": 2,
      "photoLFP": true,
-     "foot": "left"
+     "foot": "left",
+     "mins": 1021,
+     "sbId": 395802
     },
     {
      "num": 18,
@@ -4057,10 +4391,12 @@
      "pos": "ATT",
      "posDesc": "RW,RM",
      "photo": "https://s3.eu-west-3.amazonaws.com/ligue1.image/players/2025/all/player_official_2025_147_644165-400x300.png",
-     "g": 0,
-     "a": 0,
+     "g": 4,
+     "a": 1,
      "photoLFP": true,
-     "foot": "left"
+     "foot": "left",
+     "mins": 2519,
+     "sbId": 422093
     },
     {
      "num": 19,
@@ -4073,10 +4409,12 @@
      "pos": "ATT",
      "posDesc": "ST",
      "photo": "https://s3.eu-west-3.amazonaws.com/ligue1.image/players/2025/all/player_official_2025_147_189542-400x300.png",
-     "g": 0,
-     "a": 0,
+     "g": 12,
+     "a": 4,
      "photoLFP": true,
-     "foot": "right"
+     "foot": "right",
+     "mins": 3174,
+     "sbId": 3403
     },
     {
      "num": 28,
@@ -4107,7 +4445,9 @@
      "photo": "https://s3.eu-west-3.amazonaws.com/ligue1.image/players/2025/all/player_official_2025_147_632604-400x300.png",
      "g": 0,
      "a": 0,
-     "photoLFP": true
+     "photoLFP": true,
+     "mins": 35,
+     "sbId": 431431
     },
     {
      "num": 35,
@@ -4122,7 +4462,9 @@
      "photo": "https://s3.eu-west-3.amazonaws.com/ligue1.image/players/2025/all/player_official_2025_147_705809-400x300.png",
      "g": 0,
      "a": 0,
-     "photoLFP": true
+     "photoLFP": true,
+     "mins": 69,
+     "sbId": 409485
     },
     {
      "num": null,
@@ -4157,7 +4499,9 @@
      "g": 0,
      "a": 0,
      "photoLFP": true,
-     "foot": "right"
+     "foot": "right",
+     "mins": 2968,
+     "sbId": 45065
     },
     {
      "num": 16,
@@ -4173,7 +4517,9 @@
      "g": 0,
      "a": 0,
      "photoLFP": true,
-     "foot": "right"
+     "foot": "right",
+     "mins": 41,
+     "sbId": 7313
     },
     {
      "num": 30,
@@ -4189,7 +4535,9 @@
      "g": 0,
      "a": 0,
      "photoLFP": true,
-     "foot": "right"
+     "foot": "right",
+     "mins": 53,
+     "sbId": 95549
     },
     {
      "num": null,
@@ -4216,10 +4564,12 @@
      "pos": "DEF",
      "posDesc": "CB",
      "photo": "https://s3.eu-west-3.amazonaws.com/ligue1.image/players/2025/all/player_official_2025_148_544238-400x300.png",
-     "g": 0,
-     "a": 0,
+     "g": 1,
+     "a": 2,
      "photoLFP": true,
-     "foot": "right"
+     "foot": "right",
+     "mins": 2561,
+     "sbId": 167348
     },
     {
      "num": 12,
@@ -4234,7 +4584,9 @@
      "photo": "https://s3.eu-west-3.amazonaws.com/ligue1.image/players/2025/all/player_official_2025_148_462652-400x300.png",
      "g": 0,
      "a": 0,
-     "photoLFP": true
+     "photoLFP": true,
+     "mins": 1516,
+     "sbId": 132804
     },
     {
      "num": 14,
@@ -4247,9 +4599,11 @@
      "pos": "DEF",
      "posDesc": "CB",
      "photo": "https://s3.eu-west-3.amazonaws.com/ligue1.image/players/2025/all/player_official_2025_148_106884-400x300.png",
-     "g": 0,
+     "g": 6,
      "a": 0,
-     "photoLFP": true
+     "photoLFP": true,
+     "mins": 2038,
+     "sbId": 7250
     },
     {
      "num": 21,
@@ -4262,10 +4616,12 @@
      "pos": "DEF",
      "posDesc": "CB",
      "photo": "https://s3.eu-west-3.amazonaws.com/ligue1.image/players/2025/all/player_official_2025_148_644599-400x300.png",
-     "g": 0,
+     "g": 2,
      "a": 0,
      "photoLFP": true,
-     "foot": "left"
+     "foot": "left",
+     "mins": 1885,
+     "sbId": 412347
     },
     {
      "num": 44,
@@ -4278,9 +4634,11 @@
      "pos": "DEF",
      "posDesc": "RB,RWB,RM",
      "photo": "https://s3.eu-west-3.amazonaws.com/ligue1.image/players/2025/all/player_official_2025_148_650433-400x300.png",
-     "g": 0,
+     "g": 1,
      "a": 0,
-     "photoLFP": true
+     "photoLFP": true,
+     "mins": 1689,
+     "sbId": 303220
     },
     {
      "num": 77,
@@ -4295,7 +4653,9 @@
      "photo": "https://s3.eu-west-3.amazonaws.com/ligue1.image/players/2025/all/player_official_2025_148_577171-400x300.png",
      "g": 0,
      "a": 0,
-     "photoLFP": true
+     "photoLFP": true,
+     "mins": 1039,
+     "sbId": 142319
     },
     {
      "num": 5,
@@ -4309,9 +4669,11 @@
      "posDesc": "CDM,CM",
      "photo": "https://s3.eu-west-3.amazonaws.com/ligue1.image/players/2025/all/player_official_2025_148_200964-400x300.png",
      "g": 0,
-     "a": 0,
+     "a": 1,
      "photoLFP": true,
-     "foot": "left"
+     "foot": "left",
+     "mins": 615,
+     "sbId": 38346
     },
     {
      "num": 7,
@@ -4324,9 +4686,11 @@
      "pos": "MID",
      "posDesc": "LM,LW,CAM",
      "photo": "https://s3.eu-west-3.amazonaws.com/ligue1.image/players/2025/all/player_official_2025_148_563798-400x300.png",
-     "g": 0,
-     "a": 0,
-     "photoLFP": true
+     "g": 5,
+     "a": 3,
+     "photoLFP": true,
+     "mins": 2355,
+     "sbId": 304092
     },
     {
      "num": 8,
@@ -4357,7 +4721,9 @@
      "g": 0,
      "a": 0,
      "photoLFP": true,
-     "foot": "right"
+     "foot": "right",
+     "mins": 113,
+     "sbId": 315395
     },
     {
      "num": 18,
@@ -4372,7 +4738,9 @@
      "photo": "https://s3.eu-west-3.amazonaws.com/ligue1.image/players/2025/all/player_official_2025_148_723613-400x300.png",
      "g": 0,
      "a": 0,
-     "photoLFP": true
+     "photoLFP": true,
+     "mins": 410,
+     "sbId": 443204
     },
     {
      "num": 25,
@@ -4385,10 +4753,12 @@
      "pos": "MID",
      "posDesc": "CM,CDM",
      "photo": "https://s3.eu-west-3.amazonaws.com/ligue1.image/players/2025/all/player_official_2025_148_217992-400x300.png",
-     "g": 0,
-     "a": 0,
+     "g": 1,
+     "a": 1,
      "photoLFP": true,
-     "foot": "right"
+     "foot": "right",
+     "mins": 1003,
+     "sbId": 3222
     },
     {
      "num": 26,
@@ -4401,9 +4771,11 @@
      "pos": "MID",
      "posDesc": "CAM,ST",
      "photo": "https://s3.eu-west-3.amazonaws.com/ligue1.image/players/2025/all/player_official_2025_148_703784-400x300.png",
-     "g": 0,
-     "a": 0,
-     "photoLFP": true
+     "g": 1,
+     "a": 2,
+     "photoLFP": true,
+     "mins": 502,
+     "sbId": 347110
     },
     {
      "num": 34,
@@ -4416,9 +4788,11 @@
      "pos": "MID",
      "posDesc": "RM",
      "photo": "https://s3.eu-west-3.amazonaws.com/ligue1.image/players/2025/all/player_official_2025_148_722876-400x300.png",
-     "g": 0,
+     "g": 1,
      "a": 0,
-     "photoLFP": true
+     "photoLFP": true,
+     "mins": 278,
+     "sbId": 370274
     },
     {
      "num": 37,
@@ -4448,7 +4822,9 @@
      "photo": "https://s3.eu-west-3.amazonaws.com/ligue1.image/players/2025/all/player_official_2025_148_703103-400x300.png",
      "g": 0,
      "a": 0,
-     "photoLFP": true
+     "photoLFP": true,
+     "mins": 89,
+     "sbId": 395612
     },
     {
      "num": null,
@@ -4462,7 +4838,9 @@
      "posDesc": "CB",
      "photo": "https://images.fotmob.com/image_resources/playerimages/1315952.png",
      "g": 0,
-     "a": 0
+     "a": 0,
+     "mins": 497,
+     "sbId": 158522
     },
     {
      "num": 10,
@@ -4475,10 +4853,12 @@
      "pos": "ATT",
      "posDesc": "ST",
      "photo": "https://s3.eu-west-3.amazonaws.com/ligue1.image/players/2025/all/player_official_2025_148_105708-400x300.png",
-     "g": 0,
+     "g": 2,
      "a": 0,
      "photoLFP": true,
-     "foot": "right"
+     "foot": "right",
+     "mins": 726,
+     "sbId": 22834
     },
     {
      "num": 20,
@@ -4491,9 +4871,11 @@
      "pos": "ATT",
      "posDesc": "ST",
      "photo": "https://s3.eu-west-3.amazonaws.com/ligue1.image/players/2025/all/player_official_2025_148_533486-400x300.png",
-     "g": 0,
-     "a": 0,
-     "photoLFP": true
+     "g": 5,
+     "a": 1,
+     "photoLFP": true,
+     "mins": 1422,
+     "sbId": 97432
     },
     {
      "num": 29,
@@ -4506,10 +4888,12 @@
      "pos": "ATT",
      "posDesc": "ST",
      "photo": "https://s3.eu-west-3.amazonaws.com/ligue1.image/players/2025/all/player_official_2025_148_606991-400x300.png",
-     "g": 0,
-     "a": 0,
+     "g": 2,
+     "a": 1,
      "photoLFP": true,
-     "foot": "right"
+     "foot": "right",
+     "mins": 965,
+     "sbId": 425416
     },
     {
      "num": null,
@@ -4967,9 +5351,11 @@
      "posDesc": "GK",
      "photo": "https://s3.eu-west-3.amazonaws.com/ligue1.image/players/2025/all/player_official_2025_5420_184203-400x300.png",
      "g": 0,
-     "a": 0,
+     "a": 1,
      "photoLFP": true,
-     "foot": "right"
+     "foot": "right",
+     "mins": 1066,
+     "sbId": 45032
     },
     {
      "num": 40,
@@ -5012,10 +5398,12 @@
      "pos": "DEF",
      "posDesc": "RB,RWB,CB,RM",
      "photo": "https://s3.eu-west-3.amazonaws.com/ligue1.image/players/2025/all/player_official_2025_5420_584862-400x300.png",
-     "g": 0,
+     "g": 3,
      "a": 0,
      "photoLFP": true,
-     "foot": "right"
+     "foot": "right",
+     "mins": 2474,
+     "sbId": 415596
     },
     {
      "num": 3,
@@ -5028,10 +5416,12 @@
      "pos": "DEF",
      "posDesc": "LB,LWB,LM,CB",
      "photo": "https://s3.eu-west-3.amazonaws.com/ligue1.image/players/2025/all/player_official_2025_5420_633077-400x300.png",
-     "g": 0,
-     "a": 0,
+     "g": 1,
+     "a": 2,
      "photoLFP": true,
-     "foot": "right"
+     "foot": "right",
+     "mins": 3069,
+     "sbId": 409779
     },
     {
      "num": 4,
@@ -5063,7 +5453,9 @@
      "g": 0,
      "a": 0,
      "photoLFP": true,
-     "foot": "left"
+     "foot": "left",
+     "mins": 137,
+     "sbId": 397124
     },
     {
      "num": 12,
@@ -5093,7 +5485,9 @@
      "g": 0,
      "a": 0,
      "photoLFP": true,
-     "foot": "right"
+     "foot": "right",
+     "mins": 1157,
+     "sbId": 19020
     },
     {
      "num": 23,
@@ -5109,7 +5503,9 @@
      "g": 0,
      "a": 0,
      "photoLFP": true,
-     "foot": "right"
+     "foot": "right",
+     "mins": 1829,
+     "sbId": 7334
     },
     {
      "num": 33,
@@ -5124,7 +5520,9 @@
      "photo": "https://s3.eu-west-1.amazonaws.com/image.mpg/2025-empt-5420-400x300.png",
      "g": 0,
      "a": 0,
-     "photoLFP": true
+     "photoLFP": true,
+     "mins": 28,
+     "sbId": 440136
     },
     {
      "num": 97,
@@ -5137,10 +5535,12 @@
      "pos": "DEF",
      "posDesc": "CB,CDM,RB",
      "photo": "https://s3.eu-west-3.amazonaws.com/ligue1.image/players/2025/all/player_official_2025_5420_488441-400x300.png",
-     "g": 0,
-     "a": 0,
+     "g": 1,
+     "a": 2,
      "photoLFP": true,
-     "foot": "right"
+     "foot": "right",
+     "mins": 2284,
+     "sbId": 61810
     },
     {
      "num": null,
@@ -5181,10 +5581,12 @@
      "pos": "MID",
      "posDesc": "CDM,CM",
      "photo": "https://s3.eu-west-3.amazonaws.com/ligue1.image/players/2025/all/player_official_2025_5420_609642-400x300.png",
-     "g": 0,
-     "a": 0,
+     "g": 2,
+     "a": 1,
      "photoLFP": true,
-     "foot": "right"
+     "foot": "right",
+     "mins": 1070,
+     "sbId": 325278
     },
     {
      "num": 11,
@@ -5200,7 +5602,9 @@
      "g": 0,
      "a": 0,
      "photoLFP": true,
-     "foot": "right"
+     "foot": "right",
+     "mins": 403,
+     "sbId": 38896
     },
     {
      "num": 14,
@@ -5213,10 +5617,12 @@
      "pos": "MID",
      "posDesc": "ST,CAM,CM",
      "photo": "https://s3.eu-west-3.amazonaws.com/ligue1.image/players/2025/all/player_official_2025_5420_198990-400x300.png",
-     "g": 0,
-     "a": 0,
+     "g": 6,
+     "a": 4,
      "photoLFP": true,
-     "foot": "right"
+     "foot": "right",
+     "mins": 1557,
+     "sbId": 7330
     },
     {
      "num": 20,
@@ -5229,10 +5635,12 @@
      "pos": "MID",
      "posDesc": "CAM,CM,ST,CDM",
      "photo": "https://s3.eu-west-3.amazonaws.com/ligue1.image/players/2025/all/player_official_2025_5420_430994-400x300.png",
-     "g": 0,
-     "a": 0,
+     "g": 2,
+     "a": 2,
      "photoLFP": true,
-     "foot": "right"
+     "foot": "right",
+     "mins": 1035,
+     "sbId": 7373
     },
     {
      "num": 21,
@@ -5245,10 +5653,12 @@
      "pos": "MID",
      "posDesc": "CM,CDM",
      "photo": "https://s3.eu-west-3.amazonaws.com/ligue1.image/players/2025/all/player_official_2025_5420_457982-400x300.png",
-     "g": 0,
-     "a": 0,
+     "g": 2,
+     "a": 1,
      "photoLFP": true,
-     "foot": "left"
+     "foot": "left",
+     "mins": 2320,
+     "sbId": 8985
     },
     {
      "num": null,
@@ -5303,9 +5713,11 @@
      "pos": "ATT",
      "posDesc": "ST,RW,RM",
      "photo": "https://s3.eu-west-3.amazonaws.com/ligue1.image/players/2025/all/player_official_2025_5420_612865-400x300.png",
-     "g": 0,
-     "a": 0,
-     "photoLFP": true
+     "g": 9,
+     "a": 4,
+     "photoLFP": true,
+     "mins": 2280,
+     "sbId": 132368
     },
     {
      "num": 34,
@@ -5320,7 +5732,9 @@
      "photo": "https://s3.eu-west-3.amazonaws.com/ligue1.image/players/2025/all/player_official_2025_5420_682317-400x300.png",
      "g": 0,
      "a": 0,
-     "photoLFP": true
+     "photoLFP": true,
+     "mins": 214,
+     "sbId": 447165
     },
     {
      "num": 36,
@@ -5335,7 +5749,9 @@
      "photo": "https://s3.eu-west-3.amazonaws.com/ligue1.image/players/2025/all/player_official_2025_5420_694310-400x300.png",
      "g": 0,
      "a": 0,
-     "photoLFP": true
+     "photoLFP": true,
+     "mins": 40,
+     "sbId": 471996
     },
     {
      "num": null,
@@ -5426,7 +5842,9 @@
      "g": 0,
      "a": 0,
      "photoLFP": true,
-     "foot": "right"
+     "foot": "right",
+     "mins": 3152,
+     "sbId": 25041
     },
     {
      "num": 30,
@@ -5472,7 +5890,9 @@
      "g": 0,
      "a": 0,
      "photoLFP": true,
-     "foot": "right"
+     "foot": "right",
+     "mins": 517,
+     "sbId": 231352
     },
     {
      "num": 3,
@@ -5485,10 +5905,12 @@
      "pos": "DEF",
      "posDesc": "CB,LWB",
      "photo": "https://s3.eu-west-3.amazonaws.com/ligue1.image/players/2025/all/player_official_2025_915_488263-400x300.png",
-     "g": 0,
+     "g": 1,
      "a": 0,
      "photoLFP": true,
-     "foot": "left"
+     "foot": "left",
+     "mins": 1697,
+     "sbId": 28347
     },
     {
      "num": 5,
@@ -5501,10 +5923,12 @@
      "pos": "DEF",
      "posDesc": "CB",
      "photo": "https://s3.eu-west-3.amazonaws.com/ligue1.image/players/2025/all/player_official_2025_915_626752-400x300.png",
-     "g": 0,
+     "g": 2,
      "a": 0,
      "photoLFP": true,
-     "foot": "right"
+     "foot": "right",
+     "mins": 501,
+     "sbId": 304779
     },
     {
      "num": 6,
@@ -5536,7 +5960,9 @@
      "g": 0,
      "a": 0,
      "photoLFP": true,
-     "foot": "right"
+     "foot": "right",
+     "mins": 60,
+     "sbId": 432476
     },
     {
      "num": 20,
@@ -5549,10 +5975,12 @@
      "pos": "DEF",
      "posDesc": "CB",
      "photo": "https://s3.eu-west-3.amazonaws.com/ligue1.image/players/2025/all/player_official_2025_915_554577-400x300.png",
-     "g": 0,
-     "a": 0,
+     "g": 1,
+     "a": 2,
      "photoLFP": true,
-     "foot": "right"
+     "foot": "right",
+     "mins": 3360,
+     "sbId": 301968
     },
     {
      "num": 24,
@@ -5565,10 +5993,12 @@
      "pos": "DEF",
      "posDesc": "CB",
      "photo": "https://s3.eu-west-3.amazonaws.com/ligue1.image/players/2025/all/player_official_2025_915_193285-400x300.png",
-     "g": 0,
-     "a": 0,
+     "g": 1,
+     "a": 2,
      "photoLFP": true,
-     "foot": "right"
+     "foot": "right",
+     "mins": 2468,
+     "sbId": 28356
     },
     {
      "num": 27,
@@ -5581,10 +6011,12 @@
      "pos": "DEF",
      "posDesc": "CB,CM",
      "photo": "https://s3.eu-west-3.amazonaws.com/ligue1.image/players/2025/all/player_official_2025_915_199664-400x300.png",
-     "g": 0,
-     "a": 0,
+     "g": 2,
+     "a": 1,
      "photoLFP": true,
-     "foot": "right"
+     "foot": "right",
+     "mins": 2620,
+     "sbId": 45088
     },
     {
      "num": 31,
@@ -5599,7 +6031,9 @@
      "photo": "https://s3.eu-west-1.amazonaws.com/image.mpg/2025-empt-915-400x300.png",
      "g": 0,
      "a": 0,
-     "photoLFP": true
+     "photoLFP": true,
+     "mins": 11,
+     "sbId": 465732
     },
     {
      "num": null,
@@ -5644,7 +6078,9 @@
      "g": 0,
      "a": 0,
      "photoLFP": true,
-     "foot": "right"
+     "foot": "right",
+     "mins": 1259,
+     "sbId": 44685
     },
     {
      "num": 10,
@@ -5657,10 +6093,12 @@
      "pos": "MID",
      "posDesc": "CAM",
      "photo": "https://s3.eu-west-3.amazonaws.com/ligue1.image/players/2025/all/player_official_2025_915_169427-400x300.png",
-     "g": 0,
-     "a": 0,
+     "g": 2,
+     "a": 6,
      "photoLFP": true,
-     "foot": "right"
+     "foot": "right",
+     "mins": 1541,
+     "sbId": 2974
     },
     {
      "num": 11,
@@ -5673,10 +6111,12 @@
      "pos": "MID",
      "posDesc": "LW,LM,LWB,RWB",
      "photo": "https://s3.eu-west-3.amazonaws.com/ligue1.image/players/2025/all/player_official_2025_915_628025-400x300.png",
-     "g": 0,
-     "a": 0,
+     "g": 1,
+     "a": 3,
      "photoLFP": true,
-     "foot": "right"
+     "foot": "right",
+     "mins": 2111,
+     "sbId": 330434
     },
     {
      "num": 19,
@@ -5704,9 +6144,11 @@
      "pos": "MID",
      "posDesc": "RWB",
      "photo": "https://s3.eu-west-3.amazonaws.com/ligue1.image/players/2025/all/player_official_2025_915_664869-400x300.png",
-     "g": 0,
-     "a": 0,
-     "photoLFP": true
+     "g": 1,
+     "a": 1,
+     "photoLFP": true,
+     "mins": 633,
+     "sbId": 440100
     },
     {
      "num": 98,
@@ -5719,10 +6161,12 @@
      "pos": "MID",
      "posDesc": "CAM,CM,CDM,CB",
      "photo": "https://s3.eu-west-3.amazonaws.com/ligue1.image/players/2025/all/player_official_2025_915_564371-400x300.png",
-     "g": 0,
-     "a": 0,
+     "g": 2,
+     "a": 1,
      "photoLFP": true,
-     "foot": "left"
+     "foot": "left",
+     "mins": 2875,
+     "sbId": 133468
     },
     {
      "num": null,
@@ -5751,7 +6195,9 @@
      "posDesc": "CM",
      "photo": "https://images.fotmob.com/image_resources/playerimages/1110336.png",
      "g": 0,
-     "a": 0
+     "a": 0,
+     "mins": 134,
+     "sbId": 36680
     },
     {
      "num": 7,
@@ -5764,10 +6210,12 @@
      "pos": "ATT",
      "posDesc": "ST,LW,LM",
      "photo": "https://s3.eu-west-3.amazonaws.com/ligue1.image/players/2025/all/player_official_2025_915_532759-400x300.png",
-     "g": 0,
-     "a": 0,
+     "g": 13,
+     "a": 3,
      "photoLFP": true,
-     "foot": "right"
+     "foot": "right",
+     "mins": 2722,
+     "sbId": 45698
     },
     {
      "num": 23,
@@ -5780,10 +6228,12 @@
      "pos": "ATT",
      "posDesc": "ST",
      "photo": "https://s3.eu-west-3.amazonaws.com/ligue1.image/players/2025/all/player_official_2025_915_546040-400x300.png",
-     "g": 0,
-     "a": 0,
+     "g": 6,
+     "a": 2,
      "photoLFP": true,
-     "foot": "right"
+     "foot": "right",
+     "mins": 1793,
+     "sbId": 133975
     },
     {
      "num": 25,
@@ -5796,9 +6246,11 @@
      "pos": "ATT",
      "posDesc": "ST",
      "photo": "https://s3.eu-west-3.amazonaws.com/ligue1.image/players/2025/all/player_official_2025_915_244079-400x300.png",
-     "g": 0,
-     "a": 0,
-     "photoLFP": true
+     "g": 1,
+     "a": 1,
+     "photoLFP": true,
+     "mins": 568,
+     "sbId": 485564
     },
     {
      "num": 29,
@@ -5811,10 +6263,12 @@
      "pos": "ATT",
      "posDesc": "ST",
      "photo": "https://s3.eu-west-1.amazonaws.com/image.mpg/2025-empt-915-400x300.png",
-     "g": 0,
+     "g": 6,
      "a": 0,
      "photoLFP": true,
-     "foot": "right"
+     "foot": "right",
+     "mins": 903,
+     "sbId": 46134
     },
     {
      "num": 91,
@@ -5827,10 +6281,12 @@
      "pos": "ATT",
      "posDesc": "ST,CAM,RW",
      "photo": "https://s3.eu-west-3.amazonaws.com/ligue1.image/players/2025/all/player_official_2025_915_467095-400x300.png",
-     "g": 0,
-     "a": 0,
+     "g": 5,
+     "a": 4,
      "photoLFP": true,
-     "foot": "right"
+     "foot": "right",
+     "mins": 1386,
+     "sbId": 20897
     }
    ]
   },
@@ -5911,7 +6367,9 @@
      "g": 0,
      "a": 0,
      "photoLFP": true,
-     "foot": "right"
+     "foot": "right",
+     "mins": 10,
+     "sbId": 32607
     },
     {
      "num": 4,
@@ -5927,7 +6385,9 @@
      "g": 0,
      "a": 0,
      "photoLFP": true,
-     "foot": "right"
+     "foot": "right",
+     "mins": 1860,
+     "sbId": 23922
     },
     {
      "num": 5,
@@ -5940,10 +6400,12 @@
      "pos": "DEF",
      "posDesc": "CB",
      "photo": "https://s3.eu-west-3.amazonaws.com/ligue1.image/players/2025/all/player_official_2025_1423_82313-400x300.png",
-     "g": 0,
+     "g": 1,
      "a": 0,
      "photoLFP": true,
-     "foot": "left"
+     "foot": "left",
+     "mins": 1447,
+     "sbId": 3256
     },
     {
      "num": 18,
@@ -5956,10 +6418,12 @@
      "pos": "DEF",
      "posDesc": "LB,LWB",
      "photo": "https://s3.eu-west-3.amazonaws.com/ligue1.image/players/2025/all/player_official_2025_1423_220871-400x300.png",
-     "g": 0,
-     "a": 0,
+     "g": 1,
+     "a": 2,
      "photoLFP": true,
-     "foot": "left"
+     "foot": "left",
+     "mins": 3333,
+     "sbId": 20734
     },
     {
      "num": 28,
@@ -5975,7 +6439,9 @@
      "g": 0,
      "a": 0,
      "photoLFP": true,
-     "foot": "right"
+     "foot": "right",
+     "mins": 1288,
+     "sbId": 397120
     },
     {
      "num": 56,
@@ -6004,10 +6470,12 @@
      "pos": "DEF",
      "posDesc": "CB",
      "photo": "https://s3.eu-west-3.amazonaws.com/ligue1.image/players/2025/all/player_official_2025_1423_657512-400x300.png",
-     "g": 0,
-     "a": 0,
+     "g": 1,
+     "a": 1,
      "photoLFP": true,
-     "foot": "right"
+     "foot": "right",
+     "mins": 2474,
+     "sbId": 349170
     },
     {
      "num": null,
@@ -6037,7 +6505,9 @@
      "g": 0,
      "a": 0,
      "photoLFP": true,
-     "foot": "left"
+     "foot": "left",
+     "mins": 1401,
+     "sbId": 386002
     },
     {
      "num": 6,
@@ -6051,9 +6521,11 @@
      "posDesc": "CDM,CM,CAM",
      "photo": "https://s3.eu-west-3.amazonaws.com/ligue1.image/players/2025/all/player_official_2025_1423_438011-400x300.png",
      "g": 0,
-     "a": 0,
+     "a": 6,
      "photoLFP": true,
-     "foot": "left"
+     "foot": "left",
+     "mins": 2651,
+     "sbId": 188230
     },
     {
      "num": 8,
@@ -6067,9 +6539,11 @@
      "posDesc": "CM",
      "photo": "https://s3.eu-west-3.amazonaws.com/ligue1.image/players/2025/all/player_official_2025_1423_554929-400x300.png",
      "g": 0,
-     "a": 0,
+     "a": 1,
      "photoLFP": true,
-     "foot": "right"
+     "foot": "right",
+     "mins": 110,
+     "sbId": 308321
     },
     {
      "num": 24,
@@ -6082,10 +6556,12 @@
      "pos": "MID",
      "posDesc": "CDM,CM",
      "photo": "https://s3.eu-west-3.amazonaws.com/ligue1.image/players/2025/all/player_official_2025_1423_558945-400x300.png",
-     "g": 0,
+     "g": 3,
      "a": 0,
      "photoLFP": true,
-     "foot": "right"
+     "foot": "right",
+     "mins": 1943,
+     "sbId": 278804
     },
     {
      "num": 30,
@@ -6098,10 +6574,12 @@
      "pos": "MID",
      "posDesc": "CM,CDM",
      "photo": "https://s3.eu-west-3.amazonaws.com/ligue1.image/players/2025/all/player_official_2025_1423_521510-400x300.png",
-     "g": 0,
-     "a": 0,
+     "g": 1,
+     "a": 4,
      "photoLFP": true,
-     "foot": "right"
+     "foot": "right",
+     "mins": 1780,
+     "sbId": 459132
     },
     {
      "num": 87,
@@ -6114,10 +6592,12 @@
      "pos": "MID",
      "posDesc": "CAM,ST,CDM,RW",
      "photo": "https://s3.eu-west-3.amazonaws.com/ligue1.image/players/2025/all/player_official_2025_1423_618845-400x300.png",
-     "g": 0,
-     "a": 0,
+     "g": 5,
+     "a": 1,
      "photoLFP": true,
-     "foot": "right"
+     "foot": "right",
+     "mins": 1713,
+     "sbId": 416388
     },
     {
      "num": null,
@@ -6145,8 +6625,10 @@
      "pos": "MID",
      "posDesc": "LM,RW,RM,LW,RB,RWB,LWB",
      "photo": "https://images.fotmob.com/image_resources/playerimages/795285.png",
-     "g": 0,
-     "a": 0
+     "g": 1,
+     "a": 1,
+     "mins": 626,
+     "sbId": 7538
     },
     {
      "num": null,
@@ -6174,7 +6656,9 @@
      "posDesc": "RW",
      "photo": "https://images.fotmob.com/image_resources/playerimages/1089922.png",
      "g": 0,
-     "a": 0
+     "a": 0,
+     "mins": 34,
+     "sbId": 39095
     },
     {
      "num": 9,
@@ -6187,10 +6671,12 @@
      "pos": "ATT",
      "posDesc": "ST,LW",
      "photo": "https://s3.eu-west-3.amazonaws.com/ligue1.image/players/2025/all/player_official_2025_1423_466812-400x300.png",
-     "g": 0,
+     "g": 5,
      "a": 0,
      "photoLFP": true,
-     "foot": "right"
+     "foot": "right",
+     "mins": 951,
+     "sbId": 24444
     },
     {
      "num": 17,
@@ -6203,10 +6689,12 @@
      "pos": "ATT",
      "posDesc": "LW,LWB,ST,LM",
      "photo": "https://s3.eu-west-3.amazonaws.com/ligue1.image/players/2025/all/player_official_2025_1423_219274-400x300.png",
-     "g": 0,
-     "a": 0,
+     "g": 14,
+     "a": 2,
      "photoLFP": true,
-     "foot": "right"
+     "foot": "right",
+     "mins": 2528,
+     "sbId": 29649
     },
     {
      "num": 46,
@@ -6248,10 +6736,12 @@
      "pos": "ATT",
      "posDesc": "ST",
      "photo": "https://s3.eu-west-3.amazonaws.com/ligue1.image/players/2025/all/player_official_2025_1423_682311-400x300.png",
-     "g": 0,
-     "a": 0,
+     "g": 6,
+     "a": 1,
      "photoLFP": true,
-     "foot": "both"
+     "foot": "both",
+     "mins": 1173,
+     "sbId": 454449
     },
     {
      "num": 99,
@@ -6278,8 +6768,10 @@
      "pos": "ATT",
      "posDesc": "ST,RW",
      "photo": "https://images.fotmob.com/image_resources/playerimages/1332549.png",
-     "g": 0,
-     "a": 0
+     "g": 2,
+     "a": 2,
+     "mins": 749,
+     "sbId": 188748
     },
     {
      "num": null,
@@ -6307,7 +6799,9 @@
      "posDesc": "ST",
      "photo": "https://images.fotmob.com/image_resources/playerimages/1328540.png",
      "g": 0,
-     "a": 0
+     "a": 0,
+     "mins": 34,
+     "sbId": 212489
     },
     {
      "num": null,
@@ -6321,7 +6815,9 @@
      "posDesc": "ST,RM",
      "photo": "https://images.fotmob.com/image_resources/playerimages/921067.png",
      "g": 0,
-     "a": 0
+     "a": 0,
+     "mins": 220,
+     "sbId": 10617
     },
     {
      "num": null,
@@ -6356,7 +6852,9 @@
      "g": 0,
      "a": 0,
      "photoLFP": true,
-     "foot": "right"
+     "foot": "right",
+     "mins": 3533,
+     "sbId": 28379
     },
     {
      "num": 16,
@@ -6401,10 +6899,12 @@
      "pos": "DEF",
      "posDesc": "CB",
      "photo": "https://s3.eu-west-3.amazonaws.com/ligue1.image/players/2025/all/player_official_2025_3308_611178-400x300.png",
-     "g": 0,
-     "a": 0,
+     "g": 2,
+     "a": 1,
      "photoLFP": true,
-     "foot": "left"
+     "foot": "left",
+     "mins": 3533,
+     "sbId": 372381
     },
     {
      "num": 4,
@@ -6417,10 +6917,12 @@
      "pos": "DEF",
      "posDesc": "CB",
      "photo": "https://s3.eu-west-3.amazonaws.com/ligue1.image/players/2025/all/player_official_2025_3308_544805-400x300.png",
-     "g": 0,
+     "g": 2,
      "a": 0,
      "photoLFP": true,
-     "foot": "right"
+     "foot": "right",
+     "mins": 3435,
+     "sbId": 48781
     },
     {
      "num": 5,
@@ -6433,9 +6935,11 @@
      "pos": "DEF",
      "posDesc": "CB",
      "photo": "https://s3.eu-west-3.amazonaws.com/ligue1.image/players/2025/all/player_official_2025_3308_664848-400x300.png",
-     "g": 0,
-     "a": 0,
-     "photoLFP": true
+     "g": 2,
+     "a": 1,
+     "photoLFP": true,
+     "mins": 2211,
+     "sbId": 440528
     },
     {
      "num": 12,
@@ -6451,7 +6955,9 @@
      "g": 0,
      "a": 0,
      "photoLFP": true,
-     "foot": "right"
+     "foot": "right",
+     "mins": 26,
+     "sbId": 445505
     },
     {
      "num": 15,
@@ -6465,9 +6971,11 @@
      "posDesc": "LWB,CB",
      "photo": "https://s3.eu-west-3.amazonaws.com/ligue1.image/players/2025/all/player_official_2025_3308_490061-400x300.png",
      "g": 0,
-     "a": 0,
+     "a": 9,
      "photoLFP": true,
-     "foot": "left"
+     "foot": "left",
+     "mins": 2755,
+     "sbId": 31406
     },
     {
      "num": 17,
@@ -6494,10 +7002,12 @@
      "pos": "DEF",
      "posDesc": "LWB",
      "photo": "https://s3.eu-west-3.amazonaws.com/ligue1.image/players/2025/all/player_official_2025_3308_501302-400x300.png",
-     "g": 0,
-     "a": 0,
+     "g": 1,
+     "a": 1,
      "photoLFP": true,
-     "foot": "left"
+     "foot": "left",
+     "mins": 608,
+     "sbId": 134870
     },
     {
      "num": 21,
@@ -6528,7 +7038,9 @@
      "g": 0,
      "a": 0,
      "photoLFP": true,
-     "foot": "right"
+     "foot": "right",
+     "mins": 1542,
+     "sbId": 219141
     },
     {
      "num": 25,
@@ -6542,9 +7054,11 @@
      "posDesc": "RWB",
      "photo": "https://s3.eu-west-3.amazonaws.com/ligue1.image/players/2025/all/player_official_2025_3308_560847-400x300.png",
      "g": 0,
-     "a": 0,
+     "a": 8,
      "photoLFP": true,
-     "foot": "right"
+     "foot": "right",
+     "mins": 2877,
+     "sbId": 395045
     },
     {
      "num": null,
@@ -6572,9 +7086,11 @@
      "posDesc": "CM",
      "photo": "https://s3.eu-west-3.amazonaws.com/ligue1.image/players/2025/all/player_official_2025_3308_627705-400x300.png",
      "g": 0,
-     "a": 0,
+     "a": 2,
      "photoLFP": true,
-     "foot": "right"
+     "foot": "right",
+     "mins": 2706,
+     "sbId": 395776
     },
     {
      "num": 8,
@@ -6587,10 +7103,12 @@
      "pos": "MID",
      "posDesc": "CM",
      "photo": "https://s3.eu-west-3.amazonaws.com/ligue1.image/players/2025/all/player_official_2025_3308_511568-400x300.png",
-     "g": 0,
-     "a": 0,
+     "g": 1,
+     "a": 1,
      "photoLFP": true,
-     "foot": "right"
+     "foot": "right",
+     "mins": 1601,
+     "sbId": 47449
     },
     {
      "num": 22,
@@ -6603,9 +7121,11 @@
      "pos": "MID",
      "posDesc": "CM",
      "photo": "https://s3.eu-west-3.amazonaws.com/ligue1.image/players/2025/all/player_official_2025_3308_564809-400x300.png",
-     "g": 0,
+     "g": 3,
      "a": 0,
-     "photoLFP": true
+     "photoLFP": true,
+     "mins": 1703,
+     "sbId": 441379
     },
     {
      "num": 26,
@@ -6662,10 +7182,12 @@
      "pos": "ATT",
      "posDesc": "ST",
      "photo": "https://s3.eu-west-3.amazonaws.com/ligue1.image/players/2025/all/player_official_2025_3308_496630-400x300.png",
-     "g": 0,
-     "a": 0,
+     "g": 4,
+     "a": 2,
      "photoLFP": true,
-     "foot": "right"
+     "foot": "right",
+     "mins": 1758,
+     "sbId": 39369
     },
     {
      "num": 10,
@@ -6678,10 +7200,12 @@
      "pos": "ATT",
      "posDesc": "ST",
      "photo": "https://s3.eu-west-3.amazonaws.com/ligue1.image/players/2025/all/player_official_2025_3308_554583-400x300.png",
-     "g": 0,
+     "g": 1,
      "a": 0,
      "photoLFP": true,
-     "foot": "right"
+     "foot": "right",
+     "mins": 468,
+     "sbId": 286808
     },
     {
      "num": 13,
@@ -6696,7 +7220,9 @@
      "photo": "https://s3.eu-west-3.amazonaws.com/ligue1.image/players/2025/all/player_official_2025_3308_674515-400x300.png",
      "g": 0,
      "a": 0,
-     "photoLFP": true
+     "photoLFP": true,
+     "mins": 130,
+     "sbId": 407404
     },
     {
      "num": 18,
@@ -6709,10 +7235,12 @@
      "pos": "ATT",
      "posDesc": "ST",
      "photo": "https://s3.eu-west-3.amazonaws.com/ligue1.image/players/2025/all/player_official_2025_3308_546613-400x300.png",
-     "g": 0,
+     "g": 13,
      "a": 0,
      "photoLFP": true,
-     "foot": "right"
+     "foot": "right",
+     "mins": 2095,
+     "sbId": 158938
     },
     {
      "num": 19,
@@ -6728,7 +7256,9 @@
      "g": 0,
      "a": 0,
      "photoLFP": true,
-     "foot": "right"
+     "foot": "right",
+     "mins": 41,
+     "sbId": 40174
     },
     {
      "num": null,
@@ -6763,7 +7293,9 @@
      "g": 0,
      "a": 0,
      "photoLFP": true,
-     "foot": "right"
+     "foot": "right",
+     "mins": 387,
+     "sbId": 9865
     },
     {
      "num": 30,
@@ -6779,7 +7311,9 @@
      "g": 0,
      "a": 0,
      "photoLFP": true,
-     "foot": "right"
+     "foot": "right",
+     "mins": 3062,
+     "sbId": 7420
     },
     {
      "num": 50,
@@ -6824,7 +7358,9 @@
      "photo": "https://s3.eu-west-3.amazonaws.com/ligue1.image/players/2025/all/player_official_2025_152_669958-400x300.png",
      "g": 0,
      "a": 0,
-     "photoLFP": true
+     "photoLFP": true,
+     "mins": 28,
+     "sbId": 444362
     },
     {
      "num": 3,
@@ -6837,10 +7373,12 @@
      "pos": "DEF",
      "posDesc": "CB",
      "photo": "https://s3.eu-west-3.amazonaws.com/ligue1.image/players/2025/all/player_official_2025_152_245742-400x300.png",
-     "g": 0,
+     "g": 2,
      "a": 0,
      "photoLFP": true,
-     "foot": "left"
+     "foot": "left",
+     "mins": 3188,
+     "sbId": 40807
     },
     {
      "num": 6,
@@ -6854,9 +7392,11 @@
      "posDesc": "CB,RB,LB",
      "photo": "https://s3.eu-west-3.amazonaws.com/ligue1.image/players/2025/all/player_official_2025_152_184080-400x300.png",
      "g": 0,
-     "a": 0,
+     "a": 2,
      "photoLFP": true,
-     "foot": "right"
+     "foot": "right",
+     "mins": 1301,
+     "sbId": 45543
     },
     {
      "num": 8,
@@ -6872,7 +7412,9 @@
      "g": 0,
      "a": 0,
      "photoLFP": true,
-     "foot": "right"
+     "foot": "right",
+     "mins": 954,
+     "sbId": 22111
     },
     {
      "num": 11,
@@ -6885,10 +7427,12 @@
      "pos": "DEF",
      "posDesc": "LB,LW,LM",
      "photo": "https://s3.eu-west-3.amazonaws.com/ligue1.image/players/2025/all/player_official_2025_152_495159-400x300.png",
-     "g": 0,
-     "a": 0,
+     "g": 1,
+     "a": 1,
      "photoLFP": true,
-     "foot": "left"
+     "foot": "left",
+     "mins": 2192,
+     "sbId": 123160
     },
     {
      "num": 13,
@@ -6901,10 +7445,12 @@
      "pos": "DEF",
      "posDesc": "RB,CB",
      "photo": "https://s3.eu-west-3.amazonaws.com/ligue1.image/players/2025/all/player_official_2025_152_449982-400x300.png",
-     "g": 0,
-     "a": 0,
+     "g": 1,
+     "a": 1,
      "photoLFP": true,
-     "foot": "right"
+     "foot": "right",
+     "mins": 1082,
+     "sbId": 39297
     },
     {
      "num": 15,
@@ -6920,7 +7466,9 @@
      "g": 0,
      "a": 0,
      "photoLFP": true,
-     "foot": "right"
+     "foot": "right",
+     "mins": 1154,
+     "sbId": 140917
     },
     {
      "num": 19,
@@ -6934,9 +7482,11 @@
      "posDesc": "LB",
      "photo": "https://s3.eu-west-3.amazonaws.com/ligue1.image/players/2025/all/player_official_2025_152_532487-400x300.png",
      "g": 0,
-     "a": 0,
+     "a": 1,
      "photoLFP": true,
-     "foot": "left"
+     "foot": "left",
+     "mins": 1359,
+     "sbId": 86314
     },
     {
      "num": 26,
@@ -6949,10 +7499,12 @@
      "pos": "DEF",
      "posDesc": "CB",
      "photo": "https://s3.eu-west-3.amazonaws.com/ligue1.image/players/2025/all/player_official_2025_152_544830-400x300.png",
-     "g": 0,
+     "g": 1,
      "a": 0,
      "photoLFP": true,
-     "foot": "right"
+     "foot": "right",
+     "mins": 1081,
+     "sbId": 45696
     },
     {
      "num": 33,
@@ -6982,7 +7534,9 @@
      "photo": "https://s3.eu-west-3.amazonaws.com/ligue1.image/players/2025/all/player_official_2025_152_619067-400x300.png",
      "g": 0,
      "a": 0,
-     "photoLFP": true
+     "photoLFP": true,
+     "mins": 12,
+     "sbId": 479037
     },
     {
      "num": 39,
@@ -6995,10 +7549,12 @@
      "pos": "DEF",
      "posDesc": "RB,CB",
      "photo": "https://s3.eu-west-3.amazonaws.com/ligue1.image/players/2025/all/player_official_2025_152_560249-400x300.png",
-     "g": 0,
+     "g": 2,
      "a": 0,
      "photoLFP": true,
-     "foot": "right"
+     "foot": "right",
+     "mins": 1734,
+     "sbId": 231985
     },
     {
      "num": null,
@@ -7040,7 +7596,9 @@
      "posDesc": "RB,RWB,RM,LB",
      "photo": "https://images.fotmob.com/image_resources/playerimages/1131254.png",
      "g": 0,
-     "a": 0
+     "a": 0,
+     "mins": 104,
+     "sbId": 35277
     },
     {
      "num": 5,
@@ -7053,10 +7611,12 @@
      "pos": "MID",
      "posDesc": "CM,CDM",
      "photo": "https://s3.eu-west-3.amazonaws.com/ligue1.image/players/2025/all/player_official_2025_152_543388-400x300.png",
-     "g": 0,
-     "a": 0,
+     "g": 1,
+     "a": 1,
      "photoLFP": true,
-     "foot": "right"
+     "foot": "right",
+     "mins": 1528,
+     "sbId": 135420
     },
     {
      "num": 10,
@@ -7069,10 +7629,12 @@
      "pos": "MID",
      "posDesc": "CM,CDM,CAM",
      "photo": "https://s3.eu-west-3.amazonaws.com/ligue1.image/players/2025/all/player_official_2025_152_116592-400x300.png",
-     "g": 0,
-     "a": 0,
+     "g": 4,
+     "a": 2,
      "photoLFP": true,
-     "foot": "right"
+     "foot": "right",
+     "mins": 2177,
+     "sbId": 7219
     },
     {
      "num": 28,
@@ -7085,10 +7647,12 @@
      "pos": "MID",
      "posDesc": "CM,CAM,CDM",
      "photo": "https://s3.eu-west-3.amazonaws.com/ligue1.image/players/2025/all/player_official_2025_152_576052-400x300.png",
-     "g": 0,
-     "a": 0,
+     "g": 1,
+     "a": 1,
      "photoLFP": true,
-     "foot": "right"
+     "foot": "right",
+     "mins": 1392,
+     "sbId": 230881
     },
     {
      "num": 29,
@@ -7101,10 +7665,12 @@
      "pos": "MID",
      "posDesc": "CM,CAM,CDM",
      "photo": "https://s3.eu-west-3.amazonaws.com/ligue1.image/players/2025/all/player_official_2025_152_489573-400x300.png",
-     "g": 0,
-     "a": 0,
+     "g": 1,
+     "a": 2,
      "photoLFP": true,
-     "foot": "right"
+     "foot": "right",
+     "mins": 1481,
+     "sbId": 43074
     },
     {
      "num": 35,
@@ -7120,7 +7686,9 @@
      "g": 0,
      "a": 0,
      "photoLFP": true,
-     "foot": "left"
+     "foot": "left",
+     "mins": 536,
+     "sbId": 442023
     },
     {
      "num": 36,
@@ -7135,7 +7703,9 @@
      "photo": "https://s3.eu-west-3.amazonaws.com/ligue1.image/players/2025/all/player_official_2025_152_697408-400x300.png",
      "g": 0,
      "a": 0,
-     "photoLFP": true
+     "photoLFP": true,
+     "mins": 157,
+     "sbId": 415459
     },
     {
      "num": 37,
@@ -7206,10 +7776,12 @@
      "pos": "ATT",
      "posDesc": "RW,ST",
      "photo": "https://s3.eu-west-3.amazonaws.com/ligue1.image/players/2025/all/player_official_2025_152_240145-400x300.png",
-     "g": 0,
-     "a": 0,
+     "g": 7,
+     "a": 7,
      "photoLFP": true,
-     "foot": "right"
+     "foot": "right",
+     "mins": 2228,
+     "sbId": 24014
     },
     {
      "num": 9,
@@ -7222,10 +7794,12 @@
      "pos": "ATT",
      "posDesc": "ST",
      "photo": "https://s3.eu-west-3.amazonaws.com/ligue1.image/players/2025/all/player_official_2025_152_513530-400x300.png",
-     "g": 0,
-     "a": 0,
+     "g": 11,
+     "a": 6,
      "photoLFP": true,
-     "foot": "right"
+     "foot": "right",
+     "mins": 2506,
+     "sbId": 300629
     },
     {
      "num": 17,
@@ -7238,9 +7812,11 @@
      "pos": "ATT",
      "posDesc": "ST,LW",
      "photo": "https://s3.eu-west-3.amazonaws.com/ligue1.image/players/2025/all/player_official_2025_152_532528-400x300.png",
-     "g": 0,
-     "a": 0,
-     "photoLFP": true
+     "g": 7,
+     "a": 3,
+     "photoLFP": true,
+     "mins": 1016,
+     "sbId": 155310
     },
     {
      "num": 20,
@@ -7253,10 +7829,12 @@
      "pos": "ATT",
      "posDesc": "RW,CAM,LW,CDM,ST,CM",
      "photo": "https://s3.eu-west-3.amazonaws.com/ligue1.image/players/2025/all/player_official_2025_152_549820-400x300.png",
-     "g": 0,
-     "a": 0,
+     "g": 5,
+     "a": 9,
      "photoLFP": true,
-     "foot": "left"
+     "foot": "left",
+     "mins": 2692,
+     "sbId": 148330
     },
     {
      "num": 22,
@@ -7269,10 +7847,12 @@
      "pos": "ATT",
      "posDesc": "LW,RW,CAM",
      "photo": "https://s3.eu-west-3.amazonaws.com/ligue1.image/players/2025/all/player_official_2025_152_449017-400x300.png",
-     "g": 0,
-     "a": 0,
+     "g": 14,
+     "a": 5,
      "photoLFP": true,
-     "foot": "right"
+     "foot": "right",
+     "mins": 2376,
+     "sbId": 44183
     },
     {
      "num": 25,
@@ -7288,7 +7868,9 @@
      "g": 0,
      "a": 0,
      "photoLFP": true,
-     "foot": "right"
+     "foot": "right",
+     "mins": 77,
+     "sbId": 413584
     },
     {
      "num": 31,
@@ -7303,7 +7885,9 @@
      "photo": "https://s3.eu-west-3.amazonaws.com/ligue1.image/players/2025/all/player_official_2025_152_644982-400x300.png",
      "g": 0,
      "a": 0,
-     "photoLFP": true
+     "photoLFP": true,
+     "mins": 662,
+     "sbId": 345667
     },
     {
      "num": 52,
@@ -7622,5 +8206,7 @@
     }
    ]
   }
- }
+ },
+ "statsSource": "StatsBomb comp 8 saison 318",
+ "statsUpdated": "2026-07-20 13:22 UTC"
 }
