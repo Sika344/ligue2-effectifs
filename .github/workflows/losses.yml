@@ -1,0 +1,54 @@
+# .github/workflows/losses.yml
+# Régénère losses.json (zones de pertes de balle, saison complète) et le committe s'il a changé.
+# Pré-requis : secrets de dépôt SB_USERNAME et SB_PASSWORD.
+# Placer ce fichier dans .github/workflows/losses.yml et build_losses.py à la racine du repo.
+
+name: Build zones de pertes
+
+on:
+  schedule:
+    - cron: "15 5 * * *"       # tous les jours à 05:15 UTC (après xg / inposs / outposs)
+  workflow_dispatch: {}
+
+permissions:
+  contents: write
+
+concurrency:
+  group: build-losses
+  cancel-in-progress: true
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install deps
+        run: pip install statsbombpy pandas
+
+      - name: Generate losses.json
+        env:
+          SB_USERNAME: ${{ secrets.SB_USERNAME }}
+          SB_PASSWORD: ${{ secrets.SB_PASSWORD }}
+        run: python build_losses.py
+
+      - name: Commit if changed
+        run: |
+          if [ -n "$(git status --porcelain losses.json)" ]; then
+            git config user.name "github-actions[bot]"
+            git config user.email "github-actions[bot]@users.noreply.github.com"
+            git add losses.json
+            git commit -m "chore: maj losses.json (zones de pertes)"
+            for i in 1 2 3 4 5; do
+              git pull --rebase origin main && git push && exit 0
+              sleep $((RANDOM % 10 + 3))
+            done
+            echo "push impossible après 5 tentatives" >&2
+            exit 1
+          else
+            echo "losses.json inchangé."
+          fi
