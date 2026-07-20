@@ -122,6 +122,16 @@
   .xgboard svg+svg{margin-top:6px}
   .xgnote{font-size:12px;color:#5a6072;text-align:center;padding:6px 10px 8px;line-height:1.45}
 
+  /* ---- diapo OFFENSIF : zones de pertes adverses ---- */
+  .lossboard{background:#fff;padding:0;overflow:hidden}
+  .losshead{display:flex;align-items:baseline;gap:12px;padding:14px 18px 10px}
+  .losshead .ttl{font-size:20px;font-weight:800;letter-spacing:.06em;color:#0a1733}
+  .losshead .sub{font-size:12px;font-weight:600;color:#8a93a6}
+  .losswrap{padding:0 18px 6px}
+  .lossfoot{display:flex;align-items:center;justify-content:space-between;gap:16px;padding:6px 18px 16px;flex-wrap:wrap}
+  .lossleg{display:flex;align-items:center;gap:8px;font-size:11.5px;font-weight:700;color:#8a93a6}
+  .lossleg i{display:inline-block;width:26px;height:11px;border-radius:2px}
+  .lossnote{font-size:11.5px;color:#8a93a6;font-weight:600;max-width:62%}
   /* ---- diapo IN-POSSESSION (strip plots équipe) ---- */
   .inpboard{background:#fff;padding:0}
   .inphead{background:var(--navy,#0a1733);color:#fff;display:flex;align-items:baseline;gap:12px;padding:13px 18px;border-bottom:3px solid var(--gold,#c9a24b)}
@@ -536,6 +546,80 @@ function outpossBlockHTML(club){
     '</div></div>';
 }
 
+/* ===== Diapo OFFENSIF — zones de pertes de l'adversaire (depuis losses.json) ===== */
+let LOSS = null;   // contenu de losses.json (auto-actualisé par une GitHub Action)
+const LOSS_PALETTE = ["#f2f5fa","#f8dcd8","#f0b3ad","#e08a83","#cc5f57","#a8322b"];
+
+function lossStep(v, max){
+  if(!max || v<=0) return 0;
+  const t = v/max;                                  // 0..1
+  return Math.min(5, Math.max(1, Math.ceil(Math.pow(t,0.75)*5)));
+}
+function lossPitchSVG(grid, cols, rows, matches){
+  const S=10, W=120*S, H=80*S;                      // 1 m = 10 unités
+  const cw=W/cols, ch=H/rows;
+  let max=0; grid.forEach(r=>r.forEach(v=>{ if(v>max) max=v; }));
+  let g='';
+  // cases colorées + valeur
+  for(let r=0;r<rows;r++){
+    for(let c=0;c<cols;c++){
+      const v=grid[r][c]||0, st=lossStep(v,max);
+      const x=c*cw, y=r*ch;
+      g+='<rect x="'+x+'" y="'+y+'" width="'+cw+'" height="'+ch+'" fill="'+LOSS_PALETTE[st]+'"/>';
+      const txt = st>=4 ? "#fff" : "#1b2436";
+      const pm = matches ? (v/matches).toFixed(1) : "0.0";
+      g+='<text x="'+(x+cw/2)+'" y="'+(y+ch/2-4)+'" text-anchor="middle" font-size="46" font-weight="800" fill="'+txt+'" font-family="Segoe UI,Arial,sans-serif">'+v+'</text>';
+      g+='<text x="'+(x+cw/2)+'" y="'+(y+ch/2+34)+'" text-anchor="middle" font-size="26" font-weight="700" fill="'+txt+'" opacity=".7" font-family="Segoe UI,Arial,sans-serif">'+pm+'/m</text>';
+    }
+  }
+  // tracés du terrain, par-dessus
+  const L='stroke="#fff" stroke-width="4" fill="none"';
+  g+='<rect x="0" y="0" width="'+W+'" height="'+H+'" '+L+'/>';
+  g+='<line x1="'+(W/2)+'" y1="0" x2="'+(W/2)+'" y2="'+H+'" '+L+'/>';
+  g+='<circle cx="'+(W/2)+'" cy="'+(H/2)+'" r="'+(9.15*S)+'" '+L+'/>';
+  g+='<circle cx="'+(W/2)+'" cy="'+(H/2)+'" r="4" fill="#fff"/>';
+  // surfaces (18 yd = 16.5 m x 40.3 m) et 6 m
+  const by=(80-40.3)/2*S, bh=40.3*S, bw=16.5*S;
+  const sy=(80-18.3)/2*S, sh=18.3*S, sw=5.5*S;
+  g+='<rect x="0" y="'+by+'" width="'+bw+'" height="'+bh+'" '+L+'/>';
+  g+='<rect x="'+(W-bw)+'" y="'+by+'" width="'+bw+'" height="'+bh+'" '+L+'/>';
+  g+='<rect x="0" y="'+sy+'" width="'+sw+'" height="'+sh+'" '+L+'/>';
+  g+='<rect x="'+(W-sw)+'" y="'+sy+'" width="'+sw+'" height="'+sh+'" '+L+'/>';
+  g+='<circle cx="'+(11*S)+'" cy="'+(H/2)+'" r="4" fill="#fff"/>';
+  g+='<circle cx="'+(W-11*S)+'" cy="'+(H/2)+'" r="4" fill="#fff"/>';
+  // buts
+  const gy=(80-7.32)/2*S, gh=7.32*S;
+  g+='<rect x="-14" y="'+gy+'" width="14" height="'+gh+'" fill="#8a93a6"/>';
+  g+='<rect x="'+W+'" y="'+gy+'" width="14" height="'+gh+'" fill="#8a93a6"/>';
+  return '<svg viewBox="-20 -70 '+(W+40)+' '+(H+90)+'" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Zones de pertes">'+
+    '<line x1="0" y1="-38" x2="230" y2="-38" stroke="#0a1733" stroke-width="5"/>'+
+    '<path d="M230,-48 L256,-38 L230,-28 Z" fill="#0a1733"/>'+
+    '<text x="270" y="-31" font-size="30" font-weight="700" fill="#0a1733" font-family="Segoe UI,Arial,sans-serif">sens du jeu</text>'+
+    g+'</svg>';
+}
+function lossesBlockHTML(club){
+  const jt = LOSS && LOSS.teams ? matchTeam(club, Object.keys(LOSS.teams)) : null;
+  if(!LOSS || !LOSS.teams || !jt){
+    return '<div class="matchblock"><div class="mbtools"><span class="mlbl">OFFENSIF · Zones de pertes · '+club+'</span></div>'+
+      '<div class="board lossboard"><div class="xgnote" style="padding:26px 16px">La diapo <b>OFFENSIF — zones de pertes</b> s\'affichera ici dès que <code>losses.json</code> sera présent à la racine du repo.<br>Ce fichier est généré et <b>auto-actualisé</b> par <code>build_losses.py</code> via une GitHub Action.</div></div></div>';
+  }
+  const t = LOSS.teams[jt];
+  const cols = LOSS.cols||6, rows = LOSS.rows||5;
+  const grid = t.grid||[];
+  const pm = t.matches ? (t.total/t.matches).toFixed(1) : "0";
+  const sub = (LOSS.season||'2025-2026')+' · '+t.matches+' matchs · '+t.total+' pertes ('+pm+'/match)';
+  const leg = LOSS_PALETTE.map(c=>'<i style="background:'+c+'"></i>').join("");
+  return '<div class="matchblock"><div class="mbtools"><span class="mlbl">OFFENSIF · Zones de pertes · '+club+'</span><button class="pngbtn" data-board="board-losses">⬇ PNG</button></div>'+
+    '<div class="board board-snap lossboard" id="board-losses">'+
+      '<div class="losshead"><span class="ttl">OFFENSIF — ZONES DE PERTES</span><span class="sub">'+sub+'</span></div>'+
+      '<div class="losswrap">'+lossPitchSVG(grid, cols, rows, t.matches)+'</div>'+
+      '<div class="lossfoot">'+
+        '<span class="lossnote">Ballons perdus par '+club+' (dépossessions, contrôles ratés, dribbles et passes manqués). Grand chiffre = total saison, petit = par match.</span>'+
+        '<span class="lossleg">moins<span>'+leg+'</span>plus</span>'+
+      '</div>'+
+    '</div></div>';
+}
+
 function renderClub(club){
   const ms=SEASON_DATA.byClub[club]||[]; const col=clubColor(club); const blocks=[];
   const jt = LIGUE2 && LIGUE2.teams ? matchTeam(club, Object.keys(LIGUE2.teams)) : null;
@@ -546,6 +630,7 @@ function renderClub(club){
   blocks.push(chartsBlockHTML(club));
   blocks.push(inpossBlockHTML(club));
   blocks.push(outpossBlockHTML(club));
+  blocks.push(lossesBlockHTML(club));
   document.getElementById("stack").innerHTML = blocks.join("");
   if(jt) wirePhotos(document.getElementById("board-eff"));
   document.getElementById("metaInfo").textContent = `${club} — effectif + ${ms.length} derniers matchs`;
@@ -781,20 +866,21 @@ function buildClubSelect(){
 async function loadSeason(season){
   if(season===CURRENT_SEASON){
     SEASON_DATA = DATA;
-    LIGUE2 = CUR.ligue2; applyPlayerOverrides(LIGUE2); stampAvatars(LIGUE2); XG = CUR.xg; INP = CUR.inp; OUTP = CUR.outp;
+    LIGUE2 = CUR.ligue2; applyPlayerOverrides(LIGUE2); stampAvatars(LIGUE2); XG = CUR.xg; INP = CUR.inp; OUTP = CUR.outp; LOSS = CUR.loss;
     buildClubSelect(); return;
   }
   // saisons non-courantes : JSON suffixés (fallback gracieux si absents)
   document.getElementById("stack").innerHTML='<div class="note" style="padding:26px 16px;text-align:center">Chargement…</div>';
-  const [m,l,x,p,o] = await Promise.all([
+  const [m,l,x,p,o,ls] = await Promise.all([
     fetchJSON("rapport_"+season+".json"),   // {clubs, byClub}
     fetchJSON("ligue2_"+season+".json"),
     fetchJSON("xg_"+season+".json"),
     fetchJSON("inposs_"+season+".json"),
-    fetchJSON("outposs_"+season+".json")
+    fetchJSON("outposs_"+season+".json"),
+    fetchJSON("losses_"+season+".json")
   ]);
-  if(!m || !m.byClub){ SEASON_DATA={clubs:[],byClub:{}}; LIGUE2=null; XG=null; INP=null; OUTP=null; noData(); return; }
-  SEASON_DATA=m; LIGUE2=l; applyPlayerOverrides(LIGUE2); XG=x; INP=p; OUTP=o;
+  if(!m || !m.byClub){ SEASON_DATA={clubs:[],byClub:{}}; LIGUE2=null; XG=null; INP=null; OUTP=null; LOSS=null; noData(); return; }
+  SEASON_DATA=m; LIGUE2=l; applyPlayerOverrides(LIGUE2); XG=x; INP=p; OUTP=o; LOSS=ls;
   buildClubSelect();
 }
 
@@ -832,8 +918,9 @@ Promise.all([
   fetch("ligue2.json?_="+Date.now()).then(r=>r.ok?r.json():null).catch(()=>null),
   fetch("xg.json?_="+Date.now()).then(r=>r.ok?r.json():null).catch(()=>null),
   fetch("inposs.json?_="+Date.now()).then(r=>r.ok?r.json():null).catch(()=>null),
-  fetch("outposs.json?_="+Date.now()).then(r=>r.ok?r.json():null).catch(()=>null)
-]).then(([j,x,p,o])=>{ CUR={ligue2:j,xg:x,inp:p,outp:o}; LIGUE2=j; applyPlayerOverrides(LIGUE2); XG=x; INP=p; OUTP=o; SEASON_DATA=DATA; start(); }).catch(()=>{ SEASON_DATA=DATA; start(); });
+  fetch("outposs.json?_="+Date.now()).then(r=>r.ok?r.json():null).catch(()=>null),
+  fetch("losses.json?_="+Date.now()).then(r=>r.ok?r.json():null).catch(()=>null)
+]).then(([j,x,p,o,ls])=>{ CUR={ligue2:j,xg:x,inp:p,outp:o,loss:ls}; LIGUE2=j; applyPlayerOverrides(LIGUE2); XG=x; INP=p; OUTP=o; LOSS=ls; SEASON_DATA=DATA; start(); }).catch(()=>{ SEASON_DATA=DATA; start(); });
 </script>
 </body>
 </html>
