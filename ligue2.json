@@ -1,6 +1,6 @@
 {
  "season": "2025/2026",
- "updated": "2026-07-15",
+ "updated": "2026-07-20",
  "source": "FotMob (data) + LFP (photos)",
  "teams": {
   "Annecy FC": {
@@ -380,6 +380,20 @@
      "a": 0,
      "photoLFP": true,
      "foot": "left"
+    },
+    {
+     "num": null,
+     "name": "MOZIE",
+     "fullname": "Pascal Mozie",
+     "flag": "🇵🇱",
+     "ccode": "POL",
+     "height": 184,
+     "age": 18,
+     "pos": "MID",
+     "posDesc": "CM",
+     "photo": "https://images.fotmob.com/image_resources/playerimages/1675988.png",
+     "g": 0,
+     "a": 0
     },
     {
      "num": null,
@@ -781,21 +795,6 @@
      "photo": "https://images.fotmob.com/image_resources/playerimages/1428851.png",
      "g": 0,
      "a": 0
-    },
-    {
-     "num": 3,
-     "name": "BURLET",
-     "fullname": "Vincent Burlet",
-     "flag": "🇧🇪",
-     "ccode": "BEL",
-     "height": 180,
-     "age": 20,
-     "pos": "ATT",
-     "posDesc": "LW,LB,LM",
-     "photo": "https://s3.eu-west-3.amazonaws.com/ligue1.image/players/2025/all/player_official_2025_2129_578618-400x300.png",
-     "g": 0,
-     "a": 0,
-     "photoLFP": true
     },
     {
      "num": 9,
@@ -1391,7 +1390,7 @@
      "flag": "🇫🇷",
      "ccode": "FRA",
      "height": null,
-     "age": 20,
+     "age": 21,
      "pos": "DEF",
      "posDesc": null,
      "photo": "https://images.fotmob.com/image_resources/playerimages/1759330.png",
@@ -2096,22 +2095,6 @@
   "Grenoble": {
    "logo": "https://images.fotmob.com/image_resources/logo/teamlogo/9855.png",
    "squad": [
-    {
-     "num": 1,
-     "name": "PATTIER",
-     "fullname": "Maxime Pattier",
-     "flag": "🇫🇷",
-     "ccode": "FRA",
-     "height": null,
-     "age": 30,
-     "pos": "GK",
-     "posDesc": "GK",
-     "photo": "https://s3.eu-west-3.amazonaws.com/ligue1.image/players/2025/all/player_official_2025_1272_437692-400x300.png",
-     "g": 0,
-     "a": 0,
-     "photoLFP": true,
-     "foot": "right"
-    },
     {
      "num": 16,
      "name": "ALLAIN",
@@ -3360,22 +3343,6 @@
      "a": 0
     },
     {
-     "num": 9,
-     "name": "CAMARA",
-     "fullname": "Mamadou Camara",
-     "flag": "🇲🇱",
-     "ccode": "MLI",
-     "height": 184,
-     "age": 25,
-     "pos": "ATT",
-     "posDesc": "ST,RM,LW",
-     "photo": "https://s3.eu-west-3.amazonaws.com/ligue1.image/players/2025/all/player_official_2025_2298_530570-400x300.png",
-     "g": 0,
-     "a": 0,
-     "photoLFP": true,
-     "foot": "right"
-    },
-    {
      "num": 11,
      "name": "DAGO",
      "fullname": "Trevis Dago",
@@ -4156,6 +4123,20 @@
      "g": 0,
      "a": 0,
      "photoLFP": true
+    },
+    {
+     "num": null,
+     "name": "CAMARA",
+     "fullname": "Mamadou Camara",
+     "flag": "🇲🇱",
+     "ccode": "MLI",
+     "height": 184,
+     "age": 25,
+     "pos": "ATT",
+     "posDesc": "ST,RM,LW",
+     "photo": "https://images.fotmob.com/image_resources/playerimages/1167473.png",
+     "g": 0,
+     "a": 0
     }
    ]
   },
@@ -5012,7 +4993,7 @@
      "flag": "🇫🇷",
      "ccode": "FRA",
      "height": null,
-     "age": 18,
+     "age": 19,
      "pos": "GK",
      "posDesc": null,
      "photo": "https://s3.eu-west-1.amazonaws.com/image.mpg/2025-empt-5420-400x300.png",
@@ -5246,7 +5227,7 @@
      "height": 176,
      "age": 27,
      "pos": "MID",
-     "posDesc": "CAM,CM,CDM,ST",
+     "posDesc": "CAM,CM,ST,CDM",
      "photo": "https://s3.eu-west-3.amazonaws.com/ligue1.image/players/2025/all/player_official_2025_5420_430994-400x300.png",
      "g": 0,
      "a": 0,
@@ -5270,22 +5251,6 @@
      "foot": "left"
     },
     {
-     "num": 84,
-     "name": "TOUZGHAR",
-     "fullname": "Rayan Touzghar",
-     "flag": "🇲🇦",
-     "ccode": "MAR",
-     "height": 182,
-     "age": 22,
-     "pos": "MID",
-     "posDesc": "CM,CAM",
-     "photo": "https://s3.eu-west-3.amazonaws.com/ligue1.image/players/2025/all/player_official_2025_5420_606698-400x300.png",
-     "g": 0,
-     "a": 0,
-     "photoLFP": true,
-     "foot": "left"
-    },
-    {
      "num": null,
      "name": "DARRIBERE",
      "fullname": "Clement Darribere",
@@ -5296,6 +5261,20 @@
      "pos": "MID",
      "posDesc": null,
      "photo": "https://images.fotmob.com/image_resources/playerimages/1726715.png",
+     "g": 0,
+     "a": 0
+    },
+    {
+     "num": null,
+     "name": "DAUBIN",
+     "fullname": "Quentin Daubin",
+     "flag": "🇫🇷",
+     "ccode": "FRA",
+     "height": 183,
+     "age": 31,
+     "pos": "MID",
+     "posDesc": "CDM",
+     "photo": "https://images.fotmob.com/image_resources/playerimages/695006.png",
      "g": 0,
      "a": 0
     },
@@ -6164,8 +6143,22 @@
      "height": 172,
      "age": 30,
      "pos": "MID",
-     "posDesc": "LM,RW,RM,LW,RB,LWB,RWB",
+     "posDesc": "LM,RW,RM,LW,RB,RWB,LWB",
      "photo": "https://images.fotmob.com/image_resources/playerimages/795285.png",
+     "g": 0,
+     "a": 0
+    },
+    {
+     "num": null,
+     "name": "OTOMEWO",
+     "fullname": "John Otomewo",
+     "flag": "🇳🇬",
+     "ccode": "NGA",
+     "height": null,
+     "age": 19,
+     "pos": "MID",
+     "posDesc": "CM,CDM",
+     "photo": "https://images.fotmob.com/image_resources/playerimages/1867219.png",
      "g": 0,
      "a": 0
     },
@@ -6182,22 +6175,6 @@
      "photo": "https://images.fotmob.com/image_resources/playerimages/1089922.png",
      "g": 0,
      "a": 0
-    },
-    {
-     "num": 7,
-     "name": "DIARRA",
-     "fullname": "Thiemoko Diarra",
-     "flag": "🇲🇱",
-     "ccode": "MLI",
-     "height": 176,
-     "age": 23,
-     "pos": "ATT",
-     "posDesc": "RW,LW,RM",
-     "photo": "https://s3.eu-west-3.amazonaws.com/ligue1.image/players/2025/all/player_official_2025_1423_632850-400x300.png",
-     "g": 0,
-     "a": 0,
-     "photoLFP": true,
-     "foot": "right"
     },
     {
      "num": 9,
@@ -6230,21 +6207,6 @@
      "a": 0,
      "photoLFP": true,
      "foot": "right"
-    },
-    {
-     "num": 27,
-     "name": "BOJANG",
-     "fullname": "Adama Bojang",
-     "flag": "",
-     "ccode": "GAM",
-     "height": 191,
-     "age": 22,
-     "pos": "ATT",
-     "posDesc": "ST,RW",
-     "photo": "https://s3.eu-west-3.amazonaws.com/ligue1.image/players/2025/all/player_official_2025_1423_612668-400x300.png",
-     "g": 0,
-     "a": 0,
-     "photoLFP": true
     },
     {
      "num": 46,
@@ -6312,7 +6274,7 @@
      "flag": "🇫🇷",
      "ccode": "FRA",
      "height": 192,
-     "age": 25,
+     "age": 26,
      "pos": "ATT",
      "posDesc": "ST,RW",
      "photo": "https://images.fotmob.com/image_resources/playerimages/1332549.png",
@@ -7040,6 +7002,20 @@
     },
     {
      "num": null,
+     "name": "CSONGVAI",
+     "fullname": "Áron Csongvai",
+     "flag": "🇭🇺",
+     "ccode": "HUN",
+     "height": 186,
+     "age": 25,
+     "pos": "DEF",
+     "posDesc": "CB,CM,CDM",
+     "photo": "https://images.fotmob.com/image_resources/playerimages/1114366.png",
+     "g": 0,
+     "a": 0
+    },
+    {
+     "num": null,
      "name": "OWUSU",
      "fullname": "Beres Owusu",
      "flag": "🇫🇷",
@@ -7354,7 +7330,7 @@
      "height": 173,
      "age": 24,
      "pos": "ATT",
-     "posDesc": "LW,ST,RW,LM,CAM",
+     "posDesc": "LW,ST,RW,CAM",
      "photo": "https://images.fotmob.com/image_resources/playerimages/1096389.png",
      "g": 0,
      "a": 0
