@@ -23,14 +23,23 @@ drapeau StatsBomb `out` vaut True (le ballon a quitté le terrain).
 Identifiants StatsBomb via SB_USERNAME / SB_PASSWORD (statsbombpy les lit
 automatiquement). Ne jamais committer les identifiants.
 
+PERTES A RISQUE (2e grille, "risk") : une perte est dite a risque si, dans les
+10 secondes qui suivent, l'adversaire produit un TIR en jeu courant ou un
+CENTRE en jeu courant, ET que cet evenement appartient a la sequence de
+possession adverse ouverte juste apres la perte. Les coups de pied arretes
+(penalty, coup franc, corner, engagement, touche) sont exclus des deux cotes.
+Une perte compte pour 1 meme si elle genere plusieurs evenements. La case
+retenue est celle de la PERTE, pas celle du tir ou du centre.
+
 Sortie losses.json :
 {
   "competition": "Ligue 2", "season": "2025-2026", "season_id": 318,
   "cols": 6, "rows": 5, "updated": "...Z",
   "teams": {
     "<nom StatsBomb>": {
-      "matches": N, "total": T,
-      "grid": [[...6 valeurs...] x 5 lignes]   # ligne 0 = y 0-16 (haut du terrain)
+      "matches": N, "total": T, "risk_total": R,
+      "grid": [[...6 valeurs...] x 5 lignes],  # ligne 0 = y 0-16 (haut du terrain)
+      "risk": [[...6 valeurs...] x 5 lignes]   # pertes suivies d'un tir/centre <10 s
     }
   }
 }
@@ -63,6 +72,10 @@ PITCH_X = 120.0
 PITCH_Y = 80.0
 
 PASS_LOST = {"Incomplete"}   # ni "Out" ni "Pass Offside" : le jeu serait arrêté
+
+RISK_WINDOW = 10.0           # secondes
+SHOOTOUT_PERIOD = 5          # séance de tirs au but : exclue
+
 
 
 def lookup_season_id(label):
@@ -104,6 +117,28 @@ def cell_of(loc):
     c = min(COLS - 1, max(0, c))
     r = min(ROWS - 1, max(0, r))
     return r, c
+
+
+def tsec(ts):
+    """timestamp StatsBomb "HH:MM:SS.mmm" -> secondes écoulées dans la période."""
+    try:
+        hh, mm, ss = str(ts).split(":")
+        return int(hh) * 3600 + int(mm) * 60 + float(ss)
+    except Exception:
+        return None
+
+
+def blank(v):
+    return v is None or (isinstance(v, float) and v != v) or v == ""
+
+
+def is_danger(ev_type, shot_type, pass_cross, pass_type):
+    """Tir ou centre, en jeu courant uniquement."""
+    if ev_type == "Shot":
+        return shot_type == "Open Play"
+    if ev_type == "Pass" and truthy(pass_cross):
+        return blank(pass_type)          # pass_type rempli = corner / cf / touche / 6 m
+    return False
 
 
 def truthy(v):
@@ -154,6 +189,7 @@ def main():
     teams_out = {}
     for team, mids in sorted(per_team.items()):
         grid = [[0] * COLS for _ in range(ROWS)]
+        risk = [[0] * COLS for _ in range(ROWS)]
         n = 0
         for mid in mids:
             try:
@@ -164,28 +200,83 @@ def main():
             if ev is None or len(ev) == 0 or "type" not in ev.columns:
                 continue
             n += 1
-            own = ev[ev["team"] == team]
-            if len(own) == 0:
+
+            col = lambda c: ev[c] if c in ev.columns else None
+            c_team, c_type = ev["team"], ev["type"]
+            c_per = col("period")
+            c_ts = col("timestamp")
+            c_poss = col("possession")
+            c_pteam = col("possession_team")
+            c_pout, c_dout, c_out = col("pass_outcome"), col("dribble_outcome"), col("out")
+            c_stype, c_cross, c_ptype = col("shot_type"), col("pass_cross"), col("pass_type")
+            c_loc = col("location")
+            if c_per is None or c_ts is None or c_poss is None or c_pteam is None:
                 continue
-            po = own["pass_outcome"] if "pass_outcome" in own.columns else None
-            do = own["dribble_outcome"] if "dribble_outcome" in own.columns else None
-            oo = own["out"] if "out" in own.columns else None
-            for idx, row in own.iterrows():
-                t = row.get("type")
-                p_out = po.get(idx) if po is not None else None
-                d_out = do.get(idx) if do is not None else None
-                w_out = oo.get(idx) if oo is not None else None
-                if not is_loss(t, p_out, d_out, w_out):
+
+            # équipe propriétaire de chaque séquence de possession
+            poss_team = {}
+            for idx in ev.index:
+                pi = c_poss.get(idx)
+                if pi == pi and pi not in poss_team:
+                    poss_team[pi] = c_pteam.get(idx)
+
+            # tirs / centres adverses en jeu courant, indexés par séquence
+            danger = {}
+            for idx in ev.index:
+                if c_team.get(idx) == team or c_per.get(idx) == SHOOTOUT_PERIOD:
                     continue
-                cell = cell_of(row.get("location"))
+                if not is_danger(c_type.get(idx),
+                                 c_stype.get(idx) if c_stype is not None else None,
+                                 c_cross.get(idx) if c_cross is not None else None,
+                                 c_ptype.get(idx) if c_ptype is not None else None):
+                    continue
+                t = tsec(c_ts.get(idx))
+                if t is None:
+                    continue
+                danger.setdefault(c_poss.get(idx), []).append((c_per.get(idx), t))
+
+            for idx in ev.index:
+                if c_team.get(idx) != team or c_per.get(idx) == SHOOTOUT_PERIOD:
+                    continue
+                if not is_loss(c_type.get(idx),
+                               c_pout.get(idx) if c_pout is not None else None,
+                               c_dout.get(idx) if c_dout is not None else None,
+                               c_out.get(idx) if c_out is not None else None):
+                    continue
+                cell = cell_of(c_loc.get(idx) if c_loc is not None else None)
                 if cell is None:
                     continue
                 grid[cell[0]][cell[1]] += 1
 
+                t0 = tsec(c_ts.get(idx))
+                p0 = c_poss.get(idx)
+                if t0 is None or p0 != p0:
+                    continue
+                # séquence de possession adverse ouverte juste après la perte
+                target = None
+                for step in range(1, 4):
+                    cand = p0 + step
+                    if cand not in poss_team:
+                        break
+                    if poss_team[cand] != team:
+                        target = cand
+                        break
+                if target is None:
+                    continue
+                per0 = c_per.get(idx)
+                for per1, t1 in danger.get(target, ()):
+                    if per1 == per0 and 0 < (t1 - t0) <= RISK_WINDOW:
+                        risk[cell[0]][cell[1]] += 1
+                        break
+
         total = sum(sum(r) for r in grid)
-        teams_out[team] = {"matches": n, "total": total, "grid": grid}
+        rtotal = sum(sum(r) for r in risk)
+        teams_out[team] = {"matches": n, "total": total, "risk_total": rtotal,
+                           "grid": grid, "risk": risk}
         pm = (total / n) if n else 0
-        print(f"  ✓ {team}: {n} matchs | {total} pertes ({pm:.1f}/match)")
+        pct = (100.0 * rtotal / total) if total else 0
+        print(f"  ✓ {team}: {n} matchs | {total} pertes ({pm:.1f}/match) | "
+              f"{rtotal} à risque ({pct:.1f}%)")
 
     out = {
         "competition": "Ligue 2",

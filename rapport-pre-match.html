@@ -552,7 +552,7 @@ const LOSS_PALETTE = ["#0f1626","#1b2739","#2b3b53","#455870","#6d7f95","#9aa9bb
 function lossStep(v,min,span){ const t=Math.min(1,Math.max(0,(v-min)/span)); return Math.min(9,Math.max(0,Math.round(Math.pow(t,0.85)*9))); }
 function lossInk(st){ return (st>=6 && st<=7) ? "#16202f" : "#ffffff"; }
 function lossRnd(seed){ let s=seed>>>0; return function(){ s=(s*1664525+1013904223)>>>0; return s/4294967296; }; }
-function lossPitchSVG(grid, cols, rows, matches){
+function lossPitchSVG(grid, cols, rows, matches, subs){
   const S=10, W=120*S, H=80*S, cw=W/cols, ch=H/rows;
   let max=0,min=Infinity; grid.forEach(r=>r.forEach(v=>{ if(v>max) max=v; if(v<min) min=v; })); const span=Math.max(1,max-min);
   let cells="", dots="", labels="";
@@ -568,10 +568,10 @@ function lossPitchSVG(grid, cols, rows, matches){
         d+='M'+px+' '+py+'m-3.4 0a3.4 3.4 0 1 0 6.8 0a3.4 3.4 0 1 0 -6.8 0';
       }
       dots+='<path d="'+d+'" fill="#fff" opacity=".92"/>';
-      const ink=lossInk(st), pm=matches?(v/matches).toFixed(1):"0.0";
+      const ink=lossInk(st), pm=(subs&&subs[r]&&subs[r][c]!=null)?subs[r][c]:((matches?(v/matches).toFixed(1):"0.0")+"/m");
       labels+='<g><rect x="'+(x+cw/2-62)+'" y="'+(y+ch/2-46)+'" width="124" height="92" rx="10" fill="'+(ink==="#ffffff"?"#0d1626":"#f7fafc")+'" opacity=".42"/>'+
         '<text x="'+(x+cw/2)+'" y="'+(y+ch/2+2)+'" text-anchor="middle" font-size="50" font-weight="800" fill="'+ink+'" font-family="Segoe UI,Arial,sans-serif">'+v+'</text>'+
-        '<text x="'+(x+cw/2)+'" y="'+(y+ch/2+34)+'" text-anchor="middle" font-size="25" font-weight="700" fill="'+ink+'" opacity=".85" font-family="Segoe UI,Arial,sans-serif">'+pm+'/m</text></g>';
+        '<text x="'+(x+cw/2)+'" y="'+(y+ch/2+34)+'" text-anchor="middle" font-size="25" font-weight="700" fill="'+ink+'" opacity=".85" font-family="Segoe UI,Arial,sans-serif">'+pm+'</text></g>';
     }
   }
   const L='stroke="#fff" stroke-width="3.5" fill="none" opacity=".95"';
@@ -595,6 +595,37 @@ function lossPitchSVG(grid, cols, rows, matches){
     '<path d="M196,-44 L224,-34 L196,-24 Z" fill="#0a1733"/>'+
     cells+dots+g+labels+'</svg>';
 }
+function lossesRiskBlockHTML(club){
+  const jt = LOSS && LOSS.teams ? matchTeam(club, Object.keys(LOSS.teams)) : null;
+  const t  = jt ? LOSS.teams[jt] : null;
+  if(!t || !t.risk){
+    return '<div class="matchblock"><div class="mbtools"><span class="mlbl">OFFENSIF · Pertes à risque · '+club+'</span></div>'+
+      '<div class="board lossboard"><div class="xgnote" style="padding:26px 16px">La diapo <b>PERTES À RISQUE</b> s\'affichera ici dès que <code>losses.json</code> contiendra la grille <code>risk</code>.<br>Relance l\'action <b>Build zones de pertes</b> après avoir mis à jour <code>build_losses.py</code>.</div></div></div>';
+  }
+  const cols=LOSS.cols||6, rows=LOSS.rows||5, base=t.grid||[], grid=t.risk||[];
+  const subs=[];
+  for(let r=0;r<rows;r++){
+    subs.push([]);
+    for(let c=0;c<cols;c++){
+      const b=(base[r]&&base[r][c])||0, v=(grid[r]&&grid[r][c])||0;
+      subs[r].push(b ? Math.round(v/b*100)+"%" : "—");
+    }
+  }
+  const rt=t.risk_total||0, pct=t.total?(100*rt/t.total).toFixed(1):"0";
+  const pm=t.matches?(rt/t.matches).toFixed(1):"0";
+  const sub=(LOSS.season||'2025-2026')+' · '+t.matches+' matchs · '+rt+' pertes à risque ('+pm+'/match · '+pct+'% des pertes)';
+  const leg=LOSS_PALETTE.map(c=>'<i style="background:'+c+'"></i>').join("");
+  return '<div class="matchblock"><div class="mbtools"><span class="mlbl">OFFENSIF · Pertes à risque · '+club+'</span><button class="pngbtn" data-board="board-lossrisk">⬇ PNG</button></div>'+
+    '<div class="board board-snap lossboard" id="board-lossrisk">'+
+      '<div class="losshead"><span class="ttl">OFFENSIF — PERTES À RISQUE</span><span class="sub">'+sub+'</span></div>'+
+      '<div class="losswrap">'+lossPitchSVG(grid, cols, rows, t.matches, subs)+'</div>'+
+      '<div class="lossfoot">'+
+        '<span class="lossnote">Pertes de '+club+' suivies, dans les 10 s et sur la même séquence de possession, d\'un tir ou d\'un centre adverse en jeu courant. Grand chiffre = total saison, petit = part des pertes de la case.</span>'+
+        '<span class="lossleg">faible<span>'+leg+'</span>fort</span>'+
+      '</div>'+
+    '</div></div>';
+}
+
 function lossesBlockHTML(club){
   const jt = LOSS && LOSS.teams ? matchTeam(club, Object.keys(LOSS.teams)) : null;
   if(!LOSS || !LOSS.teams || !jt){
@@ -629,6 +660,7 @@ function renderClub(club){
   blocks.push(inpossBlockHTML(club));
   blocks.push(outpossBlockHTML(club));
   blocks.push(lossesBlockHTML(club));
+  blocks.push(lossesRiskBlockHTML(club));
   document.getElementById("stack").innerHTML = blocks.join("");
   if(jt) wirePhotos(document.getElementById("board-eff"));
   document.getElementById("metaInfo").textContent = `${club} — effectif + ${ms.length} derniers matchs`;
