@@ -5,7 +5,7 @@ build_losses.py — zones de pertes de balle par équipe, sur TOUTE la saison.
 Écrit losses.json à la racine du repo. La page rapport-pre-match.html le charge
 au runtime (comme xg.json) ; une GitHub Action le régénère => auto-actualisé.
 
-Découpage du terrain : grille 6 colonnes x 5 lignes (cases de 20 m x 16 m),
+Découpage du terrain : grille 12 colonnes x 8 lignes (cases de 10 m x 10 m),
 repère StatsBomb (x 0-120, y 0-80) — l'équipe qui a le ballon attaque toujours
 vers la droite, donc la grille est déjà orientée « sens du jeu ».
 
@@ -31,15 +31,22 @@ possession adverse ouverte juste apres la perte. Les coups de pied arretes
 Une perte compte pour 1 meme si elle genere plusieurs evenements. La case
 retenue est celle de la PERTE, pas celle du tir ou du centre.
 
+PERTES FATALES ("goal_locs") : sous-ensemble des pertes a risque pour lesquelles
+un BUT adverse (Shot avec shot_outcome = "Goal", hors penalty) survient dans la
+meme fenetre de 10 s et la meme sequence de possession adverse. On stocke la
+position exacte de la perte (et non une case) pour l'afficher en point rouge.
+
 Sortie losses.json :
 {
   "competition": "Ligue 2", "season": "2025-2026", "season_id": 318,
   "cols": 6, "rows": 5, "updated": "...Z",
   "teams": {
     "<nom StatsBomb>": {
-      "matches": N, "total": T, "risk_total": R,
-      "grid": [[...6 valeurs...] x 5 lignes],  # ligne 0 = y 0-16 (haut du terrain)
-      "risk": [[...6 valeurs...] x 5 lignes]   # pertes suivies d'un tir/centre <10 s
+      "matches": N, "total": T, "risk_total": R, "goal_total": G,
+      "grid": [[...12 valeurs...] x 8 lignes], # ligne 0 = y 0-10 (haut du terrain)
+      "risk": [[...12 valeurs...] x 8 lignes], # pertes suivies d'un tir/centre <10 s
+      "goal_locs": [[x, y], ...]               # position EXACTE des pertes ayant mené
+                                               # à un but adverse (repère 120 x 80)
     }
   }
 }
@@ -66,8 +73,8 @@ SEASON_IDS = {
     "2025-2026": 318,
 }
 
-COLS = 6                        # 120 m / 6 = cases de 20 m
-ROWS = 5                        # 80 m / 5 = cases de 16 m
+COLS = 12                       # 120 m / 12 = cases de 10 m
+ROWS = 8                        # 80 m / 8  = cases de 10 m
 PITCH_X = 120.0
 PITCH_Y = 80.0
 
@@ -190,6 +197,7 @@ def main():
     for team, mids in sorted(per_team.items()):
         grid = [[0] * COLS for _ in range(ROWS)]
         risk = [[0] * COLS for _ in range(ROWS)]
+        goal_locs = []
         n = 0
         for mid in mids:
             try:
@@ -221,17 +229,22 @@ def main():
                     poss_team[pi] = c_pteam.get(idx)
 
             # tirs / centres adverses en jeu courant, indexés par séquence
-            danger = {}
+            # + buts adverses (pour les pertes fatales)
+            danger, scored = {}, {}
+            c_sout = col("shot_outcome")
             for idx in ev.index:
                 if c_team.get(idx) == team or c_per.get(idx) == SHOOTOUT_PERIOD:
                     continue
-                if not is_danger(c_type.get(idx),
-                                 c_stype.get(idx) if c_stype is not None else None,
-                                 c_cross.get(idx) if c_cross is not None else None,
-                                 c_ptype.get(idx) if c_ptype is not None else None):
-                    continue
                 t = tsec(c_ts.get(idx))
                 if t is None:
+                    continue
+                stype = c_stype.get(idx) if c_stype is not None else None
+                if (c_type.get(idx) == "Shot" and stype != "Penalty"
+                        and c_sout is not None and c_sout.get(idx) == "Goal"):
+                    scored.setdefault(c_poss.get(idx), []).append((c_per.get(idx), t))
+                if not is_danger(c_type.get(idx), stype,
+                                 c_cross.get(idx) if c_cross is not None else None,
+                                 c_ptype.get(idx) if c_ptype is not None else None):
                     continue
                 danger.setdefault(c_poss.get(idx), []).append((c_per.get(idx), t))
 
@@ -268,15 +281,26 @@ def main():
                     if per1 == per0 and 0 < (t1 - t0) <= RISK_WINDOW:
                         risk[cell[0]][cell[1]] += 1
                         break
+                for per1, t1 in scored.get(target, ()):
+                    if per1 == per0 and 0 < (t1 - t0) <= RISK_WINDOW:
+                        loc = c_loc.get(idx) if c_loc is not None else None
+                        try:
+                            gx, gy = float(loc[0]), float(loc[1])
+                        except (TypeError, ValueError, IndexError):
+                            break
+                        if gx == gx and gy == gy:
+                            goal_locs.append([round(gx, 1), round(gy, 1)])
+                        break
 
         total = sum(sum(r) for r in grid)
         rtotal = sum(sum(r) for r in risk)
         teams_out[team] = {"matches": n, "total": total, "risk_total": rtotal,
-                           "grid": grid, "risk": risk}
+                           "goal_total": len(goal_locs),
+                           "grid": grid, "risk": risk, "goal_locs": goal_locs}
         pm = (total / n) if n else 0
         pct = (100.0 * rtotal / total) if total else 0
         print(f"  ✓ {team}: {n} matchs | {total} pertes ({pm:.1f}/match) | "
-              f"{rtotal} à risque ({pct:.1f}%)")
+              f"{rtotal} à risque ({pct:.1f}%) | {len(goal_locs)} ayant mené à un but")
 
     out = {
         "competition": "Ligue 2",
