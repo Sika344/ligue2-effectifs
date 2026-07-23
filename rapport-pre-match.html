@@ -443,7 +443,7 @@ function shotmixBlockHTML(club){
       '<div class="smhead"><span class="ttl">D\'OÙ VIENNENT LES TIRS ET LES BUTS</span><span class="sub">'+sub+'</span></div>'+
       '<div class="smgrid">'+smPie("TIRS", t.shots, t.shots_total, s1)+smPie("BUTS", t.goals, t.goals_total, s2)+'</div>'+
       '<div class="smleg">'+leg+'</div>'+
-      '<div class="smnote">Origine de l\'action selon StatsBomb. Coup de pied arrêté = coup franc ou corner. Autres = touche, sortie de but, relance du gardien. Les penalties sont exclus des deux graphiques.</div>'+
+      '<div class="smnote">Origine de l\'action selon StatsBomb. Coup de pied arrêté = coup franc ou corner ; Autres = touche, sortie de but, relance du gardien — dans les deux cas uniquement si le tir survient dans les '+(SMIX.sp_window||15)+' s suivant la remise en jeu, au-delà la séquence est comptée en attaque placée. Les penalties sont exclus des deux graphiques.</div>'+
     '</div></div>';
 }
 

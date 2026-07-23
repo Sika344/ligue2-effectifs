@@ -14,6 +14,18 @@ QUATRE FAMILLES, à partir du champ StatsBomb `play_pattern` du tir :
   autres      Autres                  "From Throw In", "From Goal Kick",
                                       "From Keeper", "Other" — et tout libellé inconnu
 
+FENÊTRE DE 15 SECONDES (SP_WINDOW) — correctif important :
+`play_pattern` décrit l'ORIGINE DE LA POSSESSION et l'étiquette persiste sur
+toute la séquence. Un corner dégagé, récupéré, recyclé, puis frappé 40 s plus
+tard resterait tagué "From Corner" alors que la phase est redevenue de
+l'attaque placée. Idem pour une touche suivie de vingt passes.
+On mesure donc le délai entre la remise en jeu (premier événement de la
+possession) et le tir :
+  - délai <= SP_WINDOW  -> la famille d'origine est conservée (cpa / autres)
+  - délai >  SP_WINDOW  -> le tir bascule en "placee"
+"Regular Play" et "From Counter" ne sont jamais reclassés.
+SP_WINDOW vaut 15 secondes par défaut, réglable par variable d'environnement.
+
 PENALTIES EXCLUS : les tirs dont `shot_type` vaut "Penalty" ne sont comptés
 nulle part, ni dans les tirs ni dans les buts, ni dans les totaux. On raisonne
 donc entièrement hors penalty. Les tirs de la période 5 (séance de tirs au but)
@@ -66,6 +78,15 @@ SEASON_IDS = {
 
 SHOOTOUT_PERIOD = 5
 
+# délai max entre la remise en jeu et le tir pour rester un coup de pied arrêté
+try:
+    SP_WINDOW = float(os.environ.get("SP_WINDOW", "15"))
+except ValueError:
+    SP_WINDOW = 15.0
+
+# familles soumises à la fenêtre : au-delà, le tir redevient de l'attaque placée
+WINDOWED = {"cpa", "autres"}
+
 KEYS = ["placee", "transition", "cpa", "autres"]
 LABELS = {
     "placee": "Attaque placée",
@@ -111,6 +132,15 @@ def resolve_season():
     return label, sid, out
 
 
+def tsec(ts):
+    """timestamp StatsBomb "HH:MM:SS.mmm" -> secondes écoulées dans la période."""
+    try:
+        hh, mm, ss = str(ts).split(":")
+        return int(hh) * 3600 + int(mm) * 60 + float(ss)
+    except Exception:
+        return None
+
+
 def blank(v):
     return v is None or (isinstance(v, float) and v != v) or v == ""
 
@@ -146,6 +176,7 @@ def main():
         return ev_cache[mid]
 
     teams_out = {}
+    reclassified = 0
     for team, mids in sorted(per_team.items()):
         shots = {k: 0 for k in KEYS}
         goals = {k: 0 for k in KEYS}
@@ -166,6 +197,19 @@ def main():
             c_pat = col("play_pattern")
             c_stype = col("shot_type")
             c_out = col("shot_outcome")
+            c_ts = col("timestamp")
+            c_poss = col("possession")
+
+            # instant de la remise en jeu = premier événement de chaque possession
+            poss_start = {}
+            if c_poss is not None and c_ts is not None:
+                for idx in ev.index:
+                    pi = c_poss.get(idx)
+                    if pi != pi or pi in poss_start:
+                        continue
+                    t = tsec(c_ts.get(idx))
+                    if t is not None:
+                        poss_start[pi] = (c_per.get(idx) if c_per is not None else None, t)
 
             for idx in ev.index:
                 if c_team.get(idx) != team or c_type.get(idx) != "Shot":
@@ -175,7 +219,22 @@ def main():
                 # penalties écartés partout
                 if c_stype is not None and c_stype.get(idx) == "Penalty":
                     continue
+
                 fam = family(c_pat.get(idx) if c_pat is not None else None)
+
+                # fenêtre : au-delà de SP_WINDOW après la remise en jeu,
+                # la séquence est redevenue de l'attaque placée
+                if fam in WINDOWED and c_poss is not None and c_ts is not None:
+                    ref = poss_start.get(c_poss.get(idx))
+                    t1 = tsec(c_ts.get(idx))
+                    if ref is not None and t1 is not None:
+                        per0, t0 = ref
+                        same_period = (per0 is None or c_per is None
+                                       or per0 == c_per.get(idx))
+                        if same_period and (t1 - t0) > SP_WINDOW:
+                            fam = "placee"
+                            reclassified += 1
+
                 shots[fam] += 1
                 if c_out is not None and c_out.get(idx) == "Goal":
                     goals[fam] += 1
@@ -195,6 +254,9 @@ def main():
         print(f"  ✓ {team}: {n} matchs | {st} tirs ({pct(shots, st)}) | "
               f"{gt} buts ({pct(goals, gt)})")
 
+    print(f"\n[fenêtre {SP_WINDOW:.0f}s] {reclassified} tirs reclassés en attaque placée "
+          f"(séquence trop éloignée de la remise en jeu).")
+
     out = {
         "competition": "Ligue 2",
         "season": season_label,
@@ -203,6 +265,7 @@ def main():
         "keys": KEYS,
         "labels": LABELS,
         "note": "hors penalty",
+        "sp_window": SP_WINDOW,
         "teams": teams_out,
     }
     with open(out_path, "w", encoding="utf-8") as f:
