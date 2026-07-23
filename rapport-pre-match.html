@@ -117,6 +117,17 @@
   @media(max-width:760px){ .effboard .card{width:112px} .effboard .photo,.effboard .photo-wrap{height:54px} .effboard .name{font-size:10px} .effboard .bio{font-size:8px} .effboard .stats .v{font-size:10px} }
 
   /* ---- graphiques xG par 15 min ---- */
+  /* ---- diapo REPARTITION TIRS / BUTS (pizza charts) ---- */
+  .smboard{background:#fff;padding:0}
+  .smhead{display:flex;align-items:baseline;gap:12px;padding:14px 18px 4px}
+  .smhead .ttl{font-size:20px;font-weight:800;letter-spacing:.06em;color:#0a1733}
+  .smhead .sub{font-size:12px;font-weight:600;color:#8a93a6}
+  .smgrid{display:grid;grid-template-columns:1fr 1fr;gap:4px;padding:0 10px}
+  .smgrid svg{display:block;width:100%;height:auto}
+  .smleg{display:flex;flex-wrap:wrap;align-items:center;justify-content:center;gap:18px;padding:2px 18px 16px}
+  .smleg span{display:inline-flex;align-items:center;gap:7px;font-size:12.5px;font-weight:700;color:#4a5266}
+  .smleg i{display:inline-block;width:14px;height:14px;border-radius:3px}
+  .smnote{font-size:11.5px;color:#8a93a6;font-weight:600;text-align:center;padding:0 18px 14px}
   .xgboard{background:#ececec;padding:10px 6px 4px}
   .xgboard svg{display:block;width:100%;height:auto}
   .xgboard svg+svg{margin-top:6px}
@@ -374,6 +385,68 @@ function barChartSVG(title, vals, accent, scale){
   g=`<text x="${x0-2}" y="32" font-size="22" font-weight="800" fill="#1b2340" font-family="Segoe UI,Arial,sans-serif">${title}</text>`+g;
   return `<svg viewBox="0 0 ${W} ${H}" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="${title}"><rect x="0" y="0" width="${W}" height="${H}" fill="#ececec"/>${g}</svg>`;
 }
+/* ===== Diapo REPARTITION DES TIRS ET DES BUTS (pizza charts, depuis shotmix.json) ===== */
+let SMIX = null;   // contenu de shotmix.json (auto-actualisé par une GitHub Action)
+const SM_KEYS = ["placee","transition","cpa","autres"];
+const SM_LABELS = {placee:"Attaque placée",transition:"Transition offensive",cpa:"Coup de pied arrêté",autres:"Autres"};
+const SM_COLORS = {placee:"#0d1b8c",transition:"#e07b00",cpa:"#c0392b",autres:"#8a93a6"};
+
+function smPie(title, counts, total, sub){
+  const S=460, cx=S/2, cy=S/2+6, R=150, LR=R+30;
+  const head='<text x="'+cx+'" y="24" text-anchor="middle" font-size="19" font-weight="800" fill="#0a1733" font-family="Segoe UI,Arial,sans-serif">'+title+'</text>'+
+    '<text x="'+cx+'" y="46" text-anchor="middle" font-size="13" font-weight="700" fill="#8a93a6" font-family="Segoe UI,Arial,sans-serif">'+sub+'</text>';
+  if(!total){
+    return '<svg viewBox="0 0 '+S+' '+(S+30)+'" xmlns="http://www.w3.org/2000/svg">'+head+
+      '<text x="'+cx+'" y="'+cy+'" text-anchor="middle" font-size="15" fill="#8a93a6" font-family="Segoe UI,Arial,sans-serif">aucune donnée</text></svg>';
+  }
+  let a0=-Math.PI/2, parts="", labs="";
+  SM_KEYS.forEach(k=>{
+    const v=(counts&&counts[k])||0; if(!v) return;
+    const frac=v/total, a1=a0+frac*2*Math.PI;
+    const x0=cx+R*Math.cos(a0), y0=cy+R*Math.sin(a0);
+    const x1=cx+R*Math.cos(a1), y1=cy+R*Math.sin(a1);
+    const big=(a1-a0)>Math.PI?1:0;
+    if(frac>0.999){
+      parts+='<circle cx="'+cx+'" cy="'+cy+'" r="'+R+'" fill="'+SM_COLORS[k]+'" stroke="#fff" stroke-width="3"/>';
+    }else{
+      parts+='<path d="M'+cx+' '+cy+' L'+x0.toFixed(1)+' '+y0.toFixed(1)+
+        ' A'+R+' '+R+' 0 '+big+' 1 '+x1.toFixed(1)+' '+y1.toFixed(1)+' Z" fill="'+SM_COLORS[k]+'" stroke="#fff" stroke-width="3"/>';
+    }
+    const am=(a0+a1)/2, pct=Math.round(frac*100);
+    if(frac>=0.07){
+      const lx=cx+(R*0.62)*Math.cos(am), ly=cy+(R*0.62)*Math.sin(am);
+      labs+='<text x="'+lx.toFixed(1)+'" y="'+(ly+7).toFixed(1)+'" text-anchor="middle" font-size="26" font-weight="800" fill="#fff" font-family="Segoe UI,Arial,sans-serif">'+pct+'%</text>';
+    }else{
+      const lx=cx+LR*Math.cos(am), ly=cy+LR*Math.sin(am);
+      const anch=Math.cos(am)>=0?"start":"end";
+      labs+='<line x1="'+(cx+R*Math.cos(am)).toFixed(1)+'" y1="'+(cy+R*Math.sin(am)).toFixed(1)+'" x2="'+lx.toFixed(1)+'" y2="'+ly.toFixed(1)+'" stroke="'+SM_COLORS[k]+'" stroke-width="2"/>'+
+        '<text x="'+(lx+(anch==="start"?5:-5)).toFixed(1)+'" y="'+(ly+5).toFixed(1)+'" text-anchor="'+anch+'" font-size="17" font-weight="800" fill="'+SM_COLORS[k]+'" font-family="Segoe UI,Arial,sans-serif">'+pct+'%</text>';
+    }
+    a0=a1;
+  });
+  return '<svg viewBox="0 0 '+S+' '+(S+30)+'" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="'+title+'">'+head+parts+labs+'</svg>';
+}
+
+function shotmixBlockHTML(club){
+  const jt = SMIX && SMIX.teams ? matchTeam(club, Object.keys(SMIX.teams)) : null;
+  const t  = jt ? SMIX.teams[jt] : null;
+  if(!t){
+    return '<div class="matchblock"><div class="mbtools"><span class="mlbl">Répartition tirs / buts · '+club+'</span></div>'+
+      '<div class="board smboard"><div class="xgnote" style="padding:26px 16px">La <b>répartition des tirs et des buts</b> par famille d\'attaque s\'affichera ici dès que <code>shotmix.json</code> sera présent à la racine du repo.<br>Ce fichier est généré et <b>auto-actualisé</b> par <code>build_shotmix.py</code> via une GitHub Action.</div></div></div>';
+  }
+  const sub = (SMIX.season||'2025-2026')+' · '+t.matches+' matchs';
+  const s1 = t.shots_total+' tirs · hors penalty';
+  const s2 = t.goals_total+' buts · hors penalty';
+  const leg = SM_KEYS.map(k=>'<span><i style="background:'+SM_COLORS[k]+'"></i>'+SM_LABELS[k]+'</span>').join("");
+  return '<div class="matchblock"><div class="mbtools"><span class="mlbl">Répartition tirs / buts · '+club+'</span><button class="pngbtn" data-board="board-shotmix">⬇ PNG</button></div>'+
+    '<div class="board board-snap smboard" id="board-shotmix">'+
+      '<div class="smhead"><span class="ttl">D\'OÙ VIENNENT LES TIRS ET LES BUTS</span><span class="sub">'+sub+'</span></div>'+
+      '<div class="smgrid">'+smPie("TIRS", t.shots, t.shots_total, s1)+smPie("BUTS", t.goals, t.goals_total, s2)+'</div>'+
+      '<div class="smleg">'+leg+'</div>'+
+      '<div class="smnote">Origine de l\'action selon StatsBomb. Coup de pied arrêté = coup franc ou corner. Autres = touche, sortie de but, relance du gardien. Les penalties sont exclus des deux graphiques.</div>'+
+    '</div></div>';
+}
+
 function chartsBlockHTML(club){
   const X=xgBuckets(club);
   if(!X){
@@ -667,6 +740,7 @@ function renderClub(club){
       <div class="effboard board-snap" id="board-eff">${effectifBoardHTML(LIGUE2.teams[jt])}</div></div>`); }
   ms.forEach((m,i)=>{ blocks.push(`<div class="matchblock"><div class="mbtools"><span class="mlbl">Match ${i+1} · ${m.date} · ${m.home.name} ${m.home.score}-${m.away.score} ${m.away.name}</span><button class="pngbtn" data-board="board-${i}">⬇ PNG</button></div>
       <div class="board board-snap" id="board-${i}">${boardHTML(m, club, col)}</div></div>`); });
+  blocks.push(shotmixBlockHTML(club));
   blocks.push(chartsBlockHTML(club));
   blocks.push(inpossBlockHTML(club));
   blocks.push(outpossBlockHTML(club));
@@ -907,21 +981,22 @@ function buildClubSelect(){
 async function loadSeason(season){
   if(season===CURRENT_SEASON){
     SEASON_DATA = DATA;
-    LIGUE2 = CUR.ligue2; applyPlayerOverrides(LIGUE2); stampAvatars(LIGUE2); XG = CUR.xg; INP = CUR.inp; OUTP = CUR.outp; LOSS = CUR.loss;
+    LIGUE2 = CUR.ligue2; applyPlayerOverrides(LIGUE2); stampAvatars(LIGUE2); XG = CUR.xg; INP = CUR.inp; OUTP = CUR.outp; LOSS = CUR.loss; SMIX = CUR.smix;
     buildClubSelect(); return;
   }
   // saisons non-courantes : JSON suffixés (fallback gracieux si absents)
   document.getElementById("stack").innerHTML='<div class="note" style="padding:26px 16px;text-align:center">Chargement…</div>';
-  const [m,l,x,p,o,ls] = await Promise.all([
+  const [m,l,x,p,o,ls,sm] = await Promise.all([
     fetchJSON("rapport_"+season+".json"),   // {clubs, byClub}
     fetchJSON("ligue2_"+season+".json"),
     fetchJSON("xg_"+season+".json"),
     fetchJSON("inposs_"+season+".json"),
     fetchJSON("outposs_"+season+".json"),
-    fetchJSON("losses_"+season+".json")
+    fetchJSON("losses_"+season+".json"),
+    fetchJSON("shotmix_"+season+".json")
   ]);
-  if(!m || !m.byClub){ SEASON_DATA={clubs:[],byClub:{}}; LIGUE2=null; XG=null; INP=null; OUTP=null; LOSS=null; noData(); return; }
-  SEASON_DATA=m; LIGUE2=l; applyPlayerOverrides(LIGUE2); XG=x; INP=p; OUTP=o; LOSS=ls;
+  if(!m || !m.byClub){ SEASON_DATA={clubs:[],byClub:{}}; LIGUE2=null; XG=null; INP=null; OUTP=null; LOSS=null; SMIX=null; noData(); return; }
+  SEASON_DATA=m; LIGUE2=l; applyPlayerOverrides(LIGUE2); XG=x; INP=p; OUTP=o; LOSS=ls; SMIX=sm;
   buildClubSelect();
 }
 
@@ -960,8 +1035,9 @@ Promise.all([
   fetch("xg.json?_="+Date.now()).then(r=>r.ok?r.json():null).catch(()=>null),
   fetch("inposs.json?_="+Date.now()).then(r=>r.ok?r.json():null).catch(()=>null),
   fetch("outposs.json?_="+Date.now()).then(r=>r.ok?r.json():null).catch(()=>null),
-  fetch("losses.json?_="+Date.now()).then(r=>r.ok?r.json():null).catch(()=>null)
-]).then(([j,x,p,o,ls])=>{ CUR={ligue2:j,xg:x,inp:p,outp:o,loss:ls}; LIGUE2=j; applyPlayerOverrides(LIGUE2); XG=x; INP=p; OUTP=o; LOSS=ls; SEASON_DATA=DATA; start(); }).catch(()=>{ SEASON_DATA=DATA; start(); });
+  fetch("losses.json?_="+Date.now()).then(r=>r.ok?r.json():null).catch(()=>null),
+  fetch("shotmix.json?_="+Date.now()).then(r=>r.ok?r.json():null).catch(()=>null)
+]).then(([j,x,p,o,ls,sm])=>{ CUR={ligue2:j,xg:x,inp:p,outp:o,loss:ls,smix:sm}; LIGUE2=j; applyPlayerOverrides(LIGUE2); XG=x; INP=p; OUTP=o; LOSS=ls; SMIX=sm; SEASON_DATA=DATA; start(); }).catch(()=>{ SEASON_DATA=DATA; start(); });
 </script>
 </body>
 </html>
