@@ -388,43 +388,54 @@ function barChartSVG(title, vals, accent, scale){
 /* ===== Diapo REPARTITION DES TIRS ET DES BUTS (pizza charts, depuis shotmix.json) ===== */
 let SMIX = null;   // contenu de shotmix.json (auto-actualisé par une GitHub Action)
 const SM_KEYS = ["placee","transition","cpa","autres"];
-const SM_LABELS = {placee:"Attaque placée",transition:"Transition offensive",cpa:"Coup de pied arrêté",autres:"Autres"};
-const SM_COLORS = {placee:"#0d1b8c",transition:"#e07b00",cpa:"#c0392b",autres:"#8a93a6"};
+const SM_LABELS = {placee:"Attaque placée",transition:"Transition",cpa:"Coup de pied arrêté",autres:"Autres"};
+const SM_COLORS = {placee:"#0d1b8c",transition:"#e07b00",cpa:"#c0392b",autres:"#5c6b7a"};
+const SM_TRACK = "#e6e8ec";
 
+function smArc(cx,cy,r0,r1,a0,a1){
+  const rad=d=>(d-90)*Math.PI/180;
+  const p=(r,a)=>[cx+r*Math.cos(rad(a)),cy+r*Math.sin(rad(a))];
+  const s0=p(r1,a0), s1=p(r1,a1), s2=p(r0,a1), s3=p(r0,a0);
+  const big=(a1-a0)>180?1:0;
+  return 'M'+s0[0].toFixed(1)+','+s0[1].toFixed(1)+
+    'A'+r1+','+r1+' 0 '+big+' 1 '+s1[0].toFixed(1)+','+s1[1].toFixed(1)+
+    'L'+s2[0].toFixed(1)+','+s2[1].toFixed(1)+
+    'A'+r0+','+r0+' 0 '+big+' 0 '+s3[0].toFixed(1)+','+s3[1].toFixed(1)+'Z';
+}
 function smPie(title, counts, total, sub){
-  const S=460, cx=S/2, cy=S/2+6, R=150, LR=R+30;
-  const head='<text x="'+cx+'" y="24" text-anchor="middle" font-size="19" font-weight="800" fill="#0a1733" font-family="Segoe UI,Arial,sans-serif">'+title+'</text>'+
-    '<text x="'+cx+'" y="46" text-anchor="middle" font-size="13" font-weight="700" fill="#8a93a6" font-family="Segoe UI,Arial,sans-serif">'+sub+'</text>';
+  const W=560,H=600,cx=W/2,cy=272,R=222,r0=54,GAP=2.4;
+  const F='font-family="Inter,Segoe UI,Helvetica Neue,Arial,sans-serif"';
   if(!total){
-    return '<svg viewBox="0 0 '+S+' '+(S+30)+'" xmlns="http://www.w3.org/2000/svg">'+head+
-      '<text x="'+cx+'" y="'+cy+'" text-anchor="middle" font-size="15" fill="#8a93a6" font-family="Segoe UI,Arial,sans-serif">aucune donnée</text></svg>';
+    return '<svg viewBox="0 0 '+W+' '+H+'" xmlns="http://www.w3.org/2000/svg">'+
+      '<text x="'+cx+'" y="'+cy+'" text-anchor="middle" font-size="16" fill="#98a2b3" '+F+'>aucune donnée</text></svg>';
   }
-  let a0=-Math.PI/2, parts="", labs="";
-  SM_KEYS.forEach(k=>{
-    const v=(counts&&counts[k])||0; if(!v) return;
-    const frac=v/total, a1=a0+frac*2*Math.PI;
-    const x0=cx+R*Math.cos(a0), y0=cy+R*Math.sin(a0);
-    const x1=cx+R*Math.cos(a1), y1=cy+R*Math.sin(a1);
-    const big=(a1-a0)>Math.PI?1:0;
-    if(frac>0.999){
-      parts+='<circle cx="'+cx+'" cy="'+cy+'" r="'+R+'" fill="'+SM_COLORS[k]+'" stroke="#fff" stroke-width="3"/>';
+  const pcts=SM_KEYS.map(k=>100*((counts&&counts[k])||0)/total);
+  const top=Math.max(50,Math.ceil(Math.max.apply(null,pcts)/10)*10);
+  let g='',lab='';
+  SM_KEYS.forEach(function(k,i){
+    const a0=i*90+GAP, a1=(i+1)*90-GAP, am=(a0+a1)/2;
+    const pv=pcts[i], rr=r0+(Math.min(pv,top)/top)*(R-r0);
+    g+='<path d="'+smArc(cx,cy,r0,R,a0,a1)+'" fill="'+SM_TRACK+'"/>';
+    g+='<path d="'+smArc(cx,cy,r0,rr,a0,a1)+'" fill="'+SM_COLORS[k]+'"/>';
+    const rad=(am-90)*Math.PI/180, pct=Math.round(pv);
+    if(rr-r0>52){
+      const lr=rr-26;
+      lab+='<text x="'+(cx+lr*Math.cos(rad)).toFixed(1)+'" y="'+(cy+lr*Math.sin(rad)+11).toFixed(1)+'" text-anchor="middle" font-size="30" font-weight="800" fill="#fff" '+F+'>'+pct+'</text>';
     }else{
-      parts+='<path d="M'+cx+' '+cy+' L'+x0.toFixed(1)+' '+y0.toFixed(1)+
-        ' A'+R+' '+R+' 0 '+big+' 1 '+x1.toFixed(1)+' '+y1.toFixed(1)+' Z" fill="'+SM_COLORS[k]+'" stroke="#fff" stroke-width="3"/>';
+      const lr=rr+24;
+      lab+='<text x="'+(cx+lr*Math.cos(rad)).toFixed(1)+'" y="'+(cy+lr*Math.sin(rad)+8).toFixed(1)+'" text-anchor="middle" font-size="22" font-weight="800" fill="'+SM_COLORS[k]+'" '+F+'>'+pct+'</text>';
     }
-    const am=(a0+a1)/2, pct=Math.round(frac*100);
-    if(frac>=0.07){
-      const lx=cx+(R*0.62)*Math.cos(am), ly=cy+(R*0.62)*Math.sin(am);
-      labs+='<text x="'+lx.toFixed(1)+'" y="'+(ly+7).toFixed(1)+'" text-anchor="middle" font-size="26" font-weight="800" fill="#fff" font-family="Segoe UI,Arial,sans-serif">'+pct+'%</text>';
-    }else{
-      const lx=cx+LR*Math.cos(am), ly=cy+LR*Math.sin(am);
-      const anch=Math.cos(am)>=0?"start":"end";
-      labs+='<line x1="'+(cx+R*Math.cos(am)).toFixed(1)+'" y1="'+(cy+R*Math.sin(am)).toFixed(1)+'" x2="'+lx.toFixed(1)+'" y2="'+ly.toFixed(1)+'" stroke="'+SM_COLORS[k]+'" stroke-width="2"/>'+
-        '<text x="'+(lx+(anch==="start"?5:-5)).toFixed(1)+'" y="'+(ly+5).toFixed(1)+'" text-anchor="'+anch+'" font-size="17" font-weight="800" fill="'+SM_COLORS[k]+'" font-family="Segoe UI,Arial,sans-serif">'+pct+'%</text>';
-    }
-    a0=a1;
   });
-  return '<svg viewBox="0 0 '+S+' '+(S+30)+'" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="'+title+'">'+head+parts+labs+'</svg>';
+  g+='<line x1="'+cx+'" y1="'+(cy-R-16)+'" x2="'+cx+'" y2="'+(cy+R+16)+'" stroke="#111827" stroke-width="2"/>'+
+     '<line x1="'+(cx-R-16)+'" y1="'+cy+'" x2="'+(cx+R+16)+'" y2="'+cy+'" stroke="#111827" stroke-width="2"/>';
+  g+='<circle cx="'+cx+'" cy="'+cy+'" r="'+r0+'" fill="#fff" stroke="#111827" stroke-width="2.5"/>';
+  [['placee',cx+R+16,cy-R-4,'end'],['transition',cx+R+16,cy+R+22,'end'],
+   ['cpa',cx-R-16,cy+R+22,'start'],['autres',cx-R-16,cy-R-4,'start']].forEach(function(c){
+    lab+='<text x="'+c[1]+'" y="'+c[2]+'" text-anchor="'+c[3]+'" font-size="17" font-weight="800" fill="'+SM_COLORS[c[0]]+'" '+F+'>'+SM_LABELS[c[0]]+'</text>';
+  });
+  const foot='<text x="'+cx+'" y="'+(H-38)+'" text-anchor="middle" font-size="22" font-weight="800" fill="#111827" letter-spacing=".05em" '+F+'>'+title+'</text>'+
+    '<text x="'+cx+'" y="'+(H-16)+'" text-anchor="middle" font-size="13" font-weight="600" fill="#98a2b3" '+F+'>'+sub+' · rayon = part du total, échelle 0-'+top+' %</text>';
+  return '<svg viewBox="0 0 '+W+' '+H+'" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="'+title+'">'+g+lab+foot+'</svg>';
 }
 
 function shotmixBlockHTML(club){
@@ -442,7 +453,7 @@ function shotmixBlockHTML(club){
     '<div class="board board-snap smboard" id="board-shotmix">'+
       '<div class="smhead"><span class="ttl">D\'OÙ VIENNENT LES TIRS ET LES BUTS</span><span class="sub">'+sub+'</span></div>'+
       '<div class="smgrid">'+smPie("TIRS", t.shots, t.shots_total, s1)+smPie("BUTS", t.goals, t.goals_total, s2)+'</div>'+
-      '<div class="smleg">'+leg+'</div>'+
+      
       '<div class="smnote">Origine de l\'action selon StatsBomb. Coup de pied arrêté = coup franc ou corner ; Autres = touche, sortie de but, relance du gardien — dans les deux cas uniquement si le tir survient dans les '+(SMIX.sp_window||15)+' s suivant la remise en jeu, au-delà la séquence est comptée en attaque placée. Les penalties sont exclus des deux graphiques.</div>'+
     '</div></div>';
 }
