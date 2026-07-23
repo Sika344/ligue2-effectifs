@@ -496,6 +496,62 @@ function xgGroupedSVG(sub, forV, agaV){
     '<rect x="0" y="0" width="'+W+'" height="'+H+'" fill="#ffffff"/>'+head+g+'</svg>';
 }
 
+/* ===== Diapos RÉCUPÉRATIONS (mêmes règles et même visuel que les pertes) ===== */
+let RECO = null;   // contenu de recoveries.json (auto-actualisé par une GitHub Action)
+
+function recoBlockHTML(club){
+  const jt = RECO && RECO.teams ? matchTeam(club, Object.keys(RECO.teams)) : null;
+  const t  = jt ? RECO.teams[jt] : null;
+  if(!t){
+    return '<div class="matchblock"><div class="mbtools"><span class="mlbl">Zones de récupération · '+club+'</span></div>'+
+      '<div class="board lossboard"><div class="xgnote" style="padding:26px 16px">Les <b>zones de récupération</b> s\'afficheront ici dès que <code>recoveries.json</code> sera présent à la racine du repo.<br>Ce fichier est généré et <b>auto-actualisé</b> par <code>build_recoveries.py</code> via une GitHub Action.</div></div></div>';
+  }
+  const cols=RECO.cols||12, rows=RECO.rows||8, grid=t.grid||[];
+  const pm = t.matches ? (t.total/t.matches).toFixed(1) : "0";
+  const sub = (RECO.season||'2025-2026')+' · '+t.matches+' matchs · '+t.total+' récupérations ('+pm+'/match)';
+  const leg = LOSS_PALETTE.map(c=>'<i style="background:'+c+'"></i>').join("");
+  return '<div class="matchblock"><div class="mbtools"><span class="mlbl">Zones de récupération · '+club+'</span><button class="pngbtn" data-board="board-reco">⬇ PNG</button></div>'+
+    '<div class="board board-snap lossboard" id="board-reco">'+
+      '<div class="losshead"><span class="ttl">OFFENSIF — ZONES DE RÉCUPÉRATION</span><span class="sub">'+sub+'</span></div>'+
+      '<div class="losswrap">'+lossPitchSVG(grid, cols, rows, t.matches)+'</div>'+
+      '<div class="lossfoot">'+
+        '<span class="lossnote">Ballons récupérés par '+club+' (actions défensives — récupérations, interceptions, tacles gagnés, prises du gardien — et pertes adverses). Grand chiffre = total saison, petit = par match.</span>'+
+        '<span class="lossleg">faible<span>'+leg+'</span>fort</span>'+
+      '</div>'+
+    '</div></div>';
+}
+
+function recoRiskBlockHTML(club){
+  const jt = RECO && RECO.teams ? matchTeam(club, Object.keys(RECO.teams)) : null;
+  const t  = jt ? RECO.teams[jt] : null;
+  if(!t || !t.risk){
+    return '<div class="matchblock"><div class="mbtools"><span class="mlbl">Récupérations décisives · '+club+'</span></div>'+
+      '<div class="board lossboard"><div class="xgnote" style="padding:26px 16px">La diapo <b>RÉCUPÉRATIONS DÉCISIVES</b> s\'affichera ici dès que <code>recoveries.json</code> contiendra la grille <code>risk</code>.</div></div></div>';
+  }
+  const cols=RECO.cols||12, rows=RECO.rows||8, base=t.grid||[], grid=t.risk||[];
+  const subs=[];
+  for(let r=0;r<rows;r++){
+    subs.push([]);
+    for(let c=0;c<cols;c++){
+      const b=(base[r]&&base[r][c])||0, v=(grid[r]&&grid[r][c])||0;
+      subs[r].push(b ? Math.round(v/b*100)+"%" : "—");
+    }
+  }
+  const rt=t.risk_total||0, pct=t.total?(100*rt/t.total).toFixed(1):"0";
+  const pm=t.matches?(rt/t.matches).toFixed(1):"0";
+  const sub=(RECO.season||'2025-2026')+' · '+t.matches+' matchs · '+rt+' récupérations décisives ('+pm+'/match · '+pct+'% des récupérations) · '+(t.goal_total||0)+' ayant mené à un but';
+  const leg=LOSS_PALETTE.map(c=>'<i style="background:'+c+'"></i>').join("");
+  return '<div class="matchblock"><div class="mbtools"><span class="mlbl">Récupérations décisives · '+club+'</span><button class="pngbtn" data-board="board-recorisk">⬇ PNG</button></div>'+
+    '<div class="board board-snap lossboard" id="board-recorisk">'+
+      '<div class="losshead"><span class="ttl">OFFENSIF — RÉCUPÉRATIONS DÉCISIVES</span><span class="sub">'+sub+'</span></div>'+
+      '<div class="losswrap">'+lossPitchSVG(grid, cols, rows, t.matches, subs, t.goal_locs, true)+'</div>'+
+      '<div class="lossfoot">'+
+        '<span class="lossnote">Récupérations de '+club+' suivies, dans les 10 s et sur la même séquence de possession, d\'un tir ou d\'un centre en jeu courant. Grand chiffre = total saison, petit = part des récupérations de la case. Les <b style="color:#e10600">points rouges</b> marquent l\'endroit exact des '+(t.goal_total||0)+' récupérations ayant mené à un but.</span>'+
+        '<span class="lossleg">faible<span>'+leg+'</span>fort</span>'+
+      '</div>'+
+    '</div></div>';
+}
+
 function chartsBlockHTML(club){
   const X=xgBuckets(club);
   if(!X){
@@ -792,6 +848,8 @@ function renderClub(club){
   blocks.push(outpossBlockHTML(club));
   blocks.push(lossesBlockHTML(club));
   blocks.push(lossesRiskBlockHTML(club));
+  blocks.push(recoBlockHTML(club));
+  blocks.push(recoRiskBlockHTML(club));
   document.getElementById("stack").innerHTML = blocks.join("");
   if(jt) wirePhotos(document.getElementById("board-eff"));
   document.getElementById("metaInfo").textContent = `${club} — effectif + ${ms.length} derniers matchs`;
@@ -1027,22 +1085,23 @@ function buildClubSelect(){
 async function loadSeason(season){
   if(season===CURRENT_SEASON){
     SEASON_DATA = DATA;
-    LIGUE2 = CUR.ligue2; applyPlayerOverrides(LIGUE2); stampAvatars(LIGUE2); XG = CUR.xg; INP = CUR.inp; OUTP = CUR.outp; LOSS = CUR.loss; SMIX = CUR.smix;
+    LIGUE2 = CUR.ligue2; applyPlayerOverrides(LIGUE2); stampAvatars(LIGUE2); XG = CUR.xg; INP = CUR.inp; OUTP = CUR.outp; LOSS = CUR.loss; SMIX = CUR.smix; RECO = CUR.reco;
     buildClubSelect(); return;
   }
   // saisons non-courantes : JSON suffixés (fallback gracieux si absents)
   document.getElementById("stack").innerHTML='<div class="note" style="padding:26px 16px;text-align:center">Chargement…</div>';
-  const [m,l,x,p,o,ls,sm] = await Promise.all([
+  const [m,l,x,p,o,ls,sm,rc] = await Promise.all([
     fetchJSON("rapport_"+season+".json"),   // {clubs, byClub}
     fetchJSON("ligue2_"+season+".json"),
     fetchJSON("xg_"+season+".json"),
     fetchJSON("inposs_"+season+".json"),
     fetchJSON("outposs_"+season+".json"),
     fetchJSON("losses_"+season+".json"),
-    fetchJSON("shotmix_"+season+".json")
+    fetchJSON("shotmix_"+season+".json"),
+    fetchJSON("recoveries_"+season+".json")
   ]);
-  if(!m || !m.byClub){ SEASON_DATA={clubs:[],byClub:{}}; LIGUE2=null; XG=null; INP=null; OUTP=null; LOSS=null; SMIX=null; noData(); return; }
-  SEASON_DATA=m; LIGUE2=l; applyPlayerOverrides(LIGUE2); XG=x; INP=p; OUTP=o; LOSS=ls; SMIX=sm;
+  if(!m || !m.byClub){ SEASON_DATA={clubs:[],byClub:{}}; LIGUE2=null; XG=null; INP=null; OUTP=null; LOSS=null; SMIX=null; RECO=null; noData(); return; }
+  SEASON_DATA=m; LIGUE2=l; applyPlayerOverrides(LIGUE2); XG=x; INP=p; OUTP=o; LOSS=ls; SMIX=sm; RECO=rc;
   buildClubSelect();
 }
 
@@ -1082,8 +1141,9 @@ Promise.all([
   fetch("inposs.json?_="+Date.now()).then(r=>r.ok?r.json():null).catch(()=>null),
   fetch("outposs.json?_="+Date.now()).then(r=>r.ok?r.json():null).catch(()=>null),
   fetch("losses.json?_="+Date.now()).then(r=>r.ok?r.json():null).catch(()=>null),
-  fetch("shotmix.json?_="+Date.now()).then(r=>r.ok?r.json():null).catch(()=>null)
-]).then(([j,x,p,o,ls,sm])=>{ CUR={ligue2:j,xg:x,inp:p,outp:o,loss:ls,smix:sm}; LIGUE2=j; applyPlayerOverrides(LIGUE2); XG=x; INP=p; OUTP=o; LOSS=ls; SMIX=sm; SEASON_DATA=DATA; start(); }).catch(()=>{ SEASON_DATA=DATA; start(); });
+  fetch("shotmix.json?_="+Date.now()).then(r=>r.ok?r.json():null).catch(()=>null),
+  fetch("recoveries.json?_="+Date.now()).then(r=>r.ok?r.json():null).catch(()=>null)
+]).then(([j,x,p,o,ls,sm,rc])=>{ CUR={ligue2:j,xg:x,inp:p,outp:o,loss:ls,smix:sm,reco:rc}; LIGUE2=j; applyPlayerOverrides(LIGUE2); XG=x; INP=p; OUTP=o; LOSS=ls; SMIX=sm; RECO=rc; SEASON_DATA=DATA; start(); }).catch(()=>{ SEASON_DATA=DATA; start(); });
 </script>
 </body>
 </html>
