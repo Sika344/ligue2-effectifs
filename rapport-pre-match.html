@@ -128,7 +128,7 @@
   .smleg span{display:inline-flex;align-items:center;gap:7px;font-size:12.5px;font-weight:700;color:#4a5266}
   .smleg i{display:inline-block;width:14px;height:14px;border-radius:3px}
   .smnote{font-size:11.5px;color:#8a93a6;font-weight:600;text-align:center;padding:0 18px 14px}
-  .xgboard{background:#ececec;padding:10px 6px 4px}
+  .xgboard{background:#fff;padding:6px 6px 2px}
   .xgboard svg{display:block;width:100%;height:auto}
   .xgboard svg+svg{margin-top:6px}
   .xgnote{font-size:12px;color:#5a6072;text-align:center;padding:6px 10px 8px;line-height:1.45}
@@ -447,6 +447,55 @@ function shotmixBlockHTML(club){
     '</div></div>';
 }
 
+/* --- xG par 15 min : graphique groupé unique (créés vs concédés) --- */
+const XG_FOR="#0d1b8c", XG_AGA="#c0392b";
+function xgTopTicks(vals){
+  const mx=Math.max(0,...vals,1e-4), step=niceStep(mx/4);
+  const top=Math.ceil((mx*1.12)/step)*step;
+  const ticks=[]; for(let t=0;t<=top+1e-9;t+=step) ticks.push(+t.toFixed(6));
+  return {top,ticks};
+}
+function xgRoundTop(x,y,w,h,r){
+  r=Math.max(0,Math.min(r,w/2,h));
+  return 'M'+x+','+(y+h)+'L'+x+','+(y+r)+'Q'+x+','+y+' '+(x+r)+','+y+
+         'L'+(x+w-r)+','+y+'Q'+(x+w)+','+y+' '+(x+w)+','+(y+r)+'L'+(x+w)+','+(y+h)+'Z';
+}
+function xgGroupedSVG(sub, forV, agaV){
+  const W=1120, H=430, padL=62, padR=26, padT=96, padB=54;
+  const x0=padL, x1=W-padR, y0=padT, y1=H-padB, plotW=x1-x0, plotH=y1-y0;
+  const labels=['0-15','15-30','30-45','45-60','60-75','75-90'];
+  const sc=xgTopTicks([...(forV||[]),...(agaV||[])]), Y=v=>y1-(v/sc.top)*plotH;
+  const F='font-family="Inter,Segoe UI,Helvetica Neue,Arial,sans-serif"';
+  let g='';
+  sc.ticks.forEach(t=>{ const y=Y(t);
+    g+='<line x1="'+x0+'" y1="'+y.toFixed(1)+'" x2="'+x1+'" y2="'+y.toFixed(1)+'" stroke="'+(t===0?'#c9d2dd':'#eef1f5')+'" stroke-width="'+(t===0?1.4:1)+'"/>';
+    g+='<text x="'+(x0-12)+'" y="'+(y+4.5).toFixed(1)+'" text-anchor="end" font-size="13" fill="#98a2b3" '+F+'>'+fmtVal(t)+'</text>'; });
+  const slot=plotW/6, bw=slot*0.20, gap=slot*0.05;
+  for(let i=0;i<6;i++){
+    const cx=x0+slot*(i+0.5);
+    [[(forV&&forV[i])||0,XG_FOR,-1],[(agaV&&agaV[i])||0,XG_AGA,1]].forEach(function(d){
+      const v=d[0], c=d[1], side=d[2];
+      const bx=cx+(side<0?-(bw+gap/2):gap/2), by=Y(Math.max(0,v)), bh=Math.max(1.5,y1-by);
+      g+='<path d="'+xgRoundTop(+bx.toFixed(1),+by.toFixed(1),+bw.toFixed(1),+bh.toFixed(1),Math.min(4,bw/2))+'" fill="'+c+'"/>';
+      g+='<text x="'+(bx+bw/2).toFixed(1)+'" y="'+(by-9).toFixed(1)+'" text-anchor="middle" font-size="14" font-weight="700" fill="'+c+'" '+F+'>'+fmtVal(v)+'</text>';
+    });
+    g+='<text x="'+cx.toFixed(1)+'" y="'+(y1+25).toFixed(1)+'" text-anchor="middle" font-size="14" font-weight="600" fill="#667085" '+F+'>'+labels[i]+'</text>';
+  }
+  g+='<text x="'+((x0+x1)/2).toFixed(1)+'" y="'+(y1+45).toFixed(1)+'" text-anchor="middle" font-size="11.5" font-weight="600" fill="#98a2b3" letter-spacing="1.2" '+F+'>MINUTES</text>';
+  let head='<text x="'+x0+'" y="42" font-size="24" font-weight="800" fill="#0a1733" letter-spacing=".02em" '+F+'>xG PAR 15 MINUTES</text>'+
+    '<text x="'+x0+'" y="66" font-size="13.5" font-weight="600" fill="#98a2b3" '+F+'>'+sub+'</text>';
+  let lx=x1;
+  [['xG concédés',XG_AGA],['xG créés',XG_FOR]].forEach(function(d){
+    const t=d[0], c=d[1], tw=t.length*7.6;
+    lx-=tw+22;
+    head+='<rect x="'+lx.toFixed(1)+'" y="34" width="11" height="11" rx="3" fill="'+c+'"/>'+
+      '<text x="'+(lx+17).toFixed(1)+'" y="43.5" font-size="13.5" font-weight="700" fill="#344054" '+F+'>'+t+'</text>';
+    lx-=8;
+  });
+  return '<svg viewBox="0 0 '+W+' '+H+'" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="xG par 15 minutes">'+
+    '<rect x="0" y="0" width="'+W+'" height="'+H+'" fill="#ffffff"/>'+head+g+'</svg>';
+}
+
 function chartsBlockHTML(club){
   const X=xgBuckets(club);
   if(!X){
@@ -454,11 +503,8 @@ function chartsBlockHTML(club){
       '<div class="board xgboard" id="board-xg"><div class="xgnote" style="padding:26px 16px;font-size:13px">Les <b>xG créés / concédés par 15 min</b> (saison complète) s\'afficheront ici dès que <code>xg.json</code> sera présent à la racine du repo.<br>Ce fichier est généré et <b>auto-actualisé</b> par <code>build_xg.py</code> via une GitHub Action.</div></div></div>';
   }
   const sub = X.matches ? (X.season+' · '+X.matches+' matchs') : X.season;
-  const t1='xG créés par 15 minutes  |  '+club+'  |  '+sub;
-  const t2='xG concédés par 15 minutes  |  '+club+'  |  '+sub;
-  const sc = xgScale([...(X.for||[]), ...(X.against||[])]); // échelle Y commune aux 2 graphes
   return '<div class="matchblock"><div class="mbtools"><span class="mlbl">xG par 15 min · '+club+'</span><button class="pngbtn" data-board="board-xg">⬇ PNG</button></div>'+
-    '<div class="board board-snap xgboard" id="board-xg">'+barChartSVG(t1,X.for,'#0d1b8c',sc)+barChartSVG(t2,X.against,'#c0392b',sc)+'</div></div>';
+    '<div class="board board-snap xgboard" id="board-xg">'+xgGroupedSVG(club+'  ·  '+sub, X.for, X.against)+'</div></div>';
 }
 /* ===== Diapo IN-POSSESSION (strip plots équipe, depuis inposs.json) ===== */
 let INP = null;   // contenu de inposs.json (auto-actualisé par une GitHub Action)
