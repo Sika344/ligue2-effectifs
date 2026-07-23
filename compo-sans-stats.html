@@ -63,24 +63,76 @@
   .note{max-width:1280px;margin:10px auto 30px;padding:0 16px;color:#9fb0c8;font-size:12px;line-height:1.5}
   .note code{background:#11203a;padding:2px 6px;border-radius:4px;color:#cfe}
   @media(max-width:760px){ .slot{width:112px} .photo,.photo-wrap{height:54px} .name{font-size:10px} .bio{font-size:8px} .stats .v{font-size:10px} .editctl{width:112px} }
+
+    /* ================= INTERFACE ================= */
+  /* Tokens : gris neutres, aucun bleu de fond. Les .board / diapos sont hors périmètre. */
+  :root{
+    --ui-font:-apple-system,BlinkMacSystemFont,"Inter","Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+    --ui-ink:#1f2937; --ui-ink2:#111827; --ui-muted:#6b7280; --ui-faint:#9ca3af;
+    --ui-line:#e5e7eb; --ui-line2:#d8dce3; --ui-hover:#f9fafb; --ui-accent:#0a1733;
+  }
+
+  /* ---- barre de navigation principale ---- */
+  .sitenav{position:sticky;top:0;z-index:120;display:flex;align-items:stretch;gap:0;
+    font-family:var(--ui-font);background:#fff;border-bottom:1px solid var(--ui-line);
+    padding:0 18px;overflow-x:auto;-ms-overflow-style:none;scrollbar-width:none}
+  .sitenav::-webkit-scrollbar{display:none}
+  .sitenav .brand{display:flex;align-items:center;gap:7px;font-size:13.5px;font-weight:650;
+    color:var(--ui-ink2);letter-spacing:-.01em;padding:0 22px 0 0;white-space:nowrap}
+  .sitenav .brand span{font-size:9.5px;font-weight:600;color:var(--ui-faint);
+    letter-spacing:.11em;text-transform:uppercase}
+  .sitenav a{display:flex;align-items:center;padding:13px 14px;font-size:13px;font-weight:550;
+    color:var(--ui-muted);text-decoration:none;white-space:nowrap;letter-spacing:-.005em;
+    border-bottom:2px solid transparent;transition:color .13s ease,border-color .13s ease}
+  .sitenav a:hover{color:var(--ui-ink2)}
+  .sitenav a.on{color:var(--ui-ink2);font-weight:650;border-bottom-color:var(--ui-accent)}
+  @media(max-width:720px){
+    .sitenav{padding:0 12px}
+    .sitenav .brand span{display:none}
+    .sitenav a{padding:12px 10px;font-size:12.5px}
+  }
+
+  /* ---- thème clair : chrome ---- */
+  body{background:#fff;color:var(--ui-ink)}
+  .topbar{font-family:var(--ui-font);background:#fff;border-bottom:1px solid var(--ui-line);
+    padding:11px 18px;gap:10px}
+  .topbar h2{font-size:14px;font-weight:650;color:var(--ui-ink2);letter-spacing:-.01em}
+  .topbar .meta,.topbar .opt{font-size:12px;color:var(--ui-muted);font-weight:450}
+  .topbar .tag{font-size:10.5px;font-weight:600;color:var(--ui-muted);background:#f3f4f6;
+    border-radius:6px;padding:3px 8px;letter-spacing:.02em}
+  .topbar .opt input{accent-color:var(--ui-accent);width:14px;height:14px;cursor:pointer}
+
+  /* ---- contrôles : cadre fin arrondi ---- */
+  .topbar select,.controls select{font-family:var(--ui-font);font-size:12.5px;font-weight:500;
+    color:var(--ui-ink);background:#fff;border:1px solid var(--ui-line2);border-radius:8px;
+    padding:7px 30px 7px 11px;cursor:pointer;appearance:none;-webkit-appearance:none;
+    background-image:url("data:image/svg+xml;charset=utf-8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' fill='none' stroke='%236b7280' stroke-width='1.7'%3E%3Cpath d='M3 4.5L6 7.5L9 4.5'/%3E%3C/svg%3E");
+    background-repeat:no-repeat;background-position:right 10px center;
+    transition:border-color .13s ease,box-shadow .13s ease}
+  .topbar select:hover,.controls select:hover{border-color:#b9c0cc}
+  .topbar select:focus,.controls select:focus{outline:none;border-color:var(--ui-accent);
+    box-shadow:0 0 0 3px rgba(10,23,51,.09)}
+
+  /* ---- boutons ---- */
+  .topbar button{font-family:var(--ui-font)!important;font-size:12.5px!important;font-weight:600!important;
+    color:var(--ui-ink)!important;background:#fff!important;border:1px solid var(--ui-line2)!important;
+    border-radius:8px!important;padding:7px 13px!important;cursor:pointer;
+    transition:background .13s ease,border-color .13s ease}
+  .topbar button:hover{background:var(--ui-hover)!important;border-color:#b9c0cc!important}
+  .topbar button#dlk{background:var(--gold)!important;border:1px solid #b8913f!important;color:#20180a!important}
+  .topbar button#dlk:hover{background:#d3ae5c!important}
 </style>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/pptxgenjs@3.12.0/dist/pptxgen.bundle.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
 </head>
 <body>
+    <nav class="sitenav"><div class="brand">⚽ Ligue 2<span>Analyse</span></div><a href="index.html">Effectif</a><a href="compo.html">Compo</a><a href="compo-sans-stats.html" class="on">Compo sans stats</a><a href="analytics.html">Analytics 360</a><a href="rapport-pre-match.html">Rapport pré-match</a></nav>
   <div class="topbar">
     <select id="teamSelect"></select>
     <select id="formationSelect"></select>
     <span class="meta" id="metaInfo">chargement…</span>
-    <select id="pageNav" onchange="if(this.value)location.href=this.value" style="margin-left:auto;margin-right:4px;background:#16234a;color:#fff;border:1px solid rgba(255,255,255,.18);border-radius:8px;padding:8px 12px;font-weight:700;font-size:13px;cursor:pointer">
-      <option value="index.html">Effectif</option>
-      <option value="compo.html">Compo</option>
-      <option value="compo-sans-stats.html" selected>Compo sans stats</option>
-      <option value="analytics.html">Analytics 360</option>
-      <option value="rapport-pre-match.html">Rapport pré-match</option>
-    </select>
-    <button id="dl" style="margin-left:14px;background:#16234a;color:#fff;border:1px solid rgba(255,255,255,.18);border-radius:8px;padding:8px 12px;font-weight:700;font-size:13px;cursor:pointer">⬇ PNG</button>
+        <button id="dl" style="margin-left:14px;background:#16234a;color:#fff;border:1px solid rgba(255,255,255,.18);border-radius:8px;padding:8px 12px;font-weight:700;font-size:13px;cursor:pointer">⬇ PNG</button>
     <button id="dlk" style="margin-left:8px;background:var(--gold);color:#111;border:none;border-radius:8px;padding:8px 12px;font-weight:700;font-size:13px;cursor:pointer">⬇ Keynote (.pptx)</button>
   </div>
 
