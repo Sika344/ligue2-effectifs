@@ -1,0 +1,54 @@
+# .github/workflows/buildup.yml
+# Régénère buildup.json (phases de construction par équipe) et le committe s'il a changé.
+# Pré-requis : secrets de dépôt SB_USERNAME et SB_PASSWORD.
+# Placer ce fichier dans .github/workflows/buildup.yml et build_buildup.py à la racine du repo.
+
+name: Build phases de construction
+
+on:
+  schedule:
+    - cron: "0 6 * * *"        # tous les jours à 06:00 UTC (après losses / shotmix / recoveries)
+  workflow_dispatch: {}
+
+permissions:
+  contents: write
+
+concurrency:
+  group: build-buildup
+  cancel-in-progress: true
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install deps
+        run: pip install statsbombpy pandas
+
+      - name: Generate buildup.json
+        env:
+          SB_USERNAME: ${{ secrets.SB_USERNAME }}
+          SB_PASSWORD: ${{ secrets.SB_PASSWORD }}
+        run: python build_buildup.py
+
+      - name: Commit if changed
+        run: |
+          if [ -n "$(git status --porcelain buildup.json)" ]; then
+            git config user.name "github-actions[bot]"
+            git config user.email "github-actions[bot]@users.noreply.github.com"
+            git add buildup.json
+            git commit -m "chore: maj buildup.json (phases de construction)"
+            for i in 1 2 3 4 5; do
+              git pull --rebase origin main && git push && exit 0
+              sleep $((RANDOM % 10 + 3))
+            done
+            echo "push impossible après 5 tentatives" >&2
+            exit 1
+          else
+            echo "buildup.json inchangé."
+          fi
