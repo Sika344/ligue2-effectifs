@@ -492,12 +492,15 @@ function renderFinishing(){
     grid.forEach(r=>r.forEach(v=>{ if(v>hi) hi=v; if(v>0&&v<lo) lo=v; }));
     if(lo===Infinity) lo=0;
     const cw=W/FCOLS, ch=H/FROWS;
+    // cases d'abord, puis les tracés du terrain, puis les chiffres par-dessus :
+    // le terrain reste en arrière-plan et ne coupe jamais un nombre
+    let labels="";
     for(let r=0;r<FROWS;r++) for(let c=0;c<FCOLS;c++){
       const v=grid[r][c], st=redStep(v,lo,hi);
       g+='<rect x="'+(c*cw).toFixed(1)+'" y="'+(r*ch).toFixed(1)+'" width="'+cw.toFixed(1)+'" height="'+ch.toFixed(1)+'" fill="'+RED[st]+'"/>';
-      if(v) g+='<text x="'+((c+0.5)*cw).toFixed(1)+'" y="'+((r+0.5)*ch+5).toFixed(1)+'" text-anchor="middle" font-size="14" font-weight="600" fill="'+(st>=6?"#fff":"#6b1410")+'" '+F+'>'+v+'</text>';
+      if(v) labels+='<text x="'+((c+0.5)*cw).toFixed(1)+'" y="'+((r+0.5)*ch+5).toFixed(1)+'" text-anchor="middle" font-size="14" font-weight="600" fill="'+(st>=6?"#fff":"#6b1410")+'" '+F+'>'+v+'</text>';
     }
-    g+=pitchLines(S,W,H,2.2);
+    g+=pitchLines(S,W,H,2.2)+labels;
     // légende
     let stops=""; RED.forEach((c,i)=>{ stops+='<stop offset="'+(i*100/9)+'%" stop-color="'+c+'"/>'; });
     g+='<defs><linearGradient id="rg" x1="0" y1="1" x2="0" y2="0">'+stops+'</linearGradient></defs>'+
