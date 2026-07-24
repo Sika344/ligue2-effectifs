@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Attacking — Ligue 2</title>
+<style>
+  :root{
+    --ui-font:-apple-system,BlinkMacSystemFont,"Inter","Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+    --ui-ink:#1f2937; --ui-ink2:#111827; --ui-muted:#6b7280; --ui-faint:#9ca3af;
+    --ui-line:#e5e7eb; --ui-line2:#d8dce3; --ui-hover:#f9fafb; --ui-accent:#0a1733;
+    --gold:#c9a24b;
+  }
+  *{box-sizing:border-box}
+  body{margin:0;background:#fff;color:var(--ui-ink);font-family:var(--ui-font)}
+
+  /* ---- barre de navigation principale ---- */
+  .sitenav{position:sticky;top:0;z-index:9999;isolation:isolate;display:flex;align-items:stretch;
+    gap:0;font-family:var(--ui-font);background:#fff!important;
+    border-bottom:1px solid var(--ui-line);padding:0 18px;overflow-x:auto;
+    -ms-overflow-style:none;scrollbar-width:none}
+  .sitenav::-webkit-scrollbar{display:none}
+  .sitenav .brand{display:flex;align-items:center;gap:7px;font-size:13.5px;font-weight:650;
+    color:var(--ui-ink2);letter-spacing:-.01em;padding:0 22px 0 0;white-space:nowrap;
+    background:#fff;position:relative;z-index:1}
+  .sitenav .brand span{font-size:9.5px;font-weight:600;color:var(--ui-faint);
+    letter-spacing:.11em;text-transform:uppercase}
+  .sitenav a{display:flex;align-items:center;margin:9px 3px;padding:6px 13px;font-size:12.5px;
+    font-weight:550;color:var(--ui-muted);text-decoration:none;white-space:nowrap;
+    letter-spacing:-.005em;border:1px solid var(--ui-line2);border-radius:8px;background:#fff;
+    transition:color .13s ease,border-color .13s ease,background .13s ease}
+  .sitenav a:hover{color:var(--ui-ink2);border-color:#b9c0cc;background:var(--ui-hover)}
+  .sitenav a.on{color:var(--ui-accent);font-weight:650;background:#fff;border-color:var(--ui-accent)}
+  @media(max-width:720px){
+    .sitenav{padding:0 10px}
+    .sitenav .brand span{display:none}
+    .sitenav a{margin:8px 2px;padding:6px 10px;font-size:12px}
+  }
+
+  /* ---- topbar ---- */
+  .topbar{display:flex;align-items:center;flex-wrap:wrap;gap:10px;background:#fff;
+    border-bottom:1px solid var(--ui-line);padding:11px 18px}
+  .topbar h2{margin:0;font-size:14px;font-weight:650;color:var(--ui-ink2);letter-spacing:-.01em}
+  .topbar .tag{font-size:10.5px;font-weight:600;color:var(--ui-muted);background:#f3f4f6;
+    border-radius:6px;padding:3px 8px;letter-spacing:.02em}
+  .topbar select{font-family:var(--ui-font);font-size:12.5px;font-weight:500;color:var(--ui-ink);
+    background:#fff;border:1px solid var(--ui-line2);border-radius:8px;padding:7px 30px 7px 11px;
+    cursor:pointer;appearance:none;-webkit-appearance:none;
+    background-image:url("data:image/svg+xml;charset=utf-8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' fill='none' stroke='%236b7280' stroke-width='1.7'%3E%3Cpath d='M3 4.5L6 7.5L9 4.5'/%3E%3C/svg%3E");
+    background-repeat:no-repeat;background-position:right 10px center}
+  .topbar select:hover{border-color:#b9c0cc}
+  .topbar select:focus{outline:none;border-color:var(--ui-accent);box-shadow:0 0 0 3px rgba(10,23,51,.09)}
+
+  /* ---- contenu ---- */
+  .wrap{max-width:1500px;margin:0 auto;padding:18px}
+  .card{background:#fff;border:1px solid var(--ui-line);border-radius:12px;padding:18px}
+  .card h3{margin:0 0 4px;font-size:15px;font-weight:650;color:var(--ui-ink2);letter-spacing:-.01em}
+  .card .sub{font-size:12.5px;color:var(--ui-muted);margin-bottom:16px}
+
+  .filters{display:flex;flex-wrap:wrap;align-items:flex-end;gap:26px;margin-bottom:6px}
+  .fgroup{display:flex;flex-direction:column;gap:7px}
+  .flab{font-size:10px;font-weight:650;letter-spacing:.09em;color:var(--ui-faint);text-transform:uppercase}
+  .pills{display:flex;flex-wrap:wrap;gap:7px}
+  .pill{font-family:var(--ui-font);font-size:12.5px;font-weight:550;padding:6px 14px;
+    border-radius:999px;border:1px solid var(--ui-line2);background:#fff;color:var(--ui-muted);
+    cursor:pointer;user-select:none;transition:all .13s ease}
+  .pill:hover{border-color:var(--ui-accent);color:var(--ui-ink2)}
+  .pill.on{border-color:var(--ui-accent);color:var(--ui-accent);font-weight:650;
+    box-shadow:inset 0 0 0 1px var(--ui-accent)}
+  .slidebox{display:flex;align-items:center;gap:11px}
+  input[type=range]{width:190px;accent-color:var(--ui-accent);cursor:pointer}
+  .sval{font-size:14px;font-weight:650;color:var(--ui-ink2);min-width:38px}
+  .btn{font-family:var(--ui-font);font-size:12px;font-weight:600;color:var(--ui-ink);background:#fff;
+    border:1px solid var(--ui-line2);border-radius:8px;padding:6px 12px;cursor:pointer;
+    transition:background .13s ease,border-color .13s ease}
+  .btn:hover{background:var(--ui-hover);border-color:#b9c0cc}
+
+  .plotwrap{position:relative;margin-top:6px}
+  .plotwrap svg{display:block;width:100%;height:auto}
+  .note{font-size:11.5px;color:var(--ui-muted);margin-top:10px;line-height:1.5}
+  .tip{position:absolute;pointer-events:none;opacity:0;transition:opacity .1s ease;
+    background:#fff;border:1px solid var(--ui-line2);border-radius:9px;padding:9px 12px;
+    box-shadow:0 6px 22px rgba(16,24,40,.13);font-size:12px;color:var(--ui-ink);z-index:20;
+    white-space:nowrap}
+  .tip b{display:block;font-size:13px;font-weight:650;color:var(--ui-ink2);margin-bottom:4px}
+  .tip i{font-style:normal;color:var(--ui-muted)}
+  .empty{font-size:12.5px;color:var(--ui-faint);padding:40px 0;text-align:center}
+</style>
+</head>
+<body>
+  <nav class="sitenav"><div class="brand">⚽ Ligue 2<span>Analyse</span></div><a href="index.html">Effectif</a><a href="attacking.html" class="on">Attacking</a><a href="analytics.html">Analytics 360</a><a href="rapport-pre-match.html">Rapport pré-match</a></nav>
+
+  <div class="topbar">
+    <h2>⚽ Attacking</h2>
+    <span class="tag" id="tag">Ligue 2 2025/2026</span>
+    <select id="hiSel" aria-label="Équipe à mettre en avant"></select>
+  </div>
+
+  <div class="wrap">
+    <div class="card">
+      <h3>Analyse d'équipe — construction</h3>
+      <div class="sub" id="sub">Chargement…</div>
+
+      <div class="filters">
+        <div class="fgroup">
+          <span class="flab">Start type</span>
+          <div class="pills" id="pills"></div>
+        </div>
+        <div class="fgroup">
+          <span class="flab">Min build-ups</span>
+          <div class="slidebox">
+            <input type="range" id="minRange" min="0" max="200" step="10" value="40">
+            <span class="sval" id="minVal">40</span>
+          </div>
+        </div>
+        <div class="fgroup">
+          <span class="flab">&nbsp;</span>
+          <button class="btn" id="png">⬇ PNG</button>
+        </div>
+      </div>
+
+      <div class="plotwrap" id="plotwrap">
+        <div id="plot"></div>
+        <div class="tip" id="tip"></div>
+      </div>
+
+      <div class="note">
+        X = part des build-ups franchissant la médiane · Y = part finissant par une entrée dans le
+        dernier tiers ou un tir · couleur = part des passes tentées avant la médiane qui sont sous
+        pression (rouge = plus pressé). Un build-up court jusqu'à la fin de la possession.
+        Aucun start type sélectionné = tous.
+      </div>
+    </div>
+  </div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+<script>
+const ACCENT="#0a1733";
+let DATA=null, SEL=new Set(), MINB=40, HILITE="";
+
+/* ---- échelle de couleur jaune -> rouge (type YlOrRd) ---- */
+const RAMP=[[255,255,178],[254,217,118],[254,178,76],[253,141,60],[252,78,42],[227,26,28],[177,0,38]];
+function ramp(t){
+  t=Math.max(0,Math.min(1,t));
+  const s=t*(RAMP.length-1), i=Math.min(RAMP.length-2,Math.floor(s)), f=s-i;
+  const a=RAMP[i], b=RAMP[i+1];
+  return "rgb("+Math.round(a[0]+(b[0]-a[0])*f)+","+Math.round(a[1]+(b[1]-a[1])*f)+","+
+         Math.round(a[2]+(b[2]-a[2])*f)+")";
+}
+function nice(x){ if(!isFinite(x)||x<=0) return 1;
+  const p=Math.pow(10,Math.floor(Math.log10(x))), n=x/p;
+  return (n<1.5?1:n<3?2:n<4?2.5:n<7.5?5:10)*p; }
+
+/* ---- agrégation : union des masques sélectionnés ---- */
+function selMask(){
+  if(!DATA||!SEL.size) return -1;                 // -1 = tout
+  let m=0; SEL.forEach(k=>{ m|=DATA.bits[k]; });
+  return m;
+}
+function rows(){
+  if(!DATA) return [];
+  const sm=selMask(), out=[];
+  for(const [team,t] of Object.entries(DATA.teams)){
+    let n=0,cr=0,su=0,pu=0,pt=0;
+    for(const b of (t.buckets||[])){
+      if(sm!==-1 && !(b.m & sm)) continue;
+      n+=b.n; cr+=b.cr; su+=b.su; pu+=b.pu; pt+=b.pt;
+    }
+    if(!n || n<MINB) continue;
+    out.push({team, n, x:100*cr/n, y:100*su/n, p: pt?100*pu/pt:0, matches:t.matches});
+  }
+  return out;
+}
+
+/* ---- rendu ---- */
+function render(){
+  const R=rows(), host=document.getElementById("plot");
+  const sub=document.getElementById("sub");
+  if(!DATA){ host.innerHTML='<div class="empty">Chargement…</div>'; return; }
+  const noms=[...SEL].map(k=>DATA.labels[k]);
+  const tot=R.reduce((a,r)=>a+r.n,0);
+  sub.textContent=(noms.length?noms.join(" + "):"Tous les start types")+" · "+R.length+
+    " équipes · "+tot.toLocaleString("fr-FR")+" build-ups · Ligue 2 "+(DATA.season||"");
+  if(!R.length){ host.innerHTML='<div class="empty">Aucune équipe ne passe le seuil de '+MINB+' build-ups.</div>'; return; }
+
+  const W=1240,H=560,L=74,Rr=132,T=26,B=62;
+  const x0=L,x1=W-Rr,y0=T,y1=H-B, pw=x1-x0, ph=y1-y0;
+  const xs=R.map(r=>r.x), ys=R.map(r=>r.y), ps=R.map(r=>r.p);
+  const pad=(a,b)=>{ const d=(b-a)||1; return [a-d*0.14, b+d*0.14]; };
+  let [xa,xb]=pad(Math.min(...xs),Math.max(...xs));
+  let [ya,yb]=pad(Math.min(...ys),Math.max(...ys));
+  const pa=Math.min(...ps), pb=Math.max(...ps);
+  const X=v=>x0+(v-xa)/(xb-xa)*pw, Y=v=>y1-(v-ya)/(yb-ya)*ph;
+  const F='font-family="-apple-system,BlinkMacSystemFont,Inter,Segoe UI,Arial,sans-serif"';
+
+  let g='';
+  const stepX=nice((xb-xa)/6), stepY=nice((yb-ya)/6);
+  for(let v=Math.ceil(xa/stepX)*stepX; v<=xb; v+=stepX){
+    g+='<line x1="'+X(v).toFixed(1)+'" y1="'+y0+'" x2="'+X(v).toFixed(1)+'" y2="'+y1+'" stroke="#eef1f5"/>'+
+       '<text x="'+X(v).toFixed(1)+'" y="'+(y1+21)+'" text-anchor="middle" font-size="12" fill="#98a2b3" '+F+'>'+Math.round(v)+'%</text>';
+  }
+  for(let v=Math.ceil(ya/stepY)*stepY; v<=yb; v+=stepY){
+    g+='<line x1="'+x0+'" y1="'+Y(v).toFixed(1)+'" x2="'+x1+'" y2="'+Y(v).toFixed(1)+'" stroke="#eef1f5"/>'+
+       '<text x="'+(x0-11)+'" y="'+(Y(v)+4).toFixed(1)+'" text-anchor="end" font-size="12" fill="#98a2b3" '+F+'>'+Math.round(v)+'%</text>';
+  }
+  g+='<line x1="'+x0+'" y1="'+y1+'" x2="'+x1+'" y2="'+y1+'" stroke="#d5dae3"/>'+
+     '<line x1="'+x0+'" y1="'+y0+'" x2="'+x0+'" y2="'+y1+'" stroke="#d5dae3"/>';
+  g+='<text x="'+((x0+x1)/2)+'" y="'+(H-16)+'" text-anchor="middle" font-size="12" font-weight="600" fill="'+ACCENT+'" '+F+'>% franchissant la médiane</text>'+
+     '<text transform="translate(19,'+((y0+y1)/2)+') rotate(-90)" text-anchor="middle" font-size="12" font-weight="600" fill="'+ACCENT+'" '+F+'>% de build-ups réussis</text>';
+
+  // étiquettes : décalage vertical si collision
+  const placed=[];
+  R.sort((a,b)=>a.y-b.y);
+  let pts="", labs="";
+  R.forEach((r,i)=>{
+    const cx=X(r.x), cy=Y(r.y);
+    const hi = HILITE && r.team===HILITE;
+    let ly=cy-15;
+    for(const q of placed){ if(Math.abs(q.x-cx)<78 && Math.abs(q.y-ly)<13) ly=q.y-13; }
+    placed.push({x:cx,y:ly});
+    labs+='<text x="'+cx.toFixed(1)+'" y="'+ly.toFixed(1)+'" text-anchor="middle" font-size="'+(hi?12.5:11.5)+'" font-weight="'+(hi?700:550)+'" fill="'+(hi?ACCENT:"#5d6779")+'" '+F+'>'+r.team+'</text>';
+    const col=ramp(pb>pa?(r.p-pa)/(pb-pa):0.5);
+    pts+='<circle class="pt" data-i="'+i+'" cx="'+cx.toFixed(1)+'" cy="'+cy.toFixed(1)+'" r="'+(hi?10:7.5)+
+         '" fill="'+col+'" stroke="'+(hi?ACCENT:"#fff")+'" stroke-width="'+(hi?2.6:1.4)+'" style="cursor:pointer"/>';
+  });
+
+  // légende de couleur
+  const lx=x1+52, lyA=y0+28, lyB=y1-28;
+  let stops="";
+  for(let i=0;i<=10;i++) stops+='<stop offset="'+(i*10)+'%" stop-color="'+ramp(1-i/10)+'"/>';
+  g+='<defs><linearGradient id="lg" x1="0" y1="0" x2="0" y2="1">'+stops+'</linearGradient></defs>'+
+     '<rect x="'+lx+'" y="'+lyA+'" width="14" height="'+(lyB-lyA)+'" fill="url(#lg)" rx="3"/>'+
+     '<text x="'+(lx+21)+'" y="'+(lyA+11)+'" font-size="11.5" fill="#98a2b3" '+F+'>'+pb.toFixed(0)+'%</text>'+
+     '<text x="'+(lx+21)+'" y="'+lyB+'" font-size="11.5" fill="#98a2b3" '+F+'>'+pa.toFixed(0)+'%</text>'+
+     '<text transform="translate('+(lx+62)+','+((lyA+lyB)/2)+') rotate(-90)" text-anchor="middle" font-size="11.5" font-weight="600" fill="'+ACCENT+'" '+F+'>Pression moyenne</text>';
+
+  host.innerHTML='<svg viewBox="0 0 '+W+' '+H+'" xmlns="http://www.w3.org/2000/svg"><rect width="'+W+'" height="'+H+'" fill="#fff"/>'+g+pts+labs+'</svg>';
+
+  const tip=document.getElementById("tip"), box=document.getElementById("plotwrap");
+  host.querySelectorAll(".pt").forEach(el=>{
+    el.addEventListener("mousemove",ev=>{
+      const r=R[+el.dataset.i], b=box.getBoundingClientRect();
+      tip.innerHTML='<b>'+r.team+'</b>'+
+        '<i>'+r.n.toLocaleString("fr-FR")+' build-ups</i><br>'+
+        '<i>Franchit la médiane :</i> '+r.x.toFixed(0)+'%<br>'+
+        '<i>Réussis :</i> '+r.y.toFixed(0)+'%<br>'+
+        '<i>Pression moyenne :</i> '+r.p.toFixed(0)+'%';
+      tip.style.opacity=1;
+      let lx=ev.clientX-b.left+14, ly=ev.clientY-b.top-10;
+      if(lx+210>b.width) lx=ev.clientX-b.left-210;
+      tip.style.left=lx+"px"; tip.style.top=ly+"px";
+    });
+    el.addEventListener("mouseleave",()=>{ tip.style.opacity=0; });
+  });
+}
+
+/* ---- contrôles ---- */
+function buildPills(){
+  const box=document.getElementById("pills");
+  box.innerHTML="";
+  DATA.keys.forEach(k=>{
+    const b=document.createElement("span");
+    b.className="pill"; b.textContent=DATA.labels[k]; b.dataset.k=k;
+    b.onclick=()=>{ SEL.has(k)?SEL.delete(k):SEL.add(k); b.classList.toggle("on"); render(); };
+    box.appendChild(b);
+  });
+}
+function buildTeams(){
+  const s=document.getElementById("hiSel");
+  s.innerHTML='<option value="">Aucune équipe en avant</option>'+
+    Object.keys(DATA.teams).sort().map(t=>'<option>'+t+'</option>').join("");
+  s.onchange=()=>{ HILITE=s.value; render(); };
+}
+document.getElementById("minRange").oninput=e=>{
+  MINB=+e.target.value; document.getElementById("minVal").textContent=MINB; render();
+};
+document.getElementById("png").onclick=()=>{
+  const el=document.querySelector(".card");
+  html2canvas(el,{backgroundColor:"#fff",scale:2}).then(c=>{
+    const a=document.createElement("a");
+    a.download="attacking-buildup.png"; a.href=c.toDataURL("image/png"); a.click();
+  });
+};
+
+fetch("buildup.json?_="+Date.now()).then(r=>r.ok?r.json():null).then(d=>{
+  if(!d){ document.getElementById("plot").innerHTML=
+    '<div class="empty">La page s\'affichera dès que <b>buildup.json</b> sera présent à la racine du repo.<br>Ce fichier est généré par <b>build_buildup.py</b> via une GitHub Action.</div>';
+    document.getElementById("sub").textContent="Données indisponibles"; return; }
+  DATA=d;
+  document.getElementById("tag").textContent="StatsBomb · Ligue 2 "+(d.season||"");
+  let mx=0;
+  for(const t of Object.values(d.teams)) mx=Math.max(mx,(t.buckets||[]).reduce((a,b)=>a+b.n,0));
+  const rg=document.getElementById("minRange");
+  rg.max=Math.max(50,Math.round(mx/2/10)*10); rg.step=10;
+  buildPills(); buildTeams(); render();
+}).catch(()=>{
+  document.getElementById("sub").textContent="Données indisponibles";
+});
+</script>
+</body>
+</html>
