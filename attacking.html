@@ -84,6 +84,18 @@
     white-space:nowrap}
   .tip b{display:block;font-size:13px;font-weight:650;color:var(--ui-ink2);margin-bottom:4px}
   .tip i{font-style:normal;color:var(--ui-muted)}
+  .hide{display:none!important}
+  select.chartsel{font-family:var(--ui-font);font-size:12.5px;font-weight:650;color:var(--ui-accent);
+    background:#fbfcfd;border:1px solid #c3cad6;border-radius:8px;padding:6px 30px 6px 12px;
+    cursor:pointer;appearance:none;-webkit-appearance:none;
+    background-image:url("data:image/svg+xml;charset=utf-8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' fill='none' stroke='%230a1733' stroke-width='1.9'%3E%3Cpath d='M3 4.5L6 7.5L9 4.5'/%3E%3C/svg%3E");
+    background-repeat:no-repeat;background-position:right 10px center}
+  select.chartsel:hover{border-color:var(--ui-accent)}
+  .seg{display:inline-flex;border:1px solid var(--ui-line2);border-radius:8px;overflow:hidden}
+  .seg button{font-family:var(--ui-font);font-size:12.5px;font-weight:600;padding:6px 14px;
+    border:0;background:#fff;color:var(--ui-muted);cursor:pointer;transition:all .13s ease}
+  .seg button+button{border-left:1px solid var(--ui-line2)}
+  .seg button.on{background:var(--ui-accent);color:#fff}
   .empty{font-size:12.5px;color:var(--ui-faint);padding:40px 0;text-align:center}
 </style>
 </head>
@@ -98,15 +110,32 @@
 
   <div class="wrap">
     <div class="card">
-      <h3>Analyse d'équipe — construction</h3>
+      <h3 id="ttl">Analyse d'équipe — construction</h3>
       <div class="sub" id="sub">Chargement…</div>
 
       <div class="filters">
         <div class="fgroup">
+          <span class="flab">Graphique</span>
+          <select id="chartSel" class="chartsel">
+            <option value="buildup">Construction — build-ups</option>
+            <option value="goalsxg">Conversion — buts vs xG</option>
+          </select>
+        </div>
+        <div class="fgroup g-buildup">
           <span class="flab">Start type</span>
           <div class="pills" id="pills"></div>
         </div>
-        <div class="fgroup">
+        <div class="fgroup g-goalsxg hide">
+          <span class="flab">Action type</span>
+          <div class="pills" id="apills"></div>
+        </div>
+        <div class="fgroup g-goalsxg hide">
+          <span class="flab">Échelle</span>
+          <div class="seg" id="segMode">
+            <button data-m="tot" class="on">Total</button><button data-m="pm">Par match</button>
+          </div>
+        </div>
+        <div class="fgroup g-buildup">
           <span class="flab">Min build-ups</span>
           <div class="slidebox">
             <input type="range" id="minRange" min="0" max="200" step="10" value="40">
@@ -124,19 +153,21 @@
         <div class="tip" id="tip"></div>
       </div>
 
-      <div class="note">
-        X = part des build-ups franchissant la médiane · Y = part finissant par une entrée dans le
-        dernier tiers ou un tir · couleur = part des passes tentées avant la médiane qui sont sous
-        pression (rouge = plus pressé). Un build-up court jusqu'à la fin de la possession.
-        Aucun start type sélectionné = tous.
-      </div>
+      <div class="note" id="note"></div>
+    </div>
     </div>
   </div>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
 <script>
 const ACCENT="#0a1733";
-let DATA=null, SEL=new Set(), MINB=40, HILITE="";
+let DATA=null, SMIX=null, SEL=new Set(), MINB=40, HILITE="";
+let CHART="buildup", ACT=new Set(), SCALE="tot";
+const ACT_KEYS=["positional","transition","set_piece"];
+const ACT_LABELS={positional:"positional",transition:"transition",set_piece:"set_piece"};
+/* positional absorbe la famille « autres » de shotmix (touche, sortie de but, relance gardien) */
+const ACT_FAM={positional:["placee","autres"],transition:["transition"],set_piece:["cpa"]};
+const GREEN="#1e9e5a", RED="#d64541";
 
 /* ---- échelle de couleur jaune -> rouge (type YlOrRd) ---- */
 const RAMP=[[255,255,178],[254,217,118],[254,178,76],[253,141,60],[252,78,42],[227,26,28],[177,0,38]];
@@ -172,10 +203,15 @@ function rows(){
   return out;
 }
 
-/* ---- rendu ---- */
-function render(){
+/* ---- rendu : construction ---- */
+function renderBuildup(){
   const R=rows(), host=document.getElementById("plot");
   const sub=document.getElementById("sub");
+  document.getElementById("ttl").textContent="Analyse d'équipe — construction";
+  document.getElementById("note").innerHTML=
+    "X = part des build-ups franchissant la médiane · Y = part finissant par une entrée dans le dernier "+
+    "tiers ou un tir · couleur = part des passes tentées avant la médiane qui sont sous pression "+
+    "(rouge = plus pressé). Un build-up court jusqu'à la fin de la possession. Aucun start type sélectionné = tous.";
   if(!DATA){ host.innerHTML='<div class="empty">Chargement…</div>'; return; }
   const noms=[...SEL].map(k=>DATA.labels[k]);
   const tot=R.reduce((a,r)=>a+r.n,0);
@@ -254,6 +290,104 @@ function render(){
   });
 }
 
+/* ---- rendu : buts vs xG ---- */
+function gxRows(){
+  if(!SMIX||!SMIX.teams) return [];
+  const fams = ACT.size ? [...ACT].flatMap(k=>ACT_FAM[k]) : ["placee","transition","cpa","autres"];
+  const out=[];
+  for(const [team,t] of Object.entries(SMIX.teams)){
+    let g=0,x=0;
+    for(const f of fams){ g+=(t.goals&&t.goals[f])||0; x+=(t.xg&&t.xg[f])||0; }
+    const m=Math.max(1,t.matches||1);
+    out.push({team, g:(SCALE==="pm"?g/m:g), x:(SCALE==="pm"?x/m:x),
+              goals:g, xg:x, matches:t.matches});
+  }
+  return out;
+}
+function renderGoalsXG(){
+  const host=document.getElementById("plot");
+  document.getElementById("ttl").textContent="Conversion d'équipe — buts vs xG";
+  document.getElementById("note").innerHTML=
+    "Vert = l'équipe marque plus que son xG, rouge = moins. Les pointillés marquent les moyennes de la ligue. "+
+    "Hors penalty. Coup de pied arrêté = coup franc ou corner ; les tirs issus d'une touche, d'une sortie de but "+
+    "ou d'une relance du gardien sont comptés dans <b>positional</b>. Aucun action type sélectionné = tous.";
+  if(!SMIX){ host.innerHTML='<div class="empty">La conversion s\'affichera dès que <b>shotmix.json</b> sera présent à la racine du repo.</div>';
+    document.getElementById("sub").textContent="Données indisponibles"; return; }
+  const R=gxRows();
+  if(!R.length){ host.innerHTML='<div class="empty">Aucune donnée.</div>'; return; }
+  const noms=[...ACT];
+  const tg=R.reduce((a,r)=>a+r.goals,0), tx=R.reduce((a,r)=>a+r.xg,0);
+  document.getElementById("sub").textContent=
+    (noms.length?noms.join(" + "):"Tous les action types")+" · "+R.length+" équipes · "+
+    tg+" buts pour "+tx.toFixed(1)+" xG · "+(SCALE==="pm"?"par match":"cumul saison")+
+    " · Ligue 2 "+(SMIX.season||"");
+
+  const W=1240,H=560,L=76,Rr=40,T=26,B=62;
+  const x0=L,x1=W-Rr,y0=T,y1=H-B,pw=x1-x0,ph=y1-y0;
+  const xs=R.map(r=>r.x), ys=R.map(r=>r.g);
+  const pad=(a,b)=>{const d=(b-a)||1;return [Math.max(0,a-d*0.18),b+d*0.18];};
+  const [xa,xb]=pad(Math.min(...xs),Math.max(...xs));
+  const [ya,yb]=pad(Math.min(...ys),Math.max(...ys));
+  const X=v=>x0+(v-xa)/(xb-xa)*pw, Y=v=>y1-(v-ya)/(yb-ya)*ph;
+  const mx=xs.reduce((a,b)=>a+b,0)/xs.length, my=ys.reduce((a,b)=>a+b,0)/ys.length;
+  const F='font-family="-apple-system,BlinkMacSystemFont,Inter,Segoe UI,Arial,sans-serif"';
+  const dec=SCALE==="pm"?2:0;
+  let g='';
+  const sx=nice((xb-xa)/6), sy=nice((yb-ya)/6);
+  for(let v=Math.ceil(xa/sx)*sx; v<=xb; v+=sx){
+    g+='<line x1="'+X(v).toFixed(1)+'" y1="'+y0+'" x2="'+X(v).toFixed(1)+'" y2="'+y1+'" stroke="#eef1f5"/>'+
+       '<text x="'+X(v).toFixed(1)+'" y="'+(y1+21)+'" text-anchor="middle" font-size="11.5" fill="#98a2b3" '+F+'>'+(+v.toFixed(dec))+'</text>';
+  }
+  for(let v=Math.ceil(ya/sy)*sy; v<=yb; v+=sy){
+    g+='<line x1="'+x0+'" y1="'+Y(v).toFixed(1)+'" x2="'+x1+'" y2="'+Y(v).toFixed(1)+'" stroke="#eef1f5"/>'+
+       '<text x="'+(x0-11)+'" y="'+(Y(v)+4).toFixed(1)+'" text-anchor="end" font-size="11.5" fill="#98a2b3" '+F+'>'+(+v.toFixed(dec))+'</text>';
+  }
+  // croix des moyennes, en pointillés
+  g+='<line x1="'+X(mx).toFixed(1)+'" y1="'+y0+'" x2="'+X(mx).toFixed(1)+'" y2="'+y1+'" stroke="#8b95a8" stroke-width="1.4" stroke-dasharray="6 5"/>'+
+     '<text x="'+(X(mx)+7).toFixed(1)+'" y="'+(y0+13)+'" font-size="11" fill="#8b95a8" '+F+'>xG moyen</text>'+
+     '<line x1="'+x0+'" y1="'+Y(my).toFixed(1)+'" x2="'+x1+'" y2="'+Y(my).toFixed(1)+'" stroke="#8b95a8" stroke-width="1.4" stroke-dasharray="6 5"/>'+
+     '<text x="'+(x1-4)+'" y="'+(Y(my)-7).toFixed(1)+'" text-anchor="end" font-size="11" fill="#8b95a8" '+F+'>buts moyens</text>';
+  g+='<line x1="'+x0+'" y1="'+y1+'" x2="'+x1+'" y2="'+y1+'" stroke="#d5dae3"/>'+
+     '<line x1="'+x0+'" y1="'+y0+'" x2="'+x0+'" y2="'+y1+'" stroke="#d5dae3"/>';
+  g+='<text x="'+((x0+x1)/2)+'" y="'+(H-16)+'" text-anchor="middle" font-size="12" font-weight="600" fill="'+ACCENT+'" '+F+'>Expected goals (xG)</text>'+
+     '<text transform="translate(20,'+((y0+y1)/2)+') rotate(-90)" text-anchor="middle" font-size="12" font-weight="600" fill="'+ACCENT+'" '+F+'>Buts</text>';
+
+  R.sort((a,b)=>a.g-b.g);
+  const placed=[]; let pts="",labs="";
+  R.forEach((r,i)=>{
+    const cx=X(r.x), cy=Y(r.g), hi=HILITE&&r.team===HILITE;
+    let ly=cy-15;
+    for(const q of placed){ if(Math.abs(q.x-cx)<80 && Math.abs(q.y-ly)<13) ly=q.y-13; }
+    placed.push({x:cx,y:ly});
+    labs+='<text x="'+cx.toFixed(1)+'" y="'+ly.toFixed(1)+'" text-anchor="middle" font-size="'+(hi?12.5:11.5)+'" font-weight="'+(hi?700:550)+'" fill="'+(hi?ACCENT:"#5d6779")+'" '+F+'>'+r.team+'</text>';
+    const col=(r.goals>=r.xg)?GREEN:RED;
+    pts+='<circle class="pt" data-i="'+i+'" cx="'+cx.toFixed(1)+'" cy="'+cy.toFixed(1)+'" r="'+(hi?10:7.5)+
+         '" fill="'+col+'" stroke="'+(hi?ACCENT:"#fff")+'" stroke-width="'+(hi?2.6:1.4)+'" style="cursor:pointer"/>';
+  });
+  host.innerHTML='<svg viewBox="0 0 '+W+' '+H+'" xmlns="http://www.w3.org/2000/svg"><rect width="'+W+'" height="'+H+'" fill="#fff"/>'+g+pts+labs+'</svg>';
+
+  const tip=document.getElementById("tip"), box=document.getElementById("plotwrap");
+  host.querySelectorAll(".pt").forEach(el=>{
+    const base=+el.getAttribute("r");
+    el.addEventListener("mouseenter",()=>{ el.setAttribute("r",base+4); });
+    el.addEventListener("mouseleave",()=>{ el.setAttribute("r",base); tip.style.opacity=0; });
+    el.addEventListener("mousemove",ev=>{
+      const r=R[+el.dataset.i], b=box.getBoundingClientRect(), d=r.goals-r.xg;
+      tip.innerHTML='<b>'+r.team+'</b>'+
+        '<i>'+r.matches+' matchs</i><br>'+
+        '<i>Buts :</i> '+r.goals+'<br>'+
+        '<i>xG :</i> '+r.xg.toFixed(2)+'<br>'+
+        '<i>Écart :</i> '+(d>=0?"+":"")+d.toFixed(2)+(SCALE==="pm"?'<br><i>Par match :</i> '+r.g.toFixed(2)+' buts / '+r.x.toFixed(2)+' xG':'');
+      tip.style.opacity=1;
+      let lx=ev.clientX-b.left+15, ly=ev.clientY-b.top-10;
+      if(lx+230>b.width) lx=ev.clientX-b.left-230;
+      tip.style.left=lx+"px"; tip.style.top=ly+"px";
+    });
+  });
+}
+
+function render(){ CHART==="buildup" ? renderBuildup() : renderGoalsXG(); }
+
 /* ---- contrôles ---- */
 function buildPills(){
   const box=document.getElementById("pills");
@@ -265,12 +399,34 @@ function buildPills(){
     box.appendChild(b);
   });
 }
+function buildActPills(){
+  const box=document.getElementById("apills");
+  box.innerHTML="";
+  ACT_KEYS.forEach(k=>{
+    const b=document.createElement("span");
+    b.className="pill"; b.textContent=ACT_LABELS[k]; b.dataset.k=k;
+    b.onclick=()=>{ ACT.has(k)?ACT.delete(k):ACT.add(k); b.classList.toggle("on"); render(); };
+    box.appendChild(b);
+  });
+}
+function switchChart(v){
+  CHART=v;
+  document.querySelectorAll(".g-buildup").forEach(e=>e.classList.toggle("hide",v!=="buildup"));
+  document.querySelectorAll(".g-goalsxg").forEach(e=>e.classList.toggle("hide",v!=="goalsxg"));
+  render();
+}
 function buildTeams(){
   const s=document.getElementById("hiSel");
   s.innerHTML='<option value="">Aucune équipe en avant</option>'+
     Object.keys(DATA.teams).sort().map(t=>'<option>'+t+'</option>').join("");
   s.onchange=()=>{ HILITE=s.value; render(); };
 }
+document.getElementById("chartSel").onchange=e=>switchChart(e.target.value);
+document.querySelectorAll("#segMode button").forEach(b=>b.onclick=()=>{
+  SCALE=b.dataset.m;
+  document.querySelectorAll("#segMode button").forEach(x=>x.classList.toggle("on",x===b));
+  render();
+});
 document.getElementById("minRange").oninput=e=>{
   MINB=+e.target.value; document.getElementById("minVal").textContent=MINB; render();
 };
@@ -282,10 +438,17 @@ document.getElementById("png").onclick=()=>{
   });
 };
 
+fetch("shotmix.json?_="+Date.now()).then(r=>r.ok?r.json():null).then(d=>{ SMIX=d; if(CHART==="goalsxg") render(); }).catch(()=>{});
+buildActPills();
 fetch("buildup.json?_="+Date.now()).then(r=>r.ok?r.json():null).then(d=>{
   if(!d){ document.getElementById("plot").innerHTML=
     '<div class="empty">La page s\'affichera dès que <b>buildup.json</b> sera présent à la racine du repo.<br>Ce fichier est généré par <b>build_buildup.py</b> via une GitHub Action.</div>';
-    document.getElementById("sub").textContent="Données indisponibles"; return; }
+    document.getElementById("sub").textContent="Données indisponibles";
+    if(SMIX){ const t=Object.keys(SMIX.teams).sort();
+      const sel=document.getElementById("hiSel");
+      sel.innerHTML='<option value="">Aucune équipe en avant</option>'+t.map(x=>'<option>'+x+'</option>').join("");
+      sel.onchange=()=>{ HILITE=sel.value; render(); }; }
+    return; }
   DATA=d;
   document.getElementById("tag").textContent="StatsBomb · Ligue 2 "+(d.season||"");
   let mx=0;

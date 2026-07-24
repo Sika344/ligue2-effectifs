@@ -34,6 +34,9 @@ sont eux aussi écartés.
 PERSPECTIVE OFFENSIVE : on compte les tirs et buts PRODUITS par l'équipe, pas
 ceux qu'elle concède.
 
+xG : somme des `shot_statsbomb_xg` par famille, mêmes exclusions que les tirs
+(penalties et période 5 écartés). Sert au nuage Buts vs xG de la page Attacking.
+
 BUT = tir dont `shot_outcome` vaut "Goal". Les csc sont des événements
 "Own Goal For"/"Own Goal Against" et non des tirs : ils n'entrent donc pas
 dans le décompte, ce qui est le comportement voulu.
@@ -49,7 +52,8 @@ Sortie shotmix.json :
       "matches": N,
       "shots":  {"placee": .., "transition": .., "cpa": .., "autres": ..},
       "goals":  {"placee": .., "transition": .., "cpa": .., "autres": ..},
-      "shots_total": T, "goals_total": G
+      "xg":     {"placee": .., "transition": .., "cpa": .., "autres": ..},
+      "shots_total": T, "goals_total": G, "xg_total": X
     }
   }
 }
@@ -180,6 +184,7 @@ def main():
     for team, mids in sorted(per_team.items()):
         shots = {k: 0 for k in KEYS}
         goals = {k: 0 for k in KEYS}
+        xg = {k: 0.0 for k in KEYS}
         n = 0
         for mid in mids:
             try:
@@ -197,6 +202,7 @@ def main():
             c_pat = col("play_pattern")
             c_stype = col("shot_type")
             c_out = col("shot_outcome")
+            c_xg = col("shot_statsbomb_xg")
             c_ts = col("timestamp")
             c_poss = col("possession")
 
@@ -238,21 +244,31 @@ def main():
                 shots[fam] += 1
                 if c_out is not None and c_out.get(idx) == "Goal":
                     goals[fam] += 1
+                if c_xg is not None:
+                    try:
+                        v = float(c_xg.get(idx))
+                        if v == v:
+                            xg[fam] += v
+                    except (TypeError, ValueError):
+                        pass
 
         st = sum(shots.values())
         gt = sum(goals.values())
+        xt = sum(xg.values())
         teams_out[team] = {
             "matches": n,
             "shots": shots,
             "goals": goals,
+            "xg": {k: round(v, 3) for k, v in xg.items()},
             "shots_total": st,
             "goals_total": gt,
+            "xg_total": round(xt, 3),
         }
         pct = lambda d, tot: " / ".join(
             f"{k}:{(100.0 * d[k] / tot):.0f}%" if tot else f"{k}:—" for k in KEYS
         )
         print(f"  ✓ {team}: {n} matchs | {st} tirs ({pct(shots, st)}) | "
-              f"{gt} buts ({pct(goals, gt)})")
+              f"{gt} buts ({pct(goals, gt)}) | {xt:.1f} xG")
 
     print(f"\n[fenêtre {SP_WINDOW:.0f}s] {reclassified} tirs reclassés en attaque placée "
           f"(séquence trop éloignée de la remise en jeu).")
