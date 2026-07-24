@@ -96,6 +96,25 @@
     border:0;background:#fff;color:var(--ui-muted);cursor:pointer;transition:all .13s ease}
   .seg button+button{border-left:1px solid var(--ui-line2)}
   .seg button.on{background:var(--ui-accent);color:#fff}
+  .fingrid{display:grid;grid-template-columns:1fr 330px;gap:24px;align-items:start}
+  @media(max-width:1100px){.fingrid{grid-template-columns:1fr}}
+  .fside{border-left:1px solid var(--ui-line);padding-left:20px}
+  @media(max-width:1100px){.fside{border-left:0;padding-left:0}}
+  .sideh{display:flex;align-items:center;justify-content:space-between;font-size:10px;
+    font-weight:650;letter-spacing:.09em;color:var(--ui-faint);text-transform:uppercase;margin-bottom:9px}
+  .lnk{background:none;border:0;font-family:var(--ui-font);font-size:11px;font-weight:650;
+    color:var(--ui-accent);cursor:pointer;letter-spacing:0;text-transform:none;padding:0}
+  .lnk:hover{text-decoration:underline}
+  #lpMap svg{display:block;width:100%;height:auto}
+  .sidenote{font-size:11px;color:var(--ui-muted);line-height:1.5;margin-top:9px}
+  .toph{font-size:10px;font-weight:650;letter-spacing:.09em;color:var(--ui-faint);
+    text-transform:uppercase;margin:20px 0 7px}
+  .toplist{font-size:12.5px}
+  .toprow{display:flex;align-items:center;gap:8px;padding:5px 0;border-bottom:1px solid #f3f4f6}
+  .toprow:last-child{border-bottom:0}
+  .toprow .rk{width:14px;color:var(--ui-faint);font-weight:600;font-size:11px}
+  .toprow .nm{flex:1;color:var(--ui-ink2);font-weight:550;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+  .toprow .vl{font-weight:700;color:var(--ui-accent)}
   .empty{font-size:12.5px;color:var(--ui-faint);padding:40px 0;text-align:center}
 </style>
 </head>
@@ -104,8 +123,9 @@
 
   <div class="topbar">
     <h2>⚽ Attacking</h2>
+    <div class="seg" id="viewSeg"><button data-v="buildup" class="on">Construction</button><button data-v="goalsxg">Conversion</button><button data-v="finishing">Finishing</button></div>
     <span class="tag" id="tag">Ligue 2 2025/2026</span>
-    <select id="hiSel" aria-label="Équipe à mettre en avant"></select>
+    <select id="hiSel" aria-label="Équipe"></select>
   </div>
 
   <div class="wrap">
@@ -114,13 +134,6 @@
       <div class="sub" id="sub">Chargement…</div>
 
       <div class="filters">
-        <div class="fgroup">
-          <span class="flab">Graphique</span>
-          <select id="chartSel" class="chartsel">
-            <option value="buildup">Construction — build-ups</option>
-            <option value="goalsxg">Conversion — buts vs xG</option>
-          </select>
-        </div>
         <div class="fgroup g-buildup">
           <span class="flab">Start type</span>
           <div class="pills" id="pills"></div>
@@ -128,6 +141,18 @@
         <div class="fgroup g-goalsxg hide">
           <span class="flab">Action type</span>
           <div class="pills" id="apills"></div>
+        </div>
+        <div class="fgroup g-finishing hide">
+          <span class="flab">Action type</span>
+          <div class="pills" id="fpills"></div>
+        </div>
+        <div class="fgroup g-finishing hide">
+          <span class="flab">Affichage</span>
+          <div class="seg" id="segBins"><button data-b="bins" class="on">Bins</button><button data-b="points">Points</button></div>
+        </div>
+        <div class="fgroup g-finishing hide">
+          <span class="flab">Issue</span>
+          <div class="pills" id="opills"></div>
         </div>
         <div class="fgroup g-goalsxg hide">
           <span class="flab">Échelle</span>
@@ -153,6 +178,18 @@
         <div class="tip" id="tip"></div>
       </div>
 
+      <div id="finWrap" class="hide">
+        <div class="fingrid">
+          <div class="plotwrap" id="finbox"><div id="finplot"></div><div class="tip" id="fintip"></div></div>
+          <aside class="fside">
+            <div class="sideh"><span>Last-pass origin</span><button class="lnk" id="lpClear">Clear</button></div>
+            <div id="lpMap"></div>
+            <div class="sidenote">Teinté selon l'endroit d'où sont parties les passes décisives — plus foncé = plus de passes. Clique une ou plusieurs cases pour ne garder que les tirs assistés depuis là. Le but est en haut.</div>
+            <div id="tops"></div>
+          </aside>
+        </div>
+      </div>
+
       <div class="note" id="note"></div>
     </div>
     </div>
@@ -163,11 +200,16 @@
 const ACCENT="#0a1733";
 let DATA=null, SMIX=null, SEL=new Set(), MINB=40, HILITE="";
 let CHART="buildup", ACT=new Set(), SCALE="tot";
+let FIN=null, FACT=new Set(), FOUT=new Set(), BINS="bins", LPC=new Set();
+const FCOLS=12, FROWS=10, LPC_COLS=6, LPC_ROWS=5;
+const OUT_LABELS={goal:"Goals",on:"On target",off:"Off target"};
+const OUT_COLORS={goal:"#1e9e5a",on:"#0a1733",off:"#d64541"};
+const RED=["#ffffff","#fdeceb","#fbd5d2","#f7b8b3","#f29892","#ea7871","#e05a53","#d13d36","#b62a24","#8f1c17"];
 const ACT_KEYS=["positional","transition","set_piece"];
 const ACT_LABELS={positional:"positional",transition:"transition",set_piece:"set_piece"};
 /* positional absorbe la famille « autres » de shotmix (touche, sortie de but, relance gardien) */
 const ACT_FAM={positional:["placee","autres"],transition:["transition"],set_piece:["cpa"]};
-const GREEN="#1e9e5a", RED="#d64541";
+const GREEN="#1e9e5a", REDDOT="#d64541";
 
 /* ---- échelle de couleur jaune -> rouge (type YlOrRd) ---- */
 const RAMP=[[255,255,178],[254,217,118],[254,178,76],[253,141,60],[252,78,42],[227,26,28],[177,0,38]];
@@ -360,7 +402,7 @@ function renderGoalsXG(){
     for(const q of placed){ if(Math.abs(q.x-cx)<80 && Math.abs(q.y-ly)<13) ly=q.y-13; }
     placed.push({x:cx,y:ly});
     labs+='<text x="'+cx.toFixed(1)+'" y="'+ly.toFixed(1)+'" text-anchor="middle" font-size="'+(hi?12.5:11.5)+'" font-weight="'+(hi?700:550)+'" fill="'+(hi?ACCENT:"#5d6779")+'" '+F+'>'+r.team+'</text>';
-    const col=(r.goals>=r.xg)?GREEN:RED;
+    const col=(r.goals>=r.xg)?GREEN:REDDOT;
     pts+='<circle class="pt" data-i="'+i+'" cx="'+cx.toFixed(1)+'" cy="'+cy.toFixed(1)+'" r="'+(hi?10:7.5)+
          '" fill="'+col+'" stroke="'+(hi?ACCENT:"#fff")+'" stroke-width="'+(hi?2.6:1.4)+'" style="cursor:pointer"/>';
   });
@@ -386,7 +428,145 @@ function renderGoalsXG(){
   });
 }
 
-function render(){ CHART==="buildup" ? renderBuildup() : renderGoalsXG(); }
+/* ---- rendu : Finishing ---- */
+function redStep(v,lo,hi){
+  if(!v) return 0;
+  const t=hi>lo?(v-lo)/(hi-lo):1;
+  return Math.min(9,Math.max(1,1+Math.round(Math.pow(Math.min(1,Math.max(0,t)),0.8)*8)));
+}
+function cellOf(x,y,cols,rows){
+  const c=Math.min(cols-1,Math.max(0,Math.floor(y/(80/cols))));
+  const r=Math.min(rows-1,Math.max(0,Math.floor((120-x)/(60/rows))));
+  return [r,c];
+}
+function finShots(){
+  if(!FIN) return [];
+  const ti=HILITE?FIN.teams.indexOf(HILITE):-1;
+  const acts=[...FACT].map(k=>FIN.acts.indexOf(k));
+  const outs=[...FOUT].map(k=>FIN.outs.indexOf(k));
+  const out=[];
+  for(const s of FIN.shots){
+    if(ti>=0 && s[0]!==ti) continue;
+    if(acts.length && !acts.includes(s[5])) continue;
+    if(outs.length && !outs.includes(s[4])) continue;
+    if(s[2]<60) continue;
+    if(LPC.size){
+      if(s[6]<0) continue;
+      const [r,c]=cellOf(s[6],s[7],LPC_COLS,LPC_ROWS);
+      if(!LPC.has(r+":"+c)) continue;
+    }
+    out.push(s);
+  }
+  return out;
+}
+function pitchLines(S,W,H,sw){
+  const L='stroke="#b9c4d1" stroke-width="'+sw+'" fill="none"';
+  let g='<g pointer-events="none"><rect x="0" y="0" width="'+W+'" height="'+H+'" '+L+'/>';
+  g+='<rect x="'+(18*S)+'" y="0" width="'+(44*S)+'" height="'+(18*S)+'" '+L+'/>';
+  g+='<rect x="'+(30*S)+'" y="0" width="'+(20*S)+'" height="'+(6*S)+'" '+L+'/>';
+  g+='<circle cx="'+(40*S)+'" cy="'+(12*S)+'" r="'+(0.5*S)+'" fill="#b9c4d1"/>';
+  g+='<rect x="'+(36*S)+'" y="-'+(0.7*S)+'" width="'+(8*S)+'" height="'+(0.7*S)+'" fill="#8b95a8"/>';
+  return g+'</g>';
+}
+function renderFinishing(){
+  const host=document.getElementById("finplot");
+  document.getElementById("ttl").textContent="Shot locations";
+  const R=finShots();
+  document.getElementById("note").innerHTML=
+    "Densité des tirs sur la moitié offensive. Hors penalty. Contrés et poteaux comptent en <b>off target</b>. "+
+    "Coup de pied arrêté = coup franc ou corner dans les "+((FIN&&FIN.sp_window)||15)+" s suivant la remise en jeu ; "+
+    "au-delà, et pour les tirs issus d'une touche, d'une sortie de but ou d'une relance du gardien, le tir compte en <b>positional</b>.";
+  if(!FIN){ host.innerHTML='<div class="empty">La carte s\'affichera dès que <b>finishing.json</b> sera présent à la racine du repo.<br>Ce fichier est généré par <b>build_finishing.py</b> via une GitHub Action.</div>';
+    document.getElementById("sub").textContent="Données indisponibles"; document.getElementById("lpMap").innerHTML=""; return; }
+  document.getElementById("sub").textContent=
+    (HILITE||"Toutes les équipes")+" · "+R.length.toLocaleString("fr-FR")+" tirs"+
+    (LPC.size?" · "+LPC.size+" zone(s) de passe sélectionnée(s)":"")+" · Ligue 2 "+(FIN.season||"");
+
+  const S=13, W=80*S, H=60*S, PAD=16;
+  const F='font-family="-apple-system,BlinkMacSystemFont,Inter,Segoe UI,Arial,sans-serif"';
+  let g='';
+  if(BINS==="bins"){
+    const grid=Array.from({length:FROWS},()=>new Array(FCOLS).fill(0));
+    R.forEach(s=>{ const [r,c]=cellOf(s[2],s[3],FCOLS,FROWS); grid[r][c]++; });
+    let hi=0, lo=Infinity;
+    grid.forEach(r=>r.forEach(v=>{ if(v>hi) hi=v; if(v>0&&v<lo) lo=v; }));
+    if(lo===Infinity) lo=0;
+    const cw=W/FCOLS, ch=H/FROWS;
+    for(let r=0;r<FROWS;r++) for(let c=0;c<FCOLS;c++){
+      const v=grid[r][c], st=redStep(v,lo,hi);
+      g+='<rect x="'+(c*cw).toFixed(1)+'" y="'+(r*ch).toFixed(1)+'" width="'+cw.toFixed(1)+'" height="'+ch.toFixed(1)+'" fill="'+RED[st]+'"/>';
+      if(v) g+='<text x="'+((c+0.5)*cw).toFixed(1)+'" y="'+((r+0.5)*ch+5).toFixed(1)+'" text-anchor="middle" font-size="14" font-weight="600" fill="'+(st>=6?"#fff":"#6b1410")+'" '+F+'>'+v+'</text>';
+    }
+    g+=pitchLines(S,W,H,2.2);
+    // légende
+    let stops=""; RED.forEach((c,i)=>{ stops+='<stop offset="'+(i*100/9)+'%" stop-color="'+c+'"/>'; });
+    g+='<defs><linearGradient id="rg" x1="0" y1="1" x2="0" y2="0">'+stops+'</linearGradient></defs>'+
+       '<rect x="'+(W+26)+'" y="'+(H*0.18)+'" width="15" height="'+(H*0.64)+'" fill="url(#rg)" rx="3" stroke="#e5e7eb"/>'+
+       '<text x="'+(W+48)+'" y="'+(H*0.18+11)+'" font-size="11.5" fill="#98a2b3" '+F+'>'+hi+'</text>'+
+       '<text x="'+(W+48)+'" y="'+(H*0.82)+'" font-size="11.5" fill="#98a2b3" '+F+'>0</text>'+
+       '<text transform="translate('+(W+86)+','+(H/2)+') rotate(-90)" text-anchor="middle" font-size="11.5" font-weight="600" fill="'+ACCENT+'" '+F+'>Tirs</text>';
+  }else{
+    g+='<rect x="0" y="0" width="'+W+'" height="'+H+'" fill="#fcfdfe"/>'+pitchLines(S,W,H,2.2);
+    const order=[0,1,2];
+    order.forEach(o=>{
+      R.filter(s=>s[4]===o).forEach(s=>{
+        const dx=s[3]*S, dy=(120-s[2])*S;
+        g+='<circle cx="'+dx.toFixed(1)+'" cy="'+dy.toFixed(1)+'" r="'+(o===2?4.6:3.4)+'" fill="'+OUT_COLORS[FIN.outs[o]]+'" fill-opacity="'+(o===2?.95:.55)+'"/>';
+      });
+    });
+  }
+  host.innerHTML='<svg viewBox="-'+PAD+' -'+(PAD+6)+' '+(W+PAD*2+110)+' '+(H+PAD*2+10)+'" xmlns="http://www.w3.org/2000/svg"><rect x="-'+PAD+'" y="-'+(PAD+6)+'" width="'+(W+PAD*2+110)+'" height="'+(H+PAD*2+10)+'" fill="#fff"/>'+g+'</svg>';
+
+  renderLastPass(R);
+  renderTops(R);
+}
+function renderLastPass(R){
+  const host=document.getElementById("lpMap");
+  if(!FIN){ host.innerHTML=""; return; }
+  const grid=Array.from({length:LPC_ROWS},()=>new Array(LPC_COLS).fill(0));
+  const ti=HILITE?FIN.teams.indexOf(HILITE):-1;
+  const acts=[...FACT].map(k=>FIN.acts.indexOf(k));
+  const outs=[...FOUT].map(k=>FIN.outs.indexOf(k));
+  FIN.shots.forEach(s=>{
+    if(ti>=0 && s[0]!==ti) return;
+    if(acts.length && !acts.includes(s[5])) return;
+    if(outs.length && !outs.includes(s[4])) return;
+    if(s[6]<0) return;
+    const [r,c]=cellOf(s[6],s[7],LPC_COLS,LPC_ROWS); grid[r][c]++;
+  });
+  let hi=0, lo=Infinity;
+  grid.forEach(r=>r.forEach(v=>{ if(v>hi) hi=v; if(v>0&&v<lo) lo=v; }));
+  if(lo===Infinity) lo=0;
+  const S=3.4, W=80*S, H=60*S, cw=W/LPC_COLS, ch=H/LPC_ROWS;
+  let g='';
+  for(let r=0;r<LPC_ROWS;r++) for(let c=0;c<LPC_COLS;c++){
+    const sel=LPC.has(r+":"+c);
+    g+='<rect class="lpc" data-k="'+r+':'+c+'" x="'+(c*cw).toFixed(1)+'" y="'+(r*ch).toFixed(1)+'" width="'+cw.toFixed(1)+'" height="'+ch.toFixed(1)+
+       '" fill="'+RED[redStep(grid[r][c],lo,hi)]+'" stroke="'+(sel?ACCENT:"#fff")+'" stroke-width="'+(sel?2.4:1)+'" style="cursor:pointer"/>';
+  }
+  g+=pitchLines(S,W,H,1.4);
+  host.innerHTML='<svg viewBox="-3 -6 '+(W+6)+' '+(H+10)+'" xmlns="http://www.w3.org/2000/svg"><rect x="-3" y="-6" width="'+(W+6)+'" height="'+(H+10)+'" fill="#fff"/>'+g+'</svg>';
+  host.querySelectorAll(".lpc").forEach(el=>{
+    el.onclick=()=>{ const k=el.dataset.k; LPC.has(k)?LPC.delete(k):LPC.add(k); renderFinishing(); };
+  });
+}
+function renderTops(R){
+  const box=document.getElementById("tops");
+  if(!HILITE){ box.innerHTML='<div class="toph">Top joueurs</div><div class="sidenote">Choisis une équipe en haut de page pour voir ses meilleurs tireurs et passeurs.</div>'; return; }
+  const cnt=(f)=>{ const m={}; R.forEach(s=>{ const i=f(s); if(i>=0) m[i]=(m[i]||0)+1; });
+    return Object.entries(m).sort((a,b)=>b[1]-a[1]).slice(0,5); };
+  const list=(rows,unit)=>rows.length
+    ? '<div class="toplist">'+rows.map((r,i)=>'<div class="toprow"><span class="rk">'+(i+1)+'</span><span class="nm">'+FIN.players[r[0]]+'</span><span class="vl">'+r[1]+'</span></div>').join("")+'</div>'
+    : '<div class="sidenote">Aucun '+unit+'.</div>';
+  box.innerHTML='<div class="toph">Top 5 tireurs</div>'+list(cnt(s=>s[1]),"tir")+
+                '<div class="toph">Top 5 dernières passes</div>'+list(cnt(s=>s[8]),"passe décisive");
+}
+
+function render(){
+  if(CHART==="buildup") renderBuildup();
+  else if(CHART==="goalsxg") renderGoalsXG();
+  else renderFinishing();
+}
 
 /* ---- contrôles ---- */
 function buildPills(){
@@ -409,19 +589,46 @@ function buildActPills(){
     box.appendChild(b);
   });
 }
+function buildFinPills(){
+  const a=document.getElementById("fpills"), o=document.getElementById("opills");
+  a.innerHTML=""; o.innerHTML="";
+  ACT_KEYS.forEach(k=>{
+    const b=document.createElement("span");
+    b.className="pill"; b.textContent=ACT_LABELS[k]; b.dataset.k=k;
+    b.onclick=()=>{ FACT.has(k)?FACT.delete(k):FACT.add(k); b.classList.toggle("on"); render(); };
+    a.appendChild(b);
+  });
+  ["goal","on","off"].forEach(k=>{
+    const b=document.createElement("span");
+    b.className="pill"; b.dataset.k=k;
+    b.innerHTML='<i style="display:inline-block;width:8px;height:8px;border-radius:50%;background:'+OUT_COLORS[k]+';margin-right:7px"></i>'+OUT_LABELS[k];
+    b.onclick=()=>{ FOUT.has(k)?FOUT.delete(k):FOUT.add(k); b.classList.toggle("on"); render(); };
+    o.appendChild(b);
+  });
+}
 function switchChart(v){
   CHART=v;
   document.querySelectorAll(".g-buildup").forEach(e=>e.classList.toggle("hide",v!=="buildup"));
   document.querySelectorAll(".g-goalsxg").forEach(e=>e.classList.toggle("hide",v!=="goalsxg"));
+  document.querySelectorAll(".g-finishing").forEach(e=>e.classList.toggle("hide",v!=="finishing"));
+  document.getElementById("plotwrap").classList.toggle("hide",v==="finishing");
+  document.getElementById("finWrap").classList.toggle("hide",v!=="finishing");
+  document.querySelectorAll("#viewSeg button").forEach(x=>x.classList.toggle("on",x.dataset.v===v));
   render();
 }
 function buildTeams(){
   const s=document.getElementById("hiSel");
-  s.innerHTML='<option value="">Aucune équipe en avant</option>'+
+  s.innerHTML='<option value="">Toutes les équipes</option>'+
     Object.keys(DATA.teams).sort().map(t=>'<option>'+t+'</option>').join("");
   s.onchange=()=>{ HILITE=s.value; render(); };
 }
-document.getElementById("chartSel").onchange=e=>switchChart(e.target.value);
+document.querySelectorAll("#viewSeg button").forEach(b=>b.onclick=()=>switchChart(b.dataset.v));
+document.querySelectorAll("#segBins button").forEach(b=>b.onclick=()=>{
+  BINS=b.dataset.b;
+  document.querySelectorAll("#segBins button").forEach(x=>x.classList.toggle("on",x===b));
+  render();
+});
+document.getElementById("lpClear").onclick=()=>{ LPC.clear(); render(); };
 document.querySelectorAll("#segMode button").forEach(b=>b.onclick=()=>{
   SCALE=b.dataset.m;
   document.querySelectorAll("#segMode button").forEach(x=>x.classList.toggle("on",x===b));
@@ -439,14 +646,24 @@ document.getElementById("png").onclick=()=>{
 };
 
 fetch("shotmix.json?_="+Date.now()).then(r=>r.ok?r.json():null).then(d=>{ SMIX=d; if(CHART==="goalsxg") render(); }).catch(()=>{});
-buildActPills();
+buildActPills(); buildFinPills();
+fetch("finishing.json?_="+Date.now()).then(r=>r.ok?r.json():null).then(d=>{
+  FIN=d;
+  if(d){ const sel=document.getElementById("hiSel");
+    if(sel.options.length<2){
+      sel.innerHTML='<option value="">Toutes les équipes</option>'+
+        d.teams.slice().sort().map(t=>'<option>'+t+'</option>').join("");
+      sel.onchange=()=>{ HILITE=sel.value; render(); };
+    } }
+  if(CHART==="finishing") render();
+}).catch(()=>{});
 fetch("buildup.json?_="+Date.now()).then(r=>r.ok?r.json():null).then(d=>{
   if(!d){ document.getElementById("plot").innerHTML=
     '<div class="empty">La page s\'affichera dès que <b>buildup.json</b> sera présent à la racine du repo.<br>Ce fichier est généré par <b>build_buildup.py</b> via une GitHub Action.</div>';
     document.getElementById("sub").textContent="Données indisponibles";
     if(SMIX){ const t=Object.keys(SMIX.teams).sort();
       const sel=document.getElementById("hiSel");
-      sel.innerHTML='<option value="">Aucune équipe en avant</option>'+t.map(x=>'<option>'+x+'</option>').join("");
+      sel.innerHTML='<option value="">Toutes les équipes</option>'+t.map(x=>'<option>'+x+'</option>').join("");
       sel.onchange=()=>{ HILITE=sel.value; render(); }; }
     return; }
   DATA=d;
