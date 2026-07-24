@@ -149,14 +149,20 @@
   .topbar button:hover{background:var(--ui-hover)!important;border-color:#b9c0cc!important}
   .topbar button#dlk{background:var(--gold)!important;border:1px solid #b8913f!important;color:#20180a!important}
   .topbar button#dlk:hover{background:#d3ae5c!important}
+
+  /* ---- sélecteur de vue (Effectif / Compo / Compo sans stats) ---- */
+  .topbar select.viewsel{font-weight:650;color:var(--ui-ink2);border-color:#c3cad6;
+    background-color:#fbfcfd;margin-right:2px}
+  .topbar select.viewsel:hover{border-color:var(--ui-accent)}
 </style>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/pptxgenjs@3.12.0/dist/pptxgen.bundle.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
 </head>
 <body>
-    <nav class="sitenav"><div class="brand">⚽ Ligue 2<span>Analyse</span></div><a href="index.html">Effectif</a><a href="compo.html">Compo</a><a href="compo-sans-stats.html" class="on">Compo sans stats</a><a href="analytics.html">Analytics 360</a><a href="rapport-pre-match.html">Rapport pré-match</a></nav>
+    <nav class="sitenav"><div class="brand">⚽ Ligue 2<span>Analyse</span></div><a href="index.html" class="on">Effectif</a><a href="analytics.html">Analytics 360</a><a href="rapport-pre-match.html">Rapport pré-match</a></nav>
   <div class="topbar">
+    <select id="viewSel" class="viewsel" aria-label="Choisir la vue" onchange="if(this.value)location.href=this.value"><option value="index.html">Effectif</option><option value="compo.html">Compo</option><option value="compo-sans-stats.html" selected>Compo sans stats</option></select>
     <select id="teamSelect"></select>
     <select id="formationSelect"></select>
     <span class="meta" id="metaInfo">chargement…</span>

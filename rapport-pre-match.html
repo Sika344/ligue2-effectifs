@@ -257,11 +257,16 @@
     transition:background .13s ease,border-color .13s ease}
   .mbtools button:hover{background:var(--ui-hover);border-color:#b9c0cc}
   .board{box-shadow:0 1px 3px rgba(16,24,40,.06),0 8px 24px rgba(16,24,40,.07)}
+
+  /* ---- sélecteur de vue (Effectif / Compo / Compo sans stats) ---- */
+  .topbar select.viewsel{font-weight:650;color:var(--ui-ink2);border-color:#c3cad6;
+    background-color:#fbfcfd;margin-right:2px}
+  .topbar select.viewsel:hover{border-color:var(--ui-accent)}
 </style>
 </head>
 
 <body>
-    <nav class="sitenav"><div class="brand">⚽ Ligue 2<span>Analyse</span></div><a href="index.html">Effectif</a><a href="compo.html">Compo</a><a href="compo-sans-stats.html">Compo sans stats</a><a href="analytics.html">Analytics 360</a><a href="rapport-pre-match.html" class="on">Rapport pré-match</a></nav>
+    <nav class="sitenav"><div class="brand">⚽ Ligue 2<span>Analyse</span></div><a href="index.html">Effectif</a><a href="analytics.html">Analytics 360</a><a href="rapport-pre-match.html" class="on">Rapport pré-match</a></nav>
   <div class="topbar">
     <select id="seasonSelect"></select>
     <select id="clubSelect"></select>
