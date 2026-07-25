@@ -1,0 +1,50 @@
+# .github/workflows/defending.yml
+# Régénère defending.json (hauteur du bloc défensif par équipe et par match) et le committe s'il a changé.
+# Pré-requis : secrets de dépôt SB_USERNAME et SB_PASSWORD.
+# Placer ce fichier dans .github/workflows/defending.yml et build_defending.py à la racine.
+
+name: Build bloc defensif
+
+on:
+  schedule:
+    - cron: "45 6 * * *"       # tous les jours à 06:45 UTC (après finishing)
+  workflow_dispatch: {}
+
+permissions:
+  contents: write
+
+concurrency:
+  group: build-defending
+  cancel-in-progress: true
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Install deps
+        run: pip install statsbombpy pandas
+      - name: Generate defending.json
+        env:
+          SB_USERNAME: ${{ secrets.SB_USERNAME }}
+          SB_PASSWORD: ${{ secrets.SB_PASSWORD }}
+        run: python build_defending.py
+      - name: Commit if changed
+        run: |
+          if [ -n "$(git status --porcelain defending.json)" ]; then
+            git config user.name "github-actions[bot]"
+            git config user.email "github-actions[bot]@users.noreply.github.com"
+            git add defending.json
+            git commit -m "chore: maj defending.json (bloc defensif)"
+            for i in 1 2 3 4 5; do
+              git pull --rebase origin main && git push && exit 0
+              sleep $((RANDOM % 10 + 3))
+            done
+            echo "push impossible apres 5 tentatives" >&2
+            exit 1
+          else
+            echo "defending.json inchange."
+          fi
