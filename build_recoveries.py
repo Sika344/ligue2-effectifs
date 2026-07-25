@@ -57,7 +57,7 @@ Sortie recoveries.json :
       "matches": N, "total": T, "risk_total": R, "goal_total": G,
       "grid": [[...12 valeurs...] x 8 lignes], # ligne 0 = y 0-10 (haut du terrain)
       "risk": [[...12 valeurs...] x 8 lignes],
-      "goal_locs": [[x, y], ...]
+      "goal_locs": [{"x":.., "y":.., "match":"..", "min":.., "scorer":"..", "passer":".."}, ...]
     }
   }
 }
@@ -84,8 +84,8 @@ SEASON_IDS = {
     "2025-2026": 318,
 }
 
-COLS = 12                       # 120 m / 12 = cases de 10 m
-ROWS = 8                        # 80 m / 8  = cases de 10 m
+COLS = 16                       # 120 m / 16 = cases de 7,5 m
+ROWS = 12                       # 80 m / 12 = cases de 6,7 m
 PITCH_X = 120.0
 PITCH_Y = 80.0
 
@@ -224,10 +224,14 @@ def main():
     matches = sb.matches(competition_id=COMPETITION_ID, season_id=season_id)
 
     per_team = {}
+    match_label = {}
     for _, m in matches.iterrows():
         mid = m["match_id"]
         for c in ("home_team", "away_team"):
             per_team.setdefault(m[c], set()).add(mid)
+        h, a = m.get("home_team", "?"), m.get("away_team", "?")
+        d = str(m.get("match_date", "") or "")[:10]
+        match_label[mid] = (f"{h} - {a}" + (f" · {d}" if d else ""))
 
     ev_cache = {}
 
@@ -277,6 +281,15 @@ def main():
                     poss_team[pi] = c_pteam.get(idx)
 
             # tirs / centres de l'équipe en jeu courant + ses buts, par séquence
+            c_player = col("player")
+            c_kp = col("shot_key_pass_id")
+            c_id = col("id")
+            by_id = {}
+            if c_id is not None:
+                for _i in ev.index:
+                    _v = c_id.get(_i)
+                    if _v is not None and _v == _v:
+                        by_id[str(_v)] = _i
             danger, scored = {}, {}
             for idx in ev.index:
                 if c_team.get(idx) != team or c_per.get(idx) == SHOOTOUT_PERIOD:
@@ -287,7 +300,7 @@ def main():
                 stype = get(c_stype, idx)
                 if (c_type.get(idx) == "Shot" and stype != "Penalty"
                         and c_sout is not None and c_sout.get(idx) == "Goal"):
-                    scored.setdefault(c_poss.get(idx), []).append((c_per.get(idx), t))
+                    scored.setdefault(c_poss.get(idx), []).append((c_per.get(idx), t, idx))
                 if is_danger(c_type.get(idx), stype, get(c_cross, idx), get(c_ptype, idx)):
                     danger.setdefault(c_poss.get(idx), []).append((c_per.get(idx), t))
 
@@ -353,9 +366,23 @@ def main():
                     if per1 == per0 and 0 < (t1 - t0) <= RISK_WINDOW:
                         risk[cell[0]][cell[1]] += 1
                         break
-                for per1, t1 in scored.get(target, ()):
+                for per1, t1, sidx in scored.get(target, ()):
                     if per1 == per0 and 0 < (t1 - t0) <= RISK_WINDOW:
-                        goal_locs.append([round(x, 1), round(y, 1)])
+                        minute = int((tsec(c_ts.get(sidx)) or 0) // 60) + 1
+                        scorer = get(c_player, sidx)
+                        passer = None
+                        kid = get(c_kp, sidx)
+                        if kid is not None and kid == kid:
+                            j = by_id.get(str(kid))
+                            if j is not None:
+                                passer = get(c_player, j)
+                        goal_locs.append({
+                            "x": round(x, 1), "y": round(y, 1),
+                            "match": match_label.get(mid, ""),
+                            "min": minute,
+                            "scorer": (scorer if isinstance(scorer, str) else ""),
+                            "passer": (passer if isinstance(passer, str) else ""),
+                        })
                         break
 
         total = sum(sum(r) for r in grid)

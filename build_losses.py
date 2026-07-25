@@ -45,7 +45,8 @@ Sortie losses.json :
       "matches": N, "total": T, "risk_total": R, "goal_total": G,
       "grid": [[...12 valeurs...] x 8 lignes], # ligne 0 = y 0-10 (haut du terrain)
       "risk": [[...12 valeurs...] x 8 lignes], # pertes suivies d'un tir/centre <10 s
-      "goal_locs": [[x, y], ...]               # position EXACTE des pertes ayant mené
+      "goal_locs": [{"x":.., "y":.., "match":"..", "min":.., "scorer":"..", "passer":".."}, ...]
+                                               # position EXACTE des pertes ayant mené
                                                # à un but adverse (repère 120 x 80)
     }
   }
@@ -73,8 +74,8 @@ SEASON_IDS = {
     "2025-2026": 318,
 }
 
-COLS = 12                       # 120 m / 12 = cases de 10 m
-ROWS = 8                        # 80 m / 8  = cases de 10 m
+COLS = 16                       # 120 m / 16 = cases de 7,5 m
+ROWS = 12                       # 80 m / 12 = cases de 6,7 m
 PITCH_X = 120.0
 PITCH_Y = 80.0
 
@@ -181,10 +182,14 @@ def main():
     matches = sb.matches(competition_id=COMPETITION_ID, season_id=season_id)
 
     per_team = {}
+    match_label = {}
     for _, m in matches.iterrows():
         mid = m["match_id"]
         for col in ("home_team", "away_team"):
             per_team.setdefault(m[col], set()).add(mid)
+        h, a = m.get("home_team", "?"), m.get("away_team", "?")
+        d = str(m.get("match_date", "") or "")[:10]
+        match_label[mid] = (f"{h} - {a}" + (f" · {d}" if d else ""))
 
     ev_cache = {}
 
@@ -232,6 +237,15 @@ def main():
             # + buts adverses (pour les pertes fatales)
             danger, scored = {}, {}
             c_sout = col("shot_outcome")
+            c_player = col("player")
+            c_kp = col("shot_key_pass_id")
+            c_id = col("id")
+            by_id = {}
+            if c_id is not None:
+                for _i in ev.index:
+                    _v = c_id.get(_i)
+                    if _v is not None and _v == _v:
+                        by_id[str(_v)] = _i
             for idx in ev.index:
                 if c_team.get(idx) == team or c_per.get(idx) == SHOOTOUT_PERIOD:
                     continue
@@ -241,7 +255,7 @@ def main():
                 stype = c_stype.get(idx) if c_stype is not None else None
                 if (c_type.get(idx) == "Shot" and stype != "Penalty"
                         and c_sout is not None and c_sout.get(idx) == "Goal"):
-                    scored.setdefault(c_poss.get(idx), []).append((c_per.get(idx), t))
+                    scored.setdefault(c_poss.get(idx), []).append((c_per.get(idx), t, idx))
                 if not is_danger(c_type.get(idx), stype,
                                  c_cross.get(idx) if c_cross is not None else None,
                                  c_ptype.get(idx) if c_ptype is not None else None):
@@ -281,15 +295,30 @@ def main():
                     if per1 == per0 and 0 < (t1 - t0) <= RISK_WINDOW:
                         risk[cell[0]][cell[1]] += 1
                         break
-                for per1, t1 in scored.get(target, ()):
+                for per1, t1, sidx in scored.get(target, ()):
                     if per1 == per0 and 0 < (t1 - t0) <= RISK_WINDOW:
                         loc = c_loc.get(idx) if c_loc is not None else None
                         try:
                             gx, gy = float(loc[0]), float(loc[1])
                         except (TypeError, ValueError, IndexError):
                             break
-                        if gx == gx and gy == gy:
-                            goal_locs.append([round(gx, 1), round(gy, 1)])
+                        if gx != gx or gy != gy:
+                            break
+                        minute = int((tsec(c_ts.get(sidx)) or 0) // 60) + 1
+                        scorer = c_player.get(sidx) if c_player is not None else None
+                        passer = None
+                        kid = c_kp.get(sidx) if c_kp is not None else None
+                        if kid is not None and kid == kid:
+                            j = by_id.get(str(kid))
+                            if j is not None and c_player is not None:
+                                passer = c_player.get(j)
+                        goal_locs.append({
+                            "x": round(gx, 1), "y": round(gy, 1),
+                            "match": match_label.get(mid, ""),
+                            "min": minute,
+                            "scorer": (scorer if isinstance(scorer, str) else ""),
+                            "passer": (passer if isinstance(passer, str) else ""),
+                        })
                         break
 
         total = sum(sum(r) for r in grid)
