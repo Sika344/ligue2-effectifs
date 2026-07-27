@@ -94,7 +94,7 @@
 
   <div class="topbar">
     <h2>⚽ Defending</h2>
-    <div class="seg" id="viewSeg"><button data-v="block" class="on">Bloc défensif</button><button data-v="goalview">Goal view</button></div>
+    <div class="seg" id="viewSeg"><button data-v="block" class="on">Bloc défensif</button><button data-v="goalview">Goal view</button><button data-v="pressing">Pressing</button></div>
     <span class="tag" id="tag">Ligue 2 2025/2026</span>
     <select id="teamSel" class="team" aria-label="Équipe"></select>
   </div>
@@ -136,6 +136,21 @@
 
       <div class="pitches" id="pitches"></div>
 
+      <div class="filters pr-only hide">
+        <div class="fgroup">
+          <span class="flab">Zone de pressing</span>
+          <div class="seg" id="prZone"><button data-z="z60" class="on">Camp adverse</button><button data-z="z80">Dernier tiers</button></div>
+        </div>
+        <div class="fgroup">
+          <span class="flab">Échelle</span>
+          <div class="seg" id="prScale"><button data-s="pm" class="on">Par match</button><button data-s="tot">Total</button></div>
+        </div>
+      </div>
+
+      <div id="prWrap" class="hide">
+        <div class="gvbox" id="prbox" style="max-width:1000px"><div id="prplot"></div><div class="tip" id="prtip"></div></div>
+      </div>
+
       <div id="gvWrap" class="hide">
         <div class="gvbox"><div id="gvplot"></div><div class="tip" id="gvtip"></div></div>
         <div class="gvzones" id="gvZones"></div>
@@ -149,6 +164,7 @@
 const ACCENT="#0a1733";
 let D=null, TEAM="", FORM="4-3-3", MID="", OPP="all", OSYS="all";
 let VIEW="block", GV=null, GVACT=new Set();
+let PR=null, PRZONE="z60", PRSCALE="pm";
 const GV_ACTS={open_play:"Open play",penalty:"Penalty",set_piece:"Set piece"};
 const GOAL_COL={goal:"#1e9e5a",on:"#0a1733"};   // vert = but, marine = cadré (comme Finishing)
 
@@ -317,8 +333,97 @@ function renderGoalview(){
   });
 }
 
+/* ================= PRESSING ================= */
+function prRows(){
+  if(!PR||!PR.teams) return [];
+  const out=[];
+  for(const [team,t] of Object.entries(PR.teams)){
+    const z=t[PRZONE]||{};
+    const ppda=z.def_act?z.opp_pass/z.def_act:0;
+    const intensity=ppda>0?100/ppda:0;
+    const succ=(z.recov||0)+(z.disp||0);
+    const y=PRSCALE==="pm"?(succ/Math.max(1,t.matches||1)):succ;
+    if(intensity<=0 && succ<=0) continue;
+    out.push({team, x:intensity, y, ppda, succ, matches:t.matches});
+  }
+  return out;
+}
+function renderPressing(){
+  const host=document.getElementById("prplot");
+  if(!PR){ host.innerHTML='<div class="empty">Le nuage s\'affichera dès que <b>pressing.json</b> sera présent à la racine du repo.<br>Généré par <b>build_pressing.py</b> via une GitHub Action.</div>';
+    document.getElementById("sub").textContent="Données indisponibles"; return; }
+  const R=prRows();
+  const zTxt=PRZONE==="z60"?"camp adverse (x>60)":"dernier tiers (x>80)";
+  document.getElementById("sub").textContent=
+    R.length+" équipes · pressing dans le "+zTxt+" · "+(PRSCALE==="pm"?"par match":"cumul saison")+" · Ligue 2 "+(PR.season||"");
+  if(!R.length){ host.innerHTML='<div class="empty">Aucune donnée.</div>'; return; }
+
+  const W=1000,H=560,L=76,Rr=34,T=26,B=64;
+  const x0=L,x1=W-Rr,y0=T,y1=H-B,pw=x1-x0,ph=y1-y0;
+  const xs=R.map(r=>r.x), ys=R.map(r=>r.y);
+  const pad=(a,b)=>{const d=(b-a)||1;return [Math.max(0,a-d*0.14),b+d*0.14];};
+  const [xa,xb]=pad(Math.min(...xs),Math.max(...xs));
+  const [ya,yb]=pad(Math.min(...ys),Math.max(...ys));
+  const X=v=>x0+(v-xa)/(xb-xa)*pw, Y=v=>y1-(v-ya)/(yb-ya)*ph;
+  const mx=xs.reduce((a,b)=>a+b,0)/xs.length, my=ys.reduce((a,b)=>a+b,0)/ys.length;
+  const F='font-family="-apple-system,BlinkMacSystemFont,Inter,Segoe UI,Arial,sans-serif"';
+  const dec=PRSCALE==="pm"?1:0;
+  const step=(v)=>{if(!isFinite(v)||v<=0)return 1;const p=Math.pow(10,Math.floor(Math.log10(v))),n=v/p;return (n<1.5?1:n<3?2:n<4?2.5:n<7.5?5:10)*p;};
+  const sx=step((xb-xa)/6), sy=step((yb-ya)/6);
+  let g='';
+  for(let v=Math.ceil(xa/sx)*sx; v<=xb; v+=sx){
+    g+='<line x1="'+X(v).toFixed(1)+'" y1="'+y0+'" x2="'+X(v).toFixed(1)+'" y2="'+y1+'" stroke="#eef1f5"/>'+
+       '<text x="'+X(v).toFixed(1)+'" y="'+(y1+21)+'" text-anchor="middle" font-size="11.5" fill="#98a2b3" '+F+'>'+(+v.toFixed(1))+'</text>';
+  }
+  for(let v=Math.ceil(ya/sy)*sy; v<=yb; v+=sy){
+    g+='<line x1="'+x0+'" y1="'+Y(v).toFixed(1)+'" x2="'+x1+'" y2="'+Y(v).toFixed(1)+'" stroke="#eef1f5"/>'+
+       '<text x="'+(x0-11)+'" y="'+(Y(v)+4).toFixed(1)+'" text-anchor="end" font-size="11.5" fill="#98a2b3" '+F+'>'+(+v.toFixed(dec))+'</text>';
+  }
+  // croix des moyennes
+  g+='<line x1="'+X(mx).toFixed(1)+'" y1="'+y0+'" x2="'+X(mx).toFixed(1)+'" y2="'+y1+'" stroke="#8b95a8" stroke-width="1.4" stroke-dasharray="6 5"/>'+
+     '<text x="'+(X(mx)+6).toFixed(1)+'" y="'+(y0+12)+'" font-size="11" fill="#8b95a8" '+F+'>intensité moyenne</text>'+
+     '<line x1="'+x0+'" y1="'+Y(my).toFixed(1)+'" x2="'+x1+'" y2="'+Y(my).toFixed(1)+'" stroke="#8b95a8" stroke-width="1.4" stroke-dasharray="6 5"/>'+
+     '<text x="'+(x1-4)+'" y="'+(Y(my)-7).toFixed(1)+'" text-anchor="end" font-size="11" fill="#8b95a8" '+F+'>réussite moyenne</text>';
+  g+='<line x1="'+x0+'" y1="'+y1+'" x2="'+x1+'" y2="'+y1+'" stroke="#d5dae3"/>'+
+     '<line x1="'+x0+'" y1="'+y0+'" x2="'+x0+'" y2="'+y1+'" stroke="#d5dae3"/>';
+  g+='<text x="'+((x0+x1)/2)+'" y="'+(H-16)+'" text-anchor="middle" font-size="12" font-weight="600" fill="'+ACCENT+'" '+F+'>Intensité de pression (PPDA inversé)</text>'+
+     '<text transform="translate(20,'+((y0+y1)/2)+') rotate(-90)" text-anchor="middle" font-size="12" font-weight="600" fill="'+ACCENT+'" '+F+'>Récupérations + dépossessions'+(PRSCALE==="pm"?" / match":"")+'</text>';
+
+  R.sort((a,b)=>a.y-b.y);
+  const placed=[]; let pts="", labs="";
+  R.forEach((r,i)=>{
+    const cx=X(r.x), cy=Y(r.y), hi=TEAM&&r.team===TEAM;
+    let ly=cy-15;
+    for(const q of placed){ if(Math.abs(q.x-cx)<80 && Math.abs(q.y-ly)<13) ly=q.y-13; }
+    placed.push({x:cx,y:ly});
+    labs+='<text x="'+cx.toFixed(1)+'" y="'+ly.toFixed(1)+'" text-anchor="middle" font-size="'+(hi?12.5:11.5)+'" font-weight="'+(hi?700:550)+'" fill="'+(hi?ACCENT:"#5d6779")+'" '+F+'>'+r.team+'</text>';
+    pts+='<circle class="prpt" data-i="'+i+'" cx="'+cx.toFixed(1)+'" cy="'+cy.toFixed(1)+'" r="'+(hi?10:7)+
+         '" fill="'+(hi?"#c9a24b":ACCENT)+'" fill-opacity="'+(hi?1:.88)+'" stroke="'+(hi?ACCENT:"#fff")+'" stroke-width="'+(hi?2.4:1.4)+'" style="cursor:pointer"/>';
+  });
+  host.innerHTML='<svg viewBox="0 0 '+W+' '+H+'" xmlns="http://www.w3.org/2000/svg"><rect width="'+W+'" height="'+H+'" fill="#fff"/>'+g+pts+'<g pointer-events="none">'+labs+'</g></svg>';
+
+  const tip=document.getElementById("prtip"), box=document.getElementById("prbox");
+  host.querySelectorAll(".prpt").forEach(function(el){
+    const base=+el.getAttribute("r");
+    el.addEventListener("mouseenter",()=>{ el.setAttribute("r",base+4); });
+    el.addEventListener("mouseleave",()=>{ el.setAttribute("r",base); tip.style.opacity=0; });
+    el.addEventListener("mousemove",function(ev){
+      const r=R[+el.dataset.i], b=box.getBoundingClientRect();
+      tip.innerHTML='<b>'+r.team+'</b>'+
+        '<i>Intensité :</i> '+r.x.toFixed(1)+' (PPDA '+r.ppda.toFixed(2)+')<br>'+
+        '<i>Réussite :</i> '+r.y.toFixed(dec)+(PRSCALE==="pm"?" /match":"")+'<br>'+
+        '<i>'+r.succ+' actions sur '+r.matches+' matchs</i>';
+      tip.style.opacity=1;
+      let lx=ev.clientX-b.left+13, ly=ev.clientY-b.top-10;
+      if(lx+220>b.width) lx=ev.clientX-b.left-220;
+      tip.style.left=lx+"px"; tip.style.top=ly+"px";
+    });
+  });
+}
+
 function render(){
   if(VIEW==="goalview"){ renderGoalview(); return; }
+  if(VIEW==="pressing"){ renderPressing(); return; }
   const host=document.getElementById("pitches");
   if(!D){ host.innerHTML='<div class="empty">Chargement…</div>'; return; }
   const ms=teamMatches();
@@ -387,15 +492,29 @@ function boot(d){
     bn.onclick=function(){
       VIEW=bn.dataset.v;
       document.querySelectorAll("#viewSeg button").forEach(x=>x.classList.toggle("on",x===bn));
-      const gv=VIEW==="goalview";
-      // filtres du bloc masqués en goal view, et inversement
-      document.querySelectorAll(".filters:not(.gv-only)").forEach(e=>e.classList.toggle("hide",gv));
+      const block=VIEW==="block", gv=VIEW==="goalview", pr=VIEW==="pressing";
+      // jeux de filtres
+      document.querySelectorAll(".filters:not(.gv-only):not(.pr-only)").forEach(e=>e.classList.toggle("hide",!block));
       document.querySelectorAll(".gv-only").forEach(e=>e.classList.toggle("hide",!gv));
-      document.getElementById("pitches").classList.toggle("hide",gv);
+      document.querySelectorAll(".pr-only").forEach(e=>e.classList.toggle("hide",!pr));
+      // conteneurs
+      document.getElementById("pitches").classList.toggle("hide",!block);
       document.getElementById("gvWrap").classList.toggle("hide",!gv);
-      document.getElementById("note").classList.toggle("hide",gv);
+      document.getElementById("prWrap").classList.toggle("hide",!pr);
+      document.getElementById("note").classList.toggle("hide",!block);
       render();
     };
+  });
+  // --- contrôles pressing
+  document.querySelectorAll("#prZone button").forEach(function(bn){
+    bn.onclick=function(){ PRZONE=bn.dataset.z;
+      document.querySelectorAll("#prZone button").forEach(x=>x.classList.toggle("on",x===bn));
+      if(VIEW==="pressing") render(); };
+  });
+  document.querySelectorAll("#prScale button").forEach(function(bn){
+    bn.onclick=function(){ PRSCALE=bn.dataset.s;
+      document.querySelectorAll("#prScale button").forEach(x=>x.classList.toggle("on",x===bn));
+      if(VIEW==="pressing") render(); };
   });
   // --- pastilles action type
   const ab=document.getElementById("gvActs"); ab.innerHTML="";
@@ -412,6 +531,7 @@ fetch("defending.json?_="+Date.now()).then(r=>r.ok?r.json():null).then(d=>{
     document.getElementById("sub").textContent="Données indisponibles"; return; }
   boot(d);
   fetch("goalview.json?_="+Date.now()).then(r=>r.ok?r.json():null).then(gv=>{ GV=gv; if(VIEW==="goalview") render(); }).catch(()=>{});
+  fetch("pressing.json?_="+Date.now()).then(r=>r.ok?r.json():null).then(pr=>{ PR=pr; if(VIEW==="pressing") render(); }).catch(()=>{});
 }).catch(()=>{ document.getElementById("sub").textContent="Données indisponibles"; });
 </script>
 </body>
