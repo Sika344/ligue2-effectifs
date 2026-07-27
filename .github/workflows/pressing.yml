@@ -1,0 +1,50 @@
+# .github/workflows/pressing.yml
+# Régénère pressing.json (intensité et réussite du pressing par équipe) et le committe s'il a changé.
+# Pré-requis : secrets de dépôt SB_USERNAME et SB_PASSWORD.
+# Placer ce fichier dans .github/workflows/pressing.yml et build_pressing.py à la racine.
+
+name: Build pressing
+
+on:
+  schedule:
+    - cron: "15 7 * * *"       # tous les jours à 07:15 UTC (après goalview)
+  workflow_dispatch: {}
+
+permissions:
+  contents: write
+
+concurrency:
+  group: build-pressing
+  cancel-in-progress: true
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Install deps
+        run: pip install statsbombpy pandas
+      - name: Generate pressing.json
+        env:
+          SB_USERNAME: ${{ secrets.SB_USERNAME }}
+          SB_PASSWORD: ${{ secrets.SB_PASSWORD }}
+        run: python build_pressing.py
+      - name: Commit if changed
+        run: |
+          if [ -n "$(git status --porcelain pressing.json)" ]; then
+            git config user.name "github-actions[bot]"
+            git config user.email "github-actions[bot]@users.noreply.github.com"
+            git add pressing.json
+            git commit -m "chore: maj pressing.json (intensite pressing)"
+            for i in 1 2 3 4 5; do
+              git pull --rebase origin main && git push && exit 0
+              sleep $((RANDOM % 10 + 3))
+            done
+            echo "push impossible apres 5 tentatives" >&2
+            exit 1
+          else
+            echo "pressing.json inchange."
+          fi
