@@ -58,6 +58,33 @@
   .pitchcard .m{font-size:12px;color:var(--ui-muted);margin-bottom:10px}
   .pitchcard .m b{color:var(--ui-accent);font-weight:700}
   .pitchcard svg{display:block;width:100%;height:auto}
+  .hide{display:none!important}
+  .seg{display:inline-flex;border:1px solid var(--ui-line2);border-radius:8px;overflow:hidden}
+  .seg button{font-family:var(--ui-font);font-size:12.5px;font-weight:600;padding:6px 14px;
+    border:0;background:#fff;color:var(--ui-muted);cursor:pointer;transition:all .13s ease}
+  .seg button+button{border-left:1px solid var(--ui-line2)}
+  .seg button.on{background:var(--ui-accent);color:#fff}
+  .pills{display:flex;flex-wrap:wrap;gap:7px}
+  .pill{font-family:var(--ui-font);font-size:12.5px;font-weight:550;padding:6px 14px;border-radius:999px;
+    border:1px solid var(--ui-line2);background:#fff;color:var(--ui-muted);cursor:pointer;user-select:none;transition:all .13s ease}
+  .pill:hover{border-color:var(--ui-accent);color:var(--ui-ink2)}
+  .pill.on{border-color:var(--ui-accent);color:var(--ui-accent);font-weight:650;box-shadow:inset 0 0 0 1px var(--ui-accent)}
+  .gvbox{position:relative;max-width:760px;margin:0 auto}
+  .gvbox svg{display:block;width:100%;height:auto}
+  .gvzones{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;max-width:760px;margin:16px auto 0}
+  .gvzone{border:1px solid var(--ui-line);border-radius:10px;padding:13px 15px;text-align:center}
+  .gvzone .zt{font-size:10px;font-weight:650;letter-spacing:.09em;color:var(--ui-faint);text-transform:uppercase;margin-bottom:8px}
+  .gvzone .zr{font-size:22px;font-weight:700;color:var(--ui-accent);line-height:1}
+  .gvzone .zl{font-size:11px;color:var(--ui-muted);margin-top:3px}
+  .gvzone .zx{font-size:12.5px;color:var(--ui-ink2);margin-top:9px;padding-top:9px;border-top:1px solid #f0f1f4}
+  .gvzone .zx b{color:var(--ui-accent)}
+  .gvlegend{display:flex;justify-content:center;gap:18px;font-size:11.5px;color:var(--ui-muted);margin-top:12px}
+  .gvlegend i{display:inline-block;width:9px;height:9px;border-radius:50%;margin-right:6px;vertical-align:middle}
+  .tip{position:absolute;pointer-events:none;opacity:0;transition:opacity .1s ease;background:#fff;
+    border:1px solid var(--ui-line2);border-radius:9px;padding:8px 11px;box-shadow:0 6px 22px rgba(16,24,40,.14);
+    font-size:12px;z-index:20;white-space:nowrap}
+  .tip b{display:block;font-size:12.5px;font-weight:650;color:var(--ui-ink2);margin-bottom:3px}
+  .tip i{font-style:normal;color:var(--ui-muted)}
   .note{font-size:11.5px;color:var(--ui-muted);margin-top:14px;line-height:1.5}
   .empty{font-size:12.5px;color:var(--ui-faint);padding:40px 0;text-align:center}
 </style>
@@ -67,6 +94,7 @@
 
   <div class="topbar">
     <h2>⚽ Defending</h2>
+    <div class="seg" id="viewSeg"><button data-v="block" class="on">Bloc défensif</button><button data-v="goalview">Goal view</button></div>
     <span class="tag" id="tag">Ligue 2 2025/2026</span>
     <select id="teamSel" class="team" aria-label="Équipe"></select>
   </div>
@@ -99,7 +127,19 @@
         </div>
       </div>
 
+      <div class="filters gv-only hide">
+        <div class="fgroup">
+          <span class="flab">Type d'action</span>
+          <div class="pills" id="gvActs"></div>
+        </div>
+      </div>
+
       <div class="pitches" id="pitches"></div>
+
+      <div id="gvWrap" class="hide">
+        <div class="gvbox"><div id="gvplot"></div><div class="tip" id="gvtip"></div></div>
+        <div class="gvzones" id="gvZones"></div>
+      </div>
 
       <div class="note" id="note"></div>
     </div>
@@ -108,6 +148,9 @@
 <script>
 const ACCENT="#0a1733";
 let D=null, TEAM="", FORM="4-3-3", MID="", OPP="all", OSYS="all";
+let VIEW="block", GV=null, GVACT=new Set();
+const GV_ACTS={open_play:"Open play",penalty:"Penalty",set_piece:"Set piece"};
+const GOAL_COL={goal:"#1e9e5a",on:"#0a1733"};   // vert = but, marine = cadré (comme Finishing)
 
 /* ---- systèmes proposés et positions théoriques (repère 0-100 x, 0-100 y) ---- */
 const FORMATIONS={
@@ -184,7 +227,98 @@ function pitchSVG(title, ms, venue){
     + '<script class="meta" data-n="'+set.length+'" data-a="'+(avg!=null?avg.toFixed(1):"-")+'"><\/script>';
 }
 
+/* ================= GOAL VIEW ================= */
+function gvShots(){
+  if(!GV||!TEAM) return [];
+  const ti=GV.teams.indexOf(TEAM);
+  if(ti<0) return [];
+  const acts=[...GVACT].map(k=>GV.acts.indexOf(k));
+  return GV.shots.filter(s=>s[0]===ti && (!acts.length || acts.includes(s[4])));
+}
+function zoneOf(gy){
+  const z=GV.goal.zones;               // [y0, a, b, y1]
+  if(gy<z[1]) return 0;                 // gauche
+  if(gy<z[2]) return 1;                 // axe
+  return 2;                             // droite
+}
+function renderGoalview(){
+  const host=document.getElementById("gvplot");
+  if(!GV){ host.innerHTML='<div class="empty">La goal view s\'affichera dès que <b>goalview.json</b> sera présent à la racine du repo.<br>Généré par <b>build_goalview.py</b> via une GitHub Action.</div>';
+    document.getElementById("sub").textContent="Données indisponibles"; document.getElementById("gvZones").innerHTML=""; return; }
+  const R=gvShots();
+  const acts=[...GVACT].map(k=>GV_ACTS[k]);
+  document.getElementById("sub").textContent=
+    TEAM+" · tirs cadrés concédés · "+(acts.length?acts.join(" + "):"toutes actions")+" · "+
+    R.length+" tir"+(R.length>1?"s":"")+" · Ligue 2 "+(GV.season||"");
+
+  const gy0=GV.goal.y0, gy1=GV.goal.y1, gz=GV.goal.z;
+  const W=760, H=330, PADX=70, PADT=30, PADB=40;
+  const gw=W-PADX*2, gh=H-PADT-PADB;
+  // le but vu de face : y (36->44) sur l'axe horizontal, z (0->2.44) sur la vertical inversée.
+  // côté attaquant : y=36 = sa gauche. On garde y croissant vers la droite de l'image.
+  const X=y=>PADX+(y-gy0)/(gy1-gy0)*gw;
+  const Y=z=>PADT+gh-(Math.max(0,Math.min(gz,z))/gz)*gh;
+  const F='font-family="-apple-system,BlinkMacSystemFont,Inter,Segoe UI,Arial,sans-serif"';
+  let g='<rect x="0" y="0" width="'+W+'" height="'+H+'" fill="#fff"/>';
+  // séparateurs de zones
+  const zx=GV.goal.zones;
+  [zx[1],zx[2]].forEach(function(yy){
+    g+='<line x1="'+X(yy).toFixed(1)+'" y1="'+PADT+'" x2="'+X(yy).toFixed(1)+'" y2="'+(PADT+gh)+'" stroke="#e5e7eb" stroke-dasharray="5 5"/>';
+  });
+  const znames=["Gauche","Axe","Droite"];
+  [[zx[0],zx[1]],[zx[1],zx[2]],[zx[2],zx[3]]].forEach(function(zz,i){
+    g+='<text x="'+((X(zz[0])+X(zz[1]))/2).toFixed(1)+'" y="'+(PADT+gh+24)+'" text-anchor="middle" font-size="12" font-weight="600" fill="'+ACCENT+'" '+F+'>'+znames[i]+'</text>';
+  });
+  // cadre : poteaux + barre, gris-bleu épais
+  const L='stroke="#8b95a8" stroke-width="5" fill="none" stroke-linecap="square"';
+  g+='<line x1="'+X(gy0)+'" y1="'+Y(0)+'" x2="'+X(gy0)+'" y2="'+Y(gz)+'" '+L+'/>';
+  g+='<line x1="'+X(gy1)+'" y1="'+Y(0)+'" x2="'+X(gy1)+'" y2="'+Y(gz)+'" '+L+'/>';
+  g+='<line x1="'+X(gy0)+'" y1="'+Y(gz)+'" x2="'+X(gy1)+'" y2="'+Y(gz)+'" '+L+'/>';
+  g+='<line x1="'+(PADX-24)+'" y1="'+Y(0)+'" x2="'+(W-PADX+24)+'" y2="'+Y(0)+'" stroke="#cfd6e0" stroke-width="2"/>';
+  // filet léger
+  g+='<g stroke="#eef1f5" stroke-width="1">';
+  for(let k=1;k<10;k++){const xx=X(gy0)+(X(gy1)-X(gy0))*k/10; g+='<line x1="'+xx.toFixed(1)+'" y1="'+Y(gz)+'" x2="'+xx.toFixed(1)+'" y2="'+Y(0)+'"/>';}
+  for(let k=1;k<5;k++){const yy=Y(0)+(Y(gz)-Y(0))*k/5; g+='<line x1="'+X(gy0)+'" y1="'+yy.toFixed(1)+'" x2="'+X(gy1)+'" y2="'+yy.toFixed(1)+'"/>';}
+  g+='</g>';
+  // points : buts au-dessus, cadrés en dessous
+  let pts="";
+  R.slice().sort((a,b)=>a[3]-b[3]).forEach(function(s,i){
+    const cx=X(s[1]), cy=Y(s[2]), goal=s[3]===1;
+    pts+='<circle class="gvpt" data-i="'+i+'" cx="'+cx.toFixed(1)+'" cy="'+cy.toFixed(1)+'" r="'+(goal?6.5:5)+
+         '" fill="'+(goal?GOAL_COL.goal:"#fff")+'" stroke="'+(goal?"#fff":GOAL_COL.on)+'" stroke-width="'+(goal?1.5:2)+'" style="cursor:pointer"/>';
+  });
+  host.innerHTML='<svg viewBox="0 0 '+W+' '+H+'" xmlns="http://www.w3.org/2000/svg">'+g+pts+'</svg>'+
+    '<div class="gvlegend"><span><i style="background:'+GOAL_COL.goal+'"></i>But</span>'+
+    '<span><i style="background:#fff;border:2px solid '+GOAL_COL.on+'"></i>Tir cadré (arrêté)</span></div>';
+
+  // stats par zone
+  const Z=[{n:0,g:0,x:0},{n:0,g:0,x:0},{n:0,g:0,x:0}];
+  R.forEach(function(s){ const z=Z[zoneOf(s[1])]; z.n++; z.g+=s[3]; z.x+=s[5]; });
+  const box=document.getElementById("gvZones");
+  box.innerHTML=[0,1,2].map(function(i){
+    const z=Z[i], rate=z.n?Math.round(100*z.g/z.n):0;
+    return '<div class="gvzone"><div class="zt">'+znames[i]+'</div>'+
+      '<div class="zr">'+rate+'%</div><div class="zl">buts / tirs cadrés ('+z.g+'/'+z.n+')</div>'+
+      '<div class="zx">xG concédé : <b>'+z.x.toFixed(2)+'</b></div></div>';
+  }).join("");
+
+  const tip=document.getElementById("gvtip"), wrap=document.querySelector(".gvbox");
+  host.querySelectorAll(".gvpt").forEach(function(el){
+    el.addEventListener("mousemove",function(ev){
+      const s=R[+el.dataset.i], b=wrap.getBoundingClientRect();
+      tip.innerHTML='<b>'+(s[3]===1?"But concédé":"Tir cadré arrêté")+'</b>'+
+        '<i>Zone : </i>'+znames[zoneOf(s[1])]+'<br><i>xG : </i>'+s[5].toFixed(2)+' · <i>'+GV_ACTS[GV.acts[s[4]]]+'</i>';
+      tip.style.opacity=1;
+      let lx=ev.clientX-b.left+13, ly=ev.clientY-b.top-10;
+      if(lx+190>b.width) lx=ev.clientX-b.left-190;
+      tip.style.left=lx+"px"; tip.style.top=ly+"px";
+    });
+    el.addEventListener("mouseleave",function(){ tip.style.opacity=0; });
+  });
+}
+
 function render(){
+  if(VIEW==="goalview"){ renderGoalview(); return; }
   const host=document.getElementById("pitches");
   if(!D){ host.innerHTML='<div class="empty">Chargement…</div>'; return; }
   const ms=teamMatches();
@@ -247,6 +381,29 @@ function boot(d){
   document.getElementById("osysSel").onchange=e=>{ OSYS=e.target.value; render(); };
 
   fillMatchSel(); syncFormFromMatch(); render();
+
+  // --- bascule Bloc / Goal view
+  document.querySelectorAll("#viewSeg button").forEach(function(bn){
+    bn.onclick=function(){
+      VIEW=bn.dataset.v;
+      document.querySelectorAll("#viewSeg button").forEach(x=>x.classList.toggle("on",x===bn));
+      const gv=VIEW==="goalview";
+      // filtres du bloc masqués en goal view, et inversement
+      document.querySelectorAll(".filters:not(.gv-only)").forEach(e=>e.classList.toggle("hide",gv));
+      document.querySelectorAll(".gv-only").forEach(e=>e.classList.toggle("hide",!gv));
+      document.getElementById("pitches").classList.toggle("hide",gv);
+      document.getElementById("gvWrap").classList.toggle("hide",!gv);
+      document.getElementById("note").classList.toggle("hide",gv);
+      render();
+    };
+  });
+  // --- pastilles action type
+  const ab=document.getElementById("gvActs"); ab.innerHTML="";
+  ["open_play","penalty","set_piece"].forEach(function(k){
+    const b=document.createElement("span"); b.className="pill"; b.textContent=GV_ACTS[k]; b.dataset.k=k;
+    b.onclick=function(){ GVACT.has(k)?GVACT.delete(k):GVACT.add(k); b.classList.toggle("on"); if(VIEW==="goalview") render(); };
+    ab.appendChild(b);
+  });
 }
 
 fetch("defending.json?_="+Date.now()).then(r=>r.ok?r.json():null).then(d=>{
@@ -254,6 +411,7 @@ fetch("defending.json?_="+Date.now()).then(r=>r.ok?r.json():null).then(d=>{
     '<div class="empty">La page s\'affichera dès que <b>defending.json</b> sera présent à la racine du repo.<br>Ce fichier est généré par <b>build_defending.py</b> via une GitHub Action.</div>';
     document.getElementById("sub").textContent="Données indisponibles"; return; }
   boot(d);
+  fetch("goalview.json?_="+Date.now()).then(r=>r.ok?r.json():null).then(gv=>{ GV=gv; if(VIEW==="goalview") render(); }).catch(()=>{});
 }).catch(()=>{ document.getElementById("sub").textContent="Données indisponibles"; });
 </script>
 </body>
