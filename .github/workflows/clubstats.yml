@@ -1,0 +1,50 @@
+# .github/workflows/clubstats.yml
+# Régénère clubstats.json (points par match + 5 derniers résultats) et le committe s'il a changé.
+# Pré-requis : secrets de dépôt SB_USERNAME et SB_PASSWORD.
+# Placer ce fichier dans .github/workflows/clubstats.yml et build_clubstats.py à la racine.
+
+name: Build stats clubs rapport
+
+on:
+  schedule:
+    - cron: "30 7 * * *"       # tous les jours à 07:30 UTC (après pressing)
+  workflow_dispatch: {}
+
+permissions:
+  contents: write
+
+concurrency:
+  group: build-clubstats
+  cancel-in-progress: true
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Install deps
+        run: pip install statsbombpy pandas
+      - name: Generate clubstats.json
+        env:
+          SB_USERNAME: ${{ secrets.SB_USERNAME }}
+          SB_PASSWORD: ${{ secrets.SB_PASSWORD }}
+        run: python build_clubstats.py
+      - name: Commit if changed
+        run: |
+          if [ -n "$(git status --porcelain clubstats.json)" ]; then
+            git config user.name "github-actions[bot]"
+            git config user.email "github-actions[bot]@users.noreply.github.com"
+            git add clubstats.json
+            git commit -m "chore: maj clubstats.json (points/match, derniers resultats)"
+            for i in 1 2 3 4 5; do
+              git pull --rebase origin main && git push && exit 0
+              sleep $((RANDOM % 10 + 3))
+            done
+            echo "push impossible apres 5 tentatives" >&2
+            exit 1
+          else
+            echo "clubstats.json inchange."
+          fi
