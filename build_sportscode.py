@@ -321,31 +321,66 @@ def main():
 
     matches = matches.sort_values(["match_week", "match_date"])
 
+    def num(v):
+        """valeur pandas -> int, ou None si NaN/None/non convertible."""
+        if v is None or v != v:
+            return None
+        try:
+            return int(v)
+        except (TypeError, ValueError):
+            return None
+
+    def txt(v):
+        return "" if v is None or v != v else str(v)
+
+    # ---- index construit AVANT la boucle et écrit tout de suite : même si le
+    #      run s'interrompt, le catalogue est publié et la page reste utilisable.
     index = []
+    todo = []
+    for _, m in matches.iterrows():
+        mid = num(m.get("match_id"))
+        if mid is None:
+            continue
+        hs, as_ = num(m.get("home_score")), num(m.get("away_score"))
+        entry = {
+            "match_id": mid,
+            "date": txt(m.get("match_date"))[:10],
+            "round": num(m.get("match_week")),
+            "home": txt(m.get("home_team")),
+            "away": txt(m.get("away_team")),
+            "score": ("%d-%d" % (hs, as_)) if hs is not None and as_ is not None else "",
+        }
+        index.append(entry)
+        todo.append(entry)
+
+    index.sort(key=lambda e: (e["round"] if e["round"] is not None else 99,
+                              e["date"], e["home"]))
+
+    index_path = os.path.join(outdir, "index.json")
+
+    def write_index():
+        with open(index_path, "w", encoding="utf-8") as f:
+            json.dump({"competition": "Ligue 2", "season": season,
+                       "season_id": season_id, "updated": now,
+                       "matches": index}, f, ensure_ascii=False, indent=1)
+
+    write_index()
+    print("index.json écrit : %d matchs au catalogue." % len(index))
+
     done = skipped = failed = 0
 
-    for _, m in matches.iterrows():
-        mid = int(m["match_id"])
-        home = m.get("home_team", "")
-        away = m.get("away_team", "")
-        hs, as_ = m.get("home_score"), m.get("away_score")
-        score = ("%d-%d" % (int(hs), int(as_))) if hs == hs and as_ == as_ else ""
-        rnd = m.get("match_week")
-        rnd = int(rnd) if rnd == rnd and rnd is not None else None
-        date = str(m.get("match_date", ""))[:10]
+    for entry in todo:
+        mid = entry["match_id"]
+        home, away = entry["home"], entry["away"]
+        score, rnd, date = entry["score"], entry["round"], entry["date"]
 
         path = os.path.join(outdir, "sc_%d.json" % mid)
-        entry = {"match_id": mid, "date": date, "round": rnd,
-                 "home": home, "away": away, "score": score}
 
         if os.path.exists(path) and not force:
-            index.append(entry)
             skipped += 1
             continue
 
         if limit is not None and done >= limit:
-            if os.path.exists(path):
-                index.append(entry)
             continue
 
         try:
@@ -373,22 +408,28 @@ def main():
             "teams": [home, away], "periods": periods,
             "updated": now, "ev": evs,
         }
-        with open(path, "w", encoding="utf-8") as f:
-            json.dump(doc, f, ensure_ascii=False, separators=(",", ":"))
+        try:
+            with open(path, "w", encoding="utf-8") as f:
+                json.dump(doc, f, ensure_ascii=False, separators=(",", ":"))
+        except Exception as exc:
+            print("  !! %s écriture : %s" % (mid, exc))
+            failed += 1
+            continue
 
-        index.append(entry)
         done += 1
         print("  ok  %-9s J%-3s %-22s %-5s %-22s  %4d év." %
-              (mid, rnd if rnd else "?", home, score, away, len(evs)))
+              (mid, rnd if rnd else "?", home, score, away, len(evs)),
+              flush=True)
 
-    index.sort(key=lambda e: (e["round"] or 99, e["date"], e["home"]))
-    with open(os.path.join(outdir, "index.json"), "w", encoding="utf-8") as f:
-        json.dump({"competition": "Ligue 2", "season": season,
-                   "season_id": season_id, "updated": now,
-                   "matches": index}, f, ensure_ascii=False, indent=1)
-
+    write_index()
     print("\n%d générés, %d déjà présents, %d échecs — %d matchs à l'index."
           % (done, skipped, failed, len(index)))
+
+    produced = len([f for f in os.listdir(outdir) if f.startswith("sc_")])
+    print("%d fichier(s) sc_*.json dans %s/" % (produced, outdir))
+    if produced == 0:
+        print("!! Aucune timeline produite.")
+        raise SystemExit(1)
 
 
 if __name__ == "__main__":
