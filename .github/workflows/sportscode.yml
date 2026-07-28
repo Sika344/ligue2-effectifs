@@ -64,11 +64,26 @@ jobs:
           for d in sc sc_*; do
             [ -d "$d" ] && git add "$d"
           done
-          git status --short | head -20
           echo "--- $(git diff --staged --name-only | wc -l) fichier(s) indexé(s) ---"
           if git diff --staged --quiet; then
             echo "Rien à committer."
-          else
-            git commit -m "sportscode: maj des timelines [skip ci]"
-            git push
+            exit 0
           fi
+          git commit -q -m "sportscode: maj des timelines [skip ci]"
+
+          # Le job dure ~20 min : le dépôt a pu bouger entre-temps (dépôt manuel
+          # de fichiers, autre Action). Un push direct serait rejeté "fetch first"
+          # -> on rebase sur l'état distant et on retente.
+          BR="${GITHUB_REF_NAME:-main}"
+          for i in 1 2 3 4 5; do
+            if git push origin "HEAD:$BR"; then
+              echo "push OK (tentative $i)"
+              exit 0
+            fi
+            echo "push rejeté (tentative $i) -> rebase sur origin/$BR"
+            git fetch -q origin "$BR" || true
+            git rebase "origin/$BR" || { echo "!! conflit de rebase"; exit 1; }
+            sleep 5
+          done
+          echo "!! push impossible après 5 tentatives"
+          exit 1
