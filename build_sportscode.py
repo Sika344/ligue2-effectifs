@@ -280,15 +280,45 @@ def main():
         args = [a for a in args if a != "--limit" and not a.isdigit()]
     args = [a for a in args if not a.startswith("--")]
 
-    season = args[0] if args else os.environ.get("SEASON", CURRENT_SEASON)
-    season_id = resolve_season_id(season)
+    # NB : une variable d'environnement définie mais VIDE (cas d'un
+    # workflow_dispatch avec le champ laissé vide) doit retomber sur la
+    # saison courante -> d'où le `or` plutôt qu'un défaut de .get().
+    season = (args[0] if args else os.environ.get("SEASON", "")).strip() \
+        or CURRENT_SEASON
+
+    if not (os.environ.get("SB_USERNAME") and os.environ.get("SB_PASSWORD")):
+        print("!! SB_USERNAME / SB_PASSWORD absents de l'environnement.\n"
+              "   Dans Actions : Settings > Secrets and variables > Actions.\n"
+              "   En local     : SB_USERNAME='…' SB_PASSWORD='…' python build_sportscode.py")
+        raise SystemExit(1)
+
+    try:
+        season_id = resolve_season_id(season)
+    except SystemExit:
+        raise
+    except Exception as exc:
+        print("!! Impossible de résoudre la saison %r : %s" % (season, exc))
+        raise SystemExit(1)
     outdir = "sc" if season == CURRENT_SEASON else "sc_%s" % season
     os.makedirs(outdir, exist_ok=True)
 
     now = datetime.datetime.now(datetime.timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ")
     print("Saison %s (season_id=%s) -> %s/" % (season, season_id, outdir))
 
-    matches = sb.matches(competition_id=COMPETITION_ID, season_id=season_id)
+    try:
+        matches = sb.matches(competition_id=COMPETITION_ID, season_id=season_id)
+    except Exception as exc:
+        print("!! Impossible de lister les matchs (competition_id=%s, season_id=%s).\n"
+              "   %s\n"
+              "   Un code 401 = identifiants StatsBomb refusés : vérifier les secrets\n"
+              "   SB_USERNAME / SB_PASSWORD (attention, SB_USERNAME et non SB_SURNAME)."
+              % (COMPETITION_ID, season_id, exc))
+        raise SystemExit(1)
+
+    if matches is None or len(matches) == 0:
+        print("!! Aucun match retourné pour season_id=%s." % season_id)
+        raise SystemExit(1)
+
     matches = matches.sort_values(["match_week", "match_date"])
 
     index = []
