@@ -213,10 +213,22 @@ function xmlEsc(s){
     .replace(/"/g, "&quot;").replace(/'/g, "&apos;");
 }
 
-function fetchJSON(url){
+/* Repli GitHub : en local on n'a pas forcément les 308 timelines sur le disque.
+   Si le fichier est absent, on le récupère directement depuis le dépôt. */
+var RAW = "https://raw.githubusercontent.com/Sika344/ligue2-effectifs/main/";
+
+function fetchOne(url){
   return fetch(url + (url.indexOf("?") < 0 ? "?" : "&") + "t=" + Date.now())
     .then(function(r){ return r.ok ? r.json() : null; })
     .catch(function(){ return null; });
+}
+
+function fetchJSON(url){
+  return fetchOne(url).then(function(d){
+    if (d) return d;
+    if (/^https?:/.test(url)) return null;
+    return fetchOne(RAW + url.replace(/^\.?\//, ""));
+  });
 }
 
 /* ------------------------------------------------------- classification métier */
@@ -363,6 +375,12 @@ function buildInstances(){
         { g:"Joueur",  x: e.pl || "" }
       ]);
     }
+  });
+
+  // Plancher de durée : une possession d'un seul événement donne start == end,
+  // ce que SportsCode n'accepte pas comme instance.
+  inst.forEach(function(i){
+    if (!(i.end > i.start)) i.end = i.start + 1;
   });
 
   inst.sort(function(a, b){ return a.start - b.start; });
