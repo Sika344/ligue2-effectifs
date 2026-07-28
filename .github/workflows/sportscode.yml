@@ -46,11 +46,26 @@ jobs:
           if [ "${{ github.event.inputs.force }}" = "true" ]; then ARGS="--force"; fi
           python build_sportscode.py $ARGS
 
+      - name: Inspect output
+        run: |
+          echo "--- dossiers produits ---"
+          for d in sc sc_*; do
+            [ -d "$d" ] || continue
+            echo "$d : $(find "$d" -type f | wc -l) fichier(s), $(du -sh "$d" | cut -f1)"
+          done
+          test -f sc/index.json || { echo "!! sc/index.json absent, rien à publier"; exit 1; }
+
       - name: Commit
         run: |
           git config user.name  "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
-          git add sc sc_* 2>/dev/null || true
+          # NB : ajouter les dossiers un par un. `git add sc sc_*` échoue en bloc
+          # quand le motif sc_* ne correspond à rien -> plus rien n'est ajouté.
+          for d in sc sc_*; do
+            [ -d "$d" ] && git add "$d"
+          done
+          git status --short | head -20
+          echo "--- $(git diff --staged --name-only | wc -l) fichier(s) indexé(s) ---"
           if git diff --staged --quiet; then
             echo "Rien à committer."
           else
