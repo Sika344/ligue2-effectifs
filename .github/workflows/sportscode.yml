@@ -1,0 +1,59 @@
+# À déposer dans .github/workflows/sportscode.yml (PAS à la racine du repo).
+# Attention à l'indentation de 2 espaces sous `on:` — sinon
+# "No event triggers defined in `on:`".
+
+name: build sportscode timelines
+
+on:
+  schedule:
+    - cron: "15 5 * * *"     # 05:15 UTC, après xg/inposs/outposs
+  workflow_dispatch:
+    inputs:
+      season:
+        description: "Saison (ex. 2025-2026). Vide = saison courante."
+        required: false
+        default: ""
+      force:
+        description: "Régénérer tous les matchs (sinon incrémental)"
+        type: boolean
+        required: false
+        default: false
+
+permissions:
+  contents: write
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    timeout-minutes: 330
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install deps
+        run: pip install --quiet statsbombpy pandas
+
+      - name: Build timelines
+        env:
+          SB_USERNAME: ${{ secrets.SB_USERNAME }}
+          SB_PASSWORD: ${{ secrets.SB_PASSWORD }}
+          SEASON: ${{ github.event.inputs.season }}
+        run: |
+          ARGS=""
+          if [ "${{ github.event.inputs.force }}" = "true" ]; then ARGS="--force"; fi
+          python build_sportscode.py $ARGS
+
+      - name: Commit
+        run: |
+          git config user.name  "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add sc sc_* 2>/dev/null || true
+          if git diff --staged --quiet; then
+            echo "Rien à committer."
+          else
+            git commit -m "sportscode: maj des timelines [skip ci]"
+            git push
+          fi
