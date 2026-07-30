@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Effectif sans photos · Ligue 2</title>
+<script src="https://cdn.jsdelivr.net/npm/pptxgenjs@3.12.0/dist/pptxgen.bundle.js"></script>
+<style>
+  :root{
+    --ui-font:-apple-system,BlinkMacSystemFont,"Inter","Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+    --ui-ink:#1f2937; --ui-ink2:#111827; --ui-muted:#6b7280; --ui-faint:#9ca3af;
+    --ui-line:#e5e7eb; --ui-line2:#d8dce3; --ui-hover:#f9fafb; --ui-accent:#0a1733;
+    --pitch:#eef2f7; --pitch-line:#c8d2e0;
+  }
+  *{box-sizing:border-box}
+  body{margin:0;background:#fff;color:var(--ui-ink);font-family:var(--ui-font)}
+
+  .sitenav{position:sticky;top:0;z-index:9999;display:flex;align-items:stretch;
+    background:#fff!important;border-bottom:1px solid var(--ui-line);padding:0 18px;overflow-x:auto;
+    -ms-overflow-style:none;scrollbar-width:none}
+  .sitenav::-webkit-scrollbar{display:none}
+  .sitenav .brand{display:flex;align-items:center;gap:7px;font-size:13.5px;font-weight:650;
+    color:var(--ui-ink2);padding:0 22px 0 0;white-space:nowrap;background:#fff}
+  .sitenav .brand span{font-size:9.5px;font-weight:600;color:var(--ui-faint);
+    letter-spacing:.11em;text-transform:uppercase}
+  .sitenav a{display:flex;align-items:center;margin:9px 3px;padding:6px 13px;font-size:12.5px;
+    font-weight:550;color:var(--ui-muted);text-decoration:none;white-space:nowrap;
+    border:1px solid var(--ui-line2);border-radius:8px;background:#fff}
+  .sitenav a:hover{color:var(--ui-ink2);border-color:#b9c0cc;background:var(--ui-hover)}
+  .sitenav a.on{color:var(--ui-accent);font-weight:650;border-color:var(--ui-accent)}
+
+  .topbar{display:flex;align-items:center;flex-wrap:wrap;gap:10px;background:#fff;
+    border-bottom:1px solid var(--ui-line);padding:11px 18px}
+  .topbar h2{margin:0;font-size:16px;font-weight:680;letter-spacing:-.015em}
+  .topbar select{font-family:inherit;font-size:13px;color:var(--ui-ink2);padding:6px 9px;
+    border:1px solid #c3cad6;border-radius:8px;background:#fbfcfd}
+  .topbar select.viewsel{font-weight:650}
+  .topbar select:hover{border-color:var(--ui-accent)}
+  .topbar .tag{font-size:11px;color:var(--ui-muted);border:1px solid var(--ui-line2);
+    border-radius:999px;padding:3px 9px}
+  .btn{margin-left:auto;font-family:inherit;font-size:13px;font-weight:650;padding:8px 16px;
+    border-radius:9px;border:1px solid var(--ui-accent);background:var(--ui-accent);color:#fff;
+    cursor:pointer}
+  .btn:hover{opacity:.87}
+  .btn:disabled{opacity:.4;cursor:not-allowed}
+
+  .wrap{max-width:1280px;margin:0 auto;padding:18px}
+  .msg{font-size:13px;padding:11px 13px;border-radius:8px;background:#fef2f2;
+    border:1px solid #fecaca;color:#991b1b;margin-bottom:14px}
+
+  /* ---------- terrain ---------- */
+  #pitch{background:var(--pitch);border:1px solid var(--pitch-line);border-radius:14px;
+    padding:20px 16px;position:relative}
+  #pitch::after{content:"";position:absolute;left:16px;right:16px;top:50%;
+    border-top:1px solid var(--pitch-line)}
+  .band{display:flex;flex-wrap:wrap;justify-content:center;gap:10px 12px;
+    padding:14px 8px;position:relative;z-index:1}
+  .band.box{border:1px solid var(--pitch-line);border-radius:10px;margin:0 auto;
+    max-width:80%}
+  .bandlab{text-align:center;font-size:9.5px;font-weight:700;letter-spacing:.13em;
+    text-transform:uppercase;color:var(--ui-faint);margin:2px 0 -6px}
+
+  .card{background:#fff;border:1px solid var(--ui-line2);border-radius:10px;
+    padding:9px 12px;min-width:132px;text-align:center;box-shadow:0 1px 2px rgba(16,24,40,.04)}
+  .card .top{display:flex;align-items:center;justify-content:center;gap:7px;margin-bottom:3px}
+  .card .num{font-size:15px;font-weight:800;color:var(--ui-ink2);
+    font-variant-numeric:tabular-nums;border-bottom:2px solid var(--ui-accent);
+    line-height:1.1;padding:0 2px}
+  .card .flag{font-size:13px;line-height:1}
+  .card .nm{font-size:12.5px;font-weight:750;color:var(--ui-ink2);letter-spacing:-.01em;
+    text-transform:uppercase;line-height:1.25;word-break:break-word}
+  .card .meta{font-size:10.5px;color:var(--ui-muted);margin-top:2px;
+    font-variant-numeric:tabular-nums}
+
+  .foot{margin-top:12px;font-size:11.5px;color:var(--ui-muted);text-align:center}
+</style>
+</head>
+<body>
+<nav class="sitenav"><div class="brand">⚽ Ligue 2<span>Analyse</span></div><a href="index.html">Effectif</a><a href="effectif-sans-photos.html" class="on">Effectif sans photos</a><a href="attacking.html">Attacking</a><a href="chartindex.html">Chart index</a><a href="defending.html">Defending</a><a href="analytics.html">Analytics 360</a><a href="rapport-pre-match.html">Rapport pré-match</a><a href="sportscode.html">SportsCode XML</a></nav>
+
+<div class="topbar">
+  <h2>Effectif sans photos</h2>
+  <select class="viewsel" aria-label="Choisir la vue" onchange="if(this.value)location.href=this.value">
+    <option value="index.html">Effectif</option>
+    <option value="effectif-sans-photos.html" selected>Effectif sans photos</option>
+    <option value="compo.html">Compo</option>
+    <option value="compo-sans-stats.html">Compo sans stats</option>
+  </select>
+  <select id="club" aria-label="Choisir le club"></select>
+  <span class="tag" id="tag"></span>
+  <button class="btn" id="dl">Exporter en .pptx</button>
+</div>
+
+<div class="wrap">
+  <div id="msg"></div>
+  <div id="pitch"></div>
+  <div class="foot" id="foot"></div>
+</div>
+
+<script>
+"use strict";
+
+var RAW = "https://raw.githubusercontent.com/Sika344/ligue2-effectifs/main/";
+var DATA = null, CLUB = null;
+
+var GROUPES = [
+  { k:"GK",  lab:"Gardiens",    box:true  },
+  { k:"DEF", lab:"Défenseurs",  box:false },
+  { k:"MID", lab:"Milieux",     box:false },
+  { k:"ATT", lab:"Attaquants",  box:true  }
+];
+
+function $(id){ return document.getElementById(id); }
+
+/* Âge : recalculé depuis la date de naissance quand on l'a — sinon on retombe
+   sur le champ `age`, qui est figé à la date de génération du JSON. */
+function age(p){
+  if (p.dob){
+    var n = new Date(p.dob + "T00:00:00"), t = new Date();
+    var a = t.getFullYear() - n.getFullYear();
+    var m = t.getMonth() - n.getMonth();
+    if (m < 0 || (m === 0 && t.getDate() < n.getDate())) a--;
+    if (a > 12 && a < 60) return a;
+  }
+  return (typeof p.age === "number") ? p.age : null;
+}
+
+function meta(p){
+  var bits = [];
+  if (p.height) bits.push(p.height + " cm");
+  var a = age(p);
+  if (a != null) bits.push(a + " ans");
+  return bits.join(" · ");
+}
+
+function fetchJSON(url){
+  var u = url + (url.indexOf("?") < 0 ? "?" : "&") + "t=" + Date.now();
+  return fetch(u).then(function(r){ return r.ok ? r.json() : null; })
+                 .catch(function(){ return null; });
+}
+
+function tri(a, b){
+  var na = parseInt(a.num, 10), nb = parseInt(b.num, 10);
+  if (isNaN(na)) na = 999;
+  if (isNaN(nb)) nb = 999;
+  return na - nb;
+}
+
+function render(){
+  var squad = (DATA.teams[CLUB] || {}).squad || [];
+  var pitch = $("pitch");
+  pitch.innerHTML = "";
+
+  GROUPES.forEach(function(g){
+    var joueurs = squad.filter(function(p){ return (p.pos || "MID") === g.k; }).sort(tri);
+    if (!joueurs.length) return;
+    var lab = document.createElement("div");
+    lab.className = "bandlab";
+    lab.textContent = g.lab + " · " + joueurs.length;
+    pitch.appendChild(lab);
+
+    var band = document.createElement("div");
+    band.className = "band" + (g.box ? " box" : "");
+    joueurs.forEach(function(p){
+      var c = document.createElement("div");
+      c.className = "card";
+      var m = meta(p);
+      c.innerHTML =
+        '<div class="top"><span class="num">' + (p.num || "–") + '</span>' +
+        '<span class="flag">' + (p.flag || "") + '</span></div>' +
+        '<div class="nm">' + (p.name || "") + '</div>' +
+        (m ? '<div class="meta">' + m + '</div>' : '');
+      band.appendChild(c);
+    });
+    pitch.appendChild(band);
+  });
+
+  var sansT = squad.filter(function(p){ return !p.height; }).length;
+  $("tag").textContent = squad.length + " joueurs";
+  $("foot").textContent = sansT
+    ? sansT + " joueur(s) sans taille renseignée dans les données source."
+    : "Toutes les tailles sont renseignées.";
+  $("dl").disabled = !squad.length;
+}
+
+/* ------------------------------------------------------------------ export */
+
+function exporter(){
+  var squad = (DATA.teams[CLUB] || {}).squad || [];
+  if (!squad.length || typeof PptxGenJS === "undefined") return;
+
+  var pptx = new PptxGenJS();
+  pptx.defineLayout({ name:"L2", width:13.33, height:7.5 });
+  pptx.layout = "L2";
+  var s = pptx.addSlide();
+
+  s.addText(CLUB.toUpperCase() + " — EFFECTIF", {
+    x:0.4, y:0.25, w:12.5, h:0.5, fontSize:22, bold:true, color:"0A1733"
+  });
+  s.addText(squad.length + " joueurs · " + new Date().toLocaleDateString("fr-FR"), {
+    x:0.4, y:0.72, w:12.5, h:0.3, fontSize:11, color:"6B7280"
+  });
+
+  var CW = 1.75, CH = 0.78, GAP = 0.12;
+  var y = 1.25;
+
+  GROUPES.forEach(function(g){
+    var joueurs = squad.filter(function(p){ return (p.pos || "MID") === g.k; }).sort(tri);
+    if (!joueurs.length) return;
+
+    s.addText(g.lab.toUpperCase(), {
+      x:0.4, y:y, w:6, h:0.22, fontSize:9, bold:true, color:"9CA3AF", charSpacing:1.5
+    });
+    y += 0.3;
+
+    var parLigne = Math.floor((12.5 + GAP) / (CW + GAP));
+    joueurs.forEach(function(p, i){
+      var col = i % parLigne, row = Math.floor(i / parLigne);
+      var x = 0.4 + col * (CW + GAP);
+      var yy = y + row * (CH + GAP);
+      s.addShape(pptx.ShapeType.roundRect, {
+        x:x, y:yy, w:CW, h:CH, fill:{ color:"FFFFFF" },
+        line:{ color:"D8DCE3", width:0.75 }, rectRadius:0.06
+      });
+      s.addText([
+        { text:String(p.num || "–") + "  ", options:{ bold:true, fontSize:11, color:"0A1733" } },
+        { text:(p.flag || ""), options:{ fontSize:10 } }
+      ], { x:x, y:yy + 0.04, w:CW, h:0.22, align:"center", margin:0 });
+      // police réduite pour les noms longs, faute de retour à la ligne fiable
+      var nom = String(p.name || "");
+      s.addText(nom, {
+        x:x, y:yy + 0.25, w:CW, h:0.25, align:"center",
+        fontSize: nom.length > 16 ? 7.5 : (nom.length > 12 ? 8.5 : 9.5),
+        bold:true, color:"111827", margin:0
+      });
+      s.addText(meta(p), {
+        x:x, y:yy + 0.5, w:CW, h:0.2, align:"center", fontSize:7.5, color:"6B7280", margin:0
+      });
+    });
+
+    y += Math.ceil(joueurs.length / parLigne) * (CH + GAP) + 0.18;
+  });
+
+  pptx.writeFile({ fileName: CLUB.replace(/[^\w\-]+/g, "_") + "_effectif.pptx" });
+}
+
+/* ---------------------------------------------------------------- démarrage */
+
+function start(){
+  $("club").addEventListener("change", function(){ CLUB = this.value; render(); });
+  $("dl").addEventListener("click", exporter);
+
+  fetchJSON("ligue2.json").then(function(d){
+    if (!d) return fetchJSON(RAW + "ligue2.json");
+    return d;
+  }).then(function(d){
+    if (!d || !d.teams){
+      $("msg").innerHTML = '<div class="msg">Impossible de charger <code>ligue2.json</code>. ' +
+        'Passe par <code>LANCER-SITE.command</code> : un double-clic direct sur le .html ne peut pas lire les JSON.</div>';
+      return;
+    }
+    DATA = d;
+    var clubs = Object.keys(d.teams).sort();
+    $("club").innerHTML = clubs.map(function(c){
+      return '<option value="' + c + '">' + c + '</option>';
+    }).join("");
+    CLUB = clubs.indexOf("Dijon") >= 0 ? "Dijon" : clubs[0];
+    $("club").value = CLUB;
+    render();
+  });
+}
+
+start();
+</script>
+</body>
+</html>
