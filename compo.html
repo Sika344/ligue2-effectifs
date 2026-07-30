@@ -155,9 +155,9 @@
     background-color:#fbfcfd;margin-right:2px}
   .topbar select.viewsel:hover{border-color:var(--ui-accent)}
 </style>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/pptxgenjs@3.12.0/dist/pptxgen.bundle.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
+<script src="vendor/html2canvas.min.js"></script>
+<script src="vendor/pptxgen.bundle.js"></script>
+<script src="vendor/jszip.min.js"></script>
 </head>
 <body>
     <nav class="sitenav"><div class="brand">⚽ Ligue 2<span>Analyse</span></div><a href="index.html" class="on">Effectif</a><a href="effectif-sans-photos.html">Effectif sans photos</a><a href="attacking.html">Attacking</a><a href="chartindex.html">Chart index</a><a href="defending.html">Defending</a><a href="analytics.html">Analytics 360</a><a href="rapport-pre-match.html">Rapport pré-match</a><a href="sportscode.html">SportsCode XML</a></nav>
@@ -444,9 +444,42 @@ async function pptxLayered(fileName){
         sbox={ x:(sb.left-bRect.left)/bRect.width, y:(sb.top-bRect.top)/bRect.height,
                w:sb.width/bRect.width, h:sb.height/bRect.height, data:null };
       }
-      // --- capture carte principale : sans la taille/age ni la boite stats (ajoutees a part) ---
+      // --- numero et nom : mesures pour les rendre editables dans Keynote.
+      //     On ne masque PAS l'element (le .num porte un soulignement en CSS) :
+      //     on rend juste sa couleur transparente pendant la capture.
+      function measTxt(el){
+        if(!el || !(el.textContent||"").trim()) return null;
+        const q=el.getBoundingClientRect(), cs2=getComputedStyle(el);
+        const mm=(cs2.color.match(/\d+/g)||[17,24,39]);
+        return { text:el.textContent.trim(),
+          fx:(q.left-r.left)/r.width, fy:(q.top-r.top)/r.height,
+          fw:q.width/r.width, fh:q.height/r.height,
+          px:parseFloat(cs2.fontSize)||12,
+          bold:(cs2.fontWeight==="bold"||(parseInt(cs2.fontWeight,10)||400)>=600),
+          face:(cs2.fontFamily.split(",")[0]||"Arial").replace(/["']/g,"").trim(),
+          color:((+mm[0])<<16|(+mm[1])<<8|(+mm[2])).toString(16).padStart(6,"0") };
+      }
+      const numEl=c.querySelector(".num"), nameEl=c.querySelector(".name");
+      const num=measTxt(numEl), nom=measTxt(nameEl);
+      // --- photo : on reutilise l'image telle quelle (deja convertie en dataURL plus haut).
+      //     Pas de second html2canvas : il deplacerait le document et fausserait
+      //     les mesures des cartes suivantes.
+      const phImg=c.querySelector("img.photo"); let photo=null;
+      if(phImg && phImg.src){
+        const pr=phImg.getBoundingClientRect();
+        if(pr.width>1 && pr.height>1){
+          photo={ src:phImg.src,
+            x:(pr.left-bRect.left)/bRect.width, y:(pr.top-bRect.top)/bRect.height,
+            w:pr.width/bRect.width, h:pr.height/bRect.height };
+        }
+      }
+      // --- capture carte principale : sans photo, numero, nom, taille/age ni boite stats ---
       if(bioEl) bioEl.style.visibility="hidden";
       if(statsBox) statsBox.style.visibility="hidden";
+      if(phImg) phImg.style.visibility="hidden";
+      const numCol=numEl?numEl.style.color:null, nomCol=nameEl?nameEl.style.color:null;
+      if(numEl) numEl.style.color="transparent";
+      if(nameEl) nameEl.style.color="transparent";
       const cc=await html2canvas(c,{useCORS:true,backgroundColor:null,scale:3,logging:false});
       // --- capture de la boite stats seule (cadre + icones, sans les chiffres) ---
       if(statsBox && sbox){
@@ -457,9 +490,12 @@ async function pptxLayered(fileName){
         vEls.forEach(v=>v.style.visibility="");
       }
       if(bioEl) bioEl.style.visibility="";
+      if(phImg) phImg.style.visibility="";
+      if(numEl) numEl.style.color=numCol;
+      if(nameEl) nameEl.style.color=nomCol;
       items.push({data:cc.toDataURL("image/png"),
         x:(r.left-bRect.left)/bRect.width, y:(r.top-bRect.top)/bRect.height,
-        w:r.width/bRect.width, h:r.height/bRect.height, bio, stats, sbox});
+        w:r.width/bRect.width, h:r.height/bRect.height, bio, stats, sbox, photo, num, nom});
     }
     const aspect=bRect.width/bRect.height, W=13.333, H=Math.round(W/aspect*100)/100;
     const pptx=new PptxGenJS(); pptx.defineLayout({name:"BOARD",width:W,height:H}); pptx.layout="BOARD";
@@ -469,6 +505,22 @@ async function pptxLayered(fileName){
       const cx=it.x*W, cy=it.y*H, cw=it.w*W, ch=it.h*H, P="P"+idx+"_";
       s.addImage({data:it.data, x:Math.round(cx*100)/100, y:Math.round(cy*100)/100,
         w:Math.round(cw*100)/100, h:Math.round(ch*100)/100, objectName:P+"card"});
+      if(it.photo){
+        const po={ x:Math.round(it.photo.x*W*100)/100, y:Math.round(it.photo.y*H*100)/100,
+                   w:Math.round(it.photo.w*W*100)/100, h:Math.round(it.photo.h*H*100)/100,
+                   objectName:P+"photo" };
+        if(it.photo.src.indexOf("data:")===0) po.data=it.photo.src; else po.path=it.photo.src;
+        s.addImage(po);
+      }
+      [["num",it.num],["nom",it.nom]].forEach(function(pair){
+        const t=pair[1]; if(!t) return;
+        s.addText(t.text,{
+          x:Math.round((cx+t.fx*cw)*100)/100, y:Math.round((cy+t.fy*ch)*100)/100,
+          w:Math.round((t.fw*cw)*100)/100, h:Math.round((t.fh*ch)*100)/100,
+          align:"center", valign:"middle", margin:0, bold:t.bold, fontFace:t.face,
+          fontSize:Math.round(t.px*(W/bRect.width)*72*10)/10,
+          color:t.color, objectName:P+pair[0] });
+      });
       if(it.sbox && it.sbox.data){
         s.addImage({data:it.sbox.data,
           x:Math.round(it.sbox.x*W*100)/100, y:Math.round(it.sbox.y*H*100)/100,
