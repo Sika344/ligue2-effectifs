@@ -65,6 +65,22 @@ SEASON_IDS = {"2025-2026": 318}
 SHOOTOUT_PERIOD = 5
 THRESHOLDS = {"z60": 60.0, "z80": 80.0}
 
+# --- ventilation fine, ajoutee pour les filtres de la page Defending ---------
+# Quatre quarts egaux du terrain, dans le sens d'attaque de l'equipe observee.
+# 120 unites StatsBomb = 105 m, donc ~26 m par zone.
+#   q1 = basse | q2 = mediane basse | q3 = mediane haute | q4 = haute
+ZONES = (("q1", 0.0, 30.0), ("q2", 30.0, 60.0), ("q3", 60.0, 90.0), ("q4", 90.0, 120.1))
+# Coups de pied arretes : meme convention que build_inposs.py (Set pieces xG).
+SET_PIECE = {"From Corner", "From Free Kick", "From Throw In"}
+COUNTERS = ("opp_pass", "def_act", "recov", "disp")
+
+
+def zone_of(xa):
+    for name, lo, hi in ZONES:
+        if lo <= xa < hi:
+            return name
+    return None
+
 # actions défensives comptées au dénominateur du PPDA (définition standard)
 PPDA_DEF = {"Pressure", "Interception", "Duel", "Tackle", "Foul Committed"}
 # récupérations « propres » comptées à l'axe Y
@@ -144,6 +160,8 @@ def main():
     teams_out = {}
     for team, mids in sorted(per_team.items()):
         agg = {k: defaultdict(float) for k in THRESHOLDS}
+        cells = {ctx: {z[0]: {c: 0 for c in COUNTERS} for z in ZONES}
+                 for ctx in ("open", "sp")}
         n_match = 0
         for mid in mids:
             try:
@@ -159,6 +177,7 @@ def main():
             c_team, c_type = ev["team"], ev["type"]
             c_per, c_loc = col("period"), col("location")
             c_pout, c_dout = col("pass_outcome"), col("dribble_outcome")
+            c_patt = col("play_pattern")
             c_out = col("out")
             c_dukw = col("duel_outcome")
             if c_loc is None:
@@ -175,6 +194,33 @@ def main():
                 own = c_team.get(idx) == team
                 # x dans le repère du camp adverse de "team"
                 xa = x if own else (120.0 - x)
+
+                # --- ventilation zone x contexte (independante des seuils PPDA) ---
+                zn = zone_of(xa)
+                if zn is not None:
+                    ctx = "sp" if (get(c_patt, idx) in SET_PIECE) else "open"
+                    cc = cells[ctx][zn]
+                    if own:
+                        if typ in PPDA_DEF:
+                            cc["def_act"] += 1
+                        if typ in RECOV:
+                            cc["recov"] += 1
+                        elif typ == "Duel" and has_outcome(get(c_dukw, idx),
+                                                           {"Won", "Success", "Success In Play",
+                                                            "Success Out"}):
+                            cc["recov"] += 1
+                    else:
+                        if typ == "Pass":
+                            cc["opp_pass"] += 1
+                        if typ in ("Dispossessed", "Miscontrol"):
+                            cc["disp"] += 1
+                        elif typ == "Pass" and has_outcome(get(c_pout, idx),
+                                                           {"Incomplete", "Out"}):
+                            cc["disp"] += 1
+                        elif typ == "Dribble" and has_outcome(get(c_dout, idx), {"Incomplete"}):
+                            cc["disp"] += 1
+                        elif truthy(get(c_out, idx)):
+                            cc["disp"] += 1
 
                 for key, thr in THRESHOLDS.items():
                     if xa < thr:
@@ -207,6 +253,7 @@ def main():
 
         teams_out[team] = {
             "matches": n_match,
+            "cells": cells,
             "z60": {k: agg["z60"][k] for k in ("opp_pass", "def_act", "recov", "disp")},
             "z80": {k: agg["z80"][k] for k in ("opp_pass", "def_act", "recov", "disp")},
         }

@@ -138,8 +138,12 @@
 
       <div class="filters pr-only hide">
         <div class="fgroup">
-          <span class="flab">Zone de pressing</span>
-          <div class="seg" id="prZone"><button data-z="z60" class="on">Camp adverse</button><button data-z="z80">Dernier tiers</button></div>
+          <span class="flab">Hauteur de récupération</span>
+          <div class="seg" id="prZone"><button data-z="q1" class="on">Basse</button><button data-z="q2" class="on">Méd. basse</button><button data-z="q3" class="on">Méd. haute</button><button data-z="q4" class="on">Haute</button></div>
+        </div>
+        <div class="fgroup">
+          <span class="flab">Contexte</span>
+          <div class="seg" id="prCtx"><button data-c="all" class="on">Tout</button><button data-c="open">Jeu courant</button><button data-c="sp">Coups de pied arrêtés</button></div>
         </div>
         <div class="fgroup">
           <span class="flab">Échelle</span>
@@ -165,6 +169,9 @@ const ACCENT="#0a1733";
 let D=null, TEAM="", FORM="4-3-3", MID="", OPP="all", OSYS="all";
 let VIEW="block", GV=null, GVACT=new Set();
 let PR=null, PRZONE="z60", PRSCALE="pm";
+// filtres fins (pressing.json >= version "cells")
+const ZLAB={q1:"basse",q2:"médiane basse",q3:"médiane haute",q4:"haute"};
+let PRZ={q1:true,q2:true,q3:true,q4:true}, PRCTX="all";
 const GV_ACTS={open_play:"Open play",penalty:"Penalty",set_piece:"Set piece"};
 const GOAL_COL={goal:"#1e9e5a",on:"#0a1733"};   // vert = but, marine = cadré (comme Finishing)
 
@@ -338,7 +345,24 @@ function prRows(){
   if(!PR||!PR.teams) return [];
   const out=[];
   for(const [team,t] of Object.entries(PR.teams)){
-    const z=t[PRZONE]||{};
+    // `cells` = ventilation zone x contexte. Absent des anciens pressing.json :
+    // on retombe alors sur les seuils historiques z60/z80.
+    let z;
+    if(t.cells){
+      z={opp_pass:0,def_act:0,recov:0,disp:0};
+      const ctxs = PRCTX==="all" ? ["open","sp"] : [PRCTX];
+      ctxs.forEach(function(cx){
+        const byZone=t.cells[cx]||{};
+        Object.keys(PRZ).forEach(function(zn){
+          if(!PRZ[zn]) return;
+          const c=byZone[zn]; if(!c) return;
+          z.opp_pass+=c.opp_pass||0; z.def_act+=c.def_act||0;
+          z.recov+=c.recov||0; z.disp+=c.disp||0;
+        });
+      });
+    } else {
+      z=t[PRZONE]||{};
+    }
     const ppda=z.def_act?z.opp_pass/z.def_act:0;
     const intensity=ppda>0?100/ppda:0;
     const succ=(z.recov||0)+(z.disp||0);
@@ -353,7 +377,16 @@ function renderPressing(){
   if(!PR){ host.innerHTML='<div class="empty">Le nuage s\'affichera dès que <b>pressing.json</b> sera présent à la racine du repo.<br>Généré par <b>build_pressing.py</b> via une GitHub Action.</div>';
     document.getElementById("sub").textContent="Données indisponibles"; return; }
   const R=prRows();
-  const zTxt=PRZONE==="z60"?"camp adverse (x>60)":"dernier tiers (x>80)";
+  const fines=!!(PR.teams&&Object.values(PR.teams)[0]&&Object.values(PR.teams)[0].cells);
+  let zTxt;
+  if(fines){
+    const on=Object.keys(PRZ).filter(k=>PRZ[k]);
+    zTxt=(on.length===4?"toutes hauteurs":"récup "+on.map(k=>ZLAB[k]).join(", "))
+        +" · "+(PRCTX==="all"?"tous contextes":(PRCTX==="open"?"jeu courant":"coups de pied arrêtés"));
+  } else {
+    zTxt=(PRZONE==="z60"?"camp adverse (x>60)":"dernier tiers (x>80)")
+        +" · filtres fins indisponibles (pressing.json à régénérer)";
+  }
   document.getElementById("sub").textContent=
     R.length+" équipes · pressing dans le "+zTxt+" · "+(PRSCALE==="pm"?"par match":"cumul saison")+" · Ligue 2 "+(PR.season||"");
   if(!R.length){ host.innerHTML='<div class="empty">Aucune donnée.</div>'; return; }
@@ -507,8 +540,17 @@ function boot(d){
   });
   // --- contrôles pressing
   document.querySelectorAll("#prZone button").forEach(function(bn){
-    bn.onclick=function(){ PRZONE=bn.dataset.z;
-      document.querySelectorAll("#prZone button").forEach(x=>x.classList.toggle("on",x===bn));
+    bn.onclick=function(){
+      const k=bn.dataset.z;
+      PRZ[k]=!PRZ[k];
+      // au moins une hauteur doit rester active
+      if(!Object.keys(PRZ).some(x=>PRZ[x])) PRZ[k]=true;
+      bn.classList.toggle("on",PRZ[k]);
+      if(VIEW==="pressing") render(); };
+  });
+  document.querySelectorAll("#prCtx button").forEach(function(bn){
+    bn.onclick=function(){ PRCTX=bn.dataset.c;
+      document.querySelectorAll("#prCtx button").forEach(x=>x.classList.toggle("on",x===bn));
       if(VIEW==="pressing") render(); };
   });
   document.querySelectorAll("#prScale button").forEach(function(bn){
