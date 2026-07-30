@@ -446,9 +446,22 @@ async function pptxLayered(fileName){
         sbox={ x:(sb.left-bRect.left)/bRect.width, y:(sb.top-bRect.top)/bRect.height,
                w:sb.width/bRect.width, h:sb.height/bRect.height, data:null };
       }
-      // --- capture carte principale : sans la taille/age ni la boite stats (ajoutees a part) ---
+      // --- photo : on reutilise l'image LFP telle quelle (deja convertie en dataURL plus haut).
+      //     Surtout PAS de second html2canvas ici : il deplace le document et fausse
+      //     les getBoundingClientRect des cartes suivantes.
+      const phImg=c.querySelector("img.photo"); let photo=null;
+      if(phImg && phImg.src){
+        const pr=phImg.getBoundingClientRect();
+        if(pr.width>1 && pr.height>1){
+          photo={ src:phImg.src,
+            x:(pr.left-bRect.left)/bRect.width, y:(pr.top-bRect.top)/bRect.height,
+            w:pr.width/bRect.width, h:pr.height/bRect.height };
+        }
+      }
+      // --- capture carte principale : sans la photo, la taille/age ni la boite stats (ajoutees a part) ---
       if(bioEl) bioEl.style.visibility="hidden";
       if(statsBox) statsBox.style.visibility="hidden";
+      if(phImg) phImg.style.visibility="hidden";
       const cc=await html2canvas(c,{useCORS:true,backgroundColor:null,scale:3,logging:false});
       // --- capture de la boite stats seule (cadre + icones, sans les chiffres) ---
       if(statsBox && sbox){
@@ -459,9 +472,10 @@ async function pptxLayered(fileName){
         vEls.forEach(v=>v.style.visibility="");
       }
       if(bioEl) bioEl.style.visibility="";
+      if(phImg) phImg.style.visibility="";
       items.push({data:cc.toDataURL("image/png"),
         x:(r.left-bRect.left)/bRect.width, y:(r.top-bRect.top)/bRect.height,
-        w:r.width/bRect.width, h:r.height/bRect.height, bio, stats, sbox});
+        w:r.width/bRect.width, h:r.height/bRect.height, bio, stats, sbox, photo});
     }
     const aspect=bRect.width/bRect.height, W=13.333, H=Math.round(W/aspect*100)/100;
     const pptx=new PptxGenJS(); pptx.defineLayout({name:"BOARD",width:W,height:H}); pptx.layout="BOARD";
@@ -471,6 +485,13 @@ async function pptxLayered(fileName){
       const cx=it.x*W, cy=it.y*H, cw=it.w*W, ch=it.h*H, P="P"+idx+"_";
       s.addImage({data:it.data, x:Math.round(cx*100)/100, y:Math.round(cy*100)/100,
         w:Math.round(cw*100)/100, h:Math.round(ch*100)/100, objectName:P+"card"});
+      if(it.photo){
+        const po={ x:Math.round(it.photo.x*W*100)/100, y:Math.round(it.photo.y*H*100)/100,
+                   w:Math.round(it.photo.w*W*100)/100, h:Math.round(it.photo.h*H*100)/100,
+                   objectName:P+"photo" };
+        if(it.photo.src.indexOf("data:")===0) po.data=it.photo.src; else po.path=it.photo.src;
+        s.addImage(po);
+      }
       if(it.sbox && it.sbox.data){
         s.addImage({data:it.sbox.data,
           x:Math.round(it.sbox.x*W*100)/100, y:Math.round(it.sbox.y*H*100)/100,
