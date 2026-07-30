@@ -454,7 +454,8 @@
           "posDesc": "CM",
           "photo": "https://images.fotmob.com/image_resources/playerimages/1675988.png",
           "g": 0,
-          "a": 0
+          "a": 0,
+          "dob": "2008-05-06"
         },
         {
           "num": null,
@@ -462,13 +463,14 @@
           "fullname": "Zépiqueno Redmond",
           "flag": "",
           "ccode": "NED",
-          "height": null,
+          "height": 184,
           "age": 20,
           "pos": "MID",
           "posDesc": "LW",
           "photo": "https://images.fotmob.com/image_resources/playerimages/1553363.png",
           "g": 0,
-          "a": 0
+          "a": 0,
+          "dob": "2006-06-22"
         },
         {
           "num": 8,
@@ -1039,8 +1041,7 @@
           "photoLFP": true,
           "foot": "right",
           "mins": 97,
-          "sbId": 192425,
-          "dob": "2005-03-29"
+          "sbId": 192425
         },
         {
           "num": 30,
@@ -1480,13 +1481,14 @@
           "fullname": "Mohamed-Amine Bouchenna",
           "flag": "🇫🇷",
           "ccode": "FRA",
-          "height": null,
+          "height": 179,
           "age": 20,
           "pos": "ATT",
           "posDesc": "LW,RW",
           "photo": "https://images.fotmob.com/image_resources/playerimages/1487957.png",
           "g": 0,
-          "a": 0
+          "a": 0,
+          "dob": "2006-06-15"
         }
       ]
     },
@@ -1519,7 +1521,8 @@
           "posDesc": "GK",
           "photo": "https://images.fotmob.com/image_resources/playerimages/109620.png",
           "g": 0,
-          "a": 0
+          "a": 0,
+          "dob": "1988-10-14"
         },
         {
           "num": 3,
@@ -1547,7 +1550,8 @@
           "posDesc": "CB",
           "photo": "https://images.fotmob.com/image_resources/playerimages/348437.png",
           "g": 0,
-          "a": 0
+          "a": 0,
+          "dob": "1989-07-07"
         },
         {
           "num": 6,
@@ -1561,7 +1565,8 @@
           "posDesc": "CB",
           "photo": "https://images.fotmob.com/image_resources/playerimages/848555.png",
           "g": 0,
-          "a": 0
+          "a": 0,
+          "dob": "1997-05-05"
         },
         {
           "num": 20,
@@ -1569,13 +1574,14 @@
           "fullname": "Hugo Vargas-Ríos",
           "flag": "🇫🇷",
           "ccode": "FRA",
-          "height": null,
+          "height": 175,
           "age": 31,
           "pos": "DEF",
           "posDesc": "CM",
           "photo": "https://images.fotmob.com/image_resources/playerimages/1011073.png",
           "g": 0,
-          "a": 0
+          "a": 0,
+          "dob": "1994-11-02"
         },
         {
           "num": 23,
@@ -1589,7 +1595,8 @@
           "posDesc": "RB",
           "photo": "https://images.fotmob.com/image_resources/playerimages/1121331.png",
           "g": 0,
-          "a": 0
+          "a": 0,
+          "dob": "2003-02-06"
         },
         {
           "num": 35,
@@ -1597,7 +1604,6 @@
           "fullname": "Boubacar Diallo",
           "flag": "🇫🇷",
           "ccode": "FRA",
-          "height": null,
           "age": 21,
           "pos": "DEF",
           "posDesc": null,
@@ -1617,7 +1623,8 @@
           "posDesc": "CAM",
           "photo": "https://images.fotmob.com/image_resources/playerimages/240725.png",
           "g": 0,
-          "a": 0
+          "a": 0,
+          "dob": "1991-01-18"
         },
         {
           "num": 7,
@@ -1625,13 +1632,14 @@
           "fullname": "Ben-Chayeel Hamada",
           "flag": "🇰🇲",
           "ccode": "COM",
-          "height": null,
+          "height": 173,
           "age": 23,
           "pos": "MID",
           "posDesc": "CM",
           "photo": "https://images.fotmob.com/image_resources/playerimages/1615470.png",
           "g": 0,
-          "a": 0
+          "a": 0,
+          "dob": "2003-05-05"
         },
         {
           "num": 8,
@@ -1645,7 +1653,8 @@
           "posDesc": "LW",
           "photo": "https://images.fotmob.com/image_resources/playerimages/1401229.png",
           "g": 0,
-          "a": 0
+          "a": 0,
+          "dob": "2000-01-15"
         },
         {
           "num": 14,
@@ -1659,7 +1668,8 @@
           "posDesc": "CDM",
           "photo": "https://images.fotmob.com/image_resources/playerimages/425293.png",
           "g": 0,
-          "a": 0
+          "a": 0,
+          "dob": "1991-09-29"
         },
         {
           "num": 17,
@@ -1673,7 +1683,8 @@
           "posDesc": "CDM",
           "photo": "https://images.fotmob.com/image_resources/playerimages/1301698.png",
           "g": 0,
-          "a": 0
+          "a": 0,
+          "dob": "1998-09-02"
         },
         {
           "num": 18,
@@ -1681,13 +1692,14 @@
           "fullname": "Brandon Ndezi",
           "flag": "🇫🇷",
           "ccode": "FRA",
-          "height": null,
+          "height": 183,
           "age": 26,
           "pos": "MID",
           "posDesc": "CM,CDM",
           "photo": "https://images.fotmob.com/image_resources/playerimages/1128439.png",
           "g": 0,
-          "a": 0
+          "a": 0,
+          "dob": "2000-01-09"
         },
         {
           "num": 19,
@@ -1695,13 +1707,14 @@
           "fullname": "Cesar Obongo",
           "flag": "",
           "ccode": "CGO",
-          "height": null,
+          "height": 184,
           "age": 20,
           "pos": "MID",
           "posDesc": "CM",
           "photo": "https://images.fotmob.com/image_resources/playerimages/1813094.png",
           "g": 0,
-          "a": 0
+          "a": 0,
+          "dob": "2006-07-10"
         },
         {
           "num": 21,
@@ -1709,13 +1722,14 @@
           "fullname": "Samy Chouchane",
           "flag": "🇹🇳",
           "ccode": "TUN",
-          "height": null,
+          "height": 180,
           "age": 22,
           "pos": "MID",
           "posDesc": "CDM",
           "photo": "https://images.fotmob.com/image_resources/playerimages/1231572.png",
           "g": 0,
-          "a": 0
+          "a": 0,
+          "dob": "2003-09-05"
         },
         {
           "num": 28,
@@ -1765,13 +1779,14 @@
           "fullname": "Yanis Barka",
           "flag": "🇫🇷",
           "ccode": "FRA",
-          "height": null,
+          "height": 183,
           "age": 28,
           "pos": "ATT",
           "posDesc": "ST",
           "photo": "https://images.fotmob.com/image_resources/playerimages/853107.png",
           "g": 0,
-          "a": 0
+          "a": 0,
+          "dob": "1998-04-18"
         },
         {
           "num": 11,
@@ -1800,7 +1815,8 @@
           "posDesc": "ST",
           "photo": "https://images.fotmob.com/image_resources/playerimages/1701697.png",
           "g": 0,
-          "a": 0
+          "a": 0,
+          "dob": "1995-12-22"
         },
         {
           "num": 29,
@@ -1808,14 +1824,12 @@
           "fullname": "Alexis Ntamack",
           "flag": "🇫🇷",
           "ccode": "FRA",
-          "height": 178,
           "age": 22,
           "pos": "ATT",
           "posDesc": "ST",
           "photo": "https://images.fotmob.com/image_resources/playerimages/1792459.png",
           "g": 0,
-          "a": 0,
-          "dob": "2001-04-27"
+          "a": 0
         },
         {
           "num": 37,
@@ -1829,7 +1843,8 @@
           "posDesc": null,
           "photo": "https://images.fotmob.com/image_resources/playerimages/1669432.png",
           "g": 0,
-          "a": 0
+          "a": 0,
+          "dob": "2005-06-03"
         },
         {
           "num": 37,
@@ -1837,14 +1852,12 @@
           "fullname": "Tyris Dong",
           "flag": "🇫🇷",
           "ccode": "FRA",
-          "height": 178,
           "age": 18,
           "pos": "ATT",
           "posDesc": null,
           "photo": "https://images.fotmob.com/image_resources/playerimages/1945731.png",
           "g": 0,
-          "a": 0,
-          "dob": "2004-09-27"
+          "a": 0
         },
         {
           "num": null,
@@ -1852,13 +1865,14 @@
           "fullname": "Florian Rombogouera",
           "flag": "🇫🇷",
           "ccode": "FRA",
-          "height": null,
+          "height": 179,
           "age": 20,
           "pos": "ATT",
           "posDesc": null,
           "photo": "https://images.fotmob.com/image_resources/playerimages/1797090.png",
           "g": 0,
-          "a": 0
+          "a": 0,
+          "dob": "2006-02-20"
         }
       ]
     },
@@ -1909,7 +1923,8 @@
           "posDesc": "GK",
           "photo": "https://images.fotmob.com/image_resources/playerimages/604675.png",
           "g": 0,
-          "a": 0
+          "a": 0,
+          "dob": "1997-04-09"
         },
         {
           "num": 4,
@@ -2085,7 +2100,8 @@
           "posDesc": "LB",
           "photo": "https://images.fotmob.com/image_resources/playerimages/820067.png",
           "g": 0,
-          "a": 0
+          "a": 0,
+          "dob": "1999-04-24"
         },
         {
           "num": 8,
@@ -2153,8 +2169,7 @@
           "posDesc": null,
           "photo": "https://images.fotmob.com/image_resources/playerimages/1980889.png",
           "g": 0,
-          "a": 0,
-          "dob": "2003-11-24"
+          "a": 0
         },
         {
           "num": 18,
@@ -2222,7 +2237,8 @@
           "posDesc": "CAM,RW",
           "photo": "https://images.fotmob.com/image_resources/playerimages/1073145.png",
           "g": 0,
-          "a": 0
+          "a": 0,
+          "dob": "1999-07-08"
         },
         {
           "num": null,
@@ -2236,7 +2252,8 @@
           "posDesc": "LW,CAM,LM",
           "photo": "https://images.fotmob.com/image_resources/playerimages/1184689.png",
           "g": 0,
-          "a": 0
+          "a": 0,
+          "dob": "2002-12-23"
         },
         {
           "num": null,
@@ -2244,13 +2261,14 @@
           "fullname": "Franck Atoen",
           "flag": "🇨🇲",
           "ccode": "CMR",
-          "height": null,
+          "height": 174,
           "age": 19,
           "pos": "MID",
           "posDesc": null,
           "photo": "https://images.fotmob.com/image_resources/playerimages/1806473.png",
           "g": 0,
-          "a": 0
+          "a": 0,
+          "dob": "2006-07-21"
         },
         {
           "num": null,
@@ -2320,7 +2338,8 @@
           "photoLFP": true,
           "foot": "left",
           "mins": 714,
-          "sbId": 8984
+          "sbId": 8984,
+          "dob": "1994-08-11"
         },
         {
           "num": 77,
@@ -2736,7 +2755,8 @@
           "posDesc": "CM,CAM,CDM",
           "photo": "https://images.fotmob.com/image_resources/playerimages/754621.png",
           "g": 0,
-          "a": 0
+          "a": 0,
+          "dob": "1994-09-06"
         },
         {
           "num": 2,
@@ -2838,13 +2858,14 @@
           "fullname": "Dillon Hoogewerf",
           "flag": "",
           "ccode": "NED",
-          "height": null,
+          "height": 165,
           "age": 23,
           "pos": "ATT",
           "posDesc": "LW,LM",
           "photo": "https://images.fotmob.com/image_resources/playerimages/1098784.png",
           "g": 0,
-          "a": 0
+          "a": 0,
+          "dob": "2003-02-27"
         },
         {
           "num": 37,
@@ -2877,7 +2898,8 @@
           "posDesc": "RW",
           "photo": "https://images.fotmob.com/image_resources/playerimages/1356322.png",
           "g": 0,
-          "a": 0
+          "a": 0,
+          "dob": "1999-09-01"
         }
       ]
     },
@@ -3029,7 +3051,8 @@
           "photoLFP": true,
           "foot": "right",
           "mins": 2648,
-          "sbId": 7608
+          "sbId": 7608,
+          "dob": "1997-10-27"
         },
         {
           "num": 29,
@@ -3204,7 +3227,7 @@
           "fullname": "Ibrahima Diakite",
           "flag": "🇫🇷",
           "ccode": "FRA",
-          "height": null,
+          "height": 182,
           "age": 19,
           "pos": "MID",
           "posDesc": null,
@@ -3561,7 +3584,8 @@
           "posDesc": "LB",
           "photo": "https://images.fotmob.com/image_resources/playerimages/1252280.png",
           "g": 0,
-          "a": 0
+          "a": 0,
+          "dob": "2000-05-09"
         },
         {
           "num": null,
@@ -3627,7 +3651,8 @@
           "posDesc": "CDM,CM",
           "photo": "https://images.fotmob.com/image_resources/playerimages/159594.png",
           "g": 0,
-          "a": 0
+          "a": 0,
+          "dob": "1991-05-13"
         },
         {
           "num": 14,
@@ -3888,7 +3913,8 @@
           "posDesc": "GK",
           "photo": "https://images.fotmob.com/image_resources/playerimages/1075429.png",
           "g": 0,
-          "a": 0
+          "a": 0,
+          "dob": "2001-11-09"
         },
         {
           "num": 40,
@@ -3902,8 +3928,7 @@
           "posDesc": "GK",
           "photo": "https://images.fotmob.com/image_resources/playerimages/1237903.png",
           "g": 0,
-          "a": 0,
-          "dob": "1997-07-04"
+          "a": 0
         },
         {
           "num": 61,
@@ -3917,7 +3942,8 @@
           "posDesc": "GK",
           "photo": "https://images.fotmob.com/image_resources/playerimages/1536963.png",
           "g": 0,
-          "a": 0
+          "a": 0,
+          "dob": "1997-05-02"
         },
         {
           "num": 2,
@@ -3931,7 +3957,8 @@
           "posDesc": "LB,CB,RB",
           "photo": "https://images.fotmob.com/image_resources/playerimages/210389.png",
           "g": 0,
-          "a": 0
+          "a": 0,
+          "dob": "1991-11-15"
         },
         {
           "num": 4,
@@ -3945,7 +3972,8 @@
           "posDesc": "CB,LB",
           "photo": "https://images.fotmob.com/image_resources/playerimages/1469819.png",
           "g": 0,
-          "a": 0
+          "a": 0,
+          "dob": "2003-04-30"
         },
         {
           "num": 25,
@@ -3953,13 +3981,14 @@
           "fullname": "Cleo Mélières",
           "flag": "🇫🇷",
           "ccode": "FRA",
-          "height": null,
+          "height": 175,
           "age": 21,
           "pos": "DEF",
           "posDesc": "RB",
           "photo": "https://images.fotmob.com/image_resources/playerimages/1797449.png",
           "g": 0,
-          "a": 0
+          "a": 0,
+          "dob": "2005-04-13"
         },
         {
           "num": 27,
@@ -4001,7 +4030,8 @@
           "posDesc": "LB",
           "photo": "https://images.fotmob.com/image_resources/playerimages/600236.png",
           "g": 0,
-          "a": 0
+          "a": 0,
+          "dob": "1996-09-01"
         },
         {
           "num": null,
@@ -4030,7 +4060,8 @@
           "posDesc": "CAM,RW",
           "photo": "https://images.fotmob.com/image_resources/playerimages/763974.png",
           "g": 0,
-          "a": 0
+          "a": 0,
+          "dob": "1996-08-07"
         },
         {
           "num": 12,
@@ -4038,13 +4069,14 @@
           "fullname": "Alpha Touré",
           "flag": "🇸🇳",
           "ccode": "SEN",
-          "height": null,
+          "height": 180,
           "age": 20,
           "pos": "MID",
           "posDesc": "CDM,CM,CAM",
           "photo": "https://images.fotmob.com/image_resources/playerimages/1536998.png",
           "g": 0,
-          "a": 0
+          "a": 0,
+          "dob": "2006-01-25"
         },
         {
           "num": 20,
@@ -4058,7 +4090,8 @@
           "posDesc": "CDM,CM,CAM",
           "photo": "https://images.fotmob.com/image_resources/playerimages/882400.png",
           "g": 0,
-          "a": 0
+          "a": 0,
+          "dob": "1998-01-07"
         },
         {
           "num": 33,
@@ -4066,13 +4099,14 @@
           "fullname": "Believe Munongo",
           "flag": "🇫🇷",
           "ccode": "FRA",
-          "height": null,
+          "height": 191,
           "age": 16,
           "pos": "MID",
           "posDesc": "CM,CDM,CAM",
           "photo": "https://images.fotmob.com/image_resources/playerimages/1839135.png",
           "g": 0,
-          "a": 0
+          "a": 0,
+          "dob": "2009-11-23"
         },
         {
           "num": 35,
@@ -4100,7 +4134,8 @@
           "posDesc": "ST",
           "photo": "https://images.fotmob.com/image_resources/playerimages/601145.png",
           "g": 0,
-          "a": 0
+          "a": 0,
+          "dob": "1995-06-18"
         },
         {
           "num": 34,
@@ -4108,13 +4143,14 @@
           "fullname": "Nathan Mbala",
           "flag": "🇨🇩",
           "ccode": "COD",
-          "height": null,
+          "height": 179,
           "age": 18,
           "pos": "ATT",
           "posDesc": "RW",
           "photo": "https://images.fotmob.com/image_resources/playerimages/1797446.png",
           "g": 0,
-          "a": 0
+          "a": 0,
+          "dob": "2008-02-19"
         },
         {
           "num": 70,
@@ -4128,7 +4164,8 @@
           "posDesc": "RW,RB",
           "photo": "https://images.fotmob.com/image_resources/playerimages/278341.png",
           "g": 0,
-          "a": 0
+          "a": 0,
+          "dob": "1992-01-31"
         },
         {
           "num": null,
@@ -4748,13 +4785,14 @@
           "fullname": "Yanis Kouini",
           "flag": "🇲🇦",
           "ccode": "MAR",
-          "height": null,
+          "height": 180,
           "age": 22,
           "pos": "GK",
           "posDesc": null,
           "photo": "https://images.fotmob.com/image_resources/playerimages/1332797.png",
           "g": 0,
-          "a": 0
+          "a": 0,
+          "dob": "2004-01-22"
         },
         {
           "num": 4,
@@ -5124,13 +5162,14 @@
           "fullname": "Sidi Cissé",
           "flag": "🇫🇷",
           "ccode": "FRA",
-          "height": null,
+          "height": 174,
           "age": 23,
           "pos": "ATT",
           "posDesc": "ST",
           "photo": "https://images.fotmob.com/image_resources/playerimages/1280185.png",
           "g": 0,
-          "a": 0
+          "a": 0,
+          "dob": "2003-02-06"
         }
       ]
     },
@@ -5177,7 +5216,8 @@
           "posDesc": "GK",
           "photo": "https://images.fotmob.com/image_resources/playerimages/1401770.png",
           "g": 0,
-          "a": 0
+          "a": 0,
+          "dob": "2005-03-04"
         },
         {
           "num": null,
@@ -5205,7 +5245,8 @@
           "posDesc": "GK",
           "photo": "https://images.fotmob.com/image_resources/playerimages/263511.png",
           "g": 0,
-          "a": 0
+          "a": 0,
+          "dob": "1993-03-04"
         },
         {
           "num": 2,
@@ -5247,7 +5288,8 @@
           "posDesc": "RB",
           "photo": "https://images.fotmob.com/image_resources/playerimages/612747.png",
           "g": 0,
-          "a": 0
+          "a": 0,
+          "dob": "1994-12-24"
         },
         {
           "num": 65,
@@ -5255,13 +5297,14 @@
           "fullname": "Hugo Lamy",
           "flag": "🇫🇷",
           "ccode": "FRA",
-          "height": null,
+          "height": 178,
           "age": 22,
           "pos": "DEF",
           "posDesc": "RB",
           "photo": "https://images.fotmob.com/image_resources/playerimages/1452987.png",
           "g": 0,
-          "a": 0
+          "a": 0,
+          "dob": "2004-01-16"
         },
         {
           "num": 72,
@@ -5269,14 +5312,12 @@
           "fullname": "Sékou Doucouré",
           "flag": "🇫🇷",
           "ccode": "FRA",
-          "height": 183,
           "age": 21,
           "pos": "DEF",
           "posDesc": "CB",
           "photo": "https://images.fotmob.com/image_resources/playerimages/1685496.png",
           "g": 0,
-          "a": 0,
-          "dob": "2001-03-30"
+          "a": 0
         },
         {
           "num": 78,
@@ -5284,13 +5325,14 @@
           "fullname": "Tylel Tati",
           "flag": "🇫🇷",
           "ccode": "FRA",
-          "height": null,
+          "height": 192,
           "age": 18,
           "pos": "DEF",
           "posDesc": "CB",
           "photo": "https://images.fotmob.com/image_resources/playerimages/1800345.png",
           "g": 0,
-          "a": 0
+          "a": 0,
+          "dob": "2008-01-19"
         },
         {
           "num": 98,
@@ -5304,7 +5346,8 @@
           "posDesc": "RB,CB",
           "photo": "https://images.fotmob.com/image_resources/playerimages/683473.png",
           "g": 0,
-          "a": 0
+          "a": 0,
+          "dob": "1998-02-08"
         },
         {
           "num": null,
@@ -5318,7 +5361,8 @@
           "posDesc": "CB,RB,RWB,RM",
           "photo": "https://images.fotmob.com/image_resources/playerimages/769168.png",
           "g": 0,
-          "a": 0
+          "a": 0,
+          "dob": "1997-07-12"
         },
         {
           "num": null,
@@ -5332,7 +5376,8 @@
           "posDesc": "CB",
           "photo": "https://images.fotmob.com/image_resources/playerimages/863856.png",
           "g": 0,
-          "a": 0
+          "a": 0,
+          "dob": "1998-11-19"
         },
         {
           "num": 8,
@@ -5346,7 +5391,8 @@
           "posDesc": "CM,CAM,CDM",
           "photo": "https://images.fotmob.com/image_resources/playerimages/1180481.png",
           "g": 0,
-          "a": 0
+          "a": 0,
+          "dob": "2002-10-22"
         },
         {
           "num": 17,
@@ -5360,7 +5406,8 @@
           "posDesc": "RW,CM,CAM",
           "photo": "https://images.fotmob.com/image_resources/playerimages/1607493.png",
           "g": 0,
-          "a": 0
+          "a": 0,
+          "dob": "2005-04-17"
         },
         {
           "num": 18,
@@ -5374,7 +5421,8 @@
           "posDesc": "RWB,RM",
           "photo": "https://images.fotmob.com/image_resources/playerimages/660887.png",
           "g": 0,
-          "a": 0
+          "a": 0,
+          "dob": "1996-01-16"
         },
         {
           "num": 27,
@@ -5402,7 +5450,8 @@
           "posDesc": "CDM,CM,CB",
           "photo": "https://images.fotmob.com/image_resources/playerimages/660327.png",
           "g": 0,
-          "a": 0
+          "a": 0,
+          "dob": "1997-10-27"
         },
         {
           "num": 52,
@@ -5416,7 +5465,8 @@
           "posDesc": "CM",
           "photo": "https://images.fotmob.com/image_resources/playerimages/1783428.png",
           "g": 0,
-          "a": 0
+          "a": 0,
+          "dob": "2006-03-10"
         },
         {
           "num": 66,
@@ -5424,13 +5474,14 @@
           "fullname": "Louis Leroux",
           "flag": "🇫🇷",
           "ccode": "FRA",
-          "height": null,
+          "height": 184,
           "age": 20,
           "pos": "MID",
           "posDesc": "CM,LB",
           "photo": "https://images.fotmob.com/image_resources/playerimages/1622889.png",
           "g": 0,
-          "a": 0
+          "a": 0,
+          "dob": "2006-01-23"
         },
         {
           "num": null,
@@ -5444,8 +5495,7 @@
           "posDesc": "CAM,LW,RW,CM,LM,ST",
           "photo": "https://images.fotmob.com/image_resources/playerimages/1274470.png",
           "g": 0,
-          "a": 0,
-          "dob": "2004-08-04"
+          "a": 0
         },
         {
           "num": null,
@@ -5459,7 +5509,8 @@
           "posDesc": "CM",
           "photo": "https://images.fotmob.com/image_resources/playerimages/1067180.png",
           "g": 0,
-          "a": 0
+          "a": 0,
+          "dob": "2000-11-15"
         },
         {
           "num": null,
@@ -5502,7 +5553,8 @@
           "posDesc": "LW,RW",
           "photo": "https://images.fotmob.com/image_resources/playerimages/1670132.png",
           "g": 0,
-          "a": 0
+          "a": 0,
+          "dob": "2006-08-29"
         },
         {
           "num": 19,
@@ -5530,8 +5582,7 @@
           "posDesc": "ST",
           "photo": "https://images.fotmob.com/image_resources/playerimages/817500.png",
           "g": 0,
-          "a": 0,
-          "dob": "2008-02-21"
+          "a": 0
         },
         {
           "num": 37,
@@ -5545,7 +5596,8 @@
           "posDesc": "ST,LW,LM",
           "photo": "https://images.fotmob.com/image_resources/playerimages/863708.png",
           "g": 0,
-          "a": 0
+          "a": 0,
+          "dob": "1999-02-16"
         },
         {
           "num": null,
@@ -5670,8 +5722,7 @@
           "g": 0,
           "a": 0,
           "photoLFP": true,
-          "foot": "left",
-          "dob": "2005-09-30"
+          "foot": "left"
         },
         {
           "num": 8,
@@ -5793,7 +5844,8 @@
           "posDesc": "CB",
           "photo": "https://images.fotmob.com/image_resources/playerimages/888731.png",
           "g": 0,
-          "a": 0
+          "a": 0,
+          "dob": "1999-07-06"
         },
         {
           "num": null,
@@ -5930,7 +5982,8 @@
           "posDesc": "CDM",
           "photo": "https://images.fotmob.com/image_resources/playerimages/695006.png",
           "g": 0,
-          "a": 0
+          "a": 0,
+          "dob": "1995-07-03"
         },
         {
           "num": null,
@@ -6021,13 +6074,14 @@
           "fullname": "Alexis Lefebvre",
           "flag": "🇫🇷",
           "ccode": "FRA",
-          "height": null,
+          "height": 166,
           "age": 23,
           "pos": "ATT",
           "posDesc": "LW,RW",
           "photo": "https://images.fotmob.com/image_resources/playerimages/1225877.png",
           "g": 0,
-          "a": 0
+          "a": 0,
+          "dob": "2003-05-21"
         },
         {
           "num": null,
@@ -6035,13 +6089,14 @@
           "fullname": "Babacar Leye",
           "flag": "🇫🇷",
           "ccode": "FRA",
-          "height": null,
+          "height": 185,
           "age": 25,
           "pos": "ATT",
           "posDesc": "ST",
           "photo": "https://images.fotmob.com/image_resources/playerimages/1661206.png",
           "g": 0,
-          "a": 0
+          "a": 0,
+          "dob": "2000-09-02"
         },
         {
           "num": null,
@@ -6307,7 +6362,8 @@
           "posDesc": "CB",
           "photo": "https://images.fotmob.com/image_resources/playerimages/1614864.png",
           "g": 0,
-          "a": 0
+          "a": 0,
+          "dob": "2005-12-26"
         },
         {
           "num": null,
@@ -6627,7 +6683,8 @@
           "posDesc": "GK",
           "photo": "https://images.fotmob.com/image_resources/playerimages/1518139.png",
           "g": 0,
-          "a": 0
+          "a": 0,
+          "dob": "2004-04-11"
         },
         {
           "num": 2,
@@ -6926,13 +6983,14 @@
           "fullname": "John Otomewo",
           "flag": "🇳🇬",
           "ccode": "NGA",
-          "height": null,
+          "height": 186,
           "age": 19,
           "pos": "MID",
           "posDesc": "CM,CDM",
           "photo": "https://images.fotmob.com/image_resources/playerimages/1867219.png",
           "g": 0,
-          "a": 0
+          "a": 0,
+          "dob": "2007-04-25"
         },
         {
           "num": null,
@@ -7051,7 +7109,8 @@
           "posDesc": "ST",
           "photo": "https://images.fotmob.com/image_resources/playerimages/1123587.png",
           "g": 0,
-          "a": 0
+          "a": 0,
+          "dob": "2001-01-03"
         },
         {
           "num": null,
@@ -7130,7 +7189,8 @@
           "posDesc": "ST",
           "photo": "https://images.fotmob.com/image_resources/playerimages/967093.png",
           "g": 0,
-          "a": 0
+          "a": 0,
+          "dob": "1999-11-09"
         }
       ]
     },
@@ -7383,7 +7443,8 @@
           "posDesc": "LM",
           "photo": "https://images.fotmob.com/image_resources/playerimages/1515497.png",
           "g": 0,
-          "a": 0
+          "a": 0,
+          "dob": "2004-10-18"
         },
         {
           "num": 6,
@@ -7463,13 +7524,14 @@
           "fullname": "Antonin Cartillier",
           "flag": "🇫🇷",
           "ccode": "FRA",
-          "height": null,
+          "height": 176,
           "age": 22,
           "pos": "MID",
           "posDesc": "CM",
           "photo": "https://images.fotmob.com/image_resources/playerimages/1524547.png",
           "g": 0,
-          "a": 0
+          "a": 0,
+          "dob": "2004-06-23"
         },
         {
           "num": null,
@@ -7665,8 +7727,7 @@
           "posDesc": "GK",
           "photo": "https://images.fotmob.com/image_resources/playerimages/1478010.png",
           "g": 0,
-          "a": 0,
-          "dob": "2001-10-08"
+          "a": 0
         },
         {
           "num": 2,
@@ -7903,7 +7964,8 @@
           "posDesc": "CB,CM,CDM",
           "photo": "https://images.fotmob.com/image_resources/playerimages/1114366.png",
           "g": 0,
-          "a": 0
+          "a": 0,
+          "dob": "2000-10-31"
         },
         {
           "num": null,
@@ -8071,7 +8133,7 @@
           "fullname": "Jules Mouton",
           "flag": "🇫🇷",
           "ccode": "FRA",
-          "height": null,
+          "height": 184,
           "age": 21,
           "pos": "MID",
           "posDesc": null,
@@ -8093,7 +8155,8 @@
           "posDesc": "CAM,CM,CDM",
           "photo": "https://images.fotmob.com/image_resources/playerimages/1155675.png",
           "g": 0,
-          "a": 0
+          "a": 0,
+          "dob": "2003-11-17"
         },
         {
           "num": null,
@@ -8107,7 +8170,8 @@
           "posDesc": "CM",
           "photo": "https://images.fotmob.com/image_resources/playerimages/1113784.png",
           "g": 0,
-          "a": 0
+          "a": 0,
+          "dob": "2002-01-15"
         },
         {
           "num": 7,
@@ -8269,7 +8333,8 @@
           "posDesc": "LW,ST,RW,CAM",
           "photo": "https://images.fotmob.com/image_resources/playerimages/1096389.png",
           "g": 0,
-          "a": 0
+          "a": 0,
+          "dob": "2002-01-02"
         }
       ]
     },
@@ -8288,7 +8353,8 @@
           "posDesc": "GK",
           "photo": "https://images.fotmob.com/image_resources/playerimages/303135.png",
           "g": 0,
-          "a": 0
+          "a": 0,
+          "dob": "1991-04-20"
         },
         {
           "num": 30,
@@ -8302,7 +8368,8 @@
           "posDesc": "GK",
           "photo": "https://images.fotmob.com/image_resources/playerimages/1209244.png",
           "g": 0,
-          "a": 0
+          "a": 0,
+          "dob": "2001-02-25"
         },
         {
           "num": 4,
@@ -8316,7 +8383,8 @@
           "posDesc": "CB",
           "photo": "https://images.fotmob.com/image_resources/playerimages/1330944.png",
           "g": 0,
-          "a": 0
+          "a": 0,
+          "dob": "2000-06-04"
         },
         {
           "num": 10,
@@ -8330,7 +8398,8 @@
           "posDesc": "LW",
           "photo": "https://images.fotmob.com/image_resources/playerimages/913306.png",
           "g": 0,
-          "a": 0
+          "a": 0,
+          "dob": "1998-09-07"
         },
         {
           "num": 14,
@@ -8344,7 +8413,8 @@
           "posDesc": "CB",
           "photo": "https://images.fotmob.com/image_resources/playerimages/156716.png",
           "g": 0,
-          "a": 0
+          "a": 0,
+          "dob": "1990-10-21"
         },
         {
           "num": 17,
@@ -8358,7 +8428,8 @@
           "posDesc": "RB,RWB",
           "photo": "https://images.fotmob.com/image_resources/playerimages/492474.png",
           "g": 0,
-          "a": 0
+          "a": 0,
+          "dob": "1994-02-11"
         },
         {
           "num": 20,
@@ -8366,7 +8437,6 @@
           "fullname": "Prince Mendy",
           "flag": "🇸🇳",
           "ccode": "SEN",
-          "height": null,
           "age": 31,
           "pos": "DEF",
           "posDesc": "CB",
@@ -8386,8 +8456,7 @@
           "posDesc": "LB",
           "photo": "https://images.fotmob.com/image_resources/playerimages/1107403.png",
           "g": 0,
-          "a": 0,
-          "dob": "1988-03-02"
+          "a": 0
         },
         {
           "num": 26,
@@ -8395,14 +8464,12 @@
           "fullname": "Élie N'Gatta",
           "flag": "🇫🇷",
           "ccode": "FRA",
-          "height": 175,
           "age": 20,
           "pos": "DEF",
           "posDesc": "CB,RB",
           "photo": "https://images.fotmob.com/image_resources/playerimages/1726707.png",
           "g": 0,
-          "a": 0,
-          "dob": "2003-12-11"
+          "a": 0
         },
         {
           "num": 8,
@@ -8416,7 +8483,8 @@
           "posDesc": "CDM",
           "photo": "https://images.fotmob.com/image_resources/playerimages/1693192.png",
           "g": 0,
-          "a": 0
+          "a": 0,
+          "dob": "2005-04-27"
         },
         {
           "num": 15,
@@ -8430,7 +8498,8 @@
           "posDesc": "CAM,CDM",
           "photo": "https://images.fotmob.com/image_resources/playerimages/659991.png",
           "g": 0,
-          "a": 0
+          "a": 0,
+          "dob": "1995-03-10"
         },
         {
           "num": 23,
@@ -8444,7 +8513,8 @@
           "posDesc": "CDM",
           "photo": "https://images.fotmob.com/image_resources/playerimages/830232.png",
           "g": 0,
-          "a": 0
+          "a": 0,
+          "dob": "1998-06-18"
         },
         {
           "num": 39,
@@ -8472,7 +8542,8 @@
           "posDesc": "CAM",
           "photo": "https://images.fotmob.com/image_resources/playerimages/917803.png",
           "g": 0,
-          "a": 0
+          "a": 0,
+          "dob": "1997-07-11"
         },
         {
           "num": 7,
@@ -8480,13 +8551,14 @@
           "fullname": "Benjamin Gomel",
           "flag": "🇫🇷",
           "ccode": "FRA",
-          "height": null,
+          "height": 177,
           "age": 28,
           "pos": "ATT",
           "posDesc": "LW",
           "photo": "https://images.fotmob.com/image_resources/playerimages/919881.png",
           "g": 0,
-          "a": 0
+          "a": 0,
+          "dob": "1998-05-14"
         },
         {
           "num": 9,
@@ -8500,7 +8572,8 @@
           "posDesc": "ST",
           "photo": "https://images.fotmob.com/image_resources/playerimages/690117.png",
           "g": 0,
-          "a": 0
+          "a": 0,
+          "dob": "1995-09-09"
         },
         {
           "num": 11,
@@ -8508,13 +8581,14 @@
           "fullname": "Julien Vetro",
           "flag": "🇫🇷",
           "ccode": "FRA",
-          "height": null,
+          "height": 180,
           "age": 22,
           "pos": "ATT",
           "posDesc": "LW",
           "photo": "https://images.fotmob.com/image_resources/playerimages/1519487.png",
           "g": 0,
-          "a": 0
+          "a": 0,
+          "dob": "2004-02-23"
         },
         {
           "num": 12,
@@ -8556,7 +8630,8 @@
           "posDesc": "ST",
           "photo": "https://images.fotmob.com/image_resources/playerimages/1669436.png",
           "g": 0,
-          "a": 0
+          "a": 0,
+          "dob": "2002-08-30"
         }
       ]
     }
