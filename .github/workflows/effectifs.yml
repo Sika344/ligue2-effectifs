@@ -1,0 +1,118 @@
+# À déposer dans .github/workflows/effectifs.yml
+# Lancement manuel : scrape Transfermarkt -> ligue2.json (ou ligue2_<saison>.json).
+#
+# ⚠️ fetch_tm.py était prévu pour tourner sur une IP résidentielle : Transfermarkt
+# filtre les datacenters, et les runners GitHub en sont. La 1re étape teste donc
+# l'accès et arrête tout proprement si on est bloqué, plutôt que de laisser le
+# script tourner 20 min pour rien.
+
+name: effectifs transfermarkt
+
+on:
+  workflow_dispatch:
+    inputs:
+      season:
+        description: "Saison Transfermarkt (2025 = 2025-26). 2025 écrit ligue2.json."
+        required: true
+        default: "2025"
+      fix_heights:
+        description: "Rattraper les tailles manquantes (+12 min environ)"
+        type: boolean
+        required: false
+        default: true
+      probe_only:
+        description: "Tester seulement l'accès à Transfermarkt, sans scraper"
+        type: boolean
+        required: false
+        default: false
+
+permissions:
+  contents: write
+
+jobs:
+  effectifs:
+    runs-on: ubuntu-latest
+    timeout-minutes: 90
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install deps
+        run: pip install --quiet requests beautifulsoup4 lxml
+
+      - name: Transfermarkt est-il accessible depuis ce runner ?
+        run: |
+          python - <<'PY'
+          import sys, requests
+          UA = ("Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 "
+                "(KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36")
+          url = "https://www.transfermarkt.fr/ligue-2/startseite/wettbewerb/FR2/saison_id/2025"
+          try:
+              r = requests.get(url, headers={"User-Agent": UA,
+                                             "Accept-Language": "fr-FR,fr;q=0.9"},
+                               timeout=30)
+          except Exception as e:
+              print("!! connexion impossible : %s" % e); sys.exit(1)
+
+          print("HTTP %s, %d octets" % (r.status_code, len(r.text)))
+          if r.status_code != 200:
+              print("!! Transfermarkt refuse ce runner (HTTP %s)." % r.status_code)
+              print("   Le scraping ne peut pas se faire depuis GitHub Actions.")
+              sys.exit(1)
+          if "table.items" not in r.text and 'class="items"' not in r.text:
+              print("!! Page reçue mais sans tableau de clubs : probable page anti-bot.")
+              sys.exit(1)
+          print("OK : page de championnat lisible, le scraping peut se lancer.")
+          PY
+
+      - name: Scrape
+        if: ${{ github.event.inputs.probe_only != 'true' }}
+        run: |
+          ARGS="${{ github.event.inputs.season }}"
+          if [ "${{ github.event.inputs.fix_heights }}" = "true" ]; then
+            ARGS="$ARGS --fix-heights"
+          fi
+          echo "python fetch_tm.py $ARGS"
+          python fetch_tm.py $ARGS
+
+      - name: Résumé des tailles
+        if: ${{ github.event.inputs.probe_only != 'true' }}
+        run: |
+          python - <<'PY'
+          import glob, json, os
+          cands = sorted(glob.glob("ligue2*.json"), key=os.path.getmtime)
+          if not cands:
+              print("aucun ligue2*.json"); raise SystemExit(1)
+          f = cands[-1]
+          d = json.load(open(f, encoding="utf-8"))
+          tot = miss = 0
+          for club, v in d["teams"].items():
+              s = v["squad"]
+              m = [p for p in s if not p.get("height")]
+              tot += len(s); miss += len(m)
+              print("  %-22s %2d/%2d sans taille" % (club, len(m), len(s)))
+          print("\n%s : %d joueurs, %d sans taille (%.0f%%)"
+                % (f, tot, miss, 100 * miss / tot if tot else 0))
+          PY
+
+      - name: Commit
+        if: ${{ github.event.inputs.probe_only != 'true' }}
+        run: |
+          git config user.name  "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add ligue2*.json
+          if git diff --staged --quiet; then
+            echo "Rien à committer."
+            exit 0
+          fi
+          git commit -q -m "effectifs: maj Transfermarkt [skip ci]"
+          BR="${GITHUB_REF_NAME:-main}"
+          for i in 1 2 3; do
+            git push origin "HEAD:$BR" && exit 0
+            git fetch -q origin "$BR" || true
+            git rebase "origin/$BR" || exit 1
+          done
+          exit 1
