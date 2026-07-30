@@ -31,6 +31,15 @@ def _opt(flag, default=None):
 STATS_SEASON = int(_opt("--stats-season", SEASON))
 # Compétition Transfermarkt pour les stats. FR2 = Ligue 2. "" = toutes compétitions.
 COMP = _opt("--comp", "FR2")
+# Division de repli pour les clubs PROMUS : la saison des stats, ils jouaient
+# ailleurs. FR3 = Championnat National. "" pour désactiver ce repli.
+COMP2 = _opt("--comp2", "FR3")
+# Passe de rattrapage des tailles manquantes via la fiche individuelle du
+# joueur (le tableau d'effectif ne la donne pas pour les jeunes).
+# Coûteux : 1 requête par joueur concerné. Activer avec --fix-heights.
+FIX_HEIGHTS = "--fix-heights" in sys.argv
+# Renseigné par get_perf() : {club_id: code compétition réellement utilisé}.
+STATS_COMP = {}
 BASE   = "https://www.transfermarkt.fr"
 SLEEP  = 4                     # politesse entre clubs
 
@@ -172,18 +181,48 @@ def perf_url(slug, cid, season, comp=COMP):
     return f"{BASE}/{slug}/leistungsdaten/verein/{cid}/plus/1?saison_id={season}"
 
 
+def get_player_height(tid):
+    """Fiche joueur -> taille en cm (str), ou None.
+
+    On ancre sur le libellé « Taille » pour ne pas confondre avec la valeur
+    marchande (« 1,50 Mio. € »), qui a le même format numérique.
+    """
+    try:
+        html = get(f"{BASE}/x/profil/spieler/{tid}")
+    except Exception:
+        return None
+    txt = BeautifulSoup(html, "lxml").get_text(" ", strip=True)
+    m = re.search(r"Taille\s*:?\s*(\d)[,.](\d{2})", txt, re.I)
+    if not m:
+        return None
+    cm = m.group(1) + m.group(2)
+    return cm if 140 <= int(cm) <= 220 else None
+
+
 def get_perf(slug, cid, season=None, comp=COMP):
     """Page 'performances' du club -> {tid: {'g':buts, 'a':passes décisives, 'm':matchs}}."""
     season = STATS_SEASON if season is None else season
     html = get(perf_url(slug, cid, season, comp))
     soup = BeautifulSoup(html, "lxml")
     table = soup.select_one("table.items")
+    used = comp
+    if not table and comp and COMP2 and COMP2 != comp:
+        # repli 1 : club promu -> cette saison-là il jouait dans la division inférieure
+        print(f"     ⚠ {slug}: rien en {comp}&{season}, essai {COMP2}&{season}")
+        html = get(perf_url(slug, cid, season, comp=COMP2))
+        soup = BeautifulSoup(html, "lxml")
+        table = soup.select_one("table.items")
+        if table:
+            used = COMP2
     if not table and comp:
-        # repli : la compétition n'existe pas pour ce club/saison -> toutes compétitions
+        # repli 2 : la compétition n'existe pas pour ce club/saison -> toutes compétitions
         print(f"     ⚠ {slug}: pas de table pour {comp}&{season}, repli toutes compétitions")
         html = get(perf_url(slug, cid, season, comp=""))
         soup = BeautifulSoup(html, "lxml")
         table = soup.select_one("table.items")
+        if table:
+            used = ""
+    STATS_COMP[str(cid)] = used
     if not table:
         return {}, html
     hrow = table.select_one("thead tr") or table.select_one("tr")
@@ -261,9 +300,23 @@ def main():
                 pr = perf.get(p.get("tid"))
                 if pr:
                     p["g"], p["a"], p["m"] = pr["g"], pr["a"], pr["m"]
+        if FIX_HEIGHTS:
+            trous = [p for p in squad if not p.get("height") and p.get("tid")]
+            if trous:
+                print(f"     ↻ {len(trous)} taille(s) manquante(s), lecture des fiches…")
+                rec = 0
+                for p in trous:
+                    time.sleep(SLEEP)
+                    h = get_player_height(p["tid"])
+                    if h:
+                        p["height"] = h
+                        rec += 1
+                print(f"     ↻ {rec}/{len(trous)} récupérée(s)")
+
         for p in squad:
             p.pop("tid", None)
-        teams[c["name"]] = {"logo": c["crest"], "squad": squad}
+        teams[c["name"]] = {"logo": c["crest"], "squad": squad,
+                            "statsComp": STATS_COMP.get(str(c["id"]), COMP) or "all"}
         nb = sum((p.get("g") or 0) for p in squad)
         print(f"  [{i}/{len(clubs)}] {c['name']}: {len(squad)} joueurs, {nb} buts")
         time.sleep(SLEEP)
