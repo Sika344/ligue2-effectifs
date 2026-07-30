@@ -1,0 +1,28 @@
+# À déposer dans .github/workflows/probe-height.yml
+# Lancement manuel. Cherche la taille des joueurs dans l'API StatsBomb.
+# N'écrit aucun fichier : tout est dans le log.
+
+name: probe height statsbomb
+
+on:
+  workflow_dispatch:
+
+jobs:
+  probe:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install deps
+        run: pip install --quiet statsbombpy pandas requests
+
+      - name: Probe
+        env:
+          SB_USERNAME: ${{ secrets.SB_USERNAME }}
+          SB_PASSWORD: ${{ secrets.SB_PASSWORD }}
+        run: python probe_height.py
