@@ -1,22 +1,25 @@
-/* season.js — sélecteur de saison partagé par les pages du site.
+/* season.js — sélecteur de saison partagé par toutes les pages du site.
  *
- * Convention de nommage des données (celle des build_*.py) :
- *   · saison courante  -> fichier SANS suffixe        xg.json
- *   · saison passée    -> fichier suffixé             xg_2025-2026.json
+ * PRINCIPE : chaque saison a ses propres fichiers, explicitement suffixés.
+ *   xg_2025-2026.json   xg_2026-2027.json
+ *   ligue2_2025-2026.json   ligue2_2026-2027.json
+ * Aucun fichier « nu » n'est plus utilisé : un nom sans saison était ambigu,
+ * et c'est exactement ce qui avait fait diverger ligue2.json (effectifs 26-27
+ * sous une étiquette 25-26).
  *
- * >>> LE JOUR DE LA BASCULE (1re journée de L2 2026-27, week-end du 8 août) :
- *     1. lancer le workflow « archive saison » pour figer 2025-2026 ;
- *     2. passer CURRENT ci-dessous à "2026-2027" ;
- *     3. passer CURRENT_SEASON à "2026-2027" dans chaque build_*.py.
- *     Tant que l'étape 1 n'est pas faite, choisir 2025-2026 ne trouvera rien.
+ * POUR AJOUTER UNE SAISON : l'ajouter à LIST ci-dessous, et déposer les JSON
+ * correspondants. Rien d'autre à toucher dans les pages.
  *
- * La saison choisie est mémorisée et se propage d'une page à l'autre par le
- * paramètre ?s= ajouté aux liens de navigation.
+ * Les build_*.py, eux, produisent toujours un fichier nu pour la saison qu'ils
+ * traitent : il faut donc le renommer (ou lancer le workflow « archive saison »)
+ * après chaque génération.
+ *
+ * Le choix est mémorisé et se propage d'une page à l'autre via ?s= dans l'URL.
  */
 (function () {
   "use strict";
 
-  var CURRENT = "2025-2026";                  // <- à changer le 8 août
+  var DEFAUT  = "2025-2026";   // saison pre-selectionnee a l'arrivee sur le site
   var LIST    = ["2026-2027", "2025-2026"];   // ordre d'affichage
   var KEY     = "l2_saison";
 
@@ -31,20 +34,22 @@
       var v = localStorage.getItem(KEY);
       if (v && LIST.indexOf(v) >= 0) return v;
     } catch (e) {}
-    return CURRENT;
+    return DEFAUT;
   }
 
   var courante = lire();
 
-  /* "xg.json" -> "xg.json" si saison courante, "xg_2025-2026.json" sinon. */
+  /* TOUT est suffixe, sans exception : chaque saison a ses propres fichiers,
+     explicitement nommes. Plus aucun fichier "nu" dont la saison serait
+     ambigue -- c'etait le cas de ligue2.json, qui portait le nom de la saison
+     courante tout en contenant les effectifs de la suivante.
+       xg.json -> xg_2025-2026.json ou xg_2026-2027.json */
   function fichier(nom) {
-    if (courante === CURRENT) return nom;
     return String(nom).replace(/\.json(\?|$)/, "_" + courante + ".json$1");
   }
 
   /* Ajoute ?s=<saison> aux liens internes pour garder le choix en naviguant. */
   function propager() {
-    if (courante === CURRENT) return;
     var liens = document.querySelectorAll('.sitenav a[href$=".html"], select.viewsel option');
     Array.prototype.forEach.call(liens, function (el) {
       var attr = el.tagName === "OPTION" ? "value" : "href";
@@ -58,12 +63,23 @@
     var nav = document.querySelector(".sitenav");
     if (!nav || nav.querySelector(".seasonsel")) return;
 
+    /* rapport-pre-match.html a deja son propre selecteur (#seasonSelect) :
+       on ne le double pas, on se contente de le caler sur le choix global. */
+    var propre = document.getElementById("seasonSelect");
+    if (propre) {
+      try { propre.value = courante; } catch (e) {}
+      propre.addEventListener("change", function () {
+        try { localStorage.setItem(KEY, propre.value); } catch (e) {}
+      });
+      return;
+    }
+
     var sel = document.createElement("select");
     sel.className = "seasonsel";
     sel.setAttribute("aria-label", "Choisir la saison");
     sel.innerHTML = LIST.map(function (s) {
       return '<option value="' + s + '"' + (s === courante ? " selected" : "") +
-             ">" + s.replace("-", "/") + (s === CURRENT ? " · en cours" : "") + "</option>";
+             ">" + s.replace("-", "/") + "" + "</option>";
     }).join("");
     sel.style.cssText =
       "margin:9px 3px 9px auto;padding:6px 10px;font-family:inherit;font-size:12.5px;" +
@@ -81,9 +97,9 @@
 
   window.SEASON = {
     courante: courante,
-    CURRENT: CURRENT,
+    DEFAUT: DEFAUT,
     LIST: LIST,
-    estCourante: courante === CURRENT,
+    estCourante: false,
     fichier: fichier,
     monter: monter,
     /* Message à afficher quand un JSON de saison passée est absent. */

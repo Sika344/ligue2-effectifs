@@ -155,9 +155,10 @@
     background-color:#fbfcfd;margin-right:2px}
   .topbar select.viewsel:hover{border-color:var(--ui-accent)}
 </style>
-<script src="vendor/html2canvas.min.js"></script>
-<script src="vendor/pptxgen.bundle.js"></script>
-<script src="vendor/jszip.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/pptxgenjs@3.12.0/dist/pptxgen.bundle.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
+<script src="season.js"></script>
 </head>
 <body>
     <nav class="sitenav"><div class="brand">⚽ Ligue 2<span>Analyse</span></div><a href="index.html" class="on">Effectif</a><a href="effectif-sans-photos.html">Effectif sans photos</a><a href="attacking.html">Attacking</a><a href="chartindex.html">Chart index</a><a href="defending.html">Defending</a><a href="analytics.html">Analytics 360</a><a href="rapport-pre-match.html">Rapport pré-match</a><a href="sportscode.html">SportsCode XML</a></nav>
@@ -607,7 +608,7 @@ function init(data){
   document.getElementById("dlk").onclick=exportPPTX;
   render();
 }
-fetch("ligue2.json?_="+Date.now()).then(r=>{if(!r.ok)throw 0;return r.json();})
+fetch(SEASON.fichier("ligue2.json")+"?_="+Date.now()).then(r=>{if(!r.ok)throw 0;return r.json();})
   .then(d=>init(d)).catch(()=>init(FALLBACK));
 </script>
 </body>

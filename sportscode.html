@@ -87,6 +87,7 @@
   .msg.err{background:#fef2f2;border:1px solid #fecaca;color:#991b1b}
   .msg.inf{background:#eff6ff;border:1px solid #bfdbfe;color:#1e40af}
 </style>
+<script src="season.js"></script>
 </head>
 <body>
 <nav class="sitenav"><div class="brand">⚽ Ligue 2<span>Analyse</span></div><a href="index.html">Effectif</a><a href="effectif-sans-photos.html">Effectif sans photos</a><a href="attacking.html">Attacking</a><a href="chartindex.html">Chart index</a><a href="defending.html">Defending</a><a href="analytics.html">Analytics 360</a><a href="rapport-pre-match.html">Rapport pré-match</a><a href="sportscode.html" class="on">SportsCode XML</a></nav>
@@ -216,6 +217,8 @@ function xmlEsc(s){
 /* Repli GitHub : en local on n'a pas forcément les 308 timelines sur le disque.
    Si le fichier est absent, on le récupère directement depuis le dépôt. */
 var RAW = "https://raw.githubusercontent.com/Sika344/ligue2-effectifs/main/";
+var SC_DIR = (!window.SEASON || SEASON.courante === "2025-2026")
+  ? "sc/" : ("sc_" + SEASON.courante + "/");
 
 function fetchOne(url){
   return fetch(url + (url.indexOf("?") < 0 ? "?" : "&") + "t=" + Date.now())
@@ -497,7 +500,7 @@ function fileName(){
 function loadMatch(mid){
   if (!mid) return;
   msg("Chargement du match…");
-  fetchJSON("sc/sc_" + mid + ".json").then(function(d){
+  fetchJSON(SC_DIR+"sc_"+mid+".json").then(function(d){
     if (!d){
       MATCH = null;
       msg("Timeline introuvable pour ce match (<code>sc/sc_" + mid +
@@ -560,7 +563,7 @@ function start(){
     setTimeout(function(){ URL.revokeObjectURL(a.href); }, 2000);
   });
 
-  fetchJSON("sc/index.json").then(function(d){
+  fetchJSON(SC_DIR+"index.json").then(function(d){
     if (!d || !d.matches || !d.matches.length){
       msg("Aucun catalogue de matchs (<code>sc/index.json</code>). Il faut d'abord lancer " +
           "<code>build_sportscode.py</code> (GitHub Actions ou en local avec les identifiants StatsBomb).", "err");

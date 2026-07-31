@@ -74,6 +74,7 @@
 
   .foot{margin-top:12px;font-size:11.5px;color:var(--ui-muted);text-align:center}
 </style>
+<script src="season.js"></script>
 </head>
 <body>
 <nav class="sitenav"><div class="brand">⚽ Ligue 2<span>Analyse</span></div><a href="index.html">Effectif</a><a href="effectif-sans-photos.html" class="on">Effectif sans photos</a><a href="attacking.html">Attacking</a><a href="chartindex.html">Chart index</a><a href="defending.html">Defending</a><a href="analytics.html">Analytics 360</a><a href="rapport-pre-match.html">Rapport pré-match</a><a href="sportscode.html">SportsCode XML</a></nav>
@@ -250,8 +251,8 @@ function start(){
   $("club").addEventListener("change", function(){ CLUB = this.value; render(); });
   $("dl").addEventListener("click", exporter);
 
-  fetchJSON("ligue2.json").then(function(d){
-    if (!d) return fetchJSON(RAW + "ligue2.json");
+  fetchJSON(SEASON.fichier("ligue2.json")).then(function(d){
+    if (!d) return fetchJSON(RAW + SEASON.fichier("ligue2.json"));
     return d;
   }).then(function(d){
     if (!d || !d.teams){
