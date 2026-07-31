@@ -1,0 +1,113 @@
+# À déposer dans .github/workflows/archive-saison.yml
+#
+# Fige les données de la saison en cours dans des fichiers suffixés, AVANT que
+# les build_*.py ne basculent sur la saison suivante et n'écrasent les fichiers
+# sans suffixe.
+#
+#   xg.json  ->  xg_2025-2026.json
+#
+# À lancer UNE FOIS, juste avant la 1re journée de la nouvelle saison.
+# N'écrase jamais un fichier suffixé déjà présent (sauf case « forcer » cochée),
+# et ne touche pas aux fichiers d'origine.
+#
+# ligue2.json est volontairement EXCLU : il contient déjà les effectifs de la
+# saison à venir, l'archiver produirait un fichier mal étiqueté.
+
+name: archive saison
+
+on:
+  workflow_dispatch:
+    inputs:
+      saison:
+        description: "Saison à figer, au format 2025-2026"
+        required: true
+        default: "2025-2026"
+      forcer:
+        description: "Écraser les archives déjà existantes"
+        type: boolean
+        required: false
+        default: false
+
+permissions:
+  contents: write
+
+jobs:
+  archive:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Copier les JSON vers leur nom suffixé
+        run: |
+          python3 - <<'PY'
+          import os, shutil, re, json
+
+          SAISON = "${{ github.event.inputs.saison }}".strip()
+          FORCER = "${{ github.event.inputs.forcer }}" == "true"
+
+          if not re.match(r"^\d{4}-\d{4}$", SAISON):
+              print("!! Format de saison invalide : %r (attendu 2025-2026)" % SAISON)
+              raise SystemExit(1)
+
+          # ligue2.json exclu : contient déjà la saison suivante.
+          # photos_lfp.json exclu : dépend des effectifs, pas des stats.
+          EXCLUS = {"ligue2.json", "photos_lfp.json"}
+
+          faits, sautes, vides = [], [], []
+          for f in sorted(os.listdir(".")):
+              if not f.endswith(".json") or f in EXCLUS:
+                  continue
+              if re.search(r"_\d{4}-\d{4}\.json$", f):   # déjà une archive
+                  continue
+              if f.startswith("_"):                      # _debug.json, _360_probe.json
+                  continue
+              cible = f[:-5] + "_" + SAISON + ".json"
+              if os.path.exists(cible) and not FORCER:
+                  sautes.append(f)
+                  continue
+              try:
+                  with open(f, encoding="utf-8") as fh:
+                      json.load(fh)
+              except Exception as exc:
+                  print("  !! %-28s illisible (%s), ignoré" % (f, exc))
+                  vides.append(f)
+                  continue
+              shutil.copy2(f, cible)
+              faits.append((f, cible, os.path.getsize(cible)))
+
+          print("=== archivés vers la saison %s ===" % SAISON)
+          for a, b, n in faits:
+              print("  %-26s -> %-34s %8d o" % (a, b, n))
+          if sautes:
+              print("\n=== déjà archivés, laissés en place ===")
+              for f in sautes:
+                  print("  %s" % f)
+          if vides:
+              print("\n=== ignorés (JSON illisible) ===")
+              for f in vides:
+                  print("  %s" % f)
+          print("\n%d archivé(s), %d saut(s), %d ignoré(s)." % (len(faits), len(sautes), len(vides)))
+          if not faits and not sautes:
+              print("!! Rien archivé : vérifier que les JSON sont bien à la racine.")
+              raise SystemExit(1)
+          PY
+
+      - name: Commit
+        run: |
+          git config user.name  "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add ./*_[0-9][0-9][0-9][0-9]-[0-9][0-9][0-9][0-9].json 2>/dev/null || true
+          if git diff --staged --quiet; then
+            echo "Rien à committer."
+            exit 0
+          fi
+          git diff --staged --name-only
+          git commit -q -m "archive: fige la saison ${{ github.event.inputs.saison }} [skip ci]"
+          BR="${GITHUB_REF_NAME:-main}"
+          for i in 1 2 3; do
+            git push origin "HEAD:$BR" && exit 0
+            git fetch -q origin "$BR" || true
+            git rebase "origin/$BR" || exit 1
+          done
+          exit 1
