@@ -88,6 +88,7 @@
   .note{font-size:11.5px;color:var(--ui-muted);margin-top:14px;line-height:1.5}
   .empty{font-size:12.5px;color:var(--ui-faint);padding:40px 0;text-align:center}
 </style>
+<script src="season.js"></script>
 </head>
 <body>
   <nav class="sitenav"><div class="brand">⚽ Ligue 2<span>Analyse</span></div><a href="index.html">Effectif</a><a href="effectif-sans-photos.html">Effectif sans photos</a><a href="attacking.html">Attacking</a><a href="chartindex.html">Chart index</a><a href="defending.html" class="on">Defending</a><a href="analytics.html">Analytics 360</a><a href="rapport-pre-match.html">Rapport pré-match</a><a href="sportscode.html">SportsCode XML</a></nav>
@@ -567,13 +568,13 @@ function boot(d){
   });
 }
 
-fetch("defending.json?_="+Date.now()).then(r=>r.ok?r.json():null).then(d=>{
+fetch(SEASON.fichier("defending.json")+"?_="+Date.now()).then(r=>r.ok?r.json():null).then(d=>{
   if(!d){ document.getElementById("pitches").innerHTML=
     '<div class="empty">La page s\'affichera dès que <b>defending.json</b> sera présent à la racine du repo.<br>Ce fichier est généré par <b>build_defending.py</b> via une GitHub Action.</div>';
     document.getElementById("sub").textContent="Données indisponibles"; return; }
   boot(d);
-  fetch("goalview.json?_="+Date.now()).then(r=>r.ok?r.json():null).then(gv=>{ GV=gv; if(VIEW==="goalview") render(); }).catch(()=>{});
-  fetch("pressing.json?_="+Date.now()).then(r=>r.ok?r.json():null).then(pr=>{ PR=pr; if(VIEW==="pressing") render(); }).catch(()=>{});
+  fetch(SEASON.fichier("goalview.json")+"?_="+Date.now()).then(r=>r.ok?r.json():null).then(gv=>{ GV=gv; if(VIEW==="goalview") render(); }).catch(()=>{});
+  fetch(SEASON.fichier("pressing.json")+"?_="+Date.now()).then(r=>r.ok?r.json():null).then(pr=>{ PR=pr; if(VIEW==="pressing") render(); }).catch(()=>{});
 }).catch(()=>{ document.getElementById("sub").textContent="Données indisponibles"; });
 </script>
 </body>

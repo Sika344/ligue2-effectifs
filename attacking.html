@@ -117,6 +117,7 @@
   .toprow .vl{font-weight:700;color:var(--ui-accent)}
   .empty{font-size:12.5px;color:var(--ui-faint);padding:40px 0;text-align:center}
 </style>
+<script src="season.js"></script>
 </head>
 <body>
   <nav class="sitenav"><div class="brand">⚽ Ligue 2<span>Analyse</span></div><a href="index.html">Effectif</a><a href="effectif-sans-photos.html">Effectif sans photos</a><a href="attacking.html" class="on">Attacking</a><a href="chartindex.html">Chart index</a><a href="defending.html">Defending</a><a href="analytics.html">Analytics 360</a><a href="rapport-pre-match.html">Rapport pré-match</a><a href="sportscode.html">SportsCode XML</a></nav>
@@ -648,9 +649,9 @@ document.getElementById("png").onclick=()=>{
   });
 };
 
-fetch("shotmix.json?_="+Date.now()).then(r=>r.ok?r.json():null).then(d=>{ SMIX=d; if(CHART==="goalsxg") render(); }).catch(()=>{});
+fetch(SEASON.fichier("shotmix.json")+"?_="+Date.now()).then(r=>r.ok?r.json():null).then(d=>{ SMIX=d; if(CHART==="goalsxg") render(); }).catch(()=>{});
 buildActPills(); buildFinPills();
-fetch("finishing.json?_="+Date.now()).then(r=>r.ok?r.json():null).then(d=>{
+fetch(SEASON.fichier("finishing.json")+"?_="+Date.now()).then(r=>r.ok?r.json():null).then(d=>{
   FIN=d;
   if(d){ const sel=document.getElementById("hiSel");
     if(sel.options.length<2){
@@ -660,7 +661,7 @@ fetch("finishing.json?_="+Date.now()).then(r=>r.ok?r.json():null).then(d=>{
     } }
   if(CHART==="finishing") render();
 }).catch(()=>{});
-fetch("buildup.json?_="+Date.now()).then(r=>r.ok?r.json():null).then(d=>{
+fetch(SEASON.fichier("buildup.json")+"?_="+Date.now()).then(r=>r.ok?r.json():null).then(d=>{
   if(!d){ document.getElementById("plot").innerHTML=
     '<div class="empty">La page s\'affichera dès que <b>buildup.json</b> sera présent à la racine du repo.<br>Ce fichier est généré par <b>build_buildup.py</b> via une GitHub Action.</div>';
     document.getElementById("sub").textContent="Données indisponibles";

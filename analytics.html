@@ -175,6 +175,7 @@
     background-color:#fbfcfd;margin-right:2px}
   .topbar select.viewsel:hover{border-color:var(--ui-accent)}
 </style>
+<script src="season.js"></script>
 </head>
 <body>
     <nav class="sitenav"><div class="brand">⚽ Ligue 2<span>Analyse</span></div><a href="index.html">Effectif</a><a href="effectif-sans-photos.html">Effectif sans photos</a><a href="attacking.html">Attacking</a><a href="chartindex.html">Chart index</a><a href="defending.html">Defending</a><a href="analytics.html" class="on">Analytics 360</a><a href="rapport-pre-match.html">Rapport pré-match</a><a href="sportscode.html">SportsCode XML</a></nav>
@@ -334,7 +335,7 @@ async function loadViewer(){
 
 async function loadLeaderboards(){
   try{
-    const r=await fetch("analytics_360.json?_="+Date.now());
+    const r=await fetch(SEASON.fichier("analytics_360.json")+"?_="+Date.now());
     if(!r.ok)throw 0;
     const d=await r.json();
     document.getElementById("lbSub").textContent=
