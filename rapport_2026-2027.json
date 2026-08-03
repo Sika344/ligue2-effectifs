@@ -1,0 +1,43 @@
+{
+ "clubs": [
+  "Annecy FC",
+  "Boulogne",
+  "Clermont Foot",
+  "Dijon",
+  "Dunkerque",
+  "Grenoble",
+  "Guingamp",
+  "Laval",
+  "Metz",
+  "Montpellier",
+  "Nancy",
+  "Nantes",
+  "Pau",
+  "Red Star",
+  "Reims",
+  "Rodez",
+  "Saint-Etienne",
+  "Sochaux"
+ ],
+ "byClub": {
+  "Annecy FC": [],
+  "Boulogne": [],
+  "Clermont Foot": [],
+  "Dijon": [],
+  "Dunkerque": [],
+  "Grenoble": [],
+  "Guingamp": [],
+  "Laval": [],
+  "Metz": [],
+  "Montpellier": [],
+  "Nancy": [],
+  "Nantes": [],
+  "Pau": [],
+  "Red Star": [],
+  "Reims": [],
+  "Rodez": [],
+  "Saint-Etienne": [],
+  "Sochaux": []
+ },
+ "_note": "Saison non commencee : aucun match disponible. Les compositions apparaitront apres la 1re journee, une fois build_rapport.py relance."
+}

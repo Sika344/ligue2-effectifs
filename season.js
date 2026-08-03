@@ -67,10 +67,21 @@
        on ne le double pas, on se contente de le caler sur le choix global. */
     var propre = document.getElementById("seasonSelect");
     if (propre) {
-      try { propre.value = courante; } catch (e) {}
       propre.addEventListener("change", function () {
         try { localStorage.setItem(KEY, propre.value); } catch (e) {}
       });
+      // Changer .value ne declenche PAS l'evenement "change" : sans ce dispatch,
+      // le menu afficherait la saison choisie ailleurs sur le site alors que la
+      // page continuerait d'afficher les donnees de sa saison par defaut.
+      if (propre.value !== courante) {
+        var existe = Array.prototype.some.call(propre.options, function (o) {
+          return o.value === courante;
+        });
+        if (existe) {
+          propre.value = courante;
+          propre.dispatchEvent(new Event("change", { bubbles: true }));
+        }
+      }
       return;
     }
 
