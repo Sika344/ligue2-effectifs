@@ -39,11 +39,11 @@
   .pitch svg.lines{position:absolute;inset:0;width:100%;height:100%}
   .layer{position:absolute;inset:0}
 
-  .card{position:absolute;transform:translate(-50%,-50%);width:132px;text-align:center;z-index:2}
-  .top{position:relative;height:66px}
+  .card{position:absolute;transform:translate(-50%,-50%);width:118px;text-align:center;z-index:2}
+  .top{position:relative;height:80px}
   .idcol{position:absolute;left:2px;top:50%;transform:translateY(-50%);display:flex;flex-direction:column;align-items:center;gap:3px;z-index:2}
-  .photo-wrap{height:66px;display:flex;align-items:flex-end;justify-content:center}
-  .photo{height:66px;width:auto;max-width:110px;object-fit:contain;filter:drop-shadow(0 3px 4px rgba(0,0,0,.25))}
+  .photo-wrap{height:80px;display:flex;align-items:flex-end;justify-content:center}
+  .photo{height:80px;width:auto;max-width:108px;object-fit:contain;filter:drop-shadow(0 3px 4px rgba(0,0,0,.25))}
   .jersey{height:60px;width:48px;border-radius:8px;background:linear-gradient(180deg,#22386b,#16284f);
     display:flex;align-items:center;justify-content:center;font-weight:800;font-size:18px;color:#fff}
   .flag{font-size:13px;line-height:1}
@@ -57,7 +57,7 @@
 
   .note{max-width:1280px;margin:10px auto 30px;padding:0 16px;color:#9fb0c8;font-size:12px}
   .note code{background:#11203a;padding:2px 6px;border-radius:4px;color:#cfe}
-  @media(max-width:760px){ .card{width:112px} .photo,.photo-wrap{height:54px} .name{font-size:10px} .bio{font-size:8px} .stats .v{font-size:10px} }
+  @media(max-width:760px){ .card{width:112px} .photo,.photo-wrap,.top{height:65px} .name{font-size:10px} .bio{font-size:8px} .stats .v{font-size:10px} }
   .gleft{position:absolute;top:0;right:36px;color:#e11d2a;font-weight:800;font-size:13px;z-index:3;text-shadow:0 1px 2px rgba(255,255,255,.6)}
 
     /* ================= INTERFACE ================= */
@@ -269,17 +269,17 @@ function placements(list){
   // tri par numéro dans chaque bucket
   Object.values(B).forEach(a=>a.sort((x,y)=>(x.num||999)-(y.num||999)));
   const out=[];
-  const H=(arr,y,cx,maxW)=>{const n=arr.length; if(!n)return; const w=Math.min(maxW,n*10);
+  const H=(arr,y,cx,maxW)=>{const n=arr.length; if(!n)return; const w=Math.min(maxW,n*13);
     arr.forEach((p,i)=>{const x=n===1?cx:cx-w/2+w*(i+0.5)/n; out.push({p,x,y});});};
   const V=(arr,x,yc,sp)=>{const n=arr.length; if(!n)return;
     arr.forEach((p,i)=>{const y=yc-(n-1)*sp/2+i*sp; out.push({p,x,y});});};
-  H(B.GK,12,50,34);
-  H(B.DC,27,50,40);
-  V(B.DL,88,42,11); V(B.DR,12,42,11);
-  H(B.DM,48,50,22);
-  H(B.MC,64,50,58);
-  V(B.ML,91,70,11); V(B.MR,9,70,11);
-  H(B.AT,85,50,46);
+  H(B.GK,12,50,52);
+  H(B.DC,27,50,82);
+  V(B.DL,88,42,15); V(B.DR,12,42,15);
+  H(B.DM,48,50,52);
+  H(B.MC,64,50,82);
+  V(B.ML,91,70,15); V(B.MR,9,70,15);
+  H(B.AT,85,50,70);
   return out;
 }
 
