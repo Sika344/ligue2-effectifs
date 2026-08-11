@@ -1,0 +1,193 @@
+{
+ "couleurs": {
+  "Saint-Étienne": {
+   "short": "SAIN",
+   "color": "#0a7d3b"
+  },
+  "Amiens": {
+   "short": "AMIE",
+   "color": "#16181d"
+  },
+  "Red Star FC": {
+   "short": "RED ",
+   "color": "#1b6b3a"
+  },
+  "Montpellier": {
+   "short": "MONT",
+   "color": "#ee6a4d"
+  },
+  "Rodez": {
+   "short": "RODE",
+   "color": "#7a1722"
+  },
+  "Pau": {
+   "short": "PAU",
+   "color": "#1f6fb2"
+  },
+  "Guingamp": {
+   "short": "GUIN",
+   "color": "#a3122a"
+  },
+  "Bastia": {
+   "short": "BAST",
+   "color": "#2a6fdb"
+  },
+  "Clermont Foot": {
+   "short": "CLER",
+   "color": "#b21f2c"
+  },
+  "Le Mans": {
+   "short": "LE M",
+   "color": "#d11f2d"
+  },
+  "Nancy": {
+   "short": "NANC",
+   "color": "#8e1430"
+  },
+  "Dunkerque": {
+   "short": "DUNK",
+   "color": "#e23744"
+  },
+  "Grenoble Foot": {
+   "short": "GREN",
+   "color": "#1f3b7a"
+  },
+  "US Boulogne": {
+   "short": "US B",
+   "color": "#b3122a"
+  },
+  "Stade Lavallois": {
+   "short": "STAD",
+   "color": "#ef7d1a"
+  },
+  "FC Annecy": {
+   "short": "FC A",
+   "color": "#d8232a"
+  },
+  "Troyes": {
+   "short": "TROY",
+   "color": "#2350a0"
+  },
+  "Stade de Reims": {
+   "short": "STAD",
+   "color": "#c8102e"
+  }
+ },
+ "postes": {
+  "GK": {
+   "x": 0.1,
+   "y": 0.52,
+   "role": "Goalkeeper"
+  },
+  "RB": {
+   "x": 0.34,
+   "y": 0.86,
+   "role": "Right Back"
+  },
+  "RCB": {
+   "x": 0.32,
+   "y": 0.67,
+   "role": "Right Center Back"
+  },
+  "LCB": {
+   "x": 0.32,
+   "y": 0.37,
+   "role": "Left Center Back"
+  },
+  "LB": {
+   "x": 0.34,
+   "y": 0.18,
+   "role": "Left Back"
+  },
+  "RDM": {
+   "x": 0.5,
+   "y": 0.66,
+   "role": "Right Defensive Midfield"
+  },
+  "LDM": {
+   "x": 0.5,
+   "y": 0.38,
+   "role": "Left Defensive Midfield"
+  },
+  "RW": {
+   "x": 0.86,
+   "y": 0.88,
+   "role": "Right Wing"
+  },
+  "CAM": {
+   "x": 0.76,
+   "y": 0.52,
+   "role": "Center Attacking Midfield"
+  },
+  "LW": {
+   "x": 0.86,
+   "y": 0.16,
+   "role": "Left Wing"
+  },
+  "CF": {
+   "x": 0.92,
+   "y": 0.52,
+   "role": "Center Forward"
+  },
+  "CB": {
+   "x": 0.32,
+   "y": 0.52,
+   "role": "Center Back"
+  },
+  "RWB": {
+   "x": 0.4,
+   "y": 0.9,
+   "role": "Right Wing Back"
+  },
+  "LWB": {
+   "x": 0.4,
+   "y": 0.14,
+   "role": "Left Wing Back"
+  },
+  "RCF": {
+   "x": 0.9,
+   "y": 0.62,
+   "role": "Right Center Forward"
+  },
+  "LCF": {
+   "x": 0.9,
+   "y": 0.42,
+   "role": "Left Center Forward"
+  },
+  "CDM": {
+   "x": 0.5,
+   "y": 0.52,
+   "role": "Center Defensive Midfield"
+  },
+  "RCM": {
+   "x": 0.62,
+   "y": 0.66,
+   "role": "Right Center Midfield"
+  },
+  "LCM": {
+   "x": 0.62,
+   "y": 0.38,
+   "role": "Left Center Midfield"
+  },
+  "RM": {
+   "x": 0.66,
+   "y": 0.88,
+   "role": "Right Midfield"
+  },
+  "LM": {
+   "x": 0.66,
+   "y": 0.16,
+   "role": "Left Midfield"
+  },
+  "RAM": {
+   "x": 0.74,
+   "y": 0.66,
+   "role": "Right Attacking Midfield"
+  },
+  "LAM": {
+   "x": 0.74,
+   "y": 0.38,
+   "role": "Left Attacking Midfield"
+  }
+ }
+}
