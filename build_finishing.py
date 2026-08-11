@@ -56,7 +56,9 @@ from statsbombpy import sb
 
 COMPETITION_ID = 8
 CURRENT_SEASON = "2025-2026"
-SEASON_IDS = {"2025-2026": 318}
+SEASON_IDS = {"2025-2026": 318,
+    "2026-2027": 351,   # 1re journee jouee le 08/08/2026
+}
 
 SHOOTOUT_PERIOD = 5
 try:

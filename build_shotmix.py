@@ -78,6 +78,7 @@ COMPETITION_ID = 8              # Ligue 2
 CURRENT_SEASON = "2025-2026"    # saison courante -> sortie NON suffixée
 SEASON_IDS = {
     "2025-2026": 318,
+    "2026-2027": 351,   # 1re journee jouee le 08/08/2026
 }
 
 SHOOTOUT_PERIOD = 5
