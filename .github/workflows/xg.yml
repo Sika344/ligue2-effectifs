@@ -51,7 +51,21 @@ jobs:
             git config user.email "github-actions[bot]@users.noreply.github.com"
             git add xg*.json
             git commit -m "chore: maj xg.json (xG par 15 min)"
-            git push
+
+            # Douze workflows peuvent pousser en meme temps : un push nu se fait
+            # rejeter en "fetch first". On rebase et on retente, comme les autres.
+            pushed=0
+            for i in 1 2 3 4 5; do
+              if git push; then
+                echo "push OK (tentative $i)"
+                pushed=1
+                break
+              fi
+              echo "push rejete (tentative $i) — rebase puis nouvelle tentative…"
+              git pull --rebase --autostash origin main || true
+              sleep $((RANDOM % 5 + 2))
+            done
+            [ "$pushed" = 1 ] || { echo "echec du push apres 5 tentatives"; exit 1; }
           else
             echo "xg.json inchangé."
           fi
