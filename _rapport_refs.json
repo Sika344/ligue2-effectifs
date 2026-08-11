@@ -71,6 +71,22 @@
   "Stade de Reims": {
    "short": "STAD",
    "color": "#c8102e"
+  },
+  "Dijon": {
+   "short": "DIJ",
+   "color": "#ff0000"
+  },
+  "Metz": {
+   "short": "MET",
+   "color": "#730f14"
+  },
+  "Nantes": {
+   "short": "NAN",
+   "color": "#ffdc00"
+  },
+  "Sochaux": {
+   "short": "SOC",
+   "color": "#ffcf21"
   }
  },
  "postes": {
