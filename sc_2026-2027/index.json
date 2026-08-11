@@ -1,0 +1,2456 @@
+{
+ "competition": "Ligue 2",
+ "season": "2026-2027",
+ "season_id": 351,
+ "updated": "2026-08-11T08:23:56Z",
+ "matches": [
+  {
+   "match_id": 4063892,
+   "date": "2026-08-08",
+   "round": 1,
+   "home": "Clermont Foot",
+   "away": "Stade de Reims",
+   "score": "0-0"
+  },
+  {
+   "match_id": 4063893,
+   "date": "2026-08-08",
+   "round": 1,
+   "home": "Dunkerque",
+   "away": "Grenoble Foot",
+   "score": "4-2"
+  },
+  {
+   "match_id": 4063899,
+   "date": "2026-08-08",
+   "round": 1,
+   "home": "Metz",
+   "away": "Guingamp",
+   "score": "2-1"
+  },
+  {
+   "match_id": 4063894,
+   "date": "2026-08-08",
+   "round": 1,
+   "home": "Montpellier",
+   "away": "Dijon",
+   "score": "1-1"
+  },
+  {
+   "match_id": 4063895,
+   "date": "2026-08-08",
+   "round": 1,
+   "home": "Nantes",
+   "away": "Red Star FC",
+   "score": "0-1"
+  },
+  {
+   "match_id": 4063896,
+   "date": "2026-08-08",
+   "round": 1,
+   "home": "Pau",
+   "away": "FC Annecy",
+   "score": "0-1"
+  },
+  {
+   "match_id": 4063897,
+   "date": "2026-08-08",
+   "round": 1,
+   "home": "Rodez",
+   "away": "Stade Lavallois",
+   "score": "3-1"
+  },
+  {
+   "match_id": 4063898,
+   "date": "2026-08-08",
+   "round": 1,
+   "home": "Sochaux",
+   "away": "Saint-Étienne",
+   "score": "0-3"
+  },
+  {
+   "match_id": 4063900,
+   "date": "2026-08-08",
+   "round": 1,
+   "home": "US Boulogne",
+   "away": "Nancy",
+   "score": "0-0"
+  },
+  {
+   "match_id": 4063907,
+   "date": "2026-08-14",
+   "round": 2,
+   "home": "Dijon",
+   "away": "Pau",
+   "score": ""
+  },
+  {
+   "match_id": 4063908,
+   "date": "2026-08-14",
+   "round": 2,
+   "home": "FC Annecy",
+   "away": "Rodez",
+   "score": ""
+  },
+  {
+   "match_id": 4063901,
+   "date": "2026-08-14",
+   "round": 2,
+   "home": "Grenoble Foot",
+   "away": "Metz",
+   "score": ""
+  },
+  {
+   "match_id": 4063906,
+   "date": "2026-08-14",
+   "round": 2,
+   "home": "Guingamp",
+   "away": "US Boulogne",
+   "score": ""
+  },
+  {
+   "match_id": 4063902,
+   "date": "2026-08-14",
+   "round": 2,
+   "home": "Nancy",
+   "away": "Montpellier",
+   "score": ""
+  },
+  {
+   "match_id": 4063903,
+   "date": "2026-08-14",
+   "round": 2,
+   "home": "Red Star FC",
+   "away": "Sochaux",
+   "score": ""
+  },
+  {
+   "match_id": 4063905,
+   "date": "2026-08-14",
+   "round": 2,
+   "home": "Saint-Étienne",
+   "away": "Clermont Foot",
+   "score": ""
+  },
+  {
+   "match_id": 4063909,
+   "date": "2026-08-14",
+   "round": 2,
+   "home": "Stade Lavallois",
+   "away": "Nantes",
+   "score": ""
+  },
+  {
+   "match_id": 4063904,
+   "date": "2026-08-14",
+   "round": 2,
+   "home": "Stade de Reims",
+   "away": "Dunkerque",
+   "score": ""
+  },
+  {
+   "match_id": 4063916,
+   "date": "2026-08-21",
+   "round": 3,
+   "home": "Clermont Foot",
+   "away": "Dijon",
+   "score": ""
+  },
+  {
+   "match_id": 4063917,
+   "date": "2026-08-21",
+   "round": 3,
+   "home": "Dunkerque",
+   "away": "Montpellier",
+   "score": ""
+  },
+  {
+   "match_id": 4063911,
+   "date": "2026-08-21",
+   "round": 3,
+   "home": "Pau",
+   "away": "Nancy",
+   "score": ""
+  },
+  {
+   "match_id": 4063912,
+   "date": "2026-08-21",
+   "round": 3,
+   "home": "Sochaux",
+   "away": "Guingamp",
+   "score": ""
+  },
+  {
+   "match_id": 4063915,
+   "date": "2026-08-21",
+   "round": 3,
+   "home": "US Boulogne",
+   "away": "Red Star FC",
+   "score": ""
+  },
+  {
+   "match_id": 4063910,
+   "date": "2026-08-22",
+   "round": 3,
+   "home": "Metz",
+   "away": "Stade Lavallois",
+   "score": ""
+  },
+  {
+   "match_id": 4063918,
+   "date": "2026-08-22",
+   "round": 3,
+   "home": "Nantes",
+   "away": "Rodez",
+   "score": ""
+  },
+  {
+   "match_id": 4063913,
+   "date": "2026-08-22",
+   "round": 3,
+   "home": "Saint-Étienne",
+   "away": "Grenoble Foot",
+   "score": ""
+  },
+  {
+   "match_id": 4063914,
+   "date": "2026-08-24",
+   "round": 3,
+   "home": "Stade de Reims",
+   "away": "FC Annecy",
+   "score": ""
+  },
+  {
+   "match_id": 4063919,
+   "date": "2026-08-28",
+   "round": 4,
+   "home": "Clermont Foot",
+   "away": "Sochaux",
+   "score": ""
+  },
+  {
+   "match_id": 4063925,
+   "date": "2026-08-28",
+   "round": 4,
+   "home": "Montpellier",
+   "away": "US Boulogne",
+   "score": ""
+  },
+  {
+   "match_id": 4063926,
+   "date": "2026-08-28",
+   "round": 4,
+   "home": "Nancy",
+   "away": "Dunkerque",
+   "score": ""
+  },
+  {
+   "match_id": 4063927,
+   "date": "2026-08-28",
+   "round": 4,
+   "home": "Rodez",
+   "away": "Pau",
+   "score": ""
+  },
+  {
+   "match_id": 4063924,
+   "date": "2026-08-28",
+   "round": 4,
+   "home": "Stade Lavallois",
+   "away": "Grenoble Foot",
+   "score": ""
+  },
+  {
+   "match_id": 4063921,
+   "date": "2026-08-29",
+   "round": 4,
+   "home": "FC Annecy",
+   "away": "Metz",
+   "score": ""
+  },
+  {
+   "match_id": 4063923,
+   "date": "2026-08-29",
+   "round": 4,
+   "home": "Guingamp",
+   "away": "Nantes",
+   "score": ""
+  },
+  {
+   "match_id": 4063920,
+   "date": "2026-08-29",
+   "round": 4,
+   "home": "Red Star FC",
+   "away": "Stade de Reims",
+   "score": ""
+  },
+  {
+   "match_id": 4063922,
+   "date": "2026-08-31",
+   "round": 4,
+   "home": "Dijon",
+   "away": "Saint-Étienne",
+   "score": ""
+  },
+  {
+   "match_id": 4063930,
+   "date": "2026-09-04",
+   "round": 5,
+   "home": "Dunkerque",
+   "away": "Clermont Foot",
+   "score": ""
+  },
+  {
+   "match_id": 4063931,
+   "date": "2026-09-04",
+   "round": 5,
+   "home": "Grenoble Foot",
+   "away": "FC Annecy",
+   "score": ""
+  },
+  {
+   "match_id": 4063934,
+   "date": "2026-09-04",
+   "round": 5,
+   "home": "Pau",
+   "away": "Sochaux",
+   "score": ""
+  },
+  {
+   "match_id": 4063932,
+   "date": "2026-09-04",
+   "round": 5,
+   "home": "Stade Lavallois",
+   "away": "Red Star FC",
+   "score": ""
+  },
+  {
+   "match_id": 4063929,
+   "date": "2026-09-04",
+   "round": 5,
+   "home": "US Boulogne",
+   "away": "Dijon",
+   "score": ""
+  },
+  {
+   "match_id": 4063933,
+   "date": "2026-09-05",
+   "round": 5,
+   "home": "Metz",
+   "away": "Rodez",
+   "score": ""
+  },
+  {
+   "match_id": 4063936,
+   "date": "2026-09-05",
+   "round": 5,
+   "home": "Saint-Étienne",
+   "away": "Montpellier",
+   "score": ""
+  },
+  {
+   "match_id": 4063935,
+   "date": "2026-09-05",
+   "round": 5,
+   "home": "Stade de Reims",
+   "away": "Guingamp",
+   "score": ""
+  },
+  {
+   "match_id": 4063928,
+   "date": "2026-09-07",
+   "round": 5,
+   "home": "Nantes",
+   "away": "Nancy",
+   "score": ""
+  },
+  {
+   "match_id": 4063938,
+   "date": "2026-09-11",
+   "round": 6,
+   "home": "Clermont Foot",
+   "away": "US Boulogne",
+   "score": ""
+  },
+  {
+   "match_id": 4063940,
+   "date": "2026-09-11",
+   "round": 6,
+   "home": "Dijon",
+   "away": "Stade Lavallois",
+   "score": ""
+  },
+  {
+   "match_id": 4063944,
+   "date": "2026-09-11",
+   "round": 6,
+   "home": "Montpellier",
+   "away": "Pau",
+   "score": ""
+  },
+  {
+   "match_id": 4063943,
+   "date": "2026-09-11",
+   "round": 6,
+   "home": "Nancy",
+   "away": "Stade de Reims",
+   "score": ""
+  },
+  {
+   "match_id": 4063941,
+   "date": "2026-09-11",
+   "round": 6,
+   "home": "Red Star FC",
+   "away": "Metz",
+   "score": ""
+  },
+  {
+   "match_id": 4063942,
+   "date": "2026-09-11",
+   "round": 6,
+   "home": "Rodez",
+   "away": "Grenoble Foot",
+   "score": ""
+  },
+  {
+   "match_id": 4063945,
+   "date": "2026-09-12",
+   "round": 6,
+   "home": "Dunkerque",
+   "away": "Saint-Étienne",
+   "score": ""
+  },
+  {
+   "match_id": 4063937,
+   "date": "2026-09-12",
+   "round": 6,
+   "home": "Guingamp",
+   "away": "FC Annecy",
+   "score": ""
+  },
+  {
+   "match_id": 4063939,
+   "date": "2026-09-12",
+   "round": 6,
+   "home": "Sochaux",
+   "away": "Nantes",
+   "score": ""
+  },
+  {
+   "match_id": 4063948,
+   "date": "2026-09-18",
+   "round": 7,
+   "home": "FC Annecy",
+   "away": "Dijon",
+   "score": ""
+  },
+  {
+   "match_id": 4063952,
+   "date": "2026-09-18",
+   "round": 7,
+   "home": "Grenoble Foot",
+   "away": "Clermont Foot",
+   "score": ""
+  },
+  {
+   "match_id": 4063950,
+   "date": "2026-09-18",
+   "round": 7,
+   "home": "Pau",
+   "away": "Dunkerque",
+   "score": ""
+  },
+  {
+   "match_id": 4063947,
+   "date": "2026-09-18",
+   "round": 7,
+   "home": "Rodez",
+   "away": "Nancy",
+   "score": ""
+  },
+  {
+   "match_id": 4063953,
+   "date": "2026-09-18",
+   "round": 7,
+   "home": "Stade Lavallois",
+   "away": "Sochaux",
+   "score": ""
+  },
+  {
+   "match_id": 4063954,
+   "date": "2026-09-18",
+   "round": 7,
+   "home": "Stade de Reims",
+   "away": "Montpellier",
+   "score": ""
+  },
+  {
+   "match_id": 4063949,
+   "date": "2026-09-19",
+   "round": 7,
+   "home": "Guingamp",
+   "away": "Red Star FC",
+   "score": ""
+  },
+  {
+   "match_id": 4063946,
+   "date": "2026-09-19",
+   "round": 7,
+   "home": "Metz",
+   "away": "Saint-Étienne",
+   "score": ""
+  },
+  {
+   "match_id": 4063951,
+   "date": "2026-09-19",
+   "round": 7,
+   "home": "US Boulogne",
+   "away": "Nantes",
+   "score": ""
+  },
+  {
+   "match_id": 4063956,
+   "date": "2026-10-09",
+   "round": 8,
+   "home": "Clermont Foot",
+   "away": "Red Star FC",
+   "score": ""
+  },
+  {
+   "match_id": 4063963,
+   "date": "2026-10-09",
+   "round": 8,
+   "home": "Dijon",
+   "away": "Metz",
+   "score": ""
+  },
+  {
+   "match_id": 4063962,
+   "date": "2026-10-09",
+   "round": 8,
+   "home": "Dunkerque",
+   "away": "FC Annecy",
+   "score": ""
+  },
+  {
+   "match_id": 4063955,
+   "date": "2026-10-09",
+   "round": 8,
+   "home": "Montpellier",
+   "away": "Grenoble Foot",
+   "score": ""
+  },
+  {
+   "match_id": 4063957,
+   "date": "2026-10-09",
+   "round": 8,
+   "home": "Nancy",
+   "away": "Guingamp",
+   "score": ""
+  },
+  {
+   "match_id": 4063961,
+   "date": "2026-10-09",
+   "round": 8,
+   "home": "Nantes",
+   "away": "Stade de Reims",
+   "score": ""
+  },
+  {
+   "match_id": 4063958,
+   "date": "2026-10-09",
+   "round": 8,
+   "home": "Pau",
+   "away": "Stade Lavallois",
+   "score": ""
+  },
+  {
+   "match_id": 4063959,
+   "date": "2026-10-09",
+   "round": 8,
+   "home": "Saint-Étienne",
+   "away": "Rodez",
+   "score": ""
+  },
+  {
+   "match_id": 4063960,
+   "date": "2026-10-09",
+   "round": 8,
+   "home": "Sochaux",
+   "away": "US Boulogne",
+   "score": ""
+  },
+  {
+   "match_id": 4063964,
+   "date": "2026-10-16",
+   "round": 9,
+   "home": "FC Annecy",
+   "away": "Nancy",
+   "score": ""
+  },
+  {
+   "match_id": 4063972,
+   "date": "2026-10-16",
+   "round": 9,
+   "home": "Grenoble Foot",
+   "away": "US Boulogne",
+   "score": ""
+  },
+  {
+   "match_id": 4063971,
+   "date": "2026-10-16",
+   "round": 9,
+   "home": "Guingamp",
+   "away": "Pau",
+   "score": ""
+  },
+  {
+   "match_id": 4063969,
+   "date": "2026-10-16",
+   "round": 9,
+   "home": "Metz",
+   "away": "Sochaux",
+   "score": ""
+  },
+  {
+   "match_id": 4063968,
+   "date": "2026-10-16",
+   "round": 9,
+   "home": "Nantes",
+   "away": "Dunkerque",
+   "score": ""
+  },
+  {
+   "match_id": 4063967,
+   "date": "2026-10-16",
+   "round": 9,
+   "home": "Red Star FC",
+   "away": "Saint-Étienne",
+   "score": ""
+  },
+  {
+   "match_id": 4063965,
+   "date": "2026-10-16",
+   "round": 9,
+   "home": "Rodez",
+   "away": "Montpellier",
+   "score": ""
+  },
+  {
+   "match_id": 4063970,
+   "date": "2026-10-16",
+   "round": 9,
+   "home": "Stade Lavallois",
+   "away": "Clermont Foot",
+   "score": ""
+  },
+  {
+   "match_id": 4063966,
+   "date": "2026-10-16",
+   "round": 9,
+   "home": "Stade de Reims",
+   "away": "Dijon",
+   "score": ""
+  },
+  {
+   "match_id": 4063977,
+   "date": "2026-10-23",
+   "round": 10,
+   "home": "Clermont Foot",
+   "away": "Guingamp",
+   "score": ""
+  },
+  {
+   "match_id": 4063973,
+   "date": "2026-10-23",
+   "round": 10,
+   "home": "Dijon",
+   "away": "Rodez",
+   "score": ""
+  },
+  {
+   "match_id": 4063981,
+   "date": "2026-10-23",
+   "round": 10,
+   "home": "Dunkerque",
+   "away": "Metz",
+   "score": ""
+  },
+  {
+   "match_id": 4063980,
+   "date": "2026-10-23",
+   "round": 10,
+   "home": "Montpellier",
+   "away": "Red Star FC",
+   "score": ""
+  },
+  {
+   "match_id": 4063976,
+   "date": "2026-10-23",
+   "round": 10,
+   "home": "Nancy",
+   "away": "Stade Lavallois",
+   "score": ""
+  },
+  {
+   "match_id": 4063979,
+   "date": "2026-10-23",
+   "round": 10,
+   "home": "Pau",
+   "away": "Grenoble Foot",
+   "score": ""
+  },
+  {
+   "match_id": 4063974,
+   "date": "2026-10-23",
+   "round": 10,
+   "home": "Saint-Étienne",
+   "away": "Nantes",
+   "score": ""
+  },
+  {
+   "match_id": 4063975,
+   "date": "2026-10-23",
+   "round": 10,
+   "home": "Sochaux",
+   "away": "FC Annecy",
+   "score": ""
+  },
+  {
+   "match_id": 4063978,
+   "date": "2026-10-23",
+   "round": 10,
+   "home": "US Boulogne",
+   "away": "Stade de Reims",
+   "score": ""
+  },
+  {
+   "match_id": 4063986,
+   "date": "2026-10-30",
+   "round": 11,
+   "home": "FC Annecy",
+   "away": "Montpellier",
+   "score": ""
+  },
+  {
+   "match_id": 4063985,
+   "date": "2026-10-30",
+   "round": 11,
+   "home": "Grenoble Foot",
+   "away": "Dijon",
+   "score": ""
+  },
+  {
+   "match_id": 4063984,
+   "date": "2026-10-30",
+   "round": 11,
+   "home": "Guingamp",
+   "away": "Saint-Étienne",
+   "score": ""
+  },
+  {
+   "match_id": 4063987,
+   "date": "2026-10-30",
+   "round": 11,
+   "home": "Metz",
+   "away": "Pau",
+   "score": ""
+  },
+  {
+   "match_id": 4063990,
+   "date": "2026-10-30",
+   "round": 11,
+   "home": "Nantes",
+   "away": "Clermont Foot",
+   "score": ""
+  },
+  {
+   "match_id": 4063982,
+   "date": "2026-10-30",
+   "round": 11,
+   "home": "Red Star FC",
+   "away": "Nancy",
+   "score": ""
+  },
+  {
+   "match_id": 4063988,
+   "date": "2026-10-30",
+   "round": 11,
+   "home": "Rodez",
+   "away": "Dunkerque",
+   "score": ""
+  },
+  {
+   "match_id": 4063983,
+   "date": "2026-10-30",
+   "round": 11,
+   "home": "Stade Lavallois",
+   "away": "US Boulogne",
+   "score": ""
+  },
+  {
+   "match_id": 4063989,
+   "date": "2026-10-30",
+   "round": 11,
+   "home": "Stade de Reims",
+   "away": "Sochaux",
+   "score": ""
+  },
+  {
+   "match_id": 4063991,
+   "date": "2026-11-06",
+   "round": 12,
+   "home": "Clermont Foot",
+   "away": "Rodez",
+   "score": ""
+  },
+  {
+   "match_id": 4063993,
+   "date": "2026-11-06",
+   "round": 12,
+   "home": "Dijon",
+   "away": "Red Star FC",
+   "score": ""
+  },
+  {
+   "match_id": 4063999,
+   "date": "2026-11-06",
+   "round": 12,
+   "home": "Dunkerque",
+   "away": "Guingamp",
+   "score": ""
+  },
+  {
+   "match_id": 4063992,
+   "date": "2026-11-06",
+   "round": 12,
+   "home": "Grenoble Foot",
+   "away": "Stade de Reims",
+   "score": ""
+  },
+  {
+   "match_id": 4063996,
+   "date": "2026-11-06",
+   "round": 12,
+   "home": "Montpellier",
+   "away": "Metz",
+   "score": ""
+  },
+  {
+   "match_id": 4063995,
+   "date": "2026-11-06",
+   "round": 12,
+   "home": "Nancy",
+   "away": "Sochaux",
+   "score": ""
+  },
+  {
+   "match_id": 4063997,
+   "date": "2026-11-06",
+   "round": 12,
+   "home": "Pau",
+   "away": "Nantes",
+   "score": ""
+  },
+  {
+   "match_id": 4063998,
+   "date": "2026-11-06",
+   "round": 12,
+   "home": "Saint-Étienne",
+   "away": "Stade Lavallois",
+   "score": ""
+  },
+  {
+   "match_id": 4063994,
+   "date": "2026-11-06",
+   "round": 12,
+   "home": "US Boulogne",
+   "away": "FC Annecy",
+   "score": ""
+  },
+  {
+   "match_id": 4064003,
+   "date": "2026-11-20",
+   "round": 13,
+   "home": "FC Annecy",
+   "away": "Clermont Foot",
+   "score": ""
+  },
+  {
+   "match_id": 4064004,
+   "date": "2026-11-20",
+   "round": 13,
+   "home": "Guingamp",
+   "away": "Rodez",
+   "score": ""
+  },
+  {
+   "match_id": 4064001,
+   "date": "2026-11-20",
+   "round": 13,
+   "home": "Metz",
+   "away": "US Boulogne",
+   "score": ""
+  },
+  {
+   "match_id": 4064002,
+   "date": "2026-11-20",
+   "round": 13,
+   "home": "Nancy",
+   "away": "Dijon",
+   "score": ""
+  },
+  {
+   "match_id": 4064000,
+   "date": "2026-11-20",
+   "round": 13,
+   "home": "Nantes",
+   "away": "Grenoble Foot",
+   "score": ""
+  },
+  {
+   "match_id": 4064006,
+   "date": "2026-11-20",
+   "round": 13,
+   "home": "Red Star FC",
+   "away": "Pau",
+   "score": ""
+  },
+  {
+   "match_id": 4064008,
+   "date": "2026-11-20",
+   "round": 13,
+   "home": "Sochaux",
+   "away": "Dunkerque",
+   "score": ""
+  },
+  {
+   "match_id": 4064005,
+   "date": "2026-11-20",
+   "round": 13,
+   "home": "Stade Lavallois",
+   "away": "Montpellier",
+   "score": ""
+  },
+  {
+   "match_id": 4064007,
+   "date": "2026-11-20",
+   "round": 13,
+   "home": "Stade de Reims",
+   "away": "Saint-Étienne",
+   "score": ""
+  },
+  {
+   "match_id": 4064015,
+   "date": "2026-12-04",
+   "round": 14,
+   "home": "Clermont Foot",
+   "away": "Metz",
+   "score": ""
+  },
+  {
+   "match_id": 4064009,
+   "date": "2026-12-04",
+   "round": 14,
+   "home": "Dijon",
+   "away": "Sochaux",
+   "score": ""
+  },
+  {
+   "match_id": 4064016,
+   "date": "2026-12-04",
+   "round": 14,
+   "home": "Dunkerque",
+   "away": "Red Star FC",
+   "score": ""
+  },
+  {
+   "match_id": 4064013,
+   "date": "2026-12-04",
+   "round": 14,
+   "home": "FC Annecy",
+   "away": "Stade Lavallois",
+   "score": ""
+  },
+  {
+   "match_id": 4064017,
+   "date": "2026-12-04",
+   "round": 14,
+   "home": "Grenoble Foot",
+   "away": "Guingamp",
+   "score": ""
+  },
+  {
+   "match_id": 4064010,
+   "date": "2026-12-04",
+   "round": 14,
+   "home": "Montpellier",
+   "away": "Nantes",
+   "score": ""
+  },
+  {
+   "match_id": 4064012,
+   "date": "2026-12-04",
+   "round": 14,
+   "home": "Rodez",
+   "away": "Stade de Reims",
+   "score": ""
+  },
+  {
+   "match_id": 4064011,
+   "date": "2026-12-04",
+   "round": 14,
+   "home": "Saint-Étienne",
+   "away": "Nancy",
+   "score": ""
+  },
+  {
+   "match_id": 4064014,
+   "date": "2026-12-04",
+   "round": 14,
+   "home": "US Boulogne",
+   "away": "Pau",
+   "score": ""
+  },
+  {
+   "match_id": 4064025,
+   "date": "2026-12-11",
+   "round": 15,
+   "home": "Guingamp",
+   "away": "Dijon",
+   "score": ""
+  },
+  {
+   "match_id": 4064023,
+   "date": "2026-12-11",
+   "round": 15,
+   "home": "Metz",
+   "away": "Stade de Reims",
+   "score": ""
+  },
+  {
+   "match_id": 4064018,
+   "date": "2026-12-11",
+   "round": 15,
+   "home": "Nancy",
+   "away": "Clermont Foot",
+   "score": ""
+  },
+  {
+   "match_id": 4064022,
+   "date": "2026-12-11",
+   "round": 15,
+   "home": "Nantes",
+   "away": "FC Annecy",
+   "score": ""
+  },
+  {
+   "match_id": 4064021,
+   "date": "2026-12-11",
+   "round": 15,
+   "home": "Pau",
+   "away": "Saint-Étienne",
+   "score": ""
+  },
+  {
+   "match_id": 4064020,
+   "date": "2026-12-11",
+   "round": 15,
+   "home": "Red Star FC",
+   "away": "Grenoble Foot",
+   "score": ""
+  },
+  {
+   "match_id": 4064019,
+   "date": "2026-12-11",
+   "round": 15,
+   "home": "Sochaux",
+   "away": "Montpellier",
+   "score": ""
+  },
+  {
+   "match_id": 4064024,
+   "date": "2026-12-11",
+   "round": 15,
+   "home": "Stade Lavallois",
+   "away": "Dunkerque",
+   "score": ""
+  },
+  {
+   "match_id": 4064026,
+   "date": "2026-12-11",
+   "round": 15,
+   "home": "US Boulogne",
+   "away": "Rodez",
+   "score": ""
+  },
+  {
+   "match_id": 4064032,
+   "date": "2027-01-02",
+   "round": 16,
+   "home": "Clermont Foot",
+   "away": "Pau",
+   "score": ""
+  },
+  {
+   "match_id": 4064031,
+   "date": "2027-01-02",
+   "round": 16,
+   "home": "Dijon",
+   "away": "Nantes",
+   "score": ""
+  },
+  {
+   "match_id": 4064030,
+   "date": "2027-01-02",
+   "round": 16,
+   "home": "Dunkerque",
+   "away": "US Boulogne",
+   "score": ""
+  },
+  {
+   "match_id": 4064033,
+   "date": "2027-01-02",
+   "round": 16,
+   "home": "FC Annecy",
+   "away": "Saint-Étienne",
+   "score": ""
+  },
+  {
+   "match_id": 4064034,
+   "date": "2027-01-02",
+   "round": 16,
+   "home": "Grenoble Foot",
+   "away": "Sochaux",
+   "score": ""
+  },
+  {
+   "match_id": 4064027,
+   "date": "2027-01-02",
+   "round": 16,
+   "home": "Metz",
+   "away": "Nancy",
+   "score": ""
+  },
+  {
+   "match_id": 4064028,
+   "date": "2027-01-02",
+   "round": 16,
+   "home": "Montpellier",
+   "away": "Guingamp",
+   "score": ""
+  },
+  {
+   "match_id": 4064035,
+   "date": "2027-01-02",
+   "round": 16,
+   "home": "Rodez",
+   "away": "Red Star FC",
+   "score": ""
+  },
+  {
+   "match_id": 4064029,
+   "date": "2027-01-02",
+   "round": 16,
+   "home": "Stade de Reims",
+   "away": "Stade Lavallois",
+   "score": ""
+  },
+  {
+   "match_id": 4064036,
+   "date": "2027-01-15",
+   "round": 17,
+   "home": "Dijon",
+   "away": "Dunkerque",
+   "score": ""
+  },
+  {
+   "match_id": 4064043,
+   "date": "2027-01-15",
+   "round": 17,
+   "home": "Montpellier",
+   "away": "Clermont Foot",
+   "score": ""
+  },
+  {
+   "match_id": 4064038,
+   "date": "2027-01-15",
+   "round": 17,
+   "home": "Nancy",
+   "away": "Grenoble Foot",
+   "score": ""
+  },
+  {
+   "match_id": 4064037,
+   "date": "2027-01-15",
+   "round": 17,
+   "home": "Nantes",
+   "away": "Metz",
+   "score": ""
+  },
+  {
+   "match_id": 4064041,
+   "date": "2027-01-15",
+   "round": 17,
+   "home": "Pau",
+   "away": "Stade de Reims",
+   "score": ""
+  },
+  {
+   "match_id": 4064044,
+   "date": "2027-01-15",
+   "round": 17,
+   "home": "Red Star FC",
+   "away": "FC Annecy",
+   "score": ""
+  },
+  {
+   "match_id": 4064040,
+   "date": "2027-01-15",
+   "round": 17,
+   "home": "Saint-Étienne",
+   "away": "US Boulogne",
+   "score": ""
+  },
+  {
+   "match_id": 4064042,
+   "date": "2027-01-15",
+   "round": 17,
+   "home": "Sochaux",
+   "away": "Rodez",
+   "score": ""
+  },
+  {
+   "match_id": 4064039,
+   "date": "2027-01-15",
+   "round": 17,
+   "home": "Stade Lavallois",
+   "away": "Guingamp",
+   "score": ""
+  },
+  {
+   "match_id": 4064053,
+   "date": "2027-01-22",
+   "round": 18,
+   "home": "Clermont Foot",
+   "away": "Saint-Étienne",
+   "score": ""
+  },
+  {
+   "match_id": 4064052,
+   "date": "2027-01-22",
+   "round": 18,
+   "home": "Dunkerque",
+   "away": "Nantes",
+   "score": ""
+  },
+  {
+   "match_id": 4064051,
+   "date": "2027-01-22",
+   "round": 18,
+   "home": "Grenoble Foot",
+   "away": "Montpellier",
+   "score": ""
+  },
+  {
+   "match_id": 4064049,
+   "date": "2027-01-22",
+   "round": 18,
+   "home": "Guingamp",
+   "away": "Nancy",
+   "score": ""
+  },
+  {
+   "match_id": 4064048,
+   "date": "2027-01-22",
+   "round": 18,
+   "home": "Metz",
+   "away": "Dijon",
+   "score": ""
+  },
+  {
+   "match_id": 4064046,
+   "date": "2027-01-22",
+   "round": 18,
+   "home": "Rodez",
+   "away": "FC Annecy",
+   "score": ""
+  },
+  {
+   "match_id": 4064050,
+   "date": "2027-01-22",
+   "round": 18,
+   "home": "Stade Lavallois",
+   "away": "Pau",
+   "score": ""
+  },
+  {
+   "match_id": 4064047,
+   "date": "2027-01-22",
+   "round": 18,
+   "home": "Stade de Reims",
+   "away": "Red Star FC",
+   "score": ""
+  },
+  {
+   "match_id": 4064045,
+   "date": "2027-01-22",
+   "round": 18,
+   "home": "US Boulogne",
+   "away": "Sochaux",
+   "score": ""
+  },
+  {
+   "match_id": 4064058,
+   "date": "2027-01-29",
+   "round": 19,
+   "home": "Dijon",
+   "away": "Clermont Foot",
+   "score": ""
+  },
+  {
+   "match_id": 4064057,
+   "date": "2027-01-29",
+   "round": 19,
+   "home": "FC Annecy",
+   "away": "Grenoble Foot",
+   "score": ""
+  },
+  {
+   "match_id": 4064059,
+   "date": "2027-01-29",
+   "round": 19,
+   "home": "Montpellier",
+   "away": "Rodez",
+   "score": ""
+  },
+  {
+   "match_id": 4064060,
+   "date": "2027-01-29",
+   "round": 19,
+   "home": "Nancy",
+   "away": "US Boulogne",
+   "score": ""
+  },
+  {
+   "match_id": 4064061,
+   "date": "2027-01-29",
+   "round": 19,
+   "home": "Nantes",
+   "away": "Guingamp",
+   "score": ""
+  },
+  {
+   "match_id": 4064062,
+   "date": "2027-01-29",
+   "round": 19,
+   "home": "Pau",
+   "away": "Metz",
+   "score": ""
+  },
+  {
+   "match_id": 4064054,
+   "date": "2027-01-29",
+   "round": 19,
+   "home": "Red Star FC",
+   "away": "Stade Lavallois",
+   "score": ""
+  },
+  {
+   "match_id": 4064056,
+   "date": "2027-01-29",
+   "round": 19,
+   "home": "Saint-Étienne",
+   "away": "Dunkerque",
+   "score": ""
+  },
+  {
+   "match_id": 4064055,
+   "date": "2027-01-29",
+   "round": 19,
+   "home": "Sochaux",
+   "away": "Stade de Reims",
+   "score": ""
+  },
+  {
+   "match_id": 4064067,
+   "date": "2027-02-05",
+   "round": 20,
+   "home": "Grenoble Foot",
+   "away": "Saint-Étienne",
+   "score": ""
+  },
+  {
+   "match_id": 4064068,
+   "date": "2027-02-05",
+   "round": 20,
+   "home": "Guingamp",
+   "away": "Dunkerque",
+   "score": ""
+  },
+  {
+   "match_id": 4064070,
+   "date": "2027-02-05",
+   "round": 20,
+   "home": "Metz",
+   "away": "FC Annecy",
+   "score": ""
+  },
+  {
+   "match_id": 4064063,
+   "date": "2027-02-05",
+   "round": 20,
+   "home": "Red Star FC",
+   "away": "Montpellier",
+   "score": ""
+  },
+  {
+   "match_id": 4064064,
+   "date": "2027-02-05",
+   "round": 20,
+   "home": "Rodez",
+   "away": "Nantes",
+   "score": ""
+  },
+  {
+   "match_id": 4064065,
+   "date": "2027-02-05",
+   "round": 20,
+   "home": "Sochaux",
+   "away": "Pau",
+   "score": ""
+  },
+  {
+   "match_id": 4064069,
+   "date": "2027-02-05",
+   "round": 20,
+   "home": "Stade Lavallois",
+   "away": "Dijon",
+   "score": ""
+  },
+  {
+   "match_id": 4064071,
+   "date": "2027-02-05",
+   "round": 20,
+   "home": "Stade de Reims",
+   "away": "Nancy",
+   "score": ""
+  },
+  {
+   "match_id": 4064066,
+   "date": "2027-02-05",
+   "round": 20,
+   "home": "US Boulogne",
+   "away": "Clermont Foot",
+   "score": ""
+  },
+  {
+   "match_id": 4064072,
+   "date": "2027-02-12",
+   "round": 21,
+   "home": "Clermont Foot",
+   "away": "Stade Lavallois",
+   "score": ""
+  },
+  {
+   "match_id": 4064075,
+   "date": "2027-02-12",
+   "round": 21,
+   "home": "Dijon",
+   "away": "Grenoble Foot",
+   "score": ""
+  },
+  {
+   "match_id": 4064077,
+   "date": "2027-02-12",
+   "round": 21,
+   "home": "Dunkerque",
+   "away": "Pau",
+   "score": ""
+  },
+  {
+   "match_id": 4064076,
+   "date": "2027-02-12",
+   "round": 21,
+   "home": "FC Annecy",
+   "away": "Sochaux",
+   "score": ""
+  },
+  {
+   "match_id": 4064078,
+   "date": "2027-02-12",
+   "round": 21,
+   "home": "Montpellier",
+   "away": "Stade de Reims",
+   "score": ""
+  },
+  {
+   "match_id": 4064079,
+   "date": "2027-02-12",
+   "round": 21,
+   "home": "Nancy",
+   "away": "Red Star FC",
+   "score": ""
+  },
+  {
+   "match_id": 4064074,
+   "date": "2027-02-12",
+   "round": 21,
+   "home": "Nantes",
+   "away": "US Boulogne",
+   "score": ""
+  },
+  {
+   "match_id": 4064073,
+   "date": "2027-02-12",
+   "round": 21,
+   "home": "Rodez",
+   "away": "Guingamp",
+   "score": ""
+  },
+  {
+   "match_id": 4064080,
+   "date": "2027-02-12",
+   "round": 21,
+   "home": "Saint-Étienne",
+   "away": "Metz",
+   "score": ""
+  },
+  {
+   "match_id": 4064089,
+   "date": "2027-02-19",
+   "round": 22,
+   "home": "Dunkerque",
+   "away": "Nancy",
+   "score": ""
+  },
+  {
+   "match_id": 4064088,
+   "date": "2027-02-19",
+   "round": 22,
+   "home": "Grenoble Foot",
+   "away": "Rodez",
+   "score": ""
+  },
+  {
+   "match_id": 4064087,
+   "date": "2027-02-19",
+   "round": 22,
+   "home": "Guingamp",
+   "away": "Clermont Foot",
+   "score": ""
+  },
+  {
+   "match_id": 4064083,
+   "date": "2027-02-19",
+   "round": 22,
+   "home": "Metz",
+   "away": "Montpellier",
+   "score": ""
+  },
+  {
+   "match_id": 4064081,
+   "date": "2027-02-19",
+   "round": 22,
+   "home": "Pau",
+   "away": "Red Star FC",
+   "score": ""
+  },
+  {
+   "match_id": 4064085,
+   "date": "2027-02-19",
+   "round": 22,
+   "home": "Sochaux",
+   "away": "Dijon",
+   "score": ""
+  },
+  {
+   "match_id": 4064084,
+   "date": "2027-02-19",
+   "round": 22,
+   "home": "Stade Lavallois",
+   "away": "FC Annecy",
+   "score": ""
+  },
+  {
+   "match_id": 4064086,
+   "date": "2027-02-19",
+   "round": 22,
+   "home": "Stade de Reims",
+   "away": "Nantes",
+   "score": ""
+  },
+  {
+   "match_id": 4064082,
+   "date": "2027-02-19",
+   "round": 22,
+   "home": "US Boulogne",
+   "away": "Saint-Étienne",
+   "score": ""
+  },
+  {
+   "match_id": 4064093,
+   "date": "2027-02-26",
+   "round": 23,
+   "home": "Clermont Foot",
+   "away": "Dunkerque",
+   "score": ""
+  },
+  {
+   "match_id": 4064090,
+   "date": "2027-02-26",
+   "round": 23,
+   "home": "Dijon",
+   "away": "Nancy",
+   "score": ""
+  },
+  {
+   "match_id": 4064092,
+   "date": "2027-02-26",
+   "round": 23,
+   "home": "FC Annecy",
+   "away": "Stade de Reims",
+   "score": ""
+  },
+  {
+   "match_id": 4064091,
+   "date": "2027-02-26",
+   "round": 23,
+   "home": "Metz",
+   "away": "Grenoble Foot",
+   "score": ""
+  },
+  {
+   "match_id": 4064094,
+   "date": "2027-02-26",
+   "round": 23,
+   "home": "Montpellier",
+   "away": "Stade Lavallois",
+   "score": ""
+  },
+  {
+   "match_id": 4064095,
+   "date": "2027-02-26",
+   "round": 23,
+   "home": "Nantes",
+   "away": "Pau",
+   "score": ""
+  },
+  {
+   "match_id": 4064096,
+   "date": "2027-02-26",
+   "round": 23,
+   "home": "Red Star FC",
+   "away": "Guingamp",
+   "score": ""
+  },
+  {
+   "match_id": 4064097,
+   "date": "2027-02-26",
+   "round": 23,
+   "home": "Rodez",
+   "away": "US Boulogne",
+   "score": ""
+  },
+  {
+   "match_id": 4064098,
+   "date": "2027-02-26",
+   "round": 23,
+   "home": "Saint-Étienne",
+   "away": "Sochaux",
+   "score": ""
+  },
+  {
+   "match_id": 4064100,
+   "date": "2027-03-05",
+   "round": 24,
+   "home": "Dunkerque",
+   "away": "Dijon",
+   "score": ""
+  },
+  {
+   "match_id": 4064102,
+   "date": "2027-03-05",
+   "round": 24,
+   "home": "Grenoble Foot",
+   "away": "Red Star FC",
+   "score": ""
+  },
+  {
+   "match_id": 4064101,
+   "date": "2027-03-05",
+   "round": 24,
+   "home": "Montpellier",
+   "away": "FC Annecy",
+   "score": ""
+  },
+  {
+   "match_id": 4064104,
+   "date": "2027-03-05",
+   "round": 24,
+   "home": "Nancy",
+   "away": "Nantes",
+   "score": ""
+  },
+  {
+   "match_id": 4064105,
+   "date": "2027-03-05",
+   "round": 24,
+   "home": "Pau",
+   "away": "Clermont Foot",
+   "score": ""
+  },
+  {
+   "match_id": 4064103,
+   "date": "2027-03-05",
+   "round": 24,
+   "home": "Saint-Étienne",
+   "away": "Guingamp",
+   "score": ""
+  },
+  {
+   "match_id": 4064107,
+   "date": "2027-03-05",
+   "round": 24,
+   "home": "Sochaux",
+   "away": "Metz",
+   "score": ""
+  },
+  {
+   "match_id": 4064099,
+   "date": "2027-03-05",
+   "round": 24,
+   "home": "Stade de Reims",
+   "away": "Rodez",
+   "score": ""
+  },
+  {
+   "match_id": 4064106,
+   "date": "2027-03-05",
+   "round": 24,
+   "home": "US Boulogne",
+   "away": "Stade Lavallois",
+   "score": ""
+  },
+  {
+   "match_id": 4064113,
+   "date": "2027-03-12",
+   "round": 25,
+   "home": "Clermont Foot",
+   "away": "Montpellier",
+   "score": ""
+  },
+  {
+   "match_id": 4064114,
+   "date": "2027-03-12",
+   "round": 25,
+   "home": "FC Annecy",
+   "away": "US Boulogne",
+   "score": ""
+  },
+  {
+   "match_id": 4064112,
+   "date": "2027-03-12",
+   "round": 25,
+   "home": "Guingamp",
+   "away": "Grenoble Foot",
+   "score": ""
+  },
+  {
+   "match_id": 4064110,
+   "date": "2027-03-12",
+   "round": 25,
+   "home": "Metz",
+   "away": "Dunkerque",
+   "score": ""
+  },
+  {
+   "match_id": 4064108,
+   "date": "2027-03-12",
+   "round": 25,
+   "home": "Nancy",
+   "away": "Pau",
+   "score": ""
+  },
+  {
+   "match_id": 4064116,
+   "date": "2027-03-12",
+   "round": 25,
+   "home": "Nantes",
+   "away": "Saint-Étienne",
+   "score": ""
+  },
+  {
+   "match_id": 4064115,
+   "date": "2027-03-12",
+   "round": 25,
+   "home": "Red Star FC",
+   "away": "Dijon",
+   "score": ""
+  },
+  {
+   "match_id": 4064109,
+   "date": "2027-03-12",
+   "round": 25,
+   "home": "Rodez",
+   "away": "Sochaux",
+   "score": ""
+  },
+  {
+   "match_id": 4064111,
+   "date": "2027-03-12",
+   "round": 25,
+   "home": "Stade Lavallois",
+   "away": "Stade de Reims",
+   "score": ""
+  },
+  {
+   "match_id": 4064120,
+   "date": "2027-03-19",
+   "round": 26,
+   "home": "Dijon",
+   "away": "FC Annecy",
+   "score": ""
+  },
+  {
+   "match_id": 4064125,
+   "date": "2027-03-19",
+   "round": 26,
+   "home": "Dunkerque",
+   "away": "Rodez",
+   "score": ""
+  },
+  {
+   "match_id": 4064117,
+   "date": "2027-03-19",
+   "round": 26,
+   "home": "Grenoble Foot",
+   "away": "Nantes",
+   "score": ""
+  },
+  {
+   "match_id": 4064118,
+   "date": "2027-03-19",
+   "round": 26,
+   "home": "Guingamp",
+   "away": "Stade Lavallois",
+   "score": ""
+  },
+  {
+   "match_id": 4064119,
+   "date": "2027-03-19",
+   "round": 26,
+   "home": "Pau",
+   "away": "Montpellier",
+   "score": ""
+  },
+  {
+   "match_id": 4064123,
+   "date": "2027-03-19",
+   "round": 26,
+   "home": "Saint-Étienne",
+   "away": "Red Star FC",
+   "score": ""
+  },
+  {
+   "match_id": 4064121,
+   "date": "2027-03-19",
+   "round": 26,
+   "home": "Sochaux",
+   "away": "Nancy",
+   "score": ""
+  },
+  {
+   "match_id": 4064122,
+   "date": "2027-03-19",
+   "round": 26,
+   "home": "Stade de Reims",
+   "away": "Clermont Foot",
+   "score": ""
+  },
+  {
+   "match_id": 4064124,
+   "date": "2027-03-19",
+   "round": 26,
+   "home": "US Boulogne",
+   "away": "Metz",
+   "score": ""
+  },
+  {
+   "match_id": 4064130,
+   "date": "2027-04-02",
+   "round": 27,
+   "home": "Clermont Foot",
+   "away": "Grenoble Foot",
+   "score": ""
+  },
+  {
+   "match_id": 4064126,
+   "date": "2027-04-02",
+   "round": 27,
+   "home": "FC Annecy",
+   "away": "Guingamp",
+   "score": ""
+  },
+  {
+   "match_id": 4064132,
+   "date": "2027-04-02",
+   "round": 27,
+   "home": "Montpellier",
+   "away": "Dunkerque",
+   "score": ""
+  },
+  {
+   "match_id": 4064133,
+   "date": "2027-04-02",
+   "round": 27,
+   "home": "Nancy",
+   "away": "Saint-Étienne",
+   "score": ""
+  },
+  {
+   "match_id": 4064127,
+   "date": "2027-04-02",
+   "round": 27,
+   "home": "Nantes",
+   "away": "Sochaux",
+   "score": ""
+  },
+  {
+   "match_id": 4064128,
+   "date": "2027-04-02",
+   "round": 27,
+   "home": "Red Star FC",
+   "away": "US Boulogne",
+   "score": ""
+  },
+  {
+   "match_id": 4064134,
+   "date": "2027-04-02",
+   "round": 27,
+   "home": "Rodez",
+   "away": "Dijon",
+   "score": ""
+  },
+  {
+   "match_id": 4064131,
+   "date": "2027-04-02",
+   "round": 27,
+   "home": "Stade Lavallois",
+   "away": "Metz",
+   "score": ""
+  },
+  {
+   "match_id": 4064129,
+   "date": "2027-04-02",
+   "round": 27,
+   "home": "Stade de Reims",
+   "away": "Pau",
+   "score": ""
+  },
+  {
+   "match_id": 4064137,
+   "date": "2027-04-09",
+   "round": 28,
+   "home": "Clermont Foot",
+   "away": "Nancy",
+   "score": ""
+  },
+  {
+   "match_id": 4064138,
+   "date": "2027-04-09",
+   "round": 28,
+   "home": "Dijon",
+   "away": "Stade de Reims",
+   "score": ""
+  },
+  {
+   "match_id": 4064139,
+   "date": "2027-04-09",
+   "round": 28,
+   "home": "Dunkerque",
+   "away": "Stade Lavallois",
+   "score": ""
+  },
+  {
+   "match_id": 4064140,
+   "date": "2027-04-09",
+   "round": 28,
+   "home": "Guingamp",
+   "away": "Montpellier",
+   "score": ""
+  },
+  {
+   "match_id": 4064141,
+   "date": "2027-04-09",
+   "round": 28,
+   "home": "Metz",
+   "away": "Nantes",
+   "score": ""
+  },
+  {
+   "match_id": 4064135,
+   "date": "2027-04-09",
+   "round": 28,
+   "home": "Pau",
+   "away": "Rodez",
+   "score": ""
+  },
+  {
+   "match_id": 4064143,
+   "date": "2027-04-09",
+   "round": 28,
+   "home": "Saint-Étienne",
+   "away": "FC Annecy",
+   "score": ""
+  },
+  {
+   "match_id": 4064142,
+   "date": "2027-04-09",
+   "round": 28,
+   "home": "Sochaux",
+   "away": "Red Star FC",
+   "score": ""
+  },
+  {
+   "match_id": 4064136,
+   "date": "2027-04-09",
+   "round": 28,
+   "home": "US Boulogne",
+   "away": "Grenoble Foot",
+   "score": ""
+  },
+  {
+   "match_id": 4064147,
+   "date": "2027-04-16",
+   "round": 29,
+   "home": "Dijon",
+   "away": "Guingamp",
+   "score": ""
+  },
+  {
+   "match_id": 4064152,
+   "date": "2027-04-16",
+   "round": 29,
+   "home": "FC Annecy",
+   "away": "Dunkerque",
+   "score": ""
+  },
+  {
+   "match_id": 4064145,
+   "date": "2027-04-16",
+   "round": 29,
+   "home": "Grenoble Foot",
+   "away": "Nancy",
+   "score": ""
+  },
+  {
+   "match_id": 4064151,
+   "date": "2027-04-16",
+   "round": 29,
+   "home": "Montpellier",
+   "away": "Sochaux",
+   "score": ""
+  },
+  {
+   "match_id": 4064146,
+   "date": "2027-04-16",
+   "round": 29,
+   "home": "Pau",
+   "away": "US Boulogne",
+   "score": ""
+  },
+  {
+   "match_id": 4064150,
+   "date": "2027-04-16",
+   "round": 29,
+   "home": "Red Star FC",
+   "away": "Nantes",
+   "score": ""
+  },
+  {
+   "match_id": 4064148,
+   "date": "2027-04-16",
+   "round": 29,
+   "home": "Rodez",
+   "away": "Clermont Foot",
+   "score": ""
+  },
+  {
+   "match_id": 4064144,
+   "date": "2027-04-16",
+   "round": 29,
+   "home": "Stade Lavallois",
+   "away": "Saint-Étienne",
+   "score": ""
+  },
+  {
+   "match_id": 4064149,
+   "date": "2027-04-16",
+   "round": 29,
+   "home": "Stade de Reims",
+   "away": "Metz",
+   "score": ""
+  },
+  {
+   "match_id": 4064156,
+   "date": "2027-04-23",
+   "round": 30,
+   "home": "Grenoble Foot",
+   "away": "Pau",
+   "score": ""
+  },
+  {
+   "match_id": 4064157,
+   "date": "2027-04-23",
+   "round": 30,
+   "home": "Guingamp",
+   "away": "Stade de Reims",
+   "score": ""
+  },
+  {
+   "match_id": 4064158,
+   "date": "2027-04-23",
+   "round": 30,
+   "home": "Metz",
+   "away": "Clermont Foot",
+   "score": ""
+  },
+  {
+   "match_id": 4064154,
+   "date": "2027-04-23",
+   "round": 30,
+   "home": "Nancy",
+   "away": "FC Annecy",
+   "score": ""
+  },
+  {
+   "match_id": 4064159,
+   "date": "2027-04-23",
+   "round": 30,
+   "home": "Nantes",
+   "away": "Montpellier",
+   "score": ""
+  },
+  {
+   "match_id": 4064160,
+   "date": "2027-04-23",
+   "round": 30,
+   "home": "Red Star FC",
+   "away": "Rodez",
+   "score": ""
+  },
+  {
+   "match_id": 4064153,
+   "date": "2027-04-23",
+   "round": 30,
+   "home": "Saint-Étienne",
+   "away": "Dijon",
+   "score": ""
+  },
+  {
+   "match_id": 4064161,
+   "date": "2027-04-23",
+   "round": 30,
+   "home": "Sochaux",
+   "away": "Stade Lavallois",
+   "score": ""
+  },
+  {
+   "match_id": 4064155,
+   "date": "2027-04-23",
+   "round": 30,
+   "home": "US Boulogne",
+   "away": "Dunkerque",
+   "score": ""
+  },
+  {
+   "match_id": 4064168,
+   "date": "2027-04-30",
+   "round": 31,
+   "home": "Clermont Foot",
+   "away": "Nantes",
+   "score": ""
+  },
+  {
+   "match_id": 4064163,
+   "date": "2027-04-30",
+   "round": 31,
+   "home": "Dijon",
+   "away": "US Boulogne",
+   "score": ""
+  },
+  {
+   "match_id": 4064169,
+   "date": "2027-04-30",
+   "round": 31,
+   "home": "Dunkerque",
+   "away": "Sochaux",
+   "score": ""
+  },
+  {
+   "match_id": 4064167,
+   "date": "2027-04-30",
+   "round": 31,
+   "home": "FC Annecy",
+   "away": "Red Star FC",
+   "score": ""
+  },
+  {
+   "match_id": 4064164,
+   "date": "2027-04-30",
+   "round": 31,
+   "home": "Montpellier",
+   "away": "Saint-Étienne",
+   "score": ""
+  },
+  {
+   "match_id": 4064162,
+   "date": "2027-04-30",
+   "round": 31,
+   "home": "Pau",
+   "away": "Guingamp",
+   "score": ""
+  },
+  {
+   "match_id": 4064165,
+   "date": "2027-04-30",
+   "round": 31,
+   "home": "Rodez",
+   "away": "Metz",
+   "score": ""
+  },
+  {
+   "match_id": 4064170,
+   "date": "2027-04-30",
+   "round": 31,
+   "home": "Stade Lavallois",
+   "away": "Nancy",
+   "score": ""
+  },
+  {
+   "match_id": 4064166,
+   "date": "2027-04-30",
+   "round": 31,
+   "home": "Stade de Reims",
+   "away": "Grenoble Foot",
+   "score": ""
+  },
+  {
+   "match_id": 4064171,
+   "date": "2027-05-07",
+   "round": 32,
+   "home": "FC Annecy",
+   "away": "Pau",
+   "score": ""
+  },
+  {
+   "match_id": 4064179,
+   "date": "2027-05-07",
+   "round": 32,
+   "home": "Grenoble Foot",
+   "away": "Stade Lavallois",
+   "score": ""
+  },
+  {
+   "match_id": 4064173,
+   "date": "2027-05-07",
+   "round": 32,
+   "home": "Guingamp",
+   "away": "Metz",
+   "score": ""
+  },
+  {
+   "match_id": 4064174,
+   "date": "2027-05-07",
+   "round": 32,
+   "home": "Nancy",
+   "away": "Rodez",
+   "score": ""
+  },
+  {
+   "match_id": 4064175,
+   "date": "2027-05-07",
+   "round": 32,
+   "home": "Nantes",
+   "away": "Dijon",
+   "score": ""
+  },
+  {
+   "match_id": 4064176,
+   "date": "2027-05-07",
+   "round": 32,
+   "home": "Red Star FC",
+   "away": "Dunkerque",
+   "score": ""
+  },
+  {
+   "match_id": 4064178,
+   "date": "2027-05-07",
+   "round": 32,
+   "home": "Saint-Étienne",
+   "away": "Stade de Reims",
+   "score": ""
+  },
+  {
+   "match_id": 4064177,
+   "date": "2027-05-07",
+   "round": 32,
+   "home": "Sochaux",
+   "away": "Clermont Foot",
+   "score": ""
+  },
+  {
+   "match_id": 4064172,
+   "date": "2027-05-07",
+   "round": 32,
+   "home": "US Boulogne",
+   "away": "Montpellier",
+   "score": ""
+  },
+  {
+   "match_id": 4064182,
+   "date": "2027-05-14",
+   "round": 33,
+   "home": "Clermont Foot",
+   "away": "FC Annecy",
+   "score": ""
+  },
+  {
+   "match_id": 4064183,
+   "date": "2027-05-14",
+   "round": 33,
+   "home": "Dunkerque",
+   "away": "Stade de Reims",
+   "score": ""
+  },
+  {
+   "match_id": 4064184,
+   "date": "2027-05-14",
+   "round": 33,
+   "home": "Metz",
+   "away": "Red Star FC",
+   "score": ""
+  },
+  {
+   "match_id": 4064188,
+   "date": "2027-05-14",
+   "round": 33,
+   "home": "Montpellier",
+   "away": "Nancy",
+   "score": ""
+  },
+  {
+   "match_id": 4064180,
+   "date": "2027-05-14",
+   "round": 33,
+   "home": "Nantes",
+   "away": "Stade Lavallois",
+   "score": ""
+  },
+  {
+   "match_id": 4064186,
+   "date": "2027-05-14",
+   "round": 33,
+   "home": "Pau",
+   "away": "Dijon",
+   "score": ""
+  },
+  {
+   "match_id": 4064181,
+   "date": "2027-05-14",
+   "round": 33,
+   "home": "Rodez",
+   "away": "Saint-Étienne",
+   "score": ""
+  },
+  {
+   "match_id": 4064185,
+   "date": "2027-05-14",
+   "round": 33,
+   "home": "Sochaux",
+   "away": "Grenoble Foot",
+   "score": ""
+  },
+  {
+   "match_id": 4064187,
+   "date": "2027-05-14",
+   "round": 33,
+   "home": "US Boulogne",
+   "away": "Guingamp",
+   "score": ""
+  },
+  {
+   "match_id": 4064189,
+   "date": "2027-05-22",
+   "round": 34,
+   "home": "Dijon",
+   "away": "Montpellier",
+   "score": ""
+  },
+  {
+   "match_id": 4064197,
+   "date": "2027-05-22",
+   "round": 34,
+   "home": "FC Annecy",
+   "away": "Nantes",
+   "score": ""
+  },
+  {
+   "match_id": 4064196,
+   "date": "2027-05-22",
+   "round": 34,
+   "home": "Grenoble Foot",
+   "away": "Dunkerque",
+   "score": ""
+  },
+  {
+   "match_id": 4064190,
+   "date": "2027-05-22",
+   "round": 34,
+   "home": "Guingamp",
+   "away": "Sochaux",
+   "score": ""
+  },
+  {
+   "match_id": 4064191,
+   "date": "2027-05-22",
+   "round": 34,
+   "home": "Nancy",
+   "away": "Metz",
+   "score": ""
+  },
+  {
+   "match_id": 4064193,
+   "date": "2027-05-22",
+   "round": 34,
+   "home": "Red Star FC",
+   "away": "Clermont Foot",
+   "score": ""
+  },
+  {
+   "match_id": 4064194,
+   "date": "2027-05-22",
+   "round": 34,
+   "home": "Saint-Étienne",
+   "away": "Pau",
+   "score": ""
+  },
+  {
+   "match_id": 4064195,
+   "date": "2027-05-22",
+   "round": 34,
+   "home": "Stade Lavallois",
+   "away": "Rodez",
+   "score": ""
+  },
+  {
+   "match_id": 4064192,
+   "date": "2027-05-22",
+   "round": 34,
+   "home": "Stade de Reims",
+   "away": "US Boulogne",
+   "score": ""
+  }
+ ]
+}
