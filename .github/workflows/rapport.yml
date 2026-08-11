@@ -1,0 +1,72 @@
+# À déposer dans .github/workflows/rapport.yml
+#
+# Compositions des N derniers matchs par club -> rapport_<saison>.json,
+# qui alimente le bloc « 5 derniers matchs » du rapport pré-match.
+#
+# N s'adapte : 1 match après la 1re journée, 2 après la 2e, jusqu'à 5 au plus.
+# À relancer après chaque journée.
+
+name: Build rapport (compositions)
+
+on:
+  schedule:
+    - cron: "45 5 * * *"      # 05:45 UTC, après les autres builds
+  workflow_dispatch:
+    inputs:
+      season:
+        description: "Saison au format 2026-2027 (vide = saison courante)"
+        required: false
+        default: ""
+
+permissions:
+  contents: write
+
+concurrency:
+  group: build-rapport-${{ inputs.season || 'current' }}
+  cancel-in-progress: true
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    timeout-minutes: 120
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install deps
+        run: pip install --quiet statsbombpy pandas
+
+      - name: Generate rapport JSON
+        env:
+          SB_USERNAME: ${{ secrets.SB_USERNAME }}
+          SB_PASSWORD: ${{ secrets.SB_PASSWORD }}
+          SEASON: ${{ inputs.season }}
+        run: python build_rapport.py
+
+      - name: Commit if changed
+        run: |
+          if [ -z "$(git status --porcelain -- 'rapport*.json')" ]; then
+            echo "Aucun rapport*.json modifié."
+            exit 0
+          fi
+          git config user.name  "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add rapport*.json
+          git commit -q -m "chore: maj rapport (compositions des derniers matchs)"
+
+          # plusieurs workflows peuvent pousser en même temps
+          pushed=0
+          for i in 1 2 3 4 5; do
+            if git push; then
+              echo "push OK (tentative $i)"
+              pushed=1
+              break
+            fi
+            echo "push rejeté (tentative $i) — rebase puis nouvelle tentative…"
+            git pull --rebase --autostash origin main || true
+            sleep $((RANDOM % 5 + 2))
+          done
+          [ "$pushed" = 1 ] || { echo "échec du push après 5 tentatives"; exit 1; }
