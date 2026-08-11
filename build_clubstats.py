@@ -118,7 +118,11 @@ def main():
         print("ERREUR : SB_USERNAME / SB_PASSWORD manquants.", file=sys.stderr)
         sys.exit(1)
 
-    cur_label = CURRENT_SEASON
+    # Saison traitee : argv[1], sinon variable SEASON, sinon saison courante.
+    # Une variable definie mais VIDE (workflow_dispatch au champ laisse vide)
+    # doit retomber sur la saison courante, d'ou le `or`.
+    arg = sys.argv[1] if len(sys.argv) > 1 else ""
+    cur_label = (arg or os.environ.get("SEASON", "")).strip() or CURRENT_SEASON
     cur_id = SEASON_IDS.get(cur_label) or lookup_season_id(cur_label)
     prev_label = previous_label(cur_label)
     prev_id = lookup_season_id(prev_label)
@@ -147,9 +151,12 @@ def main():
         "updated": datetime.datetime.utcnow().replace(microsecond=0).isoformat() + "Z",
         "teams": out,
     }
-    with open("clubstats.json", "w", encoding="utf-8") as f:
+    # saison courante -> nom nu ; autre saison -> nom suffixe
+    sortie = ("clubstats.json" if cur_label == CURRENT_SEASON
+              else "clubstats_%s.json" % cur_label)
+    with open(sortie, "w", encoding="utf-8") as f:
         json.dump(result, f, ensure_ascii=False, separators=(",", ":"))
-    print(f"\nclubstats.json écrit : {len(out)} équipes.")
+    print(f"\n{sortie} écrit : {len(out)} équipes.")
 
 
 if __name__ == "__main__":
