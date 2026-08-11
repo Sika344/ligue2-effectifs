@@ -1352,16 +1352,16 @@ function applyPlayerOverrides(data){
   }
   return data;
 }
-fetch("clubinfo.json?_="+Date.now()).then(r=>r.ok?r.json():null).then(d=>{ CLUBINFO=d; }).catch(()=>{});
-fetch("clubstats.json?_="+Date.now()).then(r=>r.ok?r.json():null).then(d=>{ CLUBSTATS=d; }).catch(()=>{});
+fetch(SEASON.fichier("clubinfo.json")+"?_="+Date.now()).then(r=>r.ok?r.json():null).then(d=>{ CLUBINFO=d; }).catch(()=>{});
+fetch(SEASON.fichier("clubstats.json")+"?_="+Date.now()).then(r=>r.ok?r.json():null).then(d=>{ CLUBSTATS=d; }).catch(()=>{});
 Promise.all([
-  fetch("ligue2.json?_="+Date.now()).then(r=>r.ok?r.json():null).catch(()=>null),
-  fetch("xg.json?_="+Date.now()).then(r=>r.ok?r.json():null).catch(()=>null),
-  fetch("inposs.json?_="+Date.now()).then(r=>r.ok?r.json():null).catch(()=>null),
-  fetch("outposs.json?_="+Date.now()).then(r=>r.ok?r.json():null).catch(()=>null),
-  fetch("losses.json?_="+Date.now()).then(r=>r.ok?r.json():null).catch(()=>null),
-  fetch("shotmix.json?_="+Date.now()).then(r=>r.ok?r.json():null).catch(()=>null),
-  fetch("recoveries.json?_="+Date.now()).then(r=>r.ok?r.json():null).catch(()=>null)
+  fetch(SEASON.fichier("ligue2.json")+"?_="+Date.now()).then(r=>r.ok?r.json():null).catch(()=>null),
+  fetch(SEASON.fichier("xg.json")+"?_="+Date.now()).then(r=>r.ok?r.json():null).catch(()=>null),
+  fetch(SEASON.fichier("inposs.json")+"?_="+Date.now()).then(r=>r.ok?r.json():null).catch(()=>null),
+  fetch(SEASON.fichier("outposs.json")+"?_="+Date.now()).then(r=>r.ok?r.json():null).catch(()=>null),
+  fetch(SEASON.fichier("losses.json")+"?_="+Date.now()).then(r=>r.ok?r.json():null).catch(()=>null),
+  fetch(SEASON.fichier("shotmix.json")+"?_="+Date.now()).then(r=>r.ok?r.json():null).catch(()=>null),
+  fetch(SEASON.fichier("recoveries.json")+"?_="+Date.now()).then(r=>r.ok?r.json():null).catch(()=>null)
 ]).then(([j,x,p,o,ls,sm,rc])=>{ CUR={ligue2:j,xg:x,inp:p,outp:o,loss:ls,smix:sm,reco:rc}; LIGUE2=j; applyPlayerOverrides(LIGUE2); XG=x; INP=p; OUTP=o; LOSS=ls; SMIX=sm; RECO=rc; SEASON_DATA=DATA; start(); }).catch(()=>{ SEASON_DATA=DATA; start(); });
 </script>
 <div class="goaltip" id="goaltip"></div>
