@@ -1,0 +1,54 @@
+# À déposer dans .github/workflows/probe-competitions.yml
+#
+# ⚠️ NE PAS nommer ce fichier probe.yml : ce nom est déjà pris par un ancien
+# workflow « Probe RapidAPI » qui n'a rien à voir.
+#
+# Lancement manuel. Liste ce que couvre le compte StatsBomb et, surtout, donne
+# le season_id de chaque saison — indispensable pour que les build_*.py sachent
+# quelle saison interroger.
+
+name: probe competitions statsbomb
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  probe:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install deps
+        run: pip install --quiet statsbombpy pandas
+
+      - name: Probe
+        env:
+          SB_USERNAME: ${{ secrets.SB_USERNAME }}
+          SB_PASSWORD: ${{ secrets.SB_PASSWORD }}
+        run: python probe_competitions.py
+
+      - name: Commit
+        run: |
+          git config user.name  "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add probe
+          if git diff --staged --quiet; then
+            echo "Rien à committer."
+            exit 0
+          fi
+          git commit -q -m "probe: couverture StatsBomb [skip ci]"
+          BR="${GITHUB_REF_NAME:-main}"
+          for i in 1 2 3; do
+            git push origin "HEAD:$BR" && exit 0
+            git fetch -q origin "$BR" || true
+            git rebase "origin/$BR" || exit 1
+          done
+          exit 1
