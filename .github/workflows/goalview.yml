@@ -8,7 +8,12 @@ name: Build goal view gardiens
 on:
   schedule:
     - cron: "0 7 * * *"        # tous les jours à 07:00 UTC (après defending)
-  workflow_dispatch: {}
+  workflow_dispatch:
+    inputs:
+      season:
+        description: "Saison au format 2026-2027 (vide = saison courante)"
+        required: false
+        default: ""
 
 permissions:
   contents: write
@@ -31,13 +36,14 @@ jobs:
         env:
           SB_USERNAME: ${{ secrets.SB_USERNAME }}
           SB_PASSWORD: ${{ secrets.SB_PASSWORD }}
+          SEASON: ${{ inputs.season }}
         run: python build_goalview.py
       - name: Commit if changed
         run: |
-          if [ -n "$(git status --porcelain goalview.json)" ]; then
+          if [ -n "$(git status --porcelain goalview*.json)" ]; then
             git config user.name "github-actions[bot]"
             git config user.email "github-actions[bot]@users.noreply.github.com"
-            git add goalview.json
+            git add goalview*.json
             git commit -m "chore: maj goalview.json (tirs cadres concedes)"
             for i in 1 2 3 4 5; do
               git pull --rebase origin main && git push && exit 0

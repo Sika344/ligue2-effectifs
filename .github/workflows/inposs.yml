@@ -9,7 +9,12 @@ name: Build in-possession KPIs
 on:
   schedule:
     - cron: "45 4 * * *"      # tous les jours à 04:45 UTC
-  workflow_dispatch: {}        # déclenchement manuel possible
+  workflow_dispatch:
+    inputs:
+      season:
+        description: "Saison au format 2026-2027 (vide = saison courante)"
+        required: false
+        default: ""
 
 permissions:
   contents: write
@@ -35,14 +40,15 @@ jobs:
         env:
           SB_USERNAME: ${{ secrets.SB_USERNAME }}
           SB_PASSWORD: ${{ secrets.SB_PASSWORD }}
+          SEASON: ${{ inputs.season }}
         run: python build_inposs.py
 
       - name: Commit if changed
         run: |
-          if [ -n "$(git status --porcelain inposs.json)" ]; then
+          if [ -n "$(git status --porcelain inposs*.json)" ]; then
             git config user.name  "github-actions[bot]"
             git config user.email "github-actions[bot]@users.noreply.github.com"
-            git add inposs.json
+            git add inposs*.json
             git commit -m "chore: maj inposs.json (6 KPI in-possession)"
 
             # push avec rebase-and-retry : inposs (04:45) et outposs (05:00)

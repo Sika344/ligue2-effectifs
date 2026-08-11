@@ -8,7 +8,12 @@ name: Build pressing
 on:
   schedule:
     - cron: "15 7 * * *"       # tous les jours à 07:15 UTC (après goalview)
-  workflow_dispatch: {}
+  workflow_dispatch:
+    inputs:
+      season:
+        description: "Saison au format 2026-2027 (vide = saison courante)"
+        required: false
+        default: ""
 
 permissions:
   contents: write
@@ -31,13 +36,14 @@ jobs:
         env:
           SB_USERNAME: ${{ secrets.SB_USERNAME }}
           SB_PASSWORD: ${{ secrets.SB_PASSWORD }}
+          SEASON: ${{ inputs.season }}
         run: python build_pressing.py
       - name: Commit if changed
         run: |
-          if [ -n "$(git status --porcelain pressing.json)" ]; then
+          if [ -n "$(git status --porcelain pressing*.json)" ]; then
             git config user.name "github-actions[bot]"
             git config user.email "github-actions[bot]@users.noreply.github.com"
-            git add pressing.json
+            git add pressing*.json
             git commit -m "chore: maj pressing.json (intensite pressing)"
             for i in 1 2 3 4 5; do
               git pull --rebase origin main && git push && exit 0

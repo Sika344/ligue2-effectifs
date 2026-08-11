@@ -8,7 +8,12 @@ name: Build tirs Finishing
 on:
   schedule:
     - cron: "30 6 * * *"       # tous les jours à 06:30 UTC (après teamindex)
-  workflow_dispatch: {}
+  workflow_dispatch:
+    inputs:
+      season:
+        description: "Saison au format 2026-2027 (vide = saison courante)"
+        required: false
+        default: ""
 
 permissions:
   contents: write
@@ -31,13 +36,14 @@ jobs:
         env:
           SB_USERNAME: ${{ secrets.SB_USERNAME }}
           SB_PASSWORD: ${{ secrets.SB_PASSWORD }}
+          SEASON: ${{ inputs.season }}
         run: python build_finishing.py
       - name: Commit if changed
         run: |
-          if [ -n "$(git status --porcelain finishing.json)" ]; then
+          if [ -n "$(git status --porcelain finishing*.json)" ]; then
             git config user.name "github-actions[bot]"
             git config user.email "github-actions[bot]@users.noreply.github.com"
-            git add finishing.json
+            git add finishing*.json
             git commit -m "chore: maj finishing.json (tirs)"
             for i in 1 2 3 4 5; do
               git pull --rebase origin main && git push && exit 0
