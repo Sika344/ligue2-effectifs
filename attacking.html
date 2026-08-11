@@ -337,10 +337,20 @@ function renderBuildup(){
 function gxRows(){
   if(!SMIX||!SMIX.teams) return [];
   const fams = ACT.size ? [...ACT].flatMap(k=>ACT_FAM[k]) : ["placee","transition","cpa","autres"];
+  // Sans filtre, l'axe des buts doit correspondre au tableau d'affichage :
+  // penalties ET csc compris. Le penalty est un coup de pied arrêté, il suit
+  // donc le filtre set_piece ; un csc n'appartient à aucune famille d'attaque,
+  // il n'apparaît que dans le total.
+  const avecPen = !ACT.size || ACT.has("set_piece");
+  const avecCsc = !ACT.size;
   const out=[];
   for(const [team,t] of Object.entries(SMIX.teams)){
     let g=0,x=0;
     for(const f of fams){ g+=(t.goals&&t.goals[f])||0; x+=(t.xg&&t.xg[f])||0; }
+    // L'xG du penalty est ajouté en même temps que son but : compter l'un sans
+    // l'autre ferait passer pour surperformante toute équipe qui en marque un.
+    if(avecPen && t.penalty){ g+=t.penalty.goals||0; x+=t.penalty.xg||0; }
+    if(avecCsc) g+=t.csc||0;
     const m=Math.max(1,t.matches||1);
     out.push({team, g:(SCALE==="pm"?g/m:g), x:(SCALE==="pm"?x/m:x),
               goals:g, xg:x, matches:t.matches});
@@ -352,7 +362,10 @@ function renderGoalsXG(){
   document.getElementById("ttl").textContent="Conversion d'équipe — buts vs xG";
   document.getElementById("note").innerHTML=
     "Vert = l'équipe marque plus que son xG, rouge = moins. Les pointillés marquent les moyennes de la ligue. "+
-    "Hors penalty. Coup de pied arrêté = coup franc ou corner ; les tirs issus d'une touche, d'une sortie de but "+
+    "<b>Penalties et csc compris</b> : les buts affichés correspondent aux scores réels. L'xG des penalties est "+
+    "compté en regard ; un csc vaut 1 but et 0 xG, puisqu'il ne naît d'aucun tir. Filtrer par action type retire "+
+    "les csc, et ne garde les penalties que sur <b>set piece</b>. "+
+    "Coup de pied arrêté = coup franc ou corner ; les tirs issus d'une touche, d'une sortie de but "+
     "ou d'une relance du gardien sont comptés dans <b>positional</b>. Aucun action type sélectionné = tous.";
   if(!SMIX){ host.innerHTML='<div class="empty">La conversion s\'affichera dès que <b>shotmix.json</b> sera présent à la racine du repo.</div>';
     document.getElementById("sub").textContent="Données indisponibles"; return; }
@@ -374,16 +387,19 @@ function renderGoalsXG(){
   const X=v=>x0+(v-xa)/(xb-xa)*pw, Y=v=>y1-(v-ya)/(yb-ya)*ph;
   const mx=xs.reduce((a,b)=>a+b,0)/xs.length, my=ys.reduce((a,b)=>a+b,0)/ys.length;
   const F='font-family="-apple-system,BlinkMacSystemFont,Inter,Segoe UI,Arial,sans-serif"';
-  const dec=SCALE==="pm"?2:0;
   let g='';
   const sx=nice((xb-xa)/6), sy=nice((yb-ya)/6);
+  // Nombre de décimales déduit du PAS, pas du mode d'échelle : avec un pas de
+  // 0,5 un arrondi à l'entier affichait « 0 1 1 2 2 3 3 » et faussait la lecture.
+  const decOf=p=>p>=1?0:(p>=0.1?1:2);
+  const decX=decOf(sx), decY=decOf(sy);
   for(let v=Math.ceil(xa/sx)*sx; v<=xb; v+=sx){
     g+='<line x1="'+X(v).toFixed(1)+'" y1="'+y0+'" x2="'+X(v).toFixed(1)+'" y2="'+y1+'" stroke="#eef1f5"/>'+
-       '<text x="'+X(v).toFixed(1)+'" y="'+(y1+21)+'" text-anchor="middle" font-size="11.5" fill="#98a2b3" '+F+'>'+(+v.toFixed(dec))+'</text>';
+       '<text x="'+X(v).toFixed(1)+'" y="'+(y1+21)+'" text-anchor="middle" font-size="11.5" fill="#98a2b3" '+F+'>'+(+v.toFixed(decX))+'</text>';
   }
   for(let v=Math.ceil(ya/sy)*sy; v<=yb; v+=sy){
     g+='<line x1="'+x0+'" y1="'+Y(v).toFixed(1)+'" x2="'+x1+'" y2="'+Y(v).toFixed(1)+'" stroke="#eef1f5"/>'+
-       '<text x="'+(x0-11)+'" y="'+(Y(v)+4).toFixed(1)+'" text-anchor="end" font-size="11.5" fill="#98a2b3" '+F+'>'+(+v.toFixed(dec))+'</text>';
+       '<text x="'+(x0-11)+'" y="'+(Y(v)+4).toFixed(1)+'" text-anchor="end" font-size="11.5" fill="#98a2b3" '+F+'>'+(+v.toFixed(decY))+'</text>';
   }
   // croix des moyennes, en pointillés
   g+='<line x1="'+X(mx).toFixed(1)+'" y1="'+y0+'" x2="'+X(mx).toFixed(1)+'" y2="'+y1+'" stroke="#8b95a8" stroke-width="1.4" stroke-dasharray="6 5"/>'+

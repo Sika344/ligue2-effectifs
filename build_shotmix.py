@@ -26,10 +26,13 @@ possession) et le tir :
 "Regular Play" et "From Counter" ne sont jamais reclassés.
 SP_WINDOW vaut 15 secondes par défaut, réglable par variable d'environnement.
 
-PENALTIES EXCLUS : les tirs dont `shot_type` vaut "Penalty" ne sont comptés
-nulle part, ni dans les tirs ni dans les buts, ni dans les totaux. On raisonne
-donc entièrement hors penalty. Les tirs de la période 5 (séance de tirs au but)
-sont eux aussi écartés.
+PENALTIES ET CSC : comptés à part, dans des clés séparées `penalty` et `csc`.
+Les quatre familles historiques (placee/transition/cpa/autres) restent donc
+strictement inchangées — le camembert du rapport pré-match, qui n'itère que sur
+elles, n'est pas affecté. Les totaux `*_all` ajoutent penalties et csc, pour que
+l'axe des buts du graphique conversion corresponde aux scores réels.
+Un csc vaut 1 but et 0 xG pour l'équipe qui en bénéficie : c'est voulu, un but
+contre son camp n'est le produit d'aucun tir.
 
 PERSPECTIVE OFFENSIVE : on compte les tirs et buts PRODUITS par l'équipe, pas
 ceux qu'elle concède.
@@ -150,6 +153,15 @@ def blank(v):
     return v is None or (isinstance(v, float) and v != v) or v == ""
 
 
+def xg_of(v):
+    """xStatsBomb en float, 0.0 si absent ou NaN."""
+    try:
+        f = float(v)
+        return f if f == f else 0.0
+    except (TypeError, ValueError):
+        return 0.0
+
+
 def family(play_pattern):
     if blank(play_pattern):
         return "autres"
@@ -186,6 +198,8 @@ def main():
         shots = {k: 0 for k in KEYS}
         goals = {k: 0 for k in KEYS}
         xg = {k: 0.0 for k in KEYS}
+        pen = {"shots": 0, "goals": 0, "xg": 0.0}   # penalties, hors familles
+        csc = 0                                      # buts contre son camp reçus en sa faveur
         n = 0
         for mid in mids:
             try:
@@ -219,12 +233,31 @@ def main():
                         poss_start[pi] = (c_per.get(idx) if c_per is not None else None, t)
 
             for idx in ev.index:
-                if c_team.get(idx) != team or c_type.get(idx) != "Shot":
+                if c_team.get(idx) != team:
+                    continue
+                etype = c_type.get(idx)
+
+                # « Own Goal For » est enregistré sur l'équipe qui BÉNÉFICIE du
+                # csc : c'est bien un but pour elle, sans tir ni xG.
+                if etype == "Own Goal For":
+                    if c_per is None or c_per.get(idx) != SHOOTOUT_PERIOD:
+                        csc += 1
+                    continue
+
+                if etype != "Shot":
                     continue
                 if c_per is not None and c_per.get(idx) == SHOOTOUT_PERIOD:
                     continue
-                # penalties écartés partout
+
+                # Les penalties sortent des quatre familles — un penalty n'est
+                # ni une attaque placée ni une transition, et l'y mêler fausse
+                # la mesure de finition. Ils vont dans leur propre compteur.
                 if c_stype is not None and c_stype.get(idx) == "Penalty":
+                    pen["shots"] += 1
+                    if c_out is not None and c_out.get(idx) == "Goal":
+                        pen["goals"] += 1
+                    if c_xg is not None:
+                        pen["xg"] += xg_of(c_xg.get(idx))
                     continue
 
                 fam = family(c_pat.get(idx) if c_pat is not None else None)
@@ -246,12 +279,7 @@ def main():
                 if c_out is not None and c_out.get(idx) == "Goal":
                     goals[fam] += 1
                 if c_xg is not None:
-                    try:
-                        v = float(c_xg.get(idx))
-                        if v == v:
-                            xg[fam] += v
-                    except (TypeError, ValueError):
-                        pass
+                    xg[fam] += xg_of(c_xg.get(idx))
 
         st = sum(shots.values())
         gt = sum(goals.values())
@@ -261,9 +289,20 @@ def main():
             "shots": shots,
             "goals": goals,
             "xg": {k: round(v, 3) for k, v in xg.items()},
+            # inchangés : hors penalty et hors csc, comme depuis l'origine
             "shots_total": st,
             "goals_total": gt,
             "xg_total": round(xt, 3),
+            # à part
+            "penalty": {"shots": pen["shots"], "goals": pen["goals"],
+                        "xg": round(pen["xg"], 3)},
+            "csc": csc,
+            # tout compris : goals_all doit égaler les buts marqués au tableau
+            # d'affichage. L'xG des penalties est ajouté en regard, sans quoi
+            # toute équipe ayant marqué un penalty passerait pour surperformante.
+            "shots_all": st + pen["shots"],
+            "goals_all": gt + pen["goals"] + csc,
+            "xg_all": round(xt + pen["xg"], 3),
         }
         pct = lambda d, tot: " / ".join(
             f"{k}:{(100.0 * d[k] / tot):.0f}%" if tot else f"{k}:—" for k in KEYS
