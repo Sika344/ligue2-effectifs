@@ -1,0 +1,195 @@
+# À déposer dans .github/workflows/maj-journee.yml
+#
+# UN SEUL workflow qui régénère les 13 jeux de données du site après une
+# journée de championnat, puis commite le tout en une fois.
+#
+# ------------------------------------------------------------------ POURQUOI
+# Les 13 workflows individuels ont chacun leur cron quotidien, mais ils ne
+# mettaient JAMAIS à jour la saison en cours. Raison : sur un déclenchement
+# `schedule`, GitHub n'applique pas les `default:` des inputs — `inputs.season`
+# arrive vide. Les scripts retombaient alors sur leur CURRENT_SEASON codée en
+# dur ("2025-2026") et écrivaient xg.json, pressing.json… SANS suffixe, or
+# season.js ne lit que les fichiers suffixés. Des heures de calcul par semaine
+# pour des fichiers que le site n'ouvre jamais.
+#
+# D'où le `|| env.SAISON_PAR_DEFAUT` ci-dessous : il couvre les deux cas, le
+# lancement manuel avec champ laissé vide ET le lancement planifié.
+#
+# ---------------------------------------------------------------- POURQUOI 1 COMMIT
+# Les scripts tournent en série et un seul commit clôt la course. Les push
+# simultanés de 13 workflows se rejetaient mutuellement ("fetch first") ; ici
+# le problème ne peut plus se poser. La boucle de rebase reste par sécurité,
+# au cas où un ancien workflow pousserait pendant la course.
+#
+# ------------------------------------------------------------------ CHANGER LA SAISON
+# En fin de saison, une seule ligne à modifier : SAISON_PAR_DEFAUT.
+
+name: MAJ journée (tous les jeux de données)
+
+on:
+  schedule:
+    # Lundi et jeudi 02:00 UTC : couvre les journées de week-end et de milieu
+    # de semaine, en laissant à StatsBomb le temps d'ingérer les matchs.
+    # 02:00 et non 04:30 pour finir AVANT les crons des 13 anciens workflows,
+    # qui s'échelonnent de 04:30 à 07:30 — deux push simultanés se rejettent.
+    - cron: "0 2 * * 1,4"
+  workflow_dispatch:
+    inputs:
+      season:
+        description: "Saison (vide = saison par défaut du workflow)"
+        required: false
+        default: ""
+      sportscode:
+        description: "Régénérer aussi les timelines SportsCode (+20 min)"
+        type: boolean
+        required: false
+        default: true
+
+permissions:
+  contents: write
+
+concurrency:
+  group: maj-journee
+  cancel-in-progress: false
+
+env:
+  SAISON_PAR_DEFAUT: "2026-2027"
+
+jobs:
+  maj:
+    runs-on: ubuntu-latest
+    timeout-minutes: 300
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install deps
+        run: pip install --quiet statsbombpy pandas
+
+      - name: Saison retenue
+        id: s
+        run: |
+          SAISON="${{ inputs.season }}"
+          # bash tourne avec -e : « [ ... ] && cmd » renverrait 1 quand le test
+          # est faux et ferait échouer l'étape. D'où le if/fi explicite.
+          if [ -z "$SAISON" ]; then SAISON="${{ env.SAISON_PAR_DEFAUT }}"; fi
+          echo "saison=$SAISON" >> "$GITHUB_OUTPUT"
+          echo "### Saison traitée : \`$SAISON\`" >> "$GITHUB_STEP_SUMMARY"
+
+      # Chaque script est indépendant : si l'un échoue (API indisponible, match
+      # non encore ingéré…), les autres doivent quand même produire leurs
+      # données. On collecte donc les échecs sans interrompre la course, et on
+      # ne fait échouer le job qu'à la toute fin, APRÈS le commit.
+      - name: Régénérer les 13 jeux de données
+        id: build
+        env:
+          SB_USERNAME: ${{ secrets.SB_USERNAME }}
+          SB_PASSWORD: ${{ secrets.SB_PASSWORD }}
+          SEASON: ${{ steps.s.outputs.saison }}
+        run: |
+          SCRIPTS="
+          build_xg.py
+          build_inposs.py
+          build_outposs.py
+          build_losses.py
+          build_recoveries.py
+          build_pressing.py
+          build_buildup.py
+          build_defending.py
+          build_finishing.py
+          build_shotmix.py
+          build_goalview.py
+          build_clubstats.py
+          build_rapport.py
+          "
+          ECHECS=""
+          echo "| Script | Résultat | Durée |" >> "$GITHUB_STEP_SUMMARY"
+          echo "|---|---|---|" >> "$GITHUB_STEP_SUMMARY"
+          for s in $SCRIPTS; do
+            if [ ! -f "$s" ]; then
+              echo "::warning::$s absent du dépôt — ignoré"
+              echo "| \`$s\` | ⚠️ absent | — |" >> "$GITHUB_STEP_SUMMARY"
+              continue
+            fi
+            echo "::group::$s"
+            t0=$SECONDS
+            if python "$s"; then
+              d=$((SECONDS - t0))
+              echo "| \`$s\` | ✅ | ${d}s |" >> "$GITHUB_STEP_SUMMARY"
+            else
+              d=$((SECONDS - t0))
+              echo "::error::$s a échoué"
+              echo "| \`$s\` | ❌ échec | ${d}s |" >> "$GITHUB_STEP_SUMMARY"
+              ECHECS="$ECHECS $s"
+            fi
+            echo "::endgroup::"
+          done
+          echo "echecs=$ECHECS" >> "$GITHUB_OUTPUT"
+
+      - name: Timelines SportsCode
+        id: sc
+        # Sur `schedule`, `inputs` est nul — et GitHub convertit null comme
+        # false en 0, si bien que « inputs.sportscode != false » serait FAUX et
+        # l'étape sautée. On teste donc l'événement explicitement.
+        if: ${{ github.event_name == 'schedule' || inputs.sportscode }}
+        continue-on-error: true
+        env:
+          SB_USERNAME: ${{ secrets.SB_USERNAME }}
+          SB_PASSWORD: ${{ secrets.SB_PASSWORD }}
+          SEASON: ${{ steps.s.outputs.saison }}
+        run: |
+          if [ -f build_sportscode.py ]; then
+            python build_sportscode.py
+          else
+            echo "::warning::build_sportscode.py absent — ignoré"
+          fi
+
+      - name: Commit
+        run: |
+          git config user.name  "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+
+          git add -- '*.json'
+          # Un glob qui ne correspond à rien fait rejeter TOUTE la commande par
+          # git : les dossiers sc* sont donc ajoutés un par un, après test.
+          for d in sc sc_*; do
+            if [ -d "$d" ]; then git add -- "$d"; fi
+          done
+
+          if git diff --staged --quiet; then
+            echo "Aucune donnée modifiée."
+            echo "_Aucune donnée modifiée._" >> "$GITHUB_STEP_SUMMARY"
+            exit 0
+          fi
+
+          echo "### Fichiers mis à jour" >> "$GITHUB_STEP_SUMMARY"
+          git diff --staged --name-only | sed 's/^/- /' >> "$GITHUB_STEP_SUMMARY"
+
+          git commit -q -m "chore: MAJ journée (${{ steps.s.outputs.saison }})"
+
+          pousse=0
+          for i in 1 2 3 4 5; do
+            if git push; then
+              echo "push OK (tentative $i)"
+              pousse=1
+              break
+            fi
+            echo "push rejeté (tentative $i) — rebase puis nouvelle tentative…"
+            git pull --rebase --autostash origin main || true
+            sleep $((RANDOM % 5 + 2))
+          done
+          [ "$pousse" = 1 ] || { echo "échec du push après 5 tentatives"; exit 1; }
+
+      # Le commit est fait : on peut maintenant signaler les scripts en échec
+      # sans avoir perdu le travail des autres.
+      - name: Bilan
+        run: |
+          E="${{ steps.build.outputs.echecs }}"
+          if [ -n "$E" ]; then
+            echo "::error::scripts en échec :$E"
+            exit 1
+          fi
+          echo "Les 13 jeux de données sont à jour."
