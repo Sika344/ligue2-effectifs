@@ -1,0 +1,95 @@
+# À déposer dans .github/workflows/individual.yml
+#
+# Données joueur de l'onglet « Individual » (spider chart).
+# Un seul appel API : le run dure moins d'une minute, contrairement aux scripts
+# qui parcourent les événements match par match.
+#
+# Workflow dédié plutôt qu'une ligne de plus dans maj-journee.yml : tant que la
+# correspondance des métriques n'est pas figée, il faut pouvoir relancer ce seul
+# script en quelques secondes. Il rejoindra maj-journee.yml une fois stabilisé.
+
+name: Build individual (spider chart)
+
+on:
+  workflow_dispatch:
+    inputs:
+      season:
+        description: "Saison (vide = saison par défaut du workflow)"
+        required: false
+        default: ""
+
+permissions:
+  contents: write
+
+concurrency:
+  group: build-individual
+  cancel-in-progress: true
+
+env:
+  SAISON_PAR_DEFAUT: "2026-2027"
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install deps
+        run: pip install --quiet statsbombpy pandas
+
+      - name: Saison retenue
+        id: s
+        run: |
+          SAISON="${{ inputs.season }}"
+          # bash tourne avec -e : « [ ... ] && cmd » renverrait 1 quand le test
+          # est faux et ferait échouer l'étape. D'où le if/fi explicite.
+          if [ -z "$SAISON" ]; then SAISON="${{ env.SAISON_PAR_DEFAUT }}"; fi
+          echo "saison=$SAISON" >> "$GITHUB_OUTPUT"
+
+      - name: Generate individual JSON
+        env:
+          SB_USERNAME: ${{ secrets.SB_USERNAME }}
+          SB_PASSWORD: ${{ secrets.SB_PASSWORD }}
+          SEASON: ${{ steps.s.outputs.saison }}
+        run: python build_individual.py | tee sortie.txt
+
+      # Le journal du run finit par disparaître ; le résumé, non. C'est là qu'on
+      # lit quelles métriques StatsBomb ne renvoie pas sous le nom attendu.
+      - name: Résumé des métriques
+        if: always()
+        run: |
+          {
+            echo "### Résolution des métriques — saison ${{ steps.s.outputs.saison }}"
+            echo '```'
+            sed -n '/Métriques résolues/,$p' sortie.txt || true
+            echo '```'
+          } >> "$GITHUB_STEP_SUMMARY"
+
+      - name: Commit
+        run: |
+          git config user.name  "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add -- 'individual*.json'
+          if git diff --staged --quiet; then
+            echo "Aucun individual*.json modifié."
+            exit 0
+          fi
+          git commit -q -m "chore: maj individual (${{ steps.s.outputs.saison }})"
+
+          pousse=0
+          for i in 1 2 3 4 5; do
+            if git push; then
+              echo "push OK (tentative $i)"
+              pousse=1
+              break
+            fi
+            echo "push rejeté (tentative $i) — rebase puis nouvelle tentative…"
+            git pull --rebase --autostash origin main || true
+            sleep $((RANDOM % 5 + 2))
+          done
+          [ "$pousse" = 1 ] || { echo "échec du push après 5 tentatives"; exit 1; }
