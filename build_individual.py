@@ -18,10 +18,10 @@ EXACTE ; s'il n'en trouve aucune, il ne devine pas : il inscrit la métrique dan
 `diagnostic.non_resolues` avec les colonnes les plus ressemblantes, à trancher à
 la main. Le JSON embarque aussi la liste complète des colonnes disponibles.
 
-SAISON (même convention que les autres build_*.py) :
-  - défaut = CURRENT_SEASON -> individual.json
-  - autre saison -> individual_<saison>.json
-  - saison passée en argv[1] ou via la variable d'environnement SEASON.
+SAISON : la sortie est TOUJOURS suffixée — individual_2026-2027.json,
+individual_2025-2026.json. Contrairement aux autres build_*.py, aucune saison
+ne produit de nom nu : season.js ne lit que des noms suffixés.
+La saison se passe en argv[1] ou via la variable d'environnement SEASON.
 
 USAGE LOCAL :
     SB_USERNAME='…' SB_PASSWORD='…' python build_individual.py 2026-2027
@@ -37,14 +37,15 @@ import datetime
 from statsbombpy import sb
 
 COMPETITION_ID = 8              # Ligue 2
-CURRENT_SEASON = "2025-2026"    # saison courante -> sortie NON suffixée
+CURRENT_SEASON = "2025-2026"    # saison retenue si SEASON est vide
 SEASON_IDS = {
     "2025-2026": 318,
     "2026-2027": 351,
 }
 
 # ---------------------------------------------------------------------------
-# Les 28 métriques demandées, dans l'ordre de la maquette.
+# Les métriques demandées, dans l'ordre de la maquette. 27 sur 28 : « Corner xG »
+# est retiré faute de donnée (voir plus bas).
 #   cle    : identifiant court utilisé par le JSON et la page
 #   label  : libellé affiché sur l'axe du radar
 #   cands  : noms de colonnes candidats, essayés dans l'ordre
@@ -56,8 +57,12 @@ METRIQUES = [
         "player_season_obv_pass_90",
         "player_season_obv_dribble_carry_90",
         "player_season_obv_shot_90"]),
+    # Aucune colonne d'xG « tout compris » dans les 237 disponibles : StatsBomb
+    # ne fournit que le non-penalty. Cet axe est donc un DOUBLON de NP xG, gardé
+    # à la demande. Deux axes identiques gonflent la surface du polygone : à
+    # n'utiliser qu'en connaissance de cause.
     dict(cle="xg", label="xG", sens=+1, cands=[
-        "player_season_xg_90", "player_season_npxg_90"]),
+        "player_season_np_xg_90"]),
     dict(cle="box_touches", label="Box touches", sens=+1, cands=[
         "player_season_touches_inside_box_90"]),
     dict(cle="key_passes", label="Key passes", sens=+1, cands=[
@@ -75,17 +80,16 @@ METRIQUES = [
         "player_season_high_recoveries_90",
         "player_season_counterpressures_90"]),
     dict(cle="obv_lb", label="OBV line-break", sens=+1, cands=[
-        "player_season_obv_line_breaking_pass_90",
-        "player_season_line_breaking_pass_obv_90"]),
+        "player_season_obv_lbp_90"]),
+    # Seuil 5 m sur les trois disponibles (2/5/10, emboîtés) : à 2 m presque
+    # toute passe réussie qualifie, à 10 m l'événement devient trop rare pour
+    # être stable. Une seule ligne à changer si l'on veut un autre seuil.
     dict(cle="lbp_space", label="LBP→space", sens=+1, cands=[
-        "player_season_line_breaking_pass_into_space_90",
-        "player_season_lbp_into_space_90"]),
+        "player_season_lbp_to_space_5_90"]),
     dict(cle="obv_lb_f3", label="OBV LB (f3)", sens=+1, cands=[
-        "player_season_obv_line_breaking_pass_final_third_90",
-        "player_season_f3_line_breaking_pass_obv_90"]),
+        "player_season_f3_obv_lbp_90"]),
     dict(cle="lbp_space_f3", label="LBP→space (f3)", sens=+1, cands=[
-        "player_season_line_breaking_pass_into_space_final_third_90",
-        "player_season_f3_lbp_into_space_90"]),
+        "player_season_f3_lbp_to_space_5_90"]),
     dict(cle="goal_involv", label="Goal involv.", sens=+1, calc=[
         "player_season_goals_90", "player_season_assists_90"]),
     dict(cle="np_xg", label="NP xG", sens=+1, cands=[
@@ -94,10 +98,11 @@ METRIQUES = [
         "player_season_shots_90", "player_season_np_shots_90"]),
     dict(cle="xg_per_shot", label="xG/shot", sens=+1, cands=[
         "player_season_np_xg_per_shot", "player_season_xg_per_shot"]),
-    dict(cle="corner_xg", label="Corner xG", sens=+1, cands=[
-        "player_season_xg_from_corner_90", "player_season_corner_xg_90"]),
+    # « Corner xG » retiré : rien dans les 237 colonnes ne mesure l'xG sur
+    # corner côté tireur. Laisser l'axe afficherait zéro pour tout le monde,
+    # ce qui se lirait comme une faiblesse générale plutôt que comme une absence.
     dict(cle="penalties", label="Penalties", sens=+1, cands=[
-        "player_season_penalties_won_90", "player_season_penalties_90"]),
+        "player_season_penalty_wins_90"]),
     dict(cle="deep_prog", label="Deep prog.", sens=+1, cands=[
         "player_season_deep_progressions_90"]),
     dict(cle="deep_compl", label="Deep compl.", sens=+1, cands=[
@@ -109,9 +114,8 @@ METRIQUES = [
         "player_season_successful_dribbles_90", "player_season_dribbles_90"]),
     dict(cle="crosses", label="Crosses", sens=+1, cands=[
         "player_season_crosses_90", "player_season_op_crosses_90"]),
-    dict(cle="box_crosses", label="Box crosses", sens=+1, cands=[
-        "player_season_crosses_into_box_90",
-        "player_season_op_crosses_into_box_90"]),
+    dict(cle="box_crosses", label="Box crosses %", sens=+1, cands=[
+        "player_season_box_cross_ratio"]),
     dict(cle="op_passes", label="OP passes", sens=+1, cands=[
         "player_season_op_passes_90"]),
     dict(cle="passing_pct", label="Passing %", sens=+1, cands=[
@@ -145,7 +149,12 @@ def resolve_season():
         print(f"ERREUR : saison « {label} » inconnue. Connues : "
               f"{', '.join(sorted(SEASON_IDS))}", file=sys.stderr)
         sys.exit(1)
-    out = "individual.json" if label == CURRENT_SEASON else f"individual_{label}.json"
+    # TOUJOURS suffixé, sans exception. Les autres build_*.py écrivent un nom nu
+    # quand la saison demandée vaut CURRENT_SEASON — et season.js, qui ne lit que
+    # des noms suffixés, ne trouve alors rien. C'est exactement ce qui est arrivé
+    # au premier run 2025-2026 : le fichier a bien été produit, sous le nom
+    # individual.json, invisible pour le site.
+    out = f"individual_{label}.json"
     return label, sid, out
 
 
