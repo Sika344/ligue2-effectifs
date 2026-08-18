@@ -1,0 +1,570 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Individual — Spider chart · Ligue 2</title>
+<style>
+
+  :root{
+    --ui-font:-apple-system,BlinkMacSystemFont,"Inter","Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+    --ui-ink:#1f2937; --ui-ink2:#111827; --ui-muted:#6b7280; --ui-faint:#9ca3af;
+    --ui-line:#e5e7eb; --ui-line2:#d8dce3; --ui-hover:#f9fafb; --ui-accent:#0a1733;
+    --gold:#c9a24b;
+  }
+  *{box-sizing:border-box}
+  body{margin:0;background:#fff;color:var(--ui-ink);font-family:var(--ui-font)}
+
+  /* ---- barre de navigation principale ---- */
+  .sitenav{position:sticky;top:0;z-index:9999;isolation:isolate;display:flex;align-items:stretch;
+    gap:0;font-family:var(--ui-font);background:#fff!important;
+    border-bottom:1px solid var(--ui-line);padding:0 18px;overflow-x:auto;
+    -ms-overflow-style:none;scrollbar-width:none}
+  .sitenav::-webkit-scrollbar{display:none}
+  .sitenav .brand{display:flex;align-items:center;gap:7px;font-size:13.5px;font-weight:650;
+    color:var(--ui-ink2);letter-spacing:-.01em;padding:0 22px 0 0;white-space:nowrap;
+    background:#fff;position:relative;z-index:1}
+  .sitenav .brand span{font-size:9.5px;font-weight:600;color:var(--ui-faint);
+    letter-spacing:.11em;text-transform:uppercase}
+  .sitenav a{display:flex;align-items:center;margin:9px 3px;padding:6px 13px;font-size:12.5px;
+    font-weight:550;color:var(--ui-muted);text-decoration:none;white-space:nowrap;
+    letter-spacing:-.005em;border:1px solid var(--ui-line2);border-radius:8px;background:#fff;
+    transition:color .13s ease,border-color .13s ease,background .13s ease}
+  .sitenav a:hover{color:var(--ui-ink2);border-color:#b9c0cc;background:var(--ui-hover)}
+  .sitenav a.on{color:var(--ui-accent);font-weight:650;background:#fff;border-color:var(--ui-accent)}
+  @media(max-width:720px){
+    .sitenav{padding:0 10px}
+    .sitenav .brand span{display:none}
+    .sitenav a{margin:8px 2px;padding:6px 10px;font-size:12px}
+  }
+
+  /* ---- topbar ---- */
+  .topbar{display:flex;align-items:center;flex-wrap:wrap;gap:10px;background:#fff;
+    border-bottom:1px solid var(--ui-line);padding:11px 18px}
+  .topbar h2{margin:0;font-size:14px;font-weight:650;color:var(--ui-ink2);letter-spacing:-.01em}
+  .topbar .tag{font-size:10.5px;font-weight:600;color:var(--ui-muted);background:#f3f4f6;
+    border-radius:6px;padding:3px 8px;letter-spacing:.02em}
+  .topbar select{font-family:var(--ui-font);font-size:12.5px;font-weight:500;color:var(--ui-ink);
+    background:#fff;border:1px solid var(--ui-line2);border-radius:8px;padding:7px 30px 7px 11px;
+    cursor:pointer;appearance:none;-webkit-appearance:none;
+    background-image:url("data:image/svg+xml;charset=utf-8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' fill='none' stroke='%236b7280' stroke-width='1.7'%3E%3Cpath d='M3 4.5L6 7.5L9 4.5'/%3E%3C/svg%3E");
+    background-repeat:no-repeat;background-position:right 10px center}
+  .topbar select:hover{border-color:#b9c0cc}
+  .topbar select:focus{outline:none;border-color:var(--ui-accent);box-shadow:0 0 0 3px rgba(10,23,51,.09)}
+
+  /* ---- contenu ---- */
+  .wrap{max-width:1500px;margin:0 auto;padding:18px}
+  .card{background:#fff;border:1px solid var(--ui-line);border-radius:12px;padding:18px}
+  .card h3{margin:0 0 4px;font-size:15px;font-weight:650;color:var(--ui-ink2);letter-spacing:-.01em}
+  .card .sub{font-size:12.5px;color:var(--ui-muted);margin-bottom:16px}
+
+  .filters{display:flex;flex-wrap:wrap;align-items:flex-end;gap:26px;margin-bottom:6px}
+  .fgroup{display:flex;flex-direction:column;gap:7px}
+  .flab{font-size:10px;font-weight:650;letter-spacing:.09em;color:var(--ui-faint);text-transform:uppercase}
+  .pills{display:flex;flex-wrap:wrap;gap:7px}
+  .pill{font-family:var(--ui-font);font-size:12.5px;font-weight:550;padding:6px 14px;
+    border-radius:999px;border:1px solid var(--ui-line2);background:#fff;color:var(--ui-muted);
+    cursor:pointer;user-select:none;transition:all .13s ease}
+  .pill:hover{border-color:var(--ui-accent);color:var(--ui-ink2)}
+  .pill.on{border-color:var(--ui-accent);color:var(--ui-accent);font-weight:650;
+    box-shadow:inset 0 0 0 1px var(--ui-accent)}
+  .slidebox{display:flex;align-items:center;gap:11px}
+  input[type=range]{width:190px;accent-color:var(--ui-accent);cursor:pointer}
+  .sval{font-size:14px;font-weight:650;color:var(--ui-ink2);min-width:38px}
+  .btn{font-family:var(--ui-font);font-size:12px;font-weight:600;color:var(--ui-ink);background:#fff;
+    border:1px solid var(--ui-line2);border-radius:8px;padding:6px 12px;cursor:pointer;
+    transition:background .13s ease,border-color .13s ease}
+  .btn:hover{background:var(--ui-hover);border-color:#b9c0cc}
+
+  .plotwrap{position:relative;margin-top:6px}
+  .plotwrap svg{display:block;width:100%;height:auto}
+  .note{font-size:11.5px;color:var(--ui-muted);margin-top:10px;line-height:1.5}
+  .tip{position:absolute;pointer-events:none;opacity:0;transition:opacity .1s ease;
+    background:#fff;border:1px solid var(--ui-line2);border-radius:9px;padding:9px 12px;
+    box-shadow:0 6px 22px rgba(16,24,40,.13);font-size:12px;color:var(--ui-ink);z-index:20;
+    white-space:nowrap}
+  .tip b{display:block;font-size:13px;font-weight:650;color:var(--ui-ink2);margin-bottom:4px}
+  .tip i{font-style:normal;color:var(--ui-muted)}
+  .hide{display:none!important}
+  select.chartsel{font-family:var(--ui-font);font-size:12.5px;font-weight:650;color:var(--ui-accent);
+    background:#fbfcfd;border:1px solid #c3cad6;border-radius:8px;padding:6px 30px 6px 12px;
+    cursor:pointer;appearance:none;-webkit-appearance:none;
+    background-image:url("data:image/svg+xml;charset=utf-8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' fill='none' stroke='%230a1733' stroke-width='1.9'%3E%3Cpath d='M3 4.5L6 7.5L9 4.5'/%3E%3C/svg%3E");
+    background-repeat:no-repeat;background-position:right 10px center}
+  select.chartsel:hover{border-color:var(--ui-accent)}
+  .seg{display:inline-flex;border:1px solid var(--ui-line2);border-radius:8px;overflow:hidden}
+  .seg button{font-family:var(--ui-font);font-size:12.5px;font-weight:600;padding:6px 14px;
+    border:0;background:#fff;color:var(--ui-muted);cursor:pointer;transition:all .13s ease}
+  .seg button+button{border-left:1px solid var(--ui-line2)}
+  .seg button.on{background:var(--ui-accent);color:#fff}
+  .fingrid{display:grid;grid-template-columns:1fr 330px;gap:24px;align-items:start}
+  @media(max-width:1100px){.fingrid{grid-template-columns:1fr}}
+  .fside{border-left:1px solid var(--ui-line);padding-left:20px}
+  @media(max-width:1100px){.fside{border-left:0;padding-left:0}}
+  .sideh{display:flex;align-items:center;justify-content:space-between;font-size:10px;
+    font-weight:650;letter-spacing:.09em;color:var(--ui-faint);text-transform:uppercase;margin-bottom:9px}
+  .lnk{background:none;border:0;font-family:var(--ui-font);font-size:11px;font-weight:650;
+    color:var(--ui-accent);cursor:pointer;letter-spacing:0;text-transform:none;padding:0}
+  .lnk:hover{text-decoration:underline}
+  #lpMap svg{display:block;width:100%;height:auto}
+  .sidenote{font-size:11px;color:var(--ui-muted);line-height:1.5;margin-top:9px}
+  .toph{font-size:10px;font-weight:650;letter-spacing:.09em;color:var(--ui-faint);
+    text-transform:uppercase;margin:20px 0 7px}
+  .toplist{font-size:12.5px}
+  .toprow{display:flex;align-items:center;gap:8px;padding:5px 0;border-bottom:1px solid #f3f4f6}
+  .toprow:last-child{border-bottom:0}
+  .toprow .rk{width:14px;color:var(--ui-faint);font-weight:600;font-size:11px}
+  .toprow .nm{flex:1;color:var(--ui-ink2);font-weight:550;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+  .toprow .vl{font-weight:700;color:var(--ui-accent)}
+  .empty{font-size:12.5px;color:var(--ui-faint);padding:40px 0;text-align:center}
+
+
+/* ------------------------------------------------------------------ page */
+.wrap{padding:16px 18px 60px;max-width:1500px}
+.blk{background:#fff;border:1px solid var(--ui-line);border-radius:12px;
+     padding:14px 16px;margin-bottom:12px}
+.blk h3{margin:0 0 10px;font-size:10.5px;font-weight:700;letter-spacing:.09em;
+        text-transform:uppercase;color:var(--ui-muted)}
+.row{display:flex;flex-wrap:wrap;gap:14px;align-items:flex-end}
+.fld{display:flex;flex-direction:column;gap:5px}
+.fld label{font-size:10px;font-weight:700;letter-spacing:.08em;
+           text-transform:uppercase;color:var(--ui-muted)}
+.fld input[type=text]{font-family:var(--ui-font);font-size:12.5px;color:var(--ui-ink);
+  background:#fff;border:1px solid var(--ui-line2);border-radius:8px;padding:7px 11px;min-width:190px}
+.fld select{min-width:190px}
+
+/* pastilles de metriques */
+.mets{display:flex;flex-wrap:wrap;gap:6px 12px;margin-top:4px}
+.met{display:inline-flex;align-items:center;gap:6px;font-size:11.5px;
+     color:var(--ui-ink);cursor:pointer;user-select:none;white-space:nowrap}
+.met input{accent-color:#e2571f;width:13px;height:13px;cursor:pointer;margin:0}
+.met.off{color:var(--ui-faint);cursor:not-allowed}
+.met.off input{cursor:not-allowed}
+
+/* joueurs selectionnes */
+.chips{display:flex;flex-wrap:wrap;gap:8px;margin-top:10px}
+.chip{display:inline-flex;align-items:center;gap:8px;font-size:12px;font-weight:600;
+      border:1px solid var(--ui-line2);border-radius:999px;padding:5px 6px 5px 12px;background:#fff}
+.chip .dot{width:9px;height:9px;border-radius:50%;flex:0 0 auto}
+.chip .sub{font-weight:500;color:var(--ui-muted);font-size:11px}
+.chip button{border:0;background:#f1f3f6;color:var(--ui-muted);width:19px;height:19px;
+  border-radius:50%;cursor:pointer;font-size:13px;line-height:1;padding:0}
+.chip button:hover{background:#e6e9ee;color:var(--ui-ink)}
+
+/* curseur minutes */
+.slider{display:flex;align-items:center;gap:10px}
+.slider input[type=range]{width:210px;accent-color:#e2571f}
+.slider b{font-variant-numeric:tabular-nums;font-size:12.5px}
+
+/* graphique */
+.plotwrap{display:flex;gap:22px;flex-wrap:wrap;align-items:flex-start}
+#radar{flex:1 1 560px;min-width:420px}
+.tbl{flex:1 1 420px;min-width:380px;overflow:auto}
+table{border-collapse:collapse;width:100%;font-size:12px}
+th,td{padding:6px 9px;text-align:right;white-space:nowrap;
+      border-bottom:1px solid var(--ui-line)}
+th:first-child,td:first-child{text-align:left}
+thead th{font-size:10px;letter-spacing:.06em;text-transform:uppercase;
+         color:var(--ui-muted);font-weight:700}
+td.pct{font-variant-numeric:tabular-nums;font-weight:700}
+td.raw{font-variant-numeric:tabular-nums;color:var(--ui-muted)}
+.warn{font-size:11.5px;color:#a8500f;background:#fff6ed;border:1px solid #f6d9be;
+      border-radius:9px;padding:9px 12px;margin-bottom:12px;line-height:1.5}
+</style>
+</head>
+<body>
+
+<nav class="sitenav"><div class="brand">⚽ Ligue 2<span>Analyse</span></div><a href="index.html">Effectif</a><a href="effectif-sans-photos.html">Effectif sans photos</a><a href="attacking.html">Attacking</a><a href="chartindex.html">Chart index</a><a href="defending.html">Defending</a><a href="analytics.html">Analytics 360</a><a href="individual.html" class="on">Individual</a><a href="rapport-pre-match.html">Rapport pré-match</a><a href="sportscode.html">SportsCode XML</a></nav>
+
+<div class="wrap">
+  <div id="alerte"></div>
+
+  <div class="blk">
+    <h3>Groupe de comparaison</h3>
+    <div class="row">
+      <div class="fld"><label>Position</label><select id="fPos"></select></div>
+      <div class="fld"><label>Base du percentile</label><select id="fBase">
+        <option value="groupe">Groupe de poste</option>
+        <option value="exact">Poste exact StatsBomb</option>
+      </select></div>
+      <div class="fld"><label>Minutes minimum</label>
+        <div class="slider"><input type="range" id="fMin" min="0" max="3000" step="30" value="450">
+          <b id="fMinL">450 min</b></div>
+      </div>
+      <div class="fld"><label>Référence</label><b id="nRef" style="font-size:12.5px;padding:7px 0">—</b></div>
+    </div>
+  </div>
+
+  <div class="blk">
+    <h3>Joueurs — 4 maximum</h3>
+    <div class="row">
+      <div class="fld"><label>Club</label><select id="fTeam"></select></div>
+      <div class="fld"><label>Ajouter un joueur</label><select id="fAdd"></select></div>
+    </div>
+    <div class="chips" id="chips"></div>
+  </div>
+
+  <div class="blk">
+    <h3>Métriques — 3 à 8</h3>
+    <div class="mets" id="mets"></div>
+  </div>
+
+  <div class="blk">
+    <div class="plotwrap">
+      <div id="radar"></div>
+      <div class="tbl" id="tbl"></div>
+    </div>
+    <div class="note" id="note"></div>
+  </div>
+</div>
+
+<script src="season.js"></script>
+<script>
+"use strict";
+
+/* ===========================================================================
+   REGROUPEMENT DES POSTES
+   StatsBomb renvoie 24 postes distincts, dont certains à 1 ou 2 joueurs sur la
+   saison (Right Attacking Midfielder : 1). Un percentile calculé sur un groupe
+   de 1 vaut toujours 50 et ne dit rien. On regroupe donc par famille, avec la
+   possibilité de revenir au poste exact quand l'effectif le permet.
+   =========================================================================== */
+const GROUPES = [
+  ["Gardien",              ["Goalkeeper"]],
+  ["Défenseur central",    ["Centre Back","Left Centre Back","Right Centre Back"]],
+  ["Latéral",              ["Left Back","Right Back","Left Wing Back","Right Wing Back"]],
+  ["Milieu défensif",      ["Centre Defensive Midfielder","Left Defensive Midfielder","Right Defensive Midfielder"]],
+  ["Milieu central",       ["Centre Midfielder","Left Centre Midfielder","Right Centre Midfielder"]],
+  ["Milieu offensif",      ["Centre Attacking Midfielder","Left Attacking Midfielder","Right Attacking Midfielder"]],
+  ["Ailier",               ["Left Wing","Right Wing","Left Midfielder","Right Midfielder"]],
+  ["Attaquant",            ["Centre Forward","Left Centre Forward","Right Centre Forward","Secondary Striker"]]
+];
+const POSTE2GRP = {};
+GROUPES.forEach(([g, l]) => l.forEach(p => POSTE2GRP[p] = g));
+
+const COULEURS = ["#e2571f", "#0d3b8c", "#128a5a", "#8c2d8c"];
+
+let DATA = null;                 // individual_<saison>.json
+let SEL  = [];                   // joueurs choisis (max 4)
+let MET  = [];                   // clés des métriques cochées
+let SEUIL = 450;
+
+const $ = id => document.getElementById(id);
+const num = v => (v === null || v === undefined || v !== v) ? null : +v;
+
+/* ---------------------------------------------------------------- percentile
+   Rang moyen : un joueur strictement supérieur à 7 des 10 autres et à égalité
+   avec 2 obtient (7 + 1) / 10. Sans ce demi-rang, plusieurs joueurs à égalité
+   recevraient tous le percentile le plus bas de la plage — pénalisant à tort
+   les métriques où beaucoup de joueurs valent exactement 0.                  */
+function percentile(valeurs, v){
+  if (!valeurs.length) return null;
+  let inf = 0, eq = 0;
+  for (const x of valeurs){ if (x < v) inf++; else if (x === v) eq++; }
+  return 100 * (inf + eq / 2) / valeurs.length;
+}
+/* Valeur brute atteinte à un percentile donné — sert à graduer les anneaux. */
+function valeurAuPct(triees, pct){
+  if (!triees.length) return null;
+  const i = (triees.length - 1) * pct / 100;
+  const b = Math.floor(i), h = Math.ceil(i);
+  return b === h ? triees[b] : triees[b] + (triees[h] - triees[b]) * (i - b);
+}
+
+function grpDe(p){ return POSTE2GRP[p.poste] || "Autre"; }
+
+/* Population de référence : même famille (ou même poste exact) et temps de jeu
+   suffisant. C'est elle qui fixe l'échelle de TOUS les axes. */
+function reference(){
+  const base = $("fBase").value, gsel = $("fPos").value;
+  return DATA.players.filter(p => {
+    if ((p.minutes || 0) < SEUIL) return false;
+    if (gsel === "*") return true;
+    return base === "exact" ? p.poste === gsel : grpDe(p) === gsel;
+  });
+}
+/* Quand un joueur est comparé, sa référence suit SON poste, pas le filtre —
+   sinon on comparerait un attaquant à des défenseurs centraux. */
+function referenceDe(j){
+  const base = $("fBase").value;
+  return DATA.players.filter(p => (p.minutes || 0) >= SEUIL &&
+    (base === "exact" ? p.poste === j.poste : grpDe(p) === grpDe(j)));
+}
+
+function fmt(v){
+  if (v === null) return "—";
+  const a = Math.abs(v);
+  return a >= 100 ? v.toFixed(0) : a >= 10 ? v.toFixed(1) : a >= 1 ? v.toFixed(2) : v.toFixed(3);
+}
+
+/* ------------------------------------------------------------------- radar */
+function radar(){
+  const host = $("radar");
+  if (MET.length < 3){
+    host.innerHTML = '<div class="empty">Coche au moins 3 métriques.</div>'; return;
+  }
+  if (!SEL.length){
+    host.innerHTML = '<div class="empty">Ajoute un joueur pour tracer le radar.</div>'; return;
+  }
+
+  const W = 620, H = 620, cx = W/2, cy = H/2, R = 205;
+  const n = MET.length, ANN = 5;
+  const metas = MET.map(k => DATA.metrics.find(m => m.cle === k));
+
+  // Échelle par axe : distribution de la référence du PREMIER joueur, pour que
+  // les valeurs affichées sur les anneaux correspondent à un groupe unique.
+  const ref = referenceDe(SEL[0]);
+  const dist = {};
+  metas.forEach(m => {
+    const v = ref.map(p => num(p.vals[m.cle])).filter(x => x !== null).sort((a,b)=>a-b);
+    dist[m.cle] = v;
+  });
+
+  const ang = i => (Math.PI * 2 * i / n) - Math.PI/2;
+  const pt  = (i, r) => [cx + Math.cos(ang(i)) * r, cy + Math.sin(ang(i)) * r];
+
+  let g = '';
+  // anneaux
+  for (let a = 1; a <= ANN; a++){
+    const r = R * a / ANN;
+    const pts = [];
+    for (let i = 0; i < n; i++){ const [x,y] = pt(i, r); pts.push(x.toFixed(1)+','+y.toFixed(1)); }
+    g += '<polygon points="'+pts.join(' ')+'" fill="none" stroke="#e6e9ee" stroke-width="1"/>';
+  }
+  // axes + libellés + graduations en valeur brute
+  metas.forEach((m, i) => {
+    const [x2,y2] = pt(i, R);
+    g += '<line x1="'+cx+'" y1="'+cy+'" x2="'+x2.toFixed(1)+'" y2="'+y2.toFixed(1)+'" stroke="#dfe3e9"/>';
+    for (let a = 1; a <= ANN; a++){
+      const v = valeurAuPct(dist[m.cle], a * 100 / ANN);
+      if (v === null) continue;
+      const [gx,gy] = pt(i, R * a / ANN);
+      g += '<text x="'+gx.toFixed(1)+'" y="'+(gy-3).toFixed(1)+'" text-anchor="middle" '+
+           'font-size="8.5" fill="#aab2bd">'+fmt(v)+'</text>';
+    }
+    const [lx,ly] = pt(i, R + 34);
+    const anc = Math.abs(lx-cx) < 12 ? 'middle' : (lx > cx ? 'start' : 'end');
+    g += '<text x="'+lx.toFixed(1)+'" y="'+(ly+4).toFixed(1)+'" text-anchor="'+anc+'" '+
+         'font-size="11.5" font-weight="650" fill="#0a1733">'+m.label+'</text>';
+  });
+  // polygones joueurs
+  SEL.forEach((j, k) => {
+    const rj = referenceDe(j);
+    const pts = [];
+    metas.forEach((m, i) => {
+      const vals = rj.map(p => num(p.vals[m.cle])).filter(x => x !== null);
+      const v = num(j.vals[m.cle]);
+      let p = v === null ? 0 : percentile(vals, v);
+      if (m.sens < 0) p = 100 - p;              // fautes, cartons : moins = mieux
+      const [x,y] = pt(i, R * Math.max(p,0) / 100);
+      pts.push(x.toFixed(1)+','+y.toFixed(1));
+    });
+    const c = COULEURS[k % COULEURS.length];
+    g += '<polygon points="'+pts.join(' ')+'" fill="'+c+'" fill-opacity="'+(SEL.length>1?0.13:0.20)+
+         '" stroke="'+c+'" stroke-width="2.2" stroke-linejoin="round"/>';
+  });
+
+  host.innerHTML = '<svg viewBox="0 0 '+W+' '+H+'" width="100%" style="max-width:640px">'+g+'</svg>';
+}
+
+/* ------------------------------------------------------------------ tableau */
+function tableau(){
+  const host = $("tbl");
+  if (!SEL.length || MET.length < 3){ host.innerHTML = ''; return; }
+  const metas = MET.map(k => DATA.metrics.find(m => m.cle === k));
+  let h = '<table><thead><tr><th>Métrique</th>';
+  SEL.forEach((j,k) => h += '<th colspan="2" style="text-align:center;color:'+COULEURS[k%4]+'">'+
+                            j.nom+'</th>');
+  h += '</tr><tr><th></th>';
+  SEL.forEach(() => h += '<th>brut</th><th>pct</th>');
+  h += '</tr></thead><tbody>';
+  metas.forEach(m => {
+    h += '<tr><td>'+m.label+(m.sens<0?' <span style="color:#aab2bd">↓</span>':'')+'</td>';
+    SEL.forEach(j => {
+      const rj = referenceDe(j);
+      const vals = rj.map(p => num(p.vals[m.cle])).filter(x => x !== null);
+      const v = num(j.vals[m.cle]);
+      let p = v === null ? null : percentile(vals, v);
+      if (p !== null && m.sens < 0) p = 100 - p;
+      const col = p === null ? '#aab2bd' : p >= 70 ? '#128a5a' : p >= 40 ? '#8a7a12' : '#b33';
+      h += '<td class="raw">'+fmt(v)+'</td><td class="pct" style="color:'+col+'">'+
+           (p === null ? '—' : Math.round(p))+'</td>';
+    });
+    h += '</tr>';
+  });
+  h += '</tbody></table>';
+  host.innerHTML = h;
+}
+
+/* -------------------------------------------------------------------- rendu */
+function rendu(){
+  const ref = reference();
+  $("nRef").textContent = ref.length + " joueurs";
+  let av = '';
+  if (SEL.length){
+    const petits = SEL.filter(j => referenceDe(j).length < 10);
+    if (petits.length) av += "Groupe de comparaison trop mince pour "+
+      petits.map(j=>j.nom).join(", ")+" : moins de 10 joueurs au même poste passent le seuil. "+
+      "Les percentiles y sont peu fiables — baisse le seuil de minutes, ou repasse en groupe de poste.";
+  }
+  if ((DATA.season||"") === "2026-2027") av += (av?" ":"")+
+    "Saison en cours : peu de journées jouées, les per 90 restent instables.";
+  $("alerte").innerHTML = av ? '<div class="warn">'+av+'</div>' : '';
+
+  radar(); tableau();
+  $("note").innerHTML = "Chaque axe est gradué en <b>valeur réelle</b> ; la position du point est le "+
+    "<b>rang percentile</b> du joueur parmi les joueurs de son poste ayant au moins "+SEUIL+" minutes. "+
+    "Un axe marqué ↓ est inversé : fautes et cartons, moins il y en a, plus le percentile est haut. "+
+    "Source : StatsBomb <code>player_season_stats</code>, saison "+(DATA.season||"")+".";
+}
+
+/* ------------------------------------------------------------- construction */
+function majListeAjout(){
+  const eq = $("fTeam").value, gsel = $("fPos").value, base = $("fBase").value;
+  const dispo = DATA.players
+    .filter(p => (p.minutes||0) >= SEUIL)
+    .filter(p => eq === "*" || p.equipe === eq)
+    .filter(p => gsel === "*" || (base === "exact" ? p.poste === gsel : grpDe(p) === gsel))
+    .filter(p => !SEL.some(s => s.id === p.id))
+    .sort((a,b) => String(a.nom).localeCompare(String(b.nom)));
+  $("fAdd").innerHTML = '<option value="">Ajouter un joueur…</option>' +
+    dispo.map(p => '<option value="'+p.id+'">'+p.nom+' — '+(p.equipe||'?')+
+                   ' ('+Math.round(p.minutes||0)+' min)</option>').join('');
+  $("fAdd").disabled = SEL.length >= 4;
+}
+
+function majChips(){
+  $("chips").innerHTML = SEL.map((j,k) =>
+    '<span class="chip"><span class="dot" style="background:'+COULEURS[k%4]+'"></span>'+
+    j.nom+' <span class="sub">'+(j.equipe||'?')+' · '+(j.poste||'?')+' · '+
+    Math.round(j.minutes||0)+' min</span>'+
+    '<button data-i="'+k+'" title="Retirer">×</button></span>').join('');
+  $("chips").querySelectorAll("button").forEach(b => b.onclick = () => {
+    SEL.splice(+b.dataset.i, 1); majChips(); majListeAjout(); rendu();
+  });
+}
+
+function construire(){
+  /* Le curseur doit s'adapter à la saison. Un seuil fixe de 450 minutes vidait
+     complètement la page en 2026-2027, où le maximum joué est de 204 minutes :
+     aucun joueur ne passait le filtre, et le radar restait blanc sans dire
+     pourquoi. Bornes et valeur de départ sont donc déduites des données —
+     25 % du temps de jeu maximum, ce qui écarte les entrées en fin de match
+     sans exclure les joueurs à temps partiel. */
+  const maxMin = Math.max(...DATA.players.map(p => p.minutes || 0), 90);
+  const pas = 15;
+  const dep = Math.max(pas, Math.round(maxMin * 0.25 / pas) * pas);
+  const el = $("fMin");
+  el.max = Math.ceil(maxMin / pas) * pas;
+  el.step = pas;
+  el.value = dep;
+  SEUIL = dep;
+  $("fMinL").textContent = SEUIL + " min";
+
+  // postes réellement présents, pour ne proposer que des groupes non vides
+  const grpPresents = new Set(DATA.players.map(grpDe));
+  const inconnus = [...new Set(DATA.players.map(p=>p.poste)
+                     .filter(p => p && !POSTE2GRP[p]))];
+  const sansPoste = DATA.players.filter(p => !p.poste).length;
+
+  $("fPos").innerHTML = '<option value="*">Tous les postes</option>' +
+    GROUPES.filter(([g]) => grpPresents.has(g))
+           .map(([g]) => '<option value="'+g+'">'+g+'</option>').join('');
+
+  const eqs = [...new Set(DATA.players.map(p => p.equipe).filter(Boolean))].sort();
+  $("fTeam").innerHTML = '<option value="*">Tous les clubs</option>' +
+    eqs.map(e => '<option value="'+e+'">'+e+'</option>').join('');
+
+  $("mets").innerHTML = DATA.metrics.map(m =>
+    '<label class="met"><input type="checkbox" value="'+m.cle+'">'+m.label+'</label>').join('');
+  // sélection de départ : celle de la maquette
+  ["obv_off","xg","box_touches","key_passes","obv_def","def_actions"].forEach(k => {
+    const el = $("mets").querySelector('input[value="'+k+'"]');
+    if (el){ el.checked = true; MET.push(k); }
+  });
+  $("mets").querySelectorAll("input").forEach(el => el.onchange = () => {
+    if (el.checked && MET.length >= 8){ el.checked = false; return; }
+    MET = [...$("mets").querySelectorAll("input:checked")].map(x => x.value);
+    limiterMet(); rendu();
+  });
+  limiterMet();
+
+  // Un joueur qu'aucun groupe ne réclame disparaîtrait des listes sans un mot :
+  // on le signale plutôt que de le laisser manquer en silence.
+  const avis = [];
+  if (inconnus.length) avis.push("Postes hors nomenclature, regroupés dans « Autre » : <b>"+
+    inconnus.join(", ")+"</b>.");
+  if (sansPoste) avis.push("<b>"+sansPoste+"</b> joueur(s) sans poste renseigné par StatsBomb — "+
+    "visibles uniquement avec « Tous les postes ».");
+  if (avis.length){
+    const d = document.createElement("div");
+    d.className = "note";
+    d.style.marginTop = "8px";
+    d.innerHTML = avis.join(" ");
+    $("mets").parentNode.appendChild(d);
+  }
+}
+/* À 8 métriques cochées, on grise les autres au lieu de les laisser cliquer
+   pour rien : sans cela, un clic sans effet passe pour un bug. */
+function limiterMet(){
+  const plein = MET.length >= 8;
+  $("mets").querySelectorAll(".met").forEach(l => {
+    const i = l.querySelector("input");
+    const off = plein && !i.checked;
+    l.classList.toggle("off", off);
+    i.disabled = off;
+  });
+}
+
+/* -------------------------------------------------------------- événements */
+function brancher(){
+  $("fMin").oninput = () => {
+    SEUIL = +$("fMin").value;
+    $("fMinL").textContent = SEUIL + " min";
+    majListeAjout(); rendu();
+  };
+  ["fPos","fBase","fTeam"].forEach(id => $(id).onchange = () => {
+    if (id === "fBase"){
+      // le sélecteur de poste change de nature : on le reconstruit
+      const base = $("fBase").value;
+      if (base === "exact"){
+        const postes = [...new Set(DATA.players.map(p=>p.poste).filter(Boolean))].sort();
+        $("fPos").innerHTML = '<option value="*">Tous les postes</option>' +
+          postes.map(p => '<option value="'+p+'">'+p+'</option>').join('');
+      } else {
+        const grpPresents = new Set(DATA.players.map(grpDe));
+        $("fPos").innerHTML = '<option value="*">Tous les postes</option>' +
+          GROUPES.filter(([g]) => grpPresents.has(g))
+                 .map(([g]) => '<option value="'+g+'">'+g+'</option>').join('');
+      }
+    }
+    majListeAjout(); rendu();
+  });
+  $("fAdd").onchange = () => {
+    const id = $("fAdd").value;
+    if (!id) return;
+    const j = DATA.players.find(p => String(p.id) === String(id));
+    if (j && SEL.length < 4 && !SEL.some(s => s.id === j.id)) SEL.push(j);
+    majChips(); majListeAjout(); rendu();
+  };
+}
+
+/* ---------------------------------------------------------------- démarrage */
+fetch(SEASON.fichier("individual.json") + "?_=" + Date.now())
+  .then(r => r.ok ? r.json() : null)
+  .then(d => {
+    if (!d || !d.players || !d.players.length){
+      document.querySelector(".wrap").innerHTML =
+        '<div class="empty">' + SEASON.absent("individual.json") + '</div>';
+      return;
+    }
+    DATA = d;
+    construire(); brancher(); majListeAjout(); majChips(); rendu();
+  })
+  .catch(() => {
+    document.querySelector(".wrap").innerHTML =
+      '<div class="empty">Impossible de charger les données joueur.</div>';
+  });
+</script>
+</body>
+</html>
