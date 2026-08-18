@@ -433,7 +433,13 @@ function matchTeam(club, names){
 function placePlayers(team, side){
   const frag=[];
   (team.players||[]).forEach(p=>{ let d=p.x,t=p.y,x,y;
-    if(side==='home'){ x=3+d*0.5*94; y=4+t*92; } else { x=97-d*0.5*94; y=4+t*92; }
+    // Les coordonnées StatsBomb sont données dans le repère de CHAQUE équipe :
+    // x=0 son propre but, x=1 le but adverse, y=0 sa gauche. Afficher l'équipe
+    // extérieure attaquant vers la gauche est une ROTATION DE 180°, donc les
+    // DEUX axes s'inversent. On ne retournait que x : le latéral droit se
+    // retrouvait en haut de l'image, c'est-à-dire à gauche pour une équipe qui
+    // attaque vers la gauche. Tous les postes latéraux étaient donc permutés.
+    if(side==='home'){ x=3+d*0.5*94; y=4+t*92; } else { x=97-d*0.5*94; y=4+(1-t)*92; }
     frag.push(`<div class="pl" style="left:${x.toFixed(2)}%;top:${y.toFixed(2)}%"><div class="disc" style="background:${team.color}"><span class="num">${p.num}</span><span class="pos">${p.pos}</span></div></div>`);
   });
   return frag.join("");
