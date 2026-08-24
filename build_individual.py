@@ -136,6 +136,15 @@ IDENT = {
     "m90":     ["player_season_90s_played"],
     "matchs":  ["player_season_appearances"],
     "titu":    ["player_season_starting_appearances"],
+    # Taille et poids mesurés par StatsBomb : ils font autorité sur les fiches
+    # LFP et Transfermarkt, qui se contredisent régulièrement.
+    "taille":  ["player_height"],
+    "poids":   ["player_weight"],
+    # Part des passes du pied gauche, calculée sur les actions RÉELLES du match.
+    # Le glossaire StatsBomb tranche ainsi : « Players can be considered
+    # left-footed when this value is over 60% (and right-footed at less than
+    # 40%) ». Entre les deux, le joueur est ambidextre et rien n'est conclu.
+    "pied_g":  ["player_season_left_foot_ratio"],
 }
 
 
@@ -250,7 +259,7 @@ def main():
             if cle in ident_res:
                 v = r.get(ident_res[cle])
                 p[cle] = None if v != v else v          # NaN -> None
-        for cle in ("minutes", "m90", "matchs", "titu"):
+        for cle in ("minutes", "m90", "matchs", "titu", "taille", "poids", "pied_g"):
             if cle in ident_res:
                 p[cle] = nombre(r.get(ident_res[cle]))
 
