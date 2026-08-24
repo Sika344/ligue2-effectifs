@@ -154,7 +154,11 @@ def resolve_season():
     if not label:
         label = CURRENT_SEASON
     sid = SEASON_IDS.get(label) or lookup_season_id(label)
-    out = "recoveries.json" if label == CURRENT_SEASON else f"recoveries_{label}.json"
+    # TOUJOURS suffixé. Avec un nom nu pour la saison « courante », un
+    # lancement sans paramètre produisait recoveries.json — un fichier que
+    # season.js, qui ne lit que des noms suffixés, n'ouvre jamais. Le calcul
+    # tournait plusieurs minutes pour rien, sans le moindre message d'erreur.
+    out = f"recoveries_{label}.json"
     return label, sid, out
 
 
