@@ -43,6 +43,14 @@ séquence de possession qu'elle ouvre à la récupération. La case retenue est
 celle de la RÉCUPÉRATION, pas celle du tir. Une récupération compte pour 1 même
 si elle génère plusieurs événements.
 
+FILTRE DE POSSESSION ADVERSE : chaque récupération est datée par la durée de
+possession de l'adversaire qui la précède. Les grilles sont donc aussi publiées
+ventilées par tranche — "grid_poss" et "risk_poss", 5 tranches par case :
+indatable, [0;3[, [3;5[, [5;10[, 10 s et plus. La page applique le seuil qu'elle
+veut sans qu'il faille relancer le script, et la somme des tranches redonne
+exactement "grid" et "risk". Chaque entrée de "goal_locs" porte en outre sa
+durée exacte dans le champ "poss" (null si indatable).
+
 RÉCUPÉRATIONS DÉCISIVES ("goal_locs") : sous-ensemble pour lequel un BUT de
 l'équipe (Shot avec shot_outcome = "Goal", hors penalty) survient dans la même
 fenêtre de 10 s et la même séquence. On stocke la position exacte de la
@@ -92,6 +100,27 @@ PITCH_Y = 80.0
 
 RISK_WINDOW = 10.0              # secondes
 SHOOTOUT_PERIOD = 5
+# Tranches de possession ADVERSE avant la récupération, en secondes.
+# Stocker des tranches plutôt qu'un seuil figé permet de changer le filtre dans
+# la page sans relancer le script — et surtout de ne rien perdre : la tranche 0
+# recueille les récupérations qu'on ne sait pas dater, au lieu de les confondre
+# avec des durées nulles.
+#   0 = indatable | 1 = [0;3[ | 2 = [3;5[ | 3 = [5;10[ | 4 = 10 et plus
+POSS_BUCKETS = 5
+
+
+def bucket_poss(d):
+    if d is None:
+        return 0
+    if d < 3:
+        return 1
+    if d < 5:
+        return 2
+    if d < 10:
+        return 3
+    return 4
+
+
 DEDUP_WINDOW = 1.5              # s — évite de compter 2 fois la même récupération
 
 # --- famille A : actions défensives propres
@@ -245,6 +274,9 @@ def main():
     for team, mids in sorted(per_team.items()):
         grid = [[0] * COLS for _ in range(ROWS)]
         risk = [[0] * COLS for _ in range(ROWS)]
+        # mêmes grilles, ventilées par tranche de possession adverse
+        grid_poss = [[[0] * POSS_BUCKETS for _ in range(COLS)] for _ in range(ROWS)]
+        risk_poss = [[[0] * POSS_BUCKETS for _ in range(COLS)] for _ in range(ROWS)]
         goal_locs = []
         n = 0
         for mid in mids:
@@ -274,12 +306,48 @@ def main():
 
             get = lambda s, i: (s.get(i) if s is not None else None)
 
-            # équipe propriétaire de chaque séquence de possession
-            poss_team = {}
+            # équipe propriétaire de chaque séquence de possession, et instant
+            # de son PREMIER événement — c'est lui qui date le début de la
+            # possession adverse, donc sa durée avant notre récupération.
+            poss_team, poss_start = {}, {}
             for idx in ev.index:
                 pi = c_poss.get(idx)
-                if pi == pi and pi not in poss_team:
+                if pi != pi:
+                    continue
+                if pi not in poss_team:
                     poss_team[pi] = c_pteam.get(idx)
+                if pi not in poss_start:
+                    _t = tsec(c_ts.get(idx))
+                    if _t is not None:
+                        poss_start[pi] = (c_per.get(idx), _t)
+
+            def duree_adverse(p0, per0, t0):
+                """Secondes de possession ADVERSE juste avant la récupération.
+
+                La récupération porte le plus souvent le numéro de possession de
+                l'adversaire, qu'elle interrompt ; parfois celui de la séquence
+                qu'elle ouvre. On remonte donc d'au plus deux crans jusqu'à
+                trouver une séquence appartenant à l'adversaire.
+
+                Renvoie None si l'on ne sait pas dater — et un None n'est jamais
+                traité comme un zéro : une durée inconnue ne doit pas faire
+                passer une récupération pour un contre immédiat."""
+                if p0 != p0:
+                    return None
+                for back in (0, 1, 2):
+                    cand = p0 - back
+                    if cand not in poss_team:
+                        break
+                    prop = poss_team[cand]
+                    if prop is None or prop != prop:
+                        continue
+                    if prop == team:
+                        continue                    # notre propre séquence
+                    st = poss_start.get(cand)
+                    if st is None or st[0] != per0:
+                        return None                 # changement de période
+                    return max(0.0, t0 - st[1])
+                return None
 
             # tirs / centres de l'équipe en jeu courant + ses buts, par séquence
             c_player = col("player")
@@ -349,6 +417,9 @@ def main():
                 if cell is None:
                     continue
                 grid[cell[0]][cell[1]] += 1
+                _d = duree_adverse(p0, per0, t0)
+                _b = bucket_poss(_d)
+                grid_poss[cell[0]][cell[1]][_b] += 1
 
                 if p0 != p0:
                     continue
@@ -366,6 +437,7 @@ def main():
                 for per1, t1 in danger.get(target, ()):
                     if per1 == per0 and 0 < (t1 - t0) <= RISK_WINDOW:
                         risk[cell[0]][cell[1]] += 1
+                        risk_poss[cell[0]][cell[1]][_b] += 1
                         break
                 for per1, t1, sidx in scored.get(target, ()):
                     if per1 == per0 and 0 < (t1 - t0) <= RISK_WINDOW:
@@ -379,6 +451,10 @@ def main():
                                 passer = get(c_player, j)
                         goal_locs.append({
                             "x": round(x, 1), "y": round(y, 1),
+                            # durée de possession adverse avant la récupération.
+                            # null = indatable ; la page ne doit pas la filtrer
+                            # comme si elle valait 0.
+                            "poss": (None if _d is None else round(_d, 1)),
                             "match": match_label.get(mid, ""),
                             "min": minute,
                             "scorer": (scorer if isinstance(scorer, str) else ""),
@@ -388,13 +464,34 @@ def main():
 
         total = sum(sum(r) for r in grid)
         rtotal = sum(sum(r) for r in risk)
+
+        # Garde-fou : une ventilation qui ne se recompose pas à l'identique
+        # signalerait un comptage perdu ou dupliqué. Mieux vaut échouer ici que
+        # publier une grille dont les tranches ne redonnent pas le total.
+        for nom, plein, vent in (("grid", grid, grid_poss), ("risk", risk, risk_poss)):
+            for r in range(ROWS):
+                for c in range(COLS):
+                    if sum(vent[r][c]) != plein[r][c]:
+                        raise AssertionError(
+                            f"{team} : {nom}[{r}][{c}] = {plein[r][c]} mais les "
+                            f"tranches somment à {sum(vent[r][c])}")
+
+        ind = sum(grid_poss[r][c][0] for r in range(ROWS) for c in range(COLS))
+        r5 = sum(sum(risk_poss[r][c][3:]) for r in range(ROWS) for c in range(COLS))
         teams_out[team] = {"matches": n, "total": total, "risk_total": rtotal,
                            "goal_total": len(goal_locs),
-                           "grid": grid, "risk": risk, "goal_locs": goal_locs}
+                           "grid": grid, "risk": risk, "goal_locs": goal_locs,
+                           # ventilation par durée de possession adverse ;
+                           # sommées, ces tranches redonnent grid et risk à
+                           # l'identique — c'est vérifié à l'exécution.
+                           "grid_poss": grid_poss, "risk_poss": risk_poss}
         pm = (total / n) if n else 0
         pct = (100.0 * rtotal / total) if total else 0
+        g5 = sum(1 for g in goal_locs if (g.get("poss") or 0) >= 5)
         print(f"  ✓ {team}: {n} matchs | {total} récupérations ({pm:.1f}/match) | "
               f"{rtotal} à risque ({pct:.1f}%) | {len(goal_locs)} ayant mené à un but")
+        print(f"      seuil 5 s : {r5} décisives, {g5} buts | "
+              f"{ind} récupérations indatables")
 
     out = {
         "competition": "Ligue 2",

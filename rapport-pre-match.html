@@ -681,6 +681,27 @@ function recoBlockHTML(club){
     '</div></div>';
 }
 
+/* Durée minimale de possession ADVERSE avant la récupération, en secondes.
+   Une récupération sur un ballon que l'adversaire vient à peine de toucher —
+   contre immédiat, déviation — ne dit rien de la capacité à reprendre le ballon
+   sur une possession installée. D'où ce plancher.
+   Tranches publiées par build_recoveries.py :
+     0 = indatable | 1 = [0;3[ | 2 = [3;5[ | 3 = [5;10[ | 4 = 10 s et plus   */
+let RECO_MIN = 5;
+const RECO_SEUILS = [0, 3, 5, 10];
+function recoDepart(min){ return min <= 0 ? 0 : min <= 3 ? 2 : min <= 5 ? 3 : 4; }
+
+/* Somme des tranches retenues pour une case. Sans ventilation dans le JSON —
+   saison générée avant cette évolution — on rend la valeur pleine : mieux vaut
+   afficher le total non filtré que zéro partout. */
+function recoCase(vent, plein, r, c, seuil){
+  const cell = vent && vent[r] && vent[r][c];
+  if(!cell) return (plein && plein[r] && plein[r][c]) || 0;
+  let n = 0;
+  for(let b = recoDepart(seuil); b < cell.length; b++) n += cell[b] || 0;
+  return n;
+}
+
 function recoRiskBlockHTML(club){
   const jt = RECO && RECO.teams ? matchTeam(club, Object.keys(RECO.teams)) : null;
   const t  = jt ? RECO.teams[jt] : null;
@@ -688,25 +709,46 @@ function recoRiskBlockHTML(club){
     return '<div class="matchblock"><div class="mbtools"><span class="mlbl">Récupérations décisives · '+club+'</span></div>'+
       '<div class="board lossboard"><div class="xgnote" style="padding:26px 16px">La diapo <b>RÉCUPÉRATIONS DÉCISIVES</b> s\'affichera ici dès que <code>recoveries.json</code> contiendra la grille <code>risk</code>.</div></div></div>';
   }
-  const cols=RECO.cols||12, rows=RECO.rows||8, base=t.grid||[], grid=t.risk||[];
-  const subs=[];
+  const cols=RECO.cols||12, rows=RECO.rows||8;
+  const ventile = !!(t.grid_poss && t.risk_poss);
+  // Sans ventilation dans le JSON, le filtre est INAPPLICABLE : on affiche
+  // alors les données pleines ET on annonce un seuil nul. Afficher « ≥ 5 s »
+  // au-dessus de chiffres non filtrés serait le pire des deux mondes.
+  const seuil = ventile ? RECO_MIN : 0;
+  // Le dénominateur du pourcentage suit le MÊME seuil que le numérateur :
+  // filtrer l'un sans l'autre ferait chuter les parts sans raison réelle.
+  const base=[], grid=[], subs=[];
+  let rt=0, tot=0;
   for(let r=0;r<rows;r++){
-    subs.push([]);
+    base.push([]); grid.push([]); subs.push([]);
     for(let c=0;c<cols;c++){
-      const b=(base[r]&&base[r][c])||0, v=(grid[r]&&grid[r][c])||0;
+      const b=recoCase(t.grid_poss, t.grid, r, c, seuil);
+      const v=recoCase(t.risk_poss, t.risk, r, c, seuil);
+      base[r].push(b); grid[r].push(v); tot+=b; rt+=v;
       subs[r].push(b ? Math.round(v/b*100)+"%" : "—");
     }
   }
-  const rt=t.risk_total||0, pct=t.total?(100*rt/t.total).toFixed(1):"0";
+  // Les points rouges obéissent au même plancher. Une durée inconnue (null)
+  // n'est pas assimilée à zéro : elle est écartée dès qu'un seuil est actif,
+  // et le nombre d'écartés est affiché sous la planche.
+  const gl=(t.goal_locs||[]);
+  const glf = seuil<=0 ? gl : gl.filter(g => typeof g.poss==="number" && g.poss>=seuil);
+  const glInd = seuil<=0 ? 0 : gl.filter(g => typeof g.poss!=="number").length;
+  const pct=tot?(100*rt/tot).toFixed(1):"0";
   const pm=t.matches?(rt/t.matches).toFixed(1):"0";
-  const sub=(RECO.season||'2025-2026')+' · '+t.matches+' matchs · '+rt+' récupérations décisives ('+pm+'/match · '+pct+'% des récupérations) · '+(t.goal_total||0)+' ayant mené à un but';
+  const sub=(RECO.season||'2025-2026')+' · '+t.matches+' matchs · '+rt+' récupérations décisives ('+pm+'/match · '+pct+'% des récupérations) · '+glf.length+' ayant mené à un but'+(seuil>0?' · possession adverse ≥ '+seuil+' s':'');
   const leg=LOSS_PALETTE.map(c=>'<i style="background:'+c+'"></i>').join("");
-  return '<div class="matchblock"><div class="mbtools"><span class="mlbl">Récupérations décisives · '+club+'</span><button class="pngbtn" data-board="board-recorisk">⬇ PNG</button></div>'+
+  return '<div class="matchblock"><div class="mbtools"><span class="mlbl">Récupérations décisives · '+club+'</span>'+
+    '<label style="font-size:11.5px;color:#6b7280;margin-left:auto;display:flex;align-items:center;gap:6px">Possession adverse min.'+
+      '<select id="recoMinSel"'+(ventile?'':' disabled title="Relance le workflow recoveries pour publier les tranches de possession"')+' style="font-family:inherit;font-size:12px;padding:4px 8px;border:1px solid #d8dce3;border-radius:7px">'+
+        RECO_SEUILS.map(v=>'<option value="'+v+'"'+(v===RECO_MIN?' selected':'')+'>'+(v?v+' s':'aucune')+'</option>').join('')+
+      '</select></label>'+
+    '<button class="pngbtn" data-board="board-recorisk">⬇ PNG</button></div>'+
     '<div class="board board-snap lossboard" id="board-recorisk">'+
       '<div class="losshead"><span class="ttl">OFFENSIF — RÉCUPÉRATIONS DÉCISIVES</span><span class="sub">'+sub+'</span></div>'+
-      '<div class="losswrap">'+lossPitchSVG(grid, cols, rows, t.matches, subs, t.goal_locs, true)+'</div>'+
+      '<div class="losswrap">'+lossPitchSVG(grid, cols, rows, t.matches, subs, glf, true)+'</div>'+
       '<div class="lossfoot">'+
-        '<span class="lossnote">Récupérations de '+club+' suivies, dans les 10 s et sur la même séquence de possession, d\'un tir ou d\'un centre en jeu courant. Grand chiffre = total saison, petit = part des récupérations de la case. Les <b style="color:#e10600">points rouges</b> marquent l\'endroit exact des '+(t.goal_total||0)+' récupérations ayant mené à un but.</span>'+
+        '<span class="lossnote">'+(seuil>0?'<b>Seules les récupérations survenues après au moins '+seuil+' s de possession adverse sont comptées</b>, grille et points rouges. '+(glInd?'<b>'+glInd+'</b> but(s) écarté(s), durée non datable. ':''):(ventile?'':'<b>Filtre indisponible</b> pour cette saison : relance le workflow <code>recoveries</code> pour publier les tranches de possession. '))+'Récupérations de '+club+' suivies, dans les 10 s et sur la même séquence de possession, d\'un tir ou d\'un centre en jeu courant. Grand chiffre = total saison, petit = part des récupérations de la case. Les <b style="color:#e10600">points rouges</b> marquent l\'endroit exact des '+(t.goal_total||0)+' récupérations ayant mené à un but.</span>'+
         '<span class="lossleg">faible<span>'+leg+'</span>fort</span>'+
       '</div>'+
     '</div></div>';
@@ -1077,6 +1119,10 @@ function renderClub(club){
   if(jt) wirePhotos(document.getElementById("board-eff"));
   document.getElementById("metaInfo").textContent = `${club} — effectif + ${ms.length} derniers matchs`;
   document.querySelectorAll(".pngbtn").forEach(b=> b.onclick=()=>pngBoard(b.dataset.board, club, b));
+  // renderClub() reconstruit tout le stack : le sélecteur est recréé à chaque
+  // passage, il faut donc le recâbler ici et non une seule fois au chargement.
+  const rms=document.getElementById("recoMinSel");
+  if(rms) rms.onchange=()=>{ RECO_MIN=+rms.value; renderClub(club); };
 }
 
 /* ===== export (inline les photos externes avant capture) ===== */
