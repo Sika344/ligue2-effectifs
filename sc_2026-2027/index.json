@@ -2,7 +2,7 @@
  "competition": "Ligue 2",
  "season": "2026-2027",
  "season_id": 351,
- "updated": "2026-08-20T03:35:30Z",
+ "updated": "2026-08-24T04:03:07Z",
  "matches": [
   {
    "match_id": 4063892,
@@ -154,7 +154,7 @@
    "round": 3,
    "home": "Clermont Foot",
    "away": "Dijon",
-   "score": ""
+   "score": "1-1"
   },
   {
    "match_id": 4063917,
@@ -162,7 +162,7 @@
    "round": 3,
    "home": "Dunkerque",
    "away": "Montpellier",
-   "score": ""
+   "score": "0-1"
   },
   {
    "match_id": 4063911,
@@ -170,7 +170,7 @@
    "round": 3,
    "home": "Pau",
    "away": "Nancy",
-   "score": ""
+   "score": "0-1"
   },
   {
    "match_id": 4063912,
@@ -178,7 +178,7 @@
    "round": 3,
    "home": "Sochaux",
    "away": "Guingamp",
-   "score": ""
+   "score": "1-0"
   },
   {
    "match_id": 4063915,
@@ -186,7 +186,7 @@
    "round": 3,
    "home": "US Boulogne",
    "away": "Red Star FC",
-   "score": ""
+   "score": "1-1"
   },
   {
    "match_id": 4063910,
@@ -194,7 +194,7 @@
    "round": 3,
    "home": "Metz",
    "away": "Stade Lavallois",
-   "score": ""
+   "score": "1-1"
   },
   {
    "match_id": 4063918,
@@ -202,7 +202,7 @@
    "round": 3,
    "home": "Nantes",
    "away": "Rodez",
-   "score": ""
+   "score": "2-5"
   },
   {
    "match_id": 4063913,
@@ -210,7 +210,7 @@
    "round": 3,
    "home": "Saint-Étienne",
    "away": "Grenoble Foot",
-   "score": ""
+   "score": "4-0"
   },
   {
    "match_id": 4063914,
