@@ -39,7 +39,10 @@ jobs:
         env:
           SB_USERNAME: ${{ secrets.SB_USERNAME }}
           SB_PASSWORD: ${{ secrets.SB_PASSWORD }}
-          SEASON: ${{ inputs.season }}
+          # `|| ` couvre les deux cas où l'input arrive vide : champ laissé
+          # vide au lancement manuel, ET déclenchement planifié — sur
+          # `schedule`, GitHub n'applique jamais les `default:` des inputs.
+          SEASON: ${{ inputs.season || '2026-2027' }}
         run: python build_recoveries.py
 
       - name: Commit if changed
