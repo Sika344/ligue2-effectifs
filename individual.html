@@ -200,6 +200,11 @@ td.raw{font-variant-numeric:tabular-nums;color:var(--ui-muted)}
         <div class="slider"><input type="range" id="fMin" min="0" max="3000" step="30" value="450">
           <b id="fMinL">450 min</b></div>
       </div>
+      <div class="fld"><label>Échelle</label>
+        <div class="seg" id="segMode">
+          <button data-v="p90" class="on">par 90 min</button><button data-v="total">total saison</button>
+        </div>
+      </div>
       <div class="fld"><label>Référence</label><b id="nRef" style="font-size:12.5px;padding:7px 0">—</b></div>
     </div>
   </div>
@@ -237,6 +242,11 @@ td.raw{font-variant-numeric:tabular-nums;color:var(--ui-muted)}
       <div class="fld"><label>Minutes minimum</label>
         <div class="slider"><input type="range" id="dMin" min="0" max="3000" step="15" value="450">
           <b id="dMinL">450 min</b></div>
+      </div>
+      <div class="fld"><label>Échelle</label>
+        <div class="seg" id="dSegMode">
+          <button data-v="p90" class="on">par 90 min</button><button data-v="total">total saison</button>
+        </div>
       </div>
       <div class="fld"><label>Club</label><select id="dTeam"></select></div>
       <div class="fld"><label>Ajouter un joueur</label><select id="dAdd"></select></div>
@@ -310,6 +320,34 @@ function valeurAuPct(triees, pct){
 
 function grpDe(p){ return POSTE2GRP[p.poste] || "Autre"; }
 
+/* ===========================================================================
+   ÉCHELLE : par 90 minutes ou total sur la saison
+   Le JSON ne stocke que des valeurs par 90 minutes. Le total se reconstitue en
+   multipliant par le nombre de « 90 minutes » joués.
+
+   MAIS toutes les métriques ne se cumulent pas. « xG/shot », « Passing % » et
+   « Box crosses % » sont des RATIOS : les multiplier par un nombre de matchs
+   produirait un chiffre sans aucun sens. On ne les distingue pas par une liste
+   codée en dur, qui se désynchroniserait au premier ajout de métrique, mais par
+   le nom de la colonne StatsBomb d'origine : une cadence se termine par « _90 »,
+   un ratio non. Ces métriques-là gardent leur valeur dans les deux modes, et la
+   page le signale.
+   =========================================================================== */
+let MODE = "p90", DMODE = "p90";
+
+function estCumulable(m){
+  const src = m && m.source;
+  return !!(src && src.length && src.every(c => /_90$/.test(c)));
+}
+function valeur(p, m, mode){
+  const v = num(p.vals[m.cle]);
+  if (v === null) return null;
+  if (mode !== "total" || !estCumulable(m)) return v;
+  const n = num(p.m90);
+  return n === null ? null : v * n;
+}
+function libModeC(mode){ return mode === "total" ? "total saison" : "par 90 min"; }
+
 /* Population de référence : même famille (ou même poste exact) et temps de jeu
    suffisant. C'est elle qui fixe l'échelle de TOUS les axes. */
 function reference(){
@@ -353,7 +391,7 @@ function radar(){
   const ref = referenceDe(SEL[0]);
   const dist = {};
   metas.forEach(m => {
-    const v = ref.map(p => num(p.vals[m.cle])).filter(x => x !== null).sort((a,b)=>a-b);
+    const v = ref.map(p => valeur(p, m, MODE)).filter(x => x !== null).sort((a,b)=>a-b);
     dist[m.cle] = v;
   });
 
@@ -389,8 +427,8 @@ function radar(){
     const rj = referenceDe(j);
     const pts = [];
     metas.forEach((m, i) => {
-      const vals = rj.map(p => num(p.vals[m.cle])).filter(x => x !== null);
-      const v = num(j.vals[m.cle]);
+      const vals = rj.map(p => valeur(p, m, MODE)).filter(x => x !== null);
+      const v = valeur(j, m, MODE);
       let p = v === null ? 0 : percentile(vals, v);
       if (m.sens < 0) p = 100 - p;              // fautes, cartons : moins = mieux
       const [x,y] = pt(i, R * Math.max(p,0) / 100);
@@ -419,8 +457,8 @@ function tableau(){
     h += '<tr><td>'+m.label+(m.sens<0?' <span style="color:#aab2bd">↓</span>':'')+'</td>';
     SEL.forEach(j => {
       const rj = referenceDe(j);
-      const vals = rj.map(p => num(p.vals[m.cle])).filter(x => x !== null);
-      const v = num(j.vals[m.cle]);
+      const vals = rj.map(p => valeur(p, m, MODE)).filter(x => x !== null);
+      const v = valeur(j, m, MODE);
       let p = v === null ? null : percentile(vals, v);
       if (p !== null && m.sens < 0) p = 100 - p;
       const col = p === null ? '#aab2bd' : p >= 70 ? '#128a5a' : p >= 40 ? '#8a7a12' : '#b33';
@@ -449,7 +487,13 @@ function rendu(){
   $("alerte").innerHTML = av ? '<div class="warn">'+av+'</div>' : '';
 
   radar(); tableau();
-  $("note").innerHTML = "Chaque axe est gradué en <b>valeur réelle</b> ; la position du point est le "+
+  const ratios = MET.map(k => DATA.metrics.find(m => m.cle === k))
+                    .filter(m => m && !estCumulable(m)).map(m => m.label);
+  $("note").innerHTML = "Échelle : <b>"+libModeC(MODE)+"</b>."+
+    (MODE === "total" && ratios.length
+      ? " <b>"+ratios.join(", ")+"</b> : ratio, valeur identique dans les deux modes."
+      : "")+
+    " Chaque axe est gradué en <b>valeur réelle</b> ; la position du point est le "+
     "<b>rang percentile</b> du joueur parmi les joueurs de son poste ayant au moins "+SEUIL+" minutes. "+
     "Un axe marqué ↓ est inversé : fautes et cartons, moins il y en a, plus le percentile est haut. "+
     "Source : StatsBomb <code>player_season_stats</code>, saison "+(DATA.season||"")+".";
@@ -577,6 +621,11 @@ function brancher(){
     }
     majListeAjout(); rendu();
   });
+  document.querySelectorAll("#segMode button").forEach(b => b.onclick = () => {
+    MODE = b.dataset.v;
+    document.querySelectorAll("#segMode button").forEach(x => x.classList.toggle("on", x === b));
+    rendu();
+  });
   $("fAdd").onchange = () => {
     const id = $("fAdd").value;
     if (!id) return;
@@ -630,7 +679,7 @@ function dRef(){
 
 function panneau(m, ref){
   const W = 720, H = 196, x0 = 46, x1 = W - 46, yAxe = 92;
-  const vals = ref.map(p => ({p, v: num(p.vals[m.cle])})).filter(o => o.v !== null);
+  const vals = ref.map(p => ({p, v: valeur(p, m, DMODE)})).filter(o => o.v !== null);
   if(vals.length < 3){
     return '<div class="dpan"><div class="dhead">' + m.label +
       '</div><div class="empty" style="padding:14px 0">Pas assez de joueurs dans ce groupe.</div></div>';
@@ -726,8 +775,14 @@ function renduDist(){
   const ref = dRef();
   host.innerHTML = DMET.map(k => panneau(DATA.metrics.find(m => m.cle === k), ref)).join("");
   const sansLogo = DSEL.filter(j => !LOGOS[j.equipe]).map(j => j.nom);
+  const dratios = DMET.map(k => DATA.metrics.find(m => m.cle === k))
+                      .filter(m => m && !estCumulable(m)).map(m => m.label);
   $("dnote").innerHTML =
-    "Chaque axe porte la <b>valeur réelle par 90 minutes</b>. Points gris : les "+ref.length+
+    "Échelle : <b>"+libModeC(DMODE)+"</b>."+
+    (DMODE === "total" && dratios.length
+      ? " <b>"+dratios.join(", ")+"</b> : ratio, valeur identique dans les deux modes."
+      : "")+
+    " Chaque axe porte la <b>valeur réelle</b>. Points gris : les "+ref.length+
     " joueurs du groupe passant le seuil de "+DSEUIL+" minutes. Les joueurs choisis apparaissent "+
     "avec le logo de leur club et leur valeur. <b>P50</b> = médiane du groupe, <b>P90</b> = seuil "+
     "des 10 % les meilleurs. Le décalage vertical des points ne sert qu'à les décoller : "+
@@ -809,6 +864,11 @@ function construireDist(){
     if(j && DSEL.length < 4 && !DSEL.some(s => s.id === j.id)) DSEL.push(j);
     dMajChips(); dMajListe(); renduDist();
   };
+  document.querySelectorAll("#dSegMode button").forEach(b => b.onclick = () => {
+    DMODE = b.dataset.v;
+    document.querySelectorAll("#dSegMode button").forEach(x => x.classList.toggle("on", x === b));
+    renduDist();
+  });
   $("dCopy").onclick = () => {
     DSEL = SEL.slice(0, 4);
     DMET = MET.slice(0, 8);
