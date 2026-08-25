@@ -67,6 +67,12 @@ METRIQUES = [
         "player_season_touches_inside_box_90"]),
     dict(cle="key_passes", label="Key passes", sens=+1, cands=[
         "player_season_key_passes_90"]),
+    # xG Assisted : l'xG du tir qu'a produit la passe du joueur. Mesure ce qu'il
+    # crée pour les autres, indépendamment de leur réussite devant le but.
+    # Version TOUTE SITUATION — `op_xa_90` (jeu courant) et `sp_xa_90` (coups de
+    # pied arrêtés) existent aussi si l'on veut séparer les deux un jour.
+    dict(cle="xa", label="xG Assisted", sens=+1, cands=[
+        "player_season_xa_90"]),
     dict(cle="obv_def", label="OBV def", sens=+1, cands=[
         "player_season_obv_defensive_action_90",
         "player_season_obv_defensive_actions_90"]),
