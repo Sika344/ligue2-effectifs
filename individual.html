@@ -170,6 +170,15 @@ td.pct{font-variant-numeric:tabular-nums;font-weight:700}
 td.raw{font-variant-numeric:tabular-nums;color:var(--ui-muted)}
 .warn{font-size:11.5px;color:#a8500f;background:#fff6ed;border:1px solid #f6d9be;
       border-radius:9px;padding:9px 12px;margin-bottom:12px;line-height:1.5}
+
+/* ---- distribution dans la ligue ---- */
+.dgrid{display:grid;grid-template-columns:1fr 1fr;gap:14px 26px}
+@media(max-width:1080px){.dgrid{grid-template-columns:1fr}}
+.dpan{border-bottom:1px solid var(--ui-line);padding-bottom:4px}
+.dpan:last-child{border-bottom:0}
+.dpan svg{display:block;width:100%;height:auto;overflow:visible}
+.dhead{font-size:12.5px;font-weight:700;color:var(--ui-ink2);margin-bottom:2px}
+.dhead span{font-weight:500;color:var(--ui-muted);font-size:11.5px}
 </style>
 </head>
 <body>
@@ -215,6 +224,34 @@ td.raw{font-variant-numeric:tabular-nums;color:var(--ui-muted)}
       <div class="tbl" id="tbl"></div>
     </div>
     <div class="note" id="note"></div>
+  </div>
+
+  <div class="blk" style="margin-top:26px">
+    <h3>Distribution dans la ligue — réglages propres à cette partie</h3>
+    <div class="row">
+      <div class="fld"><label>Position</label><select id="dPos"></select></div>
+      <div class="fld"><label>Base</label><select id="dBase">
+        <option value="groupe">Groupe de poste</option>
+        <option value="exact">Poste exact StatsBomb</option>
+      </select></div>
+      <div class="fld"><label>Minutes minimum</label>
+        <div class="slider"><input type="range" id="dMin" min="0" max="3000" step="15" value="450">
+          <b id="dMinL">450 min</b></div>
+      </div>
+      <div class="fld"><label>Club</label><select id="dTeam"></select></div>
+      <div class="fld"><label>Ajouter un joueur</label><select id="dAdd"></select></div>
+      <div class="fld"><label>&nbsp;</label>
+        <button id="dCopy" class="btn" title="Copier les joueurs et métriques choisis pour l'araignée">↑ Reprendre la sélection de l'araignée</button>
+      </div>
+    </div>
+    <div class="chips" id="dChips"></div>
+    <h3 style="margin-top:16px">Métriques — 1 à 8</h3>
+    <div class="mets" id="dMets"></div>
+  </div>
+
+  <div class="blk">
+    <div class="dgrid" id="dist"></div>
+    <div class="note" id="dnote"></div>
   </div>
 </div>
 
@@ -549,6 +586,244 @@ function brancher(){
   };
 }
 
+/* ===========================================================================
+   DISTRIBUTION DANS LA LIGUE
+   Un axe par métrique, tous les joueurs du poste en points gris, les joueurs
+   choisis en logo de club + nom. Réglages volontairement INDÉPENDANTS de
+   l'araignée : on compare souvent un profil sur quelques axes tout en regardant
+   la distribution sur d'autres. Le bouton « reprendre la sélection » évite
+   d'avoir à tout ressaisir quand on veut justement les mêmes.
+   =========================================================================== */
+let DSEL = [], DMET = [], DSEUIL = 450;
+let LOGOS = {};   // nom d'équipe StatsBomb -> URL du logo
+
+/* Les noms d'équipe diffèrent entre StatsBomb et le fichier des effectifs
+   (« Stade Lavallois » / « Laval »). On apparie par inclusion après
+   normalisation ; « FC Annecy » / « Annecy FC » inverse l'ordre des mots et
+   échappe à cette règle, d'où la correspondance explicite. */
+const EQ_MANUEL = {"fc annecy": "annecy fc"};
+function normEq(s){
+  return String(s||"").normalize("NFD").replace(/[̀-ͯ]/g,"")
+    .toLowerCase().replace(/[^a-z0-9]+/g," ").trim();
+}
+function chargerLogos(l2){
+  if(!l2 || !l2.teams) return;
+  const cles = Object.keys(l2.teams);
+  const eqs = [...new Set(DATA.players.map(p => p.equipe).filter(Boolean))];
+  for(const e of eqs){
+    const n = normEq(e);
+    let k = cles.find(c => normEq(c) === n)
+         || cles.find(c => normEq(c) === EQ_MANUEL[n])
+         || cles.find(c => normEq(c).includes(n) || n.includes(normEq(c)));
+    if(k && l2.teams[k].logo) LOGOS[e] = l2.teams[k].logo;
+  }
+}
+
+function dRef(){
+  const base = $("dBase").value, gsel = $("dPos").value;
+  return DATA.players.filter(p => {
+    if((p.minutes || 0) < DSEUIL) return false;
+    if(gsel === "*") return true;
+    return base === "exact" ? p.poste === gsel : grpDe(p) === gsel;
+  });
+}
+
+function panneau(m, ref){
+  const W = 720, H = 196, x0 = 46, x1 = W - 46, yAxe = 92;
+  const vals = ref.map(p => ({p, v: num(p.vals[m.cle])})).filter(o => o.v !== null);
+  if(vals.length < 3){
+    return '<div class="dpan"><div class="dhead">' + m.label +
+      '</div><div class="empty" style="padding:14px 0">Pas assez de joueurs dans ce groupe.</div></div>';
+  }
+  const tri = vals.map(o => o.v).sort((a,b) => a-b);
+  let lo = tri[0], hi = tri[tri.length-1];
+  if(hi === lo) hi = lo + 1;                     // évite une division par zéro
+  const marge = (hi - lo) * 0.04;
+  lo -= marge; hi += marge;
+  const X = v => x0 + (v - lo) / (hi - lo) * (x1 - x0);
+
+  let g = '<line x1="'+x0+'" y1="'+yAxe+'" x2="'+x1+'" y2="'+yAxe+'" stroke="#c9ced8" stroke-width="1.4"/>';
+  // Repères P50 / P90. Sur une métrique inversée (fautes, cartons), l'élite est
+  // en bas de la distribution : P90 se lit donc au 10e centile des valeurs.
+  [["P50",50],["P90",90]].forEach(([lab,q]) => {
+    const v = valeurAuPct(tri, m.sens < 0 ? 100 - q : q);
+    if(v === null) return;
+    const x = X(v);
+    g += '<line x1="'+x.toFixed(1)+'" y1="18" x2="'+x.toFixed(1)+'" y2="'+(yAxe+9)+
+         '" stroke="#9aa2ae" stroke-width="1" stroke-dasharray="4 3"/>'+
+         '<text x="'+x.toFixed(1)+'" y="12" text-anchor="middle" font-size="10.5" '+
+         'font-weight="700" fill="#6b7280">'+lab+'</text>';
+  });
+  g += '<text x="'+x0+'" y="'+(yAxe+18)+'" text-anchor="middle" font-size="10.5" fill="#8b94a1">'+fmt(tri[0])+'</text>'+
+       '<text x="'+x1+'" y="'+(yAxe+18)+'" text-anchor="middle" font-size="10.5" fill="#8b94a1">'+fmt(tri[tri.length-1])+'</text>';
+
+  const choisis = new Set(DSEL.map(j => j.id));
+  // Les non-sélectionnés d'abord : un logo n'est ainsi jamais recouvert par un
+  // point gris. Le décalage vertical alterné décolle les points sans mentir :
+  // seule la position horizontale porte l'information.
+  vals.filter(o => !choisis.has(o.p.id)).forEach((o, i) => {
+    const dy = ((i % 3) - 1) * 4.5;
+    g += '<circle cx="'+X(o.v).toFixed(1)+'" cy="'+(yAxe+dy).toFixed(1)+
+         '" r="4.2" fill="#c4cad3" fill-opacity="0.85"/>';
+  });
+
+  /* ANTI-CHEVAUCHEMENT : deux joueurs aux valeurs voisines produisaient des
+     logos superposés et des noms illisibles l'un sur l'autre. On répartit donc
+     les joueurs trop proches sur deux niveaux — logo plus haut, étiquette plus
+     bas — plutôt que de déplacer le point, ce qui fausserait la lecture. */
+  const ECART = 78;
+  const marques = DSEL.map((j,k) => ({j, k, o: vals.find(x => x.p.id === j.id)}))
+                      .filter(t => t.o)
+                      .sort((a,b) => a.o.v - b.o.v);
+  let dernier = -1e9, niveau = 0;
+  marques.forEach(t => {
+    const x = X(t.o.v);
+    niveau = (x - dernier < ECART) ? (niveau + 1) % 2 : 0;
+    dernier = x;
+    t.x = x; t.n = niveau;
+  });
+
+  marques.forEach(t => {
+    const c = COULEURS[t.k % COULEURS.length];
+    const cy = yAxe - 22 - t.n * 34;             // logo, un ou deux crans au-dessus
+    const ty = yAxe + 34 + t.n * 26;             // étiquette, sous les valeurs d'extrémité
+    const logo = LOGOS[t.j.equipe];
+    const id = "cl" + m.cle + "_" + t.k;
+    g += '<line x1="'+t.x.toFixed(1)+'" y1="'+(cy+16)+'" x2="'+t.x.toFixed(1)+'" y2="'+(yAxe+4)+
+         '" stroke="'+c+'" stroke-width="1.6" stroke-opacity="0.55"/>';
+    if(logo){
+      g += '<clipPath id="'+id+'"><circle cx="'+t.x.toFixed(1)+'" cy="'+cy+'" r="14"/></clipPath>'+
+           '<circle cx="'+t.x.toFixed(1)+'" cy="'+cy+'" r="15.5" fill="#fff" stroke="'+c+'" stroke-width="2"/>'+
+           '<image href="'+logo+'" x="'+(t.x-14).toFixed(1)+'" y="'+(cy-14)+'" width="28" height="28" '+
+           'clip-path="url(#'+id+')" preserveAspectRatio="xMidYMid meet"/>';
+    } else {
+      g += '<circle cx="'+t.x.toFixed(1)+'" cy="'+cy+'" r="14" fill="'+c+'" fill-opacity="0.18" '+
+           'stroke="'+c+'" stroke-width="2"/>';
+    }
+    g += '<circle cx="'+t.x.toFixed(1)+'" cy="'+yAxe+'" r="4.6" fill="'+c+'"/>'+
+         '<text x="'+t.x.toFixed(1)+'" y="'+ty+'" text-anchor="middle" font-size="10.5" '+
+         'font-weight="700" fill="'+c+'">'+nomCourt(t.j.nom)+'</text>'+
+         '<text x="'+t.x.toFixed(1)+'" y="'+(ty+12)+'" text-anchor="middle" font-size="10" '+
+         'fill="'+c+'" fill-opacity="0.85">'+fmt(t.o.v)+'</text>';
+  });
+
+  return '<div class="dpan"><div class="dhead">'+m.label+
+    ' <span>· '+vals.length+' joueurs'+(m.sens<0?' · axe inversé, moins = mieux':'')+'</span></div>'+
+    '<svg viewBox="0 0 '+W+' '+H+'">'+g+'</svg></div>';
+}
+
+/* Nom compact sous le logo : initiale du prénom + nom, sinon les libellés se
+   chevauchent dès que deux joueurs ont des valeurs voisines. */
+function nomCourt(n){
+  const t = String(n||"").trim().split(/\s+/);
+  return t.length < 2 ? (t[0]||"") : t[0][0] + ". " + t.slice(1).join(" ");
+}
+
+function renduDist(){
+  const host = $("dist");
+  if(!DMET.length){ host.innerHTML = '<div class="empty">Coche au moins une métrique.</div>';
+    $("dnote").innerHTML = ""; return; }
+  const ref = dRef();
+  host.innerHTML = DMET.map(k => panneau(DATA.metrics.find(m => m.cle === k), ref)).join("");
+  const sansLogo = DSEL.filter(j => !LOGOS[j.equipe]).map(j => j.nom);
+  $("dnote").innerHTML =
+    "Chaque axe porte la <b>valeur réelle par 90 minutes</b>. Points gris : les "+ref.length+
+    " joueurs du groupe passant le seuil de "+DSEUIL+" minutes. Les joueurs choisis apparaissent "+
+    "avec le logo de leur club et leur valeur. <b>P50</b> = médiane du groupe, <b>P90</b> = seuil "+
+    "des 10 % les meilleurs. Le décalage vertical des points ne sert qu'à les décoller : "+
+    "seule la position horizontale porte l'information."+
+    (sansLogo.length ? " Logo introuvable pour : <b>"+sansLogo.join(", ")+"</b>." : "");
+}
+
+function dMajListe(){
+  const eq = $("dTeam").value, gsel = $("dPos").value, base = $("dBase").value;
+  const dispo = DATA.players
+    .filter(p => (p.minutes||0) >= DSEUIL)
+    .filter(p => eq === "*" || p.equipe === eq)
+    .filter(p => gsel === "*" || (base === "exact" ? p.poste === gsel : grpDe(p) === gsel))
+    .filter(p => !DSEL.some(s => s.id === p.id))
+    .sort((a,b) => String(a.nom).localeCompare(String(b.nom)));
+  $("dAdd").innerHTML = '<option value="">Ajouter un joueur…</option>' +
+    dispo.map(p => '<option value="'+p.id+'">'+p.nom+' — '+(p.equipe||'?')+
+                   ' ('+Math.round(p.minutes||0)+' min)</option>').join('');
+  $("dAdd").disabled = DSEL.length >= 4;
+}
+
+function dMajChips(){
+  $("dChips").innerHTML = DSEL.map((j,k) =>
+    '<span class="chip"><span class="dot" style="background:'+COULEURS[k%4]+'"></span>'+
+    j.nom+' <span class="sub">'+(j.equipe||'?')+' · '+(j.poste||'?')+'</span>'+
+    '<button data-i="'+k+'" title="Retirer">×</button></span>').join('');
+  $("dChips").querySelectorAll("button").forEach(b => b.onclick = () => {
+    DSEL.splice(+b.dataset.i, 1); dMajChips(); dMajListe(); renduDist();
+  });
+}
+
+function construireDist(){
+  const maxMin = Math.max(...DATA.players.map(p => p.minutes || 0), 90);
+  const pas = 15, dep = Math.max(pas, Math.round(maxMin * 0.25 / pas) * pas);
+  const el = $("dMin");
+  el.max = Math.ceil(maxMin / pas) * pas; el.step = pas; el.value = dep;
+  DSEUIL = dep; $("dMinL").textContent = DSEUIL + " min";
+
+  const grpPresents = new Set(DATA.players.map(grpDe));
+  $("dPos").innerHTML = '<option value="*">Tous les postes</option>' +
+    GROUPES.filter(([g]) => grpPresents.has(g)).map(([g]) => '<option value="'+g+'">'+g+'</option>').join('');
+  const eqs = [...new Set(DATA.players.map(p => p.equipe).filter(Boolean))].sort();
+  $("dTeam").innerHTML = '<option value="*">Tous les clubs</option>' +
+    eqs.map(e => '<option value="'+e+'">'+e+'</option>').join('');
+
+  $("dMets").innerHTML = DATA.metrics.map(m =>
+    '<label class="met"><input type="checkbox" value="'+m.cle+'">'+m.label+'</label>').join('');
+  ["np_xg","key_passes","deep_prog","obv_off"].forEach(k => {
+    const e = $("dMets").querySelector('input[value="'+k+'"]');
+    if(e){ e.checked = true; DMET.push(k); }
+  });
+  $("dMets").querySelectorAll("input").forEach(e => e.onchange = () => {
+    if(e.checked && DMET.length >= 8){ e.checked = false; return; }
+    DMET = [...$("dMets").querySelectorAll("input:checked")].map(x => x.value);
+    dLimiter(); renduDist();
+  });
+  dLimiter();
+
+  $("dMin").oninput = () => { DSEUIL = +$("dMin").value;
+    $("dMinL").textContent = DSEUIL + " min"; dMajListe(); renduDist(); };
+  ["dPos","dBase","dTeam"].forEach(id => $(id).onchange = () => {
+    if(id === "dBase"){
+      const base = $("dBase").value;
+      if(base === "exact"){
+        const postes = [...new Set(DATA.players.map(p=>p.poste).filter(Boolean))].sort();
+        $("dPos").innerHTML = '<option value="*">Tous les postes</option>' +
+          postes.map(p => '<option value="'+p+'">'+p+'</option>').join('');
+      } else {
+        const gp = new Set(DATA.players.map(grpDe));
+        $("dPos").innerHTML = '<option value="*">Tous les postes</option>' +
+          GROUPES.filter(([g]) => gp.has(g)).map(([g]) => '<option value="'+g+'">'+g+'</option>').join('');
+      }
+    }
+    dMajListe(); renduDist();
+  });
+  $("dAdd").onchange = () => {
+    const id = $("dAdd").value; if(!id) return;
+    const j = DATA.players.find(p => String(p.id) === String(id));
+    if(j && DSEL.length < 4 && !DSEL.some(s => s.id === j.id)) DSEL.push(j);
+    dMajChips(); dMajListe(); renduDist();
+  };
+  $("dCopy").onclick = () => {
+    DSEL = SEL.slice(0, 4);
+    DMET = MET.slice(0, 8);
+    $("dMets").querySelectorAll("input").forEach(e => e.checked = DMET.includes(e.value));
+    dLimiter(); dMajChips(); dMajListe(); renduDist();
+  };
+}
+function dLimiter(){
+  const plein = DMET.length >= 8;
+  $("dMets").querySelectorAll(".met").forEach(l => {
+    const i = l.querySelector("input"), off = plein && !i.checked;
+    l.classList.toggle("off", off); i.disabled = off;
+  });
+}
+
 /* ---------------------------------------------------------------- démarrage */
 fetch(SEASON.fichier("individual.json") + "?_=" + Date.now())
   .then(r => r.ok ? r.json() : null)
@@ -560,6 +835,14 @@ fetch(SEASON.fichier("individual.json") + "?_=" + Date.now())
     }
     DATA = d;
     construire(); brancher(); majListeAjout(); majChips(); rendu();
+    construireDist(); dMajListe(); dMajChips(); renduDist();
+    // Les logos vivent dans le fichier des effectifs. Chargement séparé et non
+    // bloquant : sans lui la page reste utilisable, les joueurs choisis
+    // s'affichant alors en pastille de couleur au lieu du logo du club.
+    fetch(SEASON.fichier("ligue2.json") + "?_=" + Date.now())
+      .then(r => r.ok ? r.json() : null)
+      .then(l2 => { chargerLogos(l2); renduDist(); })
+      .catch(() => {});
   })
   .catch(() => {
     document.querySelector(".wrap").innerHTML =
