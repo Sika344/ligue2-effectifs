@@ -194,6 +194,17 @@ td.raw{font-variant-numeric:tabular-nums;color:var(--ui-muted)}
 .metbar .cnt{font-size:11.5px;color:var(--ui-muted)}
 .metscroll{max-height:230px;overflow-y:auto;border:1px solid var(--ui-line);
   border-radius:9px;padding:9px 11px}
+
+/* ---- survol des points de distribution ---- */
+.gd{cursor:pointer;transition:fill .1s ease}
+.gd:hover{fill:#0a1733!important;fill-opacity:1!important}
+#gtip{position:fixed;pointer-events:none;opacity:0;transition:opacity .09s ease;
+  background:#0a1733;color:#fff;border-radius:8px;padding:7px 11px;font-size:12px;
+  line-height:1.35;z-index:99999;white-space:nowrap;
+  box-shadow:0 6px 20px rgba(16,24,40,.22)}
+#gtip b{display:block;font-size:12.5px;font-weight:700}
+#gtip i{font-style:normal;opacity:.72;font-size:11px}
+#gtip u{display:block;text-decoration:none;font-weight:700;margin-top:2px}
 </style>
 </head>
 <body>
@@ -791,8 +802,15 @@ function panneau(m, ref){
   // seule la position horizontale porte l'information.
   vals.filter(o => !choisis.has(o.p.id)).forEach((o, i) => {
     const dy = ((i % 3) - 1) * 4.5;
-    g += '<circle cx="'+X(o.v).toFixed(1)+'" cy="'+(yAxe+dy).toFixed(1)+
-         '" r="4.2" fill="#c4cad3" fill-opacity="0.85"/>';
+    // `pointer-events="all"` + un contour transparent élargissent la zone de
+    // survol sans rien changer à l'apparence : viser un disque de 4 px à la
+    // souris est autrement pénible, surtout quand les points se touchent.
+    g += '<circle class="gd" cx="'+X(o.v).toFixed(1)+'" cy="'+(yAxe+dy).toFixed(1)+
+         '" r="4.2" fill="#c4cad3" fill-opacity="0.85" pointer-events="all"'+
+         ' stroke="rgba(0,0,0,0)" stroke-width="8"'+
+         ' data-n="'+esc(o.p.nom)+'" data-e="'+esc(o.p.equipe||"")+
+         '" data-p="'+esc(o.p.poste||"")+'" data-m="'+Math.round(o.p.minutes||0)+
+         '" data-v="'+fmt(o.v)+'" data-l="'+esc(m.label)+'"/>';
   });
 
   /* ANTI-CHEVAUCHEMENT : deux joueurs aux valeurs voisines produisaient des
@@ -828,7 +846,11 @@ function panneau(m, ref){
       g += '<circle cx="'+t.x.toFixed(1)+'" cy="'+cy+'" r="14" fill="'+c+'" fill-opacity="0.18" '+
            'stroke="'+c+'" stroke-width="2"/>';
     }
-    g += '<circle cx="'+t.x.toFixed(1)+'" cy="'+yAxe+'" r="4.6" fill="'+c+'"/>'+
+    g += '<circle class="gd" cx="'+t.x.toFixed(1)+'" cy="'+yAxe+'" r="4.6" fill="'+c+
+         '" pointer-events="all" stroke="rgba(0,0,0,0)" stroke-width="8"'+
+         ' data-n="'+esc(t.j.nom)+'" data-e="'+esc(t.j.equipe||"")+
+         '" data-p="'+esc(t.j.poste||"")+'" data-m="'+Math.round(t.j.minutes||0)+
+         '" data-v="'+fmt(t.o.v)+'" data-l="'+esc(m.label)+'"/>'+
          '<text x="'+t.x.toFixed(1)+'" y="'+ty+'" text-anchor="middle" font-size="10.5" '+
          'font-weight="700" fill="'+c+'">'+nomCourt(t.j.nom)+'</text>'+
          '<text x="'+t.x.toFixed(1)+'" y="'+(ty+12)+'" text-anchor="middle" font-size="10" '+
@@ -838,6 +860,49 @@ function panneau(m, ref){
   return '<div class="dpan"><div class="dhead">'+m.label+
     ' <span>· '+vals.length+' joueurs'+(m.sens<0?' · axe inversé, moins = mieux':'')+'</span></div>'+
     '<svg viewBox="0 0 '+W+' '+H+'">'+g+'</svg></div>';
+}
+
+/* Les noms comportent apostrophes et guillemets — N'Diaye, O'Brien. Sans
+   échappement, l'attribut HTML se referme au milieu du nom et le SVG casse. */
+function esc(t){
+  return String(t == null ? "" : t)
+    .replace(/&/g, "&amp;").replace(/"/g, "&quot;")
+    .replace(/</g, "&lt;").replace(/>/g, "&gt;");
+}
+
+/* Infobulle unique, déléguée sur le conteneur : les panneaux sont reconstruits
+   à chaque changement de filtre, recâbler chaque point serait à refaire sans
+   cesse — et coûterait des centaines d'écouteurs. */
+function brancherInfobulle(){
+  let tip = document.getElementById("gtip");
+  if (!tip){
+    tip = document.createElement("div");
+    tip.id = "gtip";
+    document.body.appendChild(tip);
+  }
+  const hote = $("dist");
+  hote.addEventListener("mouseover", e => {
+    const c = e.target.closest(".gd");
+    if (!c) return;
+    const d = c.dataset;
+    tip.innerHTML = "<b>" + d.n + "</b><i>" + d.e + (d.p ? " · " + d.p : "") +
+                    " · " + d.m + " min</i><u>" + d.l + " : " + d.v + "</u>";
+    tip.style.opacity = "1";
+  });
+  hote.addEventListener("mousemove", e => {
+    if (tip.style.opacity !== "1") return;
+    const marge = 14;
+    let x = e.clientX + marge, y = e.clientY + marge;
+    const r = tip.getBoundingClientRect();
+    // repli à gauche ou au-dessus quand on approche du bord de la fenêtre
+    if (x + r.width > window.innerWidth - 8) x = e.clientX - r.width - marge;
+    if (y + r.height > window.innerHeight - 8) y = e.clientY - r.height - marge;
+    tip.style.left = x + "px";
+    tip.style.top = y + "px";
+  });
+  hote.addEventListener("mouseout", e => {
+    if (e.target.closest(".gd")) tip.style.opacity = "0";
+  });
 }
 
 /* Nom compact sous le logo : initiale du prénom + nom, sinon les libellés se
@@ -978,7 +1043,7 @@ fetch(SEASON.fichier("individual.json") + "?_=" + Date.now())
     }
     DATA = d;
     construire(); brancher(); majListeAjout(); majChips(); rendu();
-    construireDist(); dMajListe(); dMajChips(); renduDist();
+    construireDist(); dMajListe(); dMajChips(); renduDist(); brancherInfobulle();
     // Les logos vivent dans le fichier des effectifs. Chargement séparé et non
     // bloquant : sans lui la page reste utilisable, les joueurs choisis
     // s'affichant alors en pastille de couleur au lieu du logo du club.
