@@ -53,7 +53,7 @@ SEASON_IDS = {
 #   sens   : +1 si « plus c'est haut, mieux c'est », -1 sinon (pertes, fautes…)
 # ---------------------------------------------------------------------------
 METRIQUES = [
-    dict(cle="obv_off", label="OBV off", sens=+1, calc=[
+    dict(cle="obv_off", label="OBV off", famille="off", sens=+1, calc=[
         "player_season_obv_pass_90",
         "player_season_obv_dribble_carry_90",
         "player_season_obv_shot_90"]),
@@ -61,76 +61,203 @@ METRIQUES = [
     # ne fournit que le non-penalty. Cet axe est donc un DOUBLON de NP xG, gardé
     # à la demande. Deux axes identiques gonflent la surface du polygone : à
     # n'utiliser qu'en connaissance de cause.
-    dict(cle="xg", label="xG", sens=+1, cands=[
+    dict(cle="xg", label="xG", famille="off", sens=+1, cands=[
         "player_season_np_xg_90"]),
-    dict(cle="box_touches", label="Box touches", sens=+1, cands=[
+    dict(cle="box_touches", label="Box touches", famille="off", sens=+1, cands=[
         "player_season_touches_inside_box_90"]),
-    dict(cle="key_passes", label="Key passes", sens=+1, cands=[
+    dict(cle="key_passes", label="Key passes", famille="off", sens=+1, cands=[
         "player_season_key_passes_90"]),
     # xG Assisted : l'xG du tir qu'a produit la passe du joueur. Mesure ce qu'il
     # crée pour les autres, indépendamment de leur réussite devant le but.
     # Version TOUTE SITUATION — `op_xa_90` (jeu courant) et `sp_xa_90` (coups de
     # pied arrêtés) existent aussi si l'on veut séparer les deux un jour.
-    dict(cle="xa", label="xG Assisted", sens=+1, cands=[
+    dict(cle="xa", label="xG Assisted", famille="off", sens=+1, cands=[
         "player_season_xa_90"]),
-    dict(cle="obv_def", label="OBV def", sens=+1, cands=[
+    dict(cle="obv_def", label="OBV def", famille="def", sens=+1, cands=[
         "player_season_obv_defensive_action_90",
         "player_season_obv_defensive_actions_90"]),
-    dict(cle="def_actions", label="Def actions", sens=+1, cands=[
+    dict(cle="def_actions", label="Def actions", famille="def", sens=+1, cands=[
         "player_season_defensive_actions_90",
         "player_season_defensive_action_90",
         "player_season_padj_defensive_actions_90"]),
-    dict(cle="pressures", label="Pressures", sens=+1, cands=[
+    dict(cle="pressures", label="Pressures", famille="def", sens=+1, cands=[
         "player_season_pressures_90", "player_season_padj_pressures_90"]),
-    dict(cle="high_recov", label="High recov.", sens=+1, cands=[
+    dict(cle="high_recov", label="High recov.", famille="def", sens=+1, cands=[
         "player_season_high_recoveries_90",
         "player_season_counterpressures_90"]),
-    dict(cle="obv_lb", label="OBV line-break", sens=+1, cands=[
+    dict(cle="obv_lb", label="OBV line-break", famille="off", sens=+1, cands=[
         "player_season_obv_lbp_90"]),
     # Seuil 5 m sur les trois disponibles (2/5/10, emboîtés) : à 2 m presque
     # toute passe réussie qualifie, à 10 m l'événement devient trop rare pour
     # être stable. Une seule ligne à changer si l'on veut un autre seuil.
-    dict(cle="lbp_space", label="LBP→space", sens=+1, cands=[
+    dict(cle="lbp_space", label="LBP→space", famille="off", sens=+1, cands=[
         "player_season_lbp_to_space_5_90"]),
-    dict(cle="obv_lb_f3", label="OBV LB (f3)", sens=+1, cands=[
+    dict(cle="obv_lb_f3", label="OBV LB (f3)", famille="off", sens=+1, cands=[
         "player_season_f3_obv_lbp_90"]),
-    dict(cle="lbp_space_f3", label="LBP→space (f3)", sens=+1, cands=[
+    dict(cle="lbp_space_f3", label="LBP→space (f3)", famille="off", sens=+1, cands=[
         "player_season_f3_lbp_to_space_5_90"]),
-    dict(cle="goal_involv", label="Goal involv.", sens=+1, calc=[
+    dict(cle="goal_involv", label="Goal involv.", famille="off", sens=+1, calc=[
         "player_season_goals_90", "player_season_assists_90"]),
-    dict(cle="np_xg", label="NP xG", sens=+1, cands=[
+    dict(cle="np_xg", label="NP xG", famille="off", sens=+1, cands=[
         "player_season_np_xg_90", "player_season_npxg_90"]),
-    dict(cle="shots", label="Shots", sens=+1, cands=[
+    dict(cle="shots", label="Shots", famille="off", sens=+1, cands=[
         "player_season_shots_90", "player_season_np_shots_90"]),
-    dict(cle="xg_per_shot", label="xG/shot", sens=+1, cands=[
+    dict(cle="xg_per_shot", label="xG/shot", famille="off", sens=+1, cands=[
         "player_season_np_xg_per_shot", "player_season_xg_per_shot"]),
     # « Corner xG » retiré : rien dans les 237 colonnes ne mesure l'xG sur
     # corner côté tireur. Laisser l'axe afficherait zéro pour tout le monde,
     # ce qui se lirait comme une faiblesse générale plutôt que comme une absence.
-    dict(cle="penalties", label="Penalties", sens=+1, cands=[
+    dict(cle="penalties", label="Penalties", famille="off", sens=+1, cands=[
         "player_season_penalty_wins_90"]),
-    dict(cle="deep_prog", label="Deep prog.", sens=+1, cands=[
+    dict(cle="deep_prog", label="Deep prog.", famille="off", sens=+1, cands=[
         "player_season_deep_progressions_90"]),
-    dict(cle="deep_compl", label="Deep compl.", sens=+1, cands=[
+    dict(cle="deep_compl", label="Deep compl.", famille="off", sens=+1, cands=[
         "player_season_deep_completions_90"]),
-    dict(cle="passes_box", label="Passes in box", sens=+1, cands=[
+    dict(cle="passes_box", label="Passes in box", famille="off", sens=+1, cands=[
         "player_season_passes_inside_box_90",
         "player_season_op_passes_into_box_90"]),
-    dict(cle="dribbles", label="Succ. dribbles", sens=+1, cands=[
+    dict(cle="dribbles", label="Succ. dribbles", famille="off", sens=+1, cands=[
         "player_season_successful_dribbles_90", "player_season_dribbles_90"]),
-    dict(cle="crosses", label="Crosses", sens=+1, cands=[
+    dict(cle="crosses", label="Crosses", famille="off", sens=+1, cands=[
         "player_season_crosses_90", "player_season_op_crosses_90"]),
-    dict(cle="box_crosses", label="Box crosses %", sens=+1, cands=[
+    dict(cle="box_crosses", label="Box crosses %", famille="off", sens=+1, cands=[
         "player_season_box_cross_ratio"]),
-    dict(cle="op_passes", label="OP passes", sens=+1, cands=[
+    dict(cle="op_passes", label="OP passes", famille="off", sens=+1, cands=[
         "player_season_op_passes_90"]),
-    dict(cle="passing_pct", label="Passing %", sens=+1, cands=[
+    dict(cle="passing_pct", label="Passing %", famille="off", sens=+1, cands=[
         "player_season_passing_ratio", "player_season_pass_completion_ratio"]),
-    dict(cle="fouls", label="Fouls", sens=-1, cands=[
+    dict(cle="fouls", label="Fouls", famille="def", sens=-1, cands=[
         "player_season_fouls_90", "player_season_fouls_committed_90"]),
-    dict(cle="cards", label="Cards", sens=-1, calc=[
+    dict(cle="cards", label="Cards", famille="def", sens=-1, calc=[
         "player_season_yellow_cards_90", "player_season_red_cards_90"]),
 ]
+
+# ---------------------------------------------------------------------------
+# CATALOGUE AUTOMATIQUE
+# Les 28 métriques ci-dessus sont écrites à la main : libellé soigné, sources
+# multiples, familles vérifiées. Mais l'abonnement en expose plus de 200. Les
+# saisir une à une serait long et surtout intenable — chaque évolution de
+# l'offre StatsBomb rendrait la liste fausse en silence.
+# On les dérive donc du NOM de colonne, par règles. Une colonne déjà utilisée
+# par une métrique manuelle n'est jamais reprise : pas de doublon.
+# ---------------------------------------------------------------------------
+PREFIXE = "player_season_"
+
+# Identité et volumes de jeu : ce ne sont pas des métriques de performance.
+ADMIN = {
+    "minutes", "appearances", "starting_appearances", "90s_played",
+    "average_minutes", "most_recent_match", "most_recent_match_position",
+    "360_minutes",
+}
+
+# L'ordre compte : la première règle qui correspond l'emporte, donc les
+# marqueurs les plus spécifiques (gardien) passent avant les plus larges.
+REGLES_FAM = [
+    ("gk",  ("gk_", "_gk", "goalkeeper", "save", "faced", "claim", "punch",
+             "sweeper", "clcaa", "positive_outcome_score", "goals_conceded")),
+    ("def", ("tackle", "interception", "block", "clearance", "pressure",
+             "counterpress", "aggressive", "defensive_action", "aerial",
+             "duel", "dribbled_past", "recover", "challenge", "obv_defensive",
+             "fouls_90", "fouls_committed")),
+    ("off", ("xg", "xa", "shot", "goal", "assist", "dribble", "carry", "cross",
+             "box", "deep_", "key_pass", "through", "lbp", "obv_", "touches",
+             "space", "directness", "transition", "f3_", "fhalf_", "long_ball",
+             "forward_pass", "pass_into", "passes_into", "op_passes")),
+]
+
+# Axe à inverser : une valeur BASSE y vaut mieux. On n'y met QUE des choses
+# indiscutablement subies ou fautives. Les passes vers l'arrière ou latérales
+# en sont volontairement absentes : ce sont des descriptions de style, pas des
+# défauts, et les compter comme tels imposerait un jugement que la donnée ne
+# porte pas.
+NEGATIF = ("turnover", "dispossess", "miscontrol", "error", "card", "fouls_90",
+           "fouls_committed", "dribbled_past_90", "conceded", "faced")
+
+ABREV = {
+    "np": "NP", "xg": "xG", "xa": "xA", "obv": "OBV", "lbp": "LBP",
+    "padj": "PAdj", "op": "OP", "sp": "SP", "gk": "GK", "f3": "F3",
+    "fhalf": "F½", "psxg": "PSxG", "npxgxa": "NPxG+xA", "xgchain": "xGChain",
+    "xgbuildup": "xGBuildup", "clcaa": "CLCAA", "da": "DA", "ot": "OT",
+    "npot": "NPOT",
+}
+# Mots raccourcis : un libellé d'axe de radar qui dépasse la trentaine de
+# caractères déborde sur ses voisins et rend la planche illisible.
+COURT = {
+    "average": "Moy", "avg": "Moy", "proportion": "Prop", "possession": "Poss",
+    "received": "Reçu", "distance": "Dist", "player": "", "actions": "Act",
+    "successful": "Réussis", "completed": "Compl", "pressured": "Sous press",
+    "unpressured": "Sans press", "aggressive": "Agress",
+    "inside": "", "and": "+", "into": "→", "responsibility": "resp",
+    "weighted": "pond", "change": "Δ", "expectation": "attendu",
+    "above": ">", "directness": "Direct", "expected": "Attendu",
+    "possessions": "Poss", "receipts": "Réceptions", "obv": "OBV",
+}
+
+
+def _fam(col):
+    n = col.lower()
+    for fam, mots in REGLES_FAM:
+        if any(m in n for m in mots):
+            return fam
+    return "off"           # passe et possession : versant offensif du jeu
+
+
+def _sens(col):
+    return -1 if any(m in col.lower() for m in NEGATIF) else 1
+
+
+def _libelle(col):
+    base = col[len(PREFIXE):] if col.startswith(PREFIXE) else col
+    ratio = base.endswith("_ratio")
+    if ratio:
+        base = base[:-6]
+    if base.endswith("_90"):
+        base = base[:-3]
+    mots = []
+    for m in base.split("_"):
+        if m in ABREV:
+            mots.append(ABREV[m])
+        else:
+            c = COURT.get(m, None)
+            if c == "":
+                continue
+            mots.append(c if c else m.capitalize())
+    lab = " ".join(mots)
+    return lab + " %" if ratio else lab
+
+
+def catalogue(colonnes, deja):
+    """Colonnes exploitables non déjà couvertes par une métrique manuelle.
+
+    Deux pièges évités ici.
+
+    1. StatsBomb publie souvent le CUMUL et la CADENCE de la même chose —
+       `xgchain` et `xgchain_90`. Retirer le suffixe pour former la clé les
+       rendait identiques : six métriques se marchaient dessus et la sélection
+       dans la page devenait imprévisible. On ne garde que la cadence quand elle
+       existe ; le sélecteur « par 90 / total saison » reconstitue le cumul.
+
+    2. La clé reste le nom de colonne complet, jamais tronqué : c'est le seul
+       identifiant dont l'unicité soit garantie par la source elle-même."""
+    bases = {c[len(PREFIXE):] for c in colonnes if c.startswith(PREFIXE)}
+    avec_cadence = {b[:-3] for b in bases if b.endswith("_90")}
+    out, vues = [], set()
+    for c in sorted(colonnes):
+        if not c.startswith(PREFIXE):
+            continue
+        base = c[len(PREFIXE):]
+        if base in ADMIN or c in deja:
+            continue
+        if not base.endswith("_90") and base in avec_cadence:
+            continue                       # cumul doublonnant une cadence
+        cle = base[:-3] if base.endswith("_90") else base
+        if cle in vues:                    # ceinture et bretelles
+            cle = base
+        vues.add(cle)
+        out.append(dict(cle=cle, label=_libelle(c), sens=_sens(c),
+                        famille=_fam(c), cands=[c]))
+    return out
+
 
 # Colonnes d'identité — mêmes candidats, même méthode.
 IDENT = {
@@ -244,9 +371,24 @@ def main():
                                      attendu=m["cands"],
                                      proches=suggestions(m["cands"], colonnes)))
 
-    print(f"\nMétriques résolues : {len(resolues)}/{len(METRIQUES)}")
+    manuelles = len(resolues)
+
+    # Puis tout le reste du catalogue. Ces métriques-là sont exactes par
+    # construction — on ne retient que des colonnes réellement présentes.
+    deja = set()
     for m in resolues:
+        deja.update(m["source"])
+    for m in catalogue(colonnes, deja):
+        resolues.append(dict(m, source=m["cands"], mode="direct"))
+
+    print(f"\nMétriques résolues : {manuelles}/{len(METRIQUES)} écrites à la main"
+          f" + {len(resolues) - manuelles} issues du catalogue"
+          f" = {len(resolues)} au total")
+    for m in resolues[:manuelles]:
         print(f"  ✓ {m['label']:<16} <- {' + '.join(m['source'])}")
+    import collections as _c
+    rep = _c.Counter(m["famille"] for m in resolues)
+    print("  familles :", dict(rep))
     if non_resolues:
         print(f"\nMétriques NON résolues : {len(non_resolues)}")
         for m in non_resolues:
@@ -292,7 +434,10 @@ def main():
         "source": "StatsBomb player_season_stats",
         "updated": datetime.datetime.now(datetime.timezone.utc)
                         .strftime("%Y-%m-%d %H:%M UTC"),
+        # `famille` pilote le classement de la page : défensif à gauche du
+        # radar, offensif à droite, gardien à part.
         "metrics": [{"cle": m["cle"], "label": m["label"], "sens": m["sens"],
+                     "famille": m.get("famille", "off"),
                      "source": m["source"]} for m in resolues],
         "postes": dict(sorted(postes.items(), key=lambda kv: -kv[1])),
         "players": joueurs,

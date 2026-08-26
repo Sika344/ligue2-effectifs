@@ -179,6 +179,21 @@ td.raw{font-variant-numeric:tabular-nums;color:var(--ui-muted)}
 .dpan svg{display:block;width:100%;height:auto;overflow:visible}
 .dhead{font-size:12.5px;font-weight:700;color:var(--ui-ink2);margin-bottom:2px}
 .dhead span{font-weight:500;color:var(--ui-muted);font-size:11.5px}
+
+/* ---- listes de métriques, désormais longues ---- */
+.metgrp{margin-top:10px}
+.metgrp:first-child{margin-top:2px}
+.metgrp>h4{margin:0 0 5px;font-size:10px;font-weight:800;letter-spacing:.09em;
+  text-transform:uppercase;color:#0a1733}
+.metgrp.def>h4{color:#1d4ed8}
+.metgrp.off>h4{color:#c2410c}
+.metgrp.gk>h4{color:#6b7280}
+.metbar{display:flex;gap:10px;align-items:center;margin-bottom:6px;flex-wrap:wrap}
+.metbar input[type=search]{font-family:var(--ui-font);font-size:12.5px;padding:6px 11px;
+  border:1px solid var(--ui-line2);border-radius:8px;min-width:230px}
+.metbar .cnt{font-size:11.5px;color:var(--ui-muted)}
+.metscroll{max-height:230px;overflow-y:auto;border:1px solid var(--ui-line);
+  border-radius:9px;padding:9px 11px}
 </style>
 </head>
 <body>
@@ -220,7 +235,12 @@ td.raw{font-variant-numeric:tabular-nums;color:var(--ui-muted)}
 
   <div class="blk">
     <h3>Métriques — 3 à 8</h3>
-    <div class="mets" id="mets"></div>
+    <div class="metbar">
+      <input type="search" id="metQ" placeholder="Filtrer les métriques…">
+      <span class="cnt" id="metCnt"></span>
+      <button class="btn" id="metClr">Tout décocher</button>
+    </div>
+    <div class="metscroll"><div class="mets" id="mets"></div></div>
   </div>
 
   <div class="blk">
@@ -256,7 +276,12 @@ td.raw{font-variant-numeric:tabular-nums;color:var(--ui-muted)}
     </div>
     <div class="chips" id="dChips"></div>
     <h3 style="margin-top:16px">Métriques — 1 à 8</h3>
-    <div class="mets" id="dMets"></div>
+    <div class="metbar">
+      <input type="search" id="dMetQ" placeholder="Filtrer les métriques…">
+      <span class="cnt" id="dMetCnt"></span>
+      <button class="btn" id="dMetClr">Tout décocher</button>
+    </div>
+    <div class="metscroll"><div class="mets" id="dMets"></div></div>
   </div>
 
   <div class="blk">
@@ -348,6 +373,56 @@ function valeur(p, m, mode){
 }
 function libModeC(mode){ return mode === "total" ? "total saison" : "par 90 min"; }
 
+/* ===========================================================================
+   CLASSEMENT DÉFENSIF / OFFENSIF
+   Sur le radar, l'angle part du haut et tourne dans le sens horaire : les
+   premiers indices occupent donc la MOITIÉ DROITE. En plaçant l'offensif en
+   tête et le défensif en queue, on obtient défensif à gauche, offensif à
+   droite, sans rien changer au tracé.
+   =========================================================================== */
+const FAM_ORDRE = { off: 0, gk: 1, def: 2 };
+const FAM_NOM   = { def: "Défensif", off: "Offensif", gk: "Gardien" };
+function famDe(m){ return (m && m.famille) || "off"; }
+function trierFam(cles){
+  return cles.slice().sort((a, b) => {
+    const ma = DATA.metrics.find(m => m.cle === a), mb = DATA.metrics.find(m => m.cle === b);
+    return (FAM_ORDRE[famDe(ma)] ?? 1) - (FAM_ORDRE[famDe(mb)] ?? 1);
+  });
+}
+/* Un libellé trop long déborde sur son voisin et rend la planche illisible :
+   on le coupe à l'affichage seulement, la liste de sélection garde le texte
+   entier. */
+function libCourt(t, n){
+  t = String(t || "");
+  return t.length <= n ? t : t.slice(0, n - 1).trimEnd() + "…";
+}
+
+/* Construit une liste de cases groupée par famille, avec en-têtes.
+   Plus de 200 métriques : sans regroupement ni filtre, la liste est
+   inutilisable. */
+function listeMetriques(hote, cochees){
+  const parFam = { def: [], off: [], gk: [] };
+  DATA.metrics.forEach(m => (parFam[famDe(m)] || parFam.off).push(m));
+  const ordre = ["def", "off", "gk"];
+  hote.innerHTML = ordre.filter(f => parFam[f].length).map(f =>
+    '<div class="metgrp ' + f + '"><h4>' + FAM_NOM[f] + ' — ' + parFam[f].length + '</h4>' +
+    '<div class="mets">' + parFam[f].map(m =>
+      '<label class="met" data-q="' + m.label.toLowerCase() + '">' +
+      '<input type="checkbox" value="' + m.cle + '"' +
+      (cochees.includes(m.cle) ? " checked" : "") + '>' + m.label + '</label>').join("") +
+    '</div></div>').join("");
+}
+function filtrerMetriques(hote, q){
+  q = (q || "").trim().toLowerCase();
+  hote.querySelectorAll(".met").forEach(l => {
+    l.style.display = (!q || l.dataset.q.includes(q)) ? "" : "none";
+  });
+  hote.querySelectorAll(".metgrp").forEach(g => {
+    const reste = [...g.querySelectorAll(".met")].some(l => l.style.display !== "none");
+    g.style.display = reste ? "" : "none";
+  });
+}
+
 /* Population de référence : même famille (ou même poste exact) et temps de jeu
    suffisant. C'est elle qui fixe l'échelle de TOUS les axes. */
 function reference(){
@@ -384,7 +459,8 @@ function radar(){
 
   const W = 620, H = 620, cx = W/2, cy = H/2, R = 205;
   const n = MET.length, ANN = 5;
-  const metas = MET.map(k => DATA.metrics.find(m => m.cle === k));
+  // offensif d'abord : il occupe ainsi la moitié droite du radar
+  const metas = trierFam(MET).map(k => DATA.metrics.find(m => m.cle === k));
 
   // Échelle par axe : distribution de la référence du PREMIER joueur, pour que
   // les valeurs affichées sur les anneaux correspondent à un groupe unique.
@@ -420,7 +496,8 @@ function radar(){
     const [lx,ly] = pt(i, R + 34);
     const anc = Math.abs(lx-cx) < 12 ? 'middle' : (lx > cx ? 'start' : 'end');
     g += '<text x="'+lx.toFixed(1)+'" y="'+(ly+4).toFixed(1)+'" text-anchor="'+anc+'" '+
-         'font-size="11.5" font-weight="650" fill="#0a1733">'+m.label+'</text>';
+         'font-size="11.5" font-weight="650" fill="'+(famDe(m)==="def"?"#1d4ed8":famDe(m)==="gk"?"#6b7280":"#c2410c")+
+         '"><title>'+m.label+'</title>'+libCourt(m.label, 22)+'</text>';
   });
   // polygones joueurs
   SEL.forEach((j, k) => {
@@ -446,7 +523,7 @@ function radar(){
 function tableau(){
   const host = $("tbl");
   if (!SEL.length || MET.length < 3){ host.innerHTML = ''; return; }
-  const metas = MET.map(k => DATA.metrics.find(m => m.cle === k));
+  const metas = trierFam(MET).map(k => DATA.metrics.find(m => m.cle === k));
   let h = '<table><thead><tr><th>Métrique</th>';
   SEL.forEach((j,k) => h += '<th colspan="2" style="text-align:center;color:'+COULEURS[k%4]+'">'+
                             j.nom+'</th>');
@@ -556,18 +633,19 @@ function construire(){
   $("fTeam").innerHTML = '<option value="*">Tous les clubs</option>' +
     eqs.map(e => '<option value="'+e+'">'+e+'</option>').join('');
 
-  $("mets").innerHTML = DATA.metrics.map(m =>
-    '<label class="met"><input type="checkbox" value="'+m.cle+'">'+m.label+'</label>').join('');
-  // sélection de départ : celle de la maquette
-  ["obv_off","xg","box_touches","key_passes","obv_def","def_actions"].forEach(k => {
-    const el = $("mets").querySelector('input[value="'+k+'"]');
-    if (el){ el.checked = true; MET.push(k); }
-  });
+  MET = ["obv_off","xg","box_touches","key_passes","obv_def","def_actions"]
+          .filter(k => DATA.metrics.some(m => m.cle === k));
+  listeMetriques($("mets"), MET);
   $("mets").querySelectorAll("input").forEach(el => el.onchange = () => {
     if (el.checked && MET.length >= 8){ el.checked = false; return; }
     MET = [...$("mets").querySelectorAll("input:checked")].map(x => x.value);
     limiterMet(); rendu();
   });
+  $("metQ").oninput  = () => filtrerMetriques($("mets"), $("metQ").value);
+  $("metClr").onclick = () => {
+    $("mets").querySelectorAll("input:checked").forEach(i => i.checked = false);
+    MET = []; limiterMet(); rendu();
+  };
   limiterMet();
 
   // Un joueur qu'aucun groupe ne réclame disparaîtrait des listes sans un mot :
@@ -595,6 +673,7 @@ function limiterMet(){
     l.classList.toggle("off", off);
     i.disabled = off;
   });
+  $("metCnt").textContent = MET.length + " / 8 cochées · " + DATA.metrics.length + " disponibles";
 }
 
 /* -------------------------------------------------------------- événements */
@@ -773,7 +852,7 @@ function renduDist(){
   if(!DMET.length){ host.innerHTML = '<div class="empty">Coche au moins une métrique.</div>';
     $("dnote").innerHTML = ""; return; }
   const ref = dRef();
-  host.innerHTML = DMET.map(k => panneau(DATA.metrics.find(m => m.cle === k), ref)).join("");
+  host.innerHTML = trierFam(DMET).map(k => panneau(DATA.metrics.find(m => m.cle === k), ref)).join("");
   const sansLogo = DSEL.filter(j => !LOGOS[j.equipe]).map(j => j.nom);
   const dratios = DMET.map(k => DATA.metrics.find(m => m.cle === k))
                       .filter(m => m && !estCumulable(m)).map(m => m.label);
@@ -828,17 +907,19 @@ function construireDist(){
   $("dTeam").innerHTML = '<option value="*">Tous les clubs</option>' +
     eqs.map(e => '<option value="'+e+'">'+e+'</option>').join('');
 
-  $("dMets").innerHTML = DATA.metrics.map(m =>
-    '<label class="met"><input type="checkbox" value="'+m.cle+'">'+m.label+'</label>').join('');
-  ["np_xg","key_passes","deep_prog","obv_off"].forEach(k => {
-    const e = $("dMets").querySelector('input[value="'+k+'"]');
-    if(e){ e.checked = true; DMET.push(k); }
-  });
+  DMET = ["np_xg","key_passes","deep_prog","obv_off"]
+           .filter(k => DATA.metrics.some(m => m.cle === k));
+  listeMetriques($("dMets"), DMET);
   $("dMets").querySelectorAll("input").forEach(e => e.onchange = () => {
     if(e.checked && DMET.length >= 8){ e.checked = false; return; }
     DMET = [...$("dMets").querySelectorAll("input:checked")].map(x => x.value);
     dLimiter(); renduDist();
   });
+  $("dMetQ").oninput  = () => filtrerMetriques($("dMets"), $("dMetQ").value);
+  $("dMetClr").onclick = () => {
+    $("dMets").querySelectorAll("input:checked").forEach(i => i.checked = false);
+    DMET = []; dLimiter(); renduDist();
+  };
   dLimiter();
 
   $("dMin").oninput = () => { DSEUIL = +$("dMin").value;
@@ -873,6 +954,7 @@ function construireDist(){
     DSEL = SEL.slice(0, 4);
     DMET = MET.slice(0, 8);
     $("dMets").querySelectorAll("input").forEach(e => e.checked = DMET.includes(e.value));
+    $("dMetQ").value = ""; filtrerMetriques($("dMets"), "");
     dLimiter(); dMajChips(); dMajListe(); renduDist();
   };
 }
@@ -882,6 +964,7 @@ function dLimiter(){
     const i = l.querySelector("input"), off = plein && !i.checked;
     l.classList.toggle("off", off); i.disabled = off;
   });
+  $("dMetCnt").textContent = DMET.length + " / 8 cochées · " + DATA.metrics.length + " disponibles";
 }
 
 /* ---------------------------------------------------------------- démarrage */
