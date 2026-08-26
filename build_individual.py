@@ -182,15 +182,103 @@ ABREV = {
 }
 # Mots raccourcis : un libellé d'axe de radar qui dépasse la trentaine de
 # caractères déborde sur ses voisins et rend la planche illisible.
+# Le vocabulaire des métriques est celui de StatsBomb, donc anglais. Les
+# raccourcis le restent : mélanger « Moy » et « Space Received » donnait des
+# libellés bâtards, illisibles dans les deux langues.
 COURT = {
-    "average": "Moy", "avg": "Moy", "proportion": "Prop", "possession": "Poss",
-    "received": "Reçu", "distance": "Dist", "player": "", "actions": "Act",
-    "successful": "Réussis", "completed": "Compl", "pressured": "Sous press",
-    "unpressured": "Sans press", "aggressive": "Agress",
-    "inside": "", "and": "+", "into": "→", "responsibility": "resp",
-    "weighted": "pond", "change": "Δ", "expectation": "attendu",
-    "above": ">", "directness": "Direct", "expected": "Attendu",
-    "possessions": "Poss", "receipts": "Réceptions", "obv": "OBV",
+    "average": "Avg", "avg": "Avg", "proportion": "Prop", "possession": "Poss",
+    "received": "Recv", "distance": "Dist", "player": "", "actions": "Actions",
+    "successful": "Succ", "completed": "Compl",
+    "inside": "", "and": "+", "into": "→", "responsibility": "Resp",
+    "weighted": "Wtd", "change": "Δ", "expectation": "Expected",
+    "above": ">", "directness": "Direct", "expected": "Expected",
+    "possessions": "Poss", "receipts": "Receipts",
+}
+
+
+# ---------------------------------------------------------------------------
+# NOMS OFFICIELS StatsBomb
+# Les libellés déduits du nom de colonne sont parfois opaques, parfois faux.
+# `challenge_ratio` devenait « Challenge % » — introuvable pour qui cherche la
+# défense en un contre un, que StatsBomb appelle « Tackle/Dribbled Past% ».
+# Pire, `dribble_faced_ratio` tombait en famille GARDIEN et en axe inversé
+# parce que la règle attrape le mot « faced » : c'est une métrique DÉFENSIVE
+# où une valeur haute est bonne.
+# Cette table reprend les intitulés du glossaire technique. `fam` et `sens` n'y
+# figurent que là où la règle automatique se trompe.
+# ---------------------------------------------------------------------------
+OFFICIEL = {
+    # -- duels défensifs
+    "challenge_ratio":            ("Tackle/Dribbled Past %", "def", +1),
+    "dribble_faced_ratio":        ("Dribbles Stopped %",     "def", +1),
+    "dribbled_past_90":           ("Dribbled Past",          "def", -1),
+    "aerial_ratio":               ("Aerial Win %",           "def", +1),
+    "aerial_wins_90":             ("Aerial Wins",            "def", +1),
+    "errors_90":                  ("Errors",                 "def", -1),
+    # -- défense générale
+    "aggressive_actions_90":      ("Aggressive Actions",     "def", +1),
+    "ball_recoveries_90":         ("Ball Recoveries",        "def", +1),
+    "fhalf_ball_recoveries_90":   ("Ball Recoveries A½",     "def", +1),
+    "blocks_per_shot":            ("Blocks/Shot",            "def", +1),
+    "clearances_90":              ("Clearances",             "def", +1),
+    "padj_clearances_90":         ("PAdj Clearances",        "def", +1),
+    "interceptions_90":           ("Interceptions",          "def", +1),
+    "padj_interceptions_90":      ("PAdj Interceptions",     "def", +1),
+    "tackles_90":                 ("Tackles",                "def", +1),
+    "padj_tackles_90":            ("PAdj Tackles",           "def", +1),
+    "tackles_and_interceptions_90":      ("Tackles + Int",   "def", +1),
+    "padj_tackles_and_interceptions_90": ("PAdj Tackles + Int", "def", +1),
+    "defensive_action_regains_90":       ("Defensive Regains", "def", +1),
+    "da_aggressive_distance":     ("Def Action Dist",        "def", +1),
+    "average_x_defensive_action": ("Def Action X",           "def", +1),
+    "average_x_pressure":         ("Pressure X",             "def", +1),
+    "counterpressures_90":        ("Counterpressures",       "def", +1),
+    "counterpressure_regains_90": ("Counterpress Regains",   "def", +1),
+    "padj_pressures_90":          ("PAdj Pressures",         "def", +1),
+    "pressure_regains_90":        ("Pressure Regains",       "def", +1),
+    "yellow_cards_90":            ("Yellow Cards",           "def", -1),
+    "red_cards_90":               ("Red Cards",              "def", -1),
+    # -- duels offensifs
+    "turnovers_90":               ("Turnovers",              "off", -1),
+    "dispossessions_90":          ("Dispossessed",           "off", -1),
+    "failed_dribbles_90":         ("Failed Dribbles",        "off", -1),
+    "dribble_ratio":              ("Dribble %",              "off", +1),
+    "dribbles_90":                ("Dribbles",               "off", +1),
+    "fouls_won_90":               ("Fouls Won",              "off", +1),
+    # -- tirs et création
+    "goal_conversion_ratio":      ("Goal Conversion %",      "off", +1),
+    "shot_on_target_ratio":       ("Shooting %",             "off", +1),
+    "shot_touch_ratio":           ("Shot Touch %",           "off", +1),
+    "np_psxg_90":                 ("NP PSxG",                "off", +1),
+    "op_xa_90":                   ("Open Play xG Assisted",  "off", +1),
+    "sp_xa_90":                   ("Set Piece xG Assisted",  "off", +1),
+    "op_key_passes_90":           ("Open Play Key Passes",   "off", +1),
+    "sp_key_passes_90":           ("Set Piece Key Passes",   "off", +1),
+    "op_assists_90":              ("Open Play Assists",      "off", +1),
+    "sp_assists_90":              ("Set Piece Assists",      "off", +1),
+    "assists_90":                 ("Assists",                "off", +1),
+    "npxgxa_90":                  ("NP xG + xG Assisted",    "off", +1),
+    "xgchain_90":                 ("xGChain",                "off", +1),
+    "xgbuildup_90":               ("xGBuildup",              "off", +1),
+    "op_xgchain_90":              ("OP xGChain",             "off", +1),
+    "op_xgbuildup_90":            ("OP xGBuildup",           "off", +1),
+    # -- corrections de classement : SUBIR la pression relève de la
+    #    construction, pas de la défense. Ma règle attrapait le mot
+    #    « pressure » et rangeait ces métriques de passe du mauvais côté.
+    "pressured_long_balls_90":    ("Pressured Long Balls",   "off", +1),
+    "unpressured_long_balls_90":  ("Unpressured Long Balls", "off", +1),
+    "pressured_passing_ratio":    ("Pressured Passing %",    "off", +1),
+    "pressured_pass_length_ratio":("Pressured Pass Length %", "off", +1),
+    "pressured_change_in_pass_length": ("Pressured Δ Pass Length", "off", +1),
+    "pass_into_pressure_ratio":   ("Pass Into Pressure %",   "off", -1),
+    # -- libellés qui mélangeaient français et anglais
+    "expected_defensive_actions_90":       ("Expected Def Actions", "def", +1),
+    "defensive_actions_above_expectation_90": ("Def Actions > Expected", "def", +1),
+    "clearance_90":               ("Clearances",             "def", +1),
+    "fhalf_counterpressures_90":  ("Counterpressures A½",    "def", +1),
+    "fhalf_counterpressures_ratio": ("Counterpressures A½ %", "def", +1),
+    "fhalf_pressures_90":         ("Pressures A½",           "def", +1),
+    "fhalf_pressures_ratio":      ("Pressures A½ %",         "def", +1),
 }
 
 
@@ -254,8 +342,11 @@ def catalogue(colonnes, deja):
         if cle in vues:                    # ceinture et bretelles
             cle = base
         vues.add(cle)
-        out.append(dict(cle=cle, label=_libelle(c), sens=_sens(c),
-                        famille=_fam(c), cands=[c]))
+        off = OFFICIEL.get(base)
+        lab = off[0] if off else _libelle(c)
+        fam = off[1] if off else _fam(c)
+        sn = off[2] if off else _sens(c)
+        out.append(dict(cle=cle, label=lab, sens=sn, famille=fam, cands=[c]))
     return out
 
 
