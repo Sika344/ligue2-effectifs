@@ -138,7 +138,10 @@
           <div><label>Tirs : xG minimum</label><input type="number" id="minXg" value="0" min="0" max="1" step="0.01"></div>
           <div><label>Build Up : partir d'une situation contrôlée</label>
             <input type="checkbox" id="buControle" checked>
-            <span class="ds">décoché = toutes les possessions, transitions comprises</span></div>
+            <span class="ds">décoché = transitions comprises</span></div>
+          <div><label>Build Up : démarrage avant (m)</label>
+            <input type="number" id="buX0" value="60" min="0" max="105" step="5">
+            <span class="ds">0 = aucun filtre · 60 m = son propre camp</span></div>
         </div>
         <div class="row" style="margin:0">
           <div><label>Penalties</label><select id="selPen"><option value="1">Inclus dans les tirs</option><option value="0">Exclus</option></select></div>
@@ -228,6 +231,20 @@ var ORIGINE = {
   "Other":           "Phase jouée"
 };
 function origineDe(pp){ return ORIGINE[pp] || "Phase jouée"; }
+
+/* Type du premier événement de la possession. `play_pattern` ne suffisait pas :
+   il range 95 possessions sur 206 sous « Regular Play », ce qui met dans le
+   même sac une relance posée et un ballon gratté au milieu. */
+var DEBUT = {
+  "Pass":"Passe", "Ball Receipt*":"Réception", "Ball Recovery":"Récupération",
+  "Interception":"Interception", "Duel":"Duel", "Clearance":"Dégagement",
+  "Block":"Contre", "Carry":"Conduite", "Goal Keeper":"Gardien",
+  "Miscontrol":"Contrôle raté", "Dispossessed":"Ballon perdu",
+  "Shot":"Tir", "Foul Won":"Faute obtenue"
+};
+function debutDe(st){ return DEBUT[st] || (st || "n/a"); }
+/* 1 unité StatsBomb ≈ 0,9144 m : le terrain fait 120 unités de long. */
+var M_EN_U = 1 / 0.9144;
 function estControlee(pp){ return origineDe(pp) !== "Transition"; }
 
 var IDX = null;      // index.json
@@ -333,6 +350,8 @@ function buildInstances(){
   var withPen = $("selPen").value === "1";
   var buCtrlEl = $("buControle");
   var buControle = buCtrlEl ? buCtrlEl.checked : true;
+  var buX0El = $("buX0");
+  var buX0 = buX0El ? (+buX0El.value || 0) : 0;   // en mètres, 0 = pas de filtre
 
   var inst = [];
   var rowsSeen = [];
@@ -461,9 +480,14 @@ function buildInstances(){
       // chaque possession du match devenait un build-up — 206 sur ce match,
       // là où le codage manuel en retenait une quarantaine.
       if (buControle && !estControlee(e.pp)) return;
+      // Une construction démarre dans son propre camp. Le seuil est réglable :
+      // c'est le seul moyen de coller à une lecture du jeu sans la deviner.
+      if (buX0 > 0 && e.x0 != null && e.x0 > buX0 * M_EN_U) return;
       pushSpan("bu", e.team, t, off + (e.e != null ? e.e : e.s), [
         { g:"Pression", x: e.h || "n/a" },
         { g:"Départ",   x: origineDe(e.pp) },
+        { g:"Début",    x: debutDe(e.st) },
+        { g:"Départ m", x: (e.x0 != null ? Math.round(e.x0 * 0.9144) + " m" : "n/a") },
         { g:"Durée",    x: durb.toFixed(1) + " s" },
         { g:"Actions",  x: String(e.n || 0) }
       ]);

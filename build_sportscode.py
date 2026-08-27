@@ -80,6 +80,13 @@ Détail par type :
                   une construction partie d'une situation controlee (remise en
                   jeu, relance) d'une transition ou d'un ballon recupere haut.
                   Le classement se fait dans la page, pas ici.
+             st = type du PREMIER evenement de la possession (Pass, Ball
+                  Recovery, Interception, Throw-in...). C'est lui qui distingue
+                  une remise en jeu d'un ballon gratte.
+             x0 = abscisse de ce premier evenement, repere du constructeur.
+                  st, x0 et pp couvrent ensemble tous les axes de filtrage :
+                  la page peut donc affiner la definition d'une construction
+                  sans jamais regenerer les 306 matchs.
              s,e = bornes de la possession entiere
     gkbu relance du gardien hors 6 m     -> {k,team,p,s, e, h, len, pl, rec}
 
@@ -273,6 +280,7 @@ def build_match(ev):
     # fait dans la page. Regler la definition ne coutera donc plus un run de
     # vingt minutes, juste un rechargement.
     origine_poss = {}
+    debut_poss = {}
     for r in rows:
         pid = val(r, "possession")
         if pid is None:
@@ -281,6 +289,23 @@ def build_match(ev):
         if pid not in origine_poss:
             pp = val(r, "play_pattern", "")
             origine_poss[pid] = pp if isinstance(pp, str) else ""
+            # Type du premier evenement ET endroit ou la possession demarre.
+            # `play_pattern` seul ne suffit pas : il range 95 possessions sur
+            # 206 sous "Regular Play", ce qui melange une relance posee et un
+            # ballon gratte au milieu. Le type d'evenement (Ball Recovery,
+            # Interception, Pass...) et l'abscisse de depart tranchent, eux.
+            xy0 = loc_xy(val(r, "location"))
+            x0 = None
+            if xy0:
+                x0 = xy0[0]
+                # Meme piege que pour la pression : si ce premier evenement est
+                # le fait de l'adversaire, ses coordonnees sont dans SON repere
+                # et il faut les retourner.
+                dpos = poss.get(pid)
+                if dpos and val(r, "team", "") and val(r, "team", "") != dpos["team"]:
+                    x0 = 120.0 - x0
+                x0 = round(x0, 1)
+            debut_poss[pid] = {"st": val(r, "type", "") or "", "x0": x0}
 
     # premiere pression ADVERSE de chaque possession, ramenee dans le repere de
     # l'equipe qui construit
@@ -309,7 +334,9 @@ def build_match(ev):
         periods_seen.add(d["p"])
         out.append({"k": "pos", "team": d["team"], "p": d["p"],
                     "s": round(d["s"], 2), "e": round(d["e"], 2), "n": d["n"],
-                    "pp": origine_poss.get(pid, "")})
+                    "pp": origine_poss.get(pid, ""),
+                    "st": (debut_poss.get(pid) or {}).get("st", ""),
+                    "x0": (debut_poss.get(pid) or {}).get("x0")})
 
         # ---- Build Up : classe par l'endroit ou la PRESSION ADVERSE demarre.
         #      Piege traite ici : un evenement Pressure appartient a l'equipe
@@ -323,7 +350,9 @@ def build_match(ev):
                     "s": round(d["s"], 2), "e": round(d["e"], 2),
                     "h": h, "n": d["n"],
                     "xp": None if xp is None else round(xp, 1),
-                    "pp": origine_poss.get(pid, "")})
+                    "pp": origine_poss.get(pid, ""),
+                    "st": (debut_poss.get(pid) or {}).get("st", ""),
+                    "x0": (debut_poss.get(pid) or {}).get("x0")})
 
     # ---- passes indexées par possession (pour la chaîne après un 6m)
     by_poss = {}
