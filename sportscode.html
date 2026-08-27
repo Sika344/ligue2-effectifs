@@ -136,6 +136,9 @@
         <div class="row">
           <div><label>Possession : durée minimale (s)</label><input type="number" id="minPoss" value="0" min="0" max="60" step="1"></div>
           <div><label>Tirs : xG minimum</label><input type="number" id="minXg" value="0" min="0" max="1" step="0.01"></div>
+          <div><label>Build Up : partir d'une situation contrôlée</label>
+            <input type="checkbox" id="buControle" checked>
+            <span class="ds">décoché = toutes les possessions, transitions comprises</span></div>
         </div>
         <div class="row" style="margin:0">
           <div><label>Penalties</label><select id="selPen"><option value="1">Inclus dans les tirs</option><option value="0">Exclus</option></select></div>
@@ -201,6 +204,31 @@ var LINES = [
   { id:"pre", nom:"Avant-dernière passe", lead:10, lag:5, on:false, rgb:[180,140,190],
     aide:"la passe qui précède · décochée par défaut" }
 ];
+
+/* ------------------------------------------------- origine d'une possession
+   StatsBomb qualifie chaque possession par un play_pattern. On le traduit ici
+   dans le vocabulaire de Geoffrey, celui de son propre codage :
+       Phase arrêtée   remise en jeu : touche, coup franc, corner, six mètres
+       Phase jouée     jeu courant, ou relance du gardien
+       Transition      contre-attaque, ballon récupéré et joué vite
+   Une CONSTRUCTION part d'une situation contrôlée : phase arrêtée ou phase
+   jouée. Une transition n'en est pas une.
+   Ce classement vit dans la page, PAS dans le script : le régler ne demande
+   qu'un rechargement, là où toucher au script imposerait de régénérer les
+   306 matchs. */
+var ORIGINE = {
+  "From Goal Kick":  "Phase arrêtée",
+  "From Free Kick":  "Phase arrêtée",
+  "From Throw In":   "Phase arrêtée",
+  "From Corner":     "Phase arrêtée",
+  "From Kick Off":   "Phase arrêtée",
+  "From Keeper":     "Phase jouée",
+  "Regular Play":    "Phase jouée",
+  "From Counter":    "Transition",
+  "Other":           "Phase jouée"
+};
+function origineDe(pp){ return ORIGINE[pp] || "Phase jouée"; }
+function estControlee(pp){ return origineDe(pp) !== "Transition"; }
 
 var IDX = null;      // index.json
 var MATCH = null;    // match courant
@@ -303,6 +331,8 @@ function buildInstances(){
   var minPoss = +$("minPoss").value || 0;
   var minXg   = +$("minXg").value || 0;
   var withPen = $("selPen").value === "1";
+  var buCtrlEl = $("buControle");
+  var buControle = buCtrlEl ? buCtrlEl.checked : true;
 
   var inst = [];
   var rowsSeen = [];
@@ -427,8 +457,13 @@ function buildInstances(){
     else if (e.k === "bu" && cfg.bu.on){
       var durb = (e.e || e.s) - e.s;
       if (durb < minPoss) return;
+      // Une construction part d'une situation CONTRÔLÉE. Sans ce filtre,
+      // chaque possession du match devenait un build-up — 206 sur ce match,
+      // là où le codage manuel en retenait une quarantaine.
+      if (buControle && !estControlee(e.pp)) return;
       pushSpan("bu", e.team, t, off + (e.e != null ? e.e : e.s), [
         { g:"Pression", x: e.h || "n/a" },
+        { g:"Départ",   x: origineDe(e.pp) },
         { g:"Durée",    x: durb.toFixed(1) + " s" },
         { g:"Actions",  x: String(e.n || 0) }
       ]);

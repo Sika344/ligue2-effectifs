@@ -76,6 +76,10 @@ Détail par type :
                   Basse (< 30 m) / Mediane / Haute (30 derniers metres)
                   / "Sans pression" si l'adversaire ne presse jamais
              xp = abscisse de cette premiere pression, repere du constructeur
+             pp = play_pattern StatsBomb de la possession, BRUT : il distingue
+                  une construction partie d'une situation controlee (remise en
+                  jeu, relance) d'une transition ou d'un ballon recupere haut.
+                  Le classement se fait dans la page, pas ici.
              s,e = bornes de la possession entiere
     gkbu relance du gardien hors 6 m     -> {k,team,p,s, e, h, len, pl, rec}
 
@@ -262,6 +266,22 @@ def build_match(ev):
                 d["e"] = max(d["e"], s)
                 d["n"] += 1
 
+    # Origine de chaque possession, telle que StatsBomb la qualifie. C'est ce
+    # qui permet de distinguer une CONSTRUCTION (situation controlee) d'une
+    # transition ou d'un ballon recupere haut.
+    # On stocke le play_pattern BRUT, sans le traduire ici : le classement se
+    # fait dans la page. Regler la definition ne coutera donc plus un run de
+    # vingt minutes, juste un rechargement.
+    origine_poss = {}
+    for r in rows:
+        pid = val(r, "possession")
+        if pid is None:
+            continue
+        pid = int(pid)
+        if pid not in origine_poss:
+            pp = val(r, "play_pattern", "")
+            origine_poss[pid] = pp if isinstance(pp, str) else ""
+
     # premiere pression ADVERSE de chaque possession, ramenee dans le repere de
     # l'equipe qui construit
     premiere_pression = {}
@@ -288,7 +308,8 @@ def build_match(ev):
             continue
         periods_seen.add(d["p"])
         out.append({"k": "pos", "team": d["team"], "p": d["p"],
-                    "s": round(d["s"], 2), "e": round(d["e"], 2), "n": d["n"]})
+                    "s": round(d["s"], 2), "e": round(d["e"], 2), "n": d["n"],
+                    "pp": origine_poss.get(pid, "")})
 
         # ---- Build Up : classe par l'endroit ou la PRESSION ADVERSE demarre.
         #      Piege traite ici : un evenement Pressure appartient a l'equipe
@@ -301,7 +322,8 @@ def build_match(ev):
         out.append({"k": "bu", "team": d["team"], "p": d["p"],
                     "s": round(d["s"], 2), "e": round(d["e"], 2),
                     "h": h, "n": d["n"],
-                    "xp": None if xp is None else round(xp, 1)})
+                    "xp": None if xp is None else round(xp, 1),
+                    "pp": origine_poss.get(pid, "")})
 
     # ---- passes indexées par possession (pour la chaîne après un 6m)
     by_poss = {}
