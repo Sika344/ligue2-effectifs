@@ -183,7 +183,23 @@ var LINES = [
   { id:"but", nom:"But",          lead:15, lag:5,  on:true,  rgb:[210, 55, 60],
     aide:"tirs marqués + csc" },
   { id:"cr",  nom:"Centre",       lead:15, lag:7,  on:true,  rgb:[ 90,170,110],
-    aide:"touché par coéquipier / par adversaire" }
+    aide:"côté droite / gauche · touché par coéquipier ou adversaire" },
+
+  /* ---- lignes ajoutées d'après le codage manuel de Geoffrey ---- */
+  { id:"tin", nom:"Touche",       lead:3,  lag:0,  on:true,  rgb:[210,180, 70], span:true,
+    aide:"jusqu'à la fin de la possession · zone basse / médiane / haute" },
+  { id:"fk",  nom:"Coup franc",   lead:3,  lag:0,  on:true,  rgb:[190,120, 60], span:true,
+    aide:"jusqu'à la fin de la possession · zone et côté" },
+  { id:"cor", nom:"Corner",       lead:3,  lag:0,  on:true,  rgb:[160, 90,160], span:true,
+    aide:"jusqu'à la fin de la possession · côté" },
+  { id:"bu",  nom:"Build Up",     lead:0,  lag:0,  on:true,  rgb:[ 70,150,190], span:true,
+    aide:"classé par la zone où démarre la pression adverse" },
+  { id:"gkbu",nom:"Relance gardien", lead:3, lag:0, on:true, rgb:[ 40,120,150], span:true,
+    aide:"toutes les relances du gardien SAUF les six mètres" },
+  { id:"ass", nom:"Dernière passe", lead:10, lag:5, on:true, rgb:[220,100,140],
+    aide:"la passe qui crée le tir · xG et issue" },
+  { id:"pre", nom:"Avant-dernière passe", lead:10, lag:5, on:false, rgb:[180,140,190],
+    aide:"la passe qui précède · décochée par défaut" }
 ];
 
 var IDX = null;      // index.json
@@ -307,6 +323,24 @@ function buildInstances(){
     });
   }
 
+  /* Lignes à durée propre : l'instance couvre du début de l'action jusqu'à la
+     fin de la possession. Sans ce helper, chaque ligne « span » dupliquait la
+     dizaine de lignes de code de la possession. */
+  function pushSpan(lineId, team, tStart, tEnd, labels){
+    var c = cfg[lineId];
+    var code = team + " - " + c.nom;
+    if (!rowsMap[code]){
+      rowsMap[code] = true;
+      rowsSeen.push({ code: code, rgb: c.rgb });
+    }
+    inst.push({
+      code: code,
+      start: Math.max(0, tStart - c.lead),
+      end:   Math.max(0, tEnd + c.lag),
+      labels: labels || []
+    });
+  }
+
   (MATCH.ev || []).forEach(function(e){
     if (teamFilter !== "*" && e.team !== teamFilter) return;
     var off = offs[e.p] || 0;
@@ -375,7 +409,48 @@ function buildInstances(){
     else if (e.k === "cr" && cfg.cr.on){
       push("cr", e.team, t, cfg.cr.lead, cfg.cr.lag, [
         { g:"Contact", x: crossKind(e.o) },
+        { g:"Côté",    x: e.cote || "n/a" },
         { g:"Joueur",  x: e.pl || "" }
+      ]);
+    }
+
+    /* ---- remises en jeu : touche, coup franc, corner ---- */
+    else if ((e.k === "tin" || e.k === "fk" || e.k === "cor") && cfg[e.k].on){
+      pushSpan(e.k, e.team, t, off + (e.e != null ? e.e : e.s), [
+        { g:"Zone",   x: e.z || "n/a" },
+        { g:"Côté",   x: e.cote || "n/a" },
+        { g:"Joueur", x: e.pl || "" }
+      ]);
+    }
+
+    /* ---- build-up, classé par la zone où démarre la pression adverse ---- */
+    else if (e.k === "bu" && cfg.bu.on){
+      var durb = (e.e || e.s) - e.s;
+      if (durb < minPoss) return;
+      pushSpan("bu", e.team, t, off + (e.e != null ? e.e : e.s), [
+        { g:"Pression", x: e.h || "n/a" },
+        { g:"Durée",    x: durb.toFixed(1) + " s" },
+        { g:"Actions",  x: String(e.n || 0) }
+      ]);
+    }
+
+    /* ---- relances du gardien hors six mètres ---- */
+    else if (e.k === "gkbu" && cfg.gkbu.on){
+      pushSpan("gkbu", e.team, t, off + (e.e != null ? e.e : e.s), [
+        { g:"Pression",     x: e.h || "n/a" },
+        { g:"Distance",     x: (e.len != null ? e.len + " m" : "n/a") },
+        { g:"Joueur",       x: e.pl || "" },
+        { g:"Destinataire", x: e.rec || "" }
+      ]);
+    }
+
+    /* ---- dernière et avant-dernière passe avant un tir ---- */
+    else if ((e.k === "ass" || e.k === "pre") && cfg[e.k].on){
+      push(e.k, e.team, t, cfg[e.k].lead, cfg[e.k].lag, [
+        { g:"xG",           x: "xg." + (e.xg != null ? e.xg.toFixed(2) : "0.00") },
+        { g:"Issue",        x: e.but ? "but" : "tir" },
+        { g:"Joueur",       x: e.pl || "" },
+        { g:"Destinataire", x: e.rec || "" }
       ]);
     }
   });
