@@ -62,6 +62,22 @@ Détail par type :
              o = pass_outcome StatsBomb ("" = passe réussie)
     og   but contre son camp             -> {k,team,p,s, pl}
              team = équipe QUI MARQUE (bénéficiaire du csc)
+    tin  touche                          -> {k,team,p,s, e, z, cote, pl}
+    fk   coup franc                      -> {k,team,p,s, e, z, cote, pl}
+    cor  corner                          -> {k,team,p,s, e, z, cote, pl}
+             z    = tiers du terrain (Basse / Mediane / Haute)
+             cote = Droite / Gauche  (voir Y_BAS_EST_DROITE)
+             e    = fin de la possession ouverte par la remise en jeu
+    ass  dernière passe avant un tir     -> {k,team,p,s, pl, rec, xg, but}
+    pre  avant-dernière passe            -> {k,team,p,s, pl, rec, xg, but}
+             rec = destinataire, xg = xG du tir produit, but = True si but
+    bu   build-up                        -> {k,team,p,s, e, h, n, xp}
+             h  = zone ou demarre la PRESSION adverse :
+                  Basse (< 30 m) / Mediane / Haute (30 derniers metres)
+                  / "Sans pression" si l'adversaire ne presse jamais
+             xp = abscisse de cette premiere pression, repere du constructeur
+             s,e = bornes de la possession entiere
+    gkbu relance du gardien hors 6 m     -> {k,team,p,s, e, h, len, pl, rec}
 
 Les libellés de lignes SportsCode, durées avant/après et descripteurs sont
 entièrement gérés côté HTML : ce script ne fait que fournir la matière brute.
@@ -87,6 +103,65 @@ MY = 68.0 / 80.0
 
 MAX_NXT = 5          # nb de passes suivantes stockées après un 6m
 PERIODS = (1, 2, 3, 4)   # 5 = séance de tirs au but -> exclue
+
+
+# ---------------------------------------------------------------- géométrie
+# StatsBomb : x de 0 (son propre but) à 120 (but adverse), y de 0 à 80.
+# Les tiers reprennent le découpage de l'export IQ (Low / Mid / High Third).
+TIERS = ((40.0, "Basse"), (80.0, "Mediane"), (1e9, "Haute"))
+
+# SENS LATÉRAL — le seul point que je n'ai pas pu établir avec certitude.
+# Ton export IQ range les Y bas à DROITE (médiane 23 en zone Right contre 87 en
+# Left, sur 250 passes). Mais rien ne garantit que l'axe Y d'IQ pointe dans le
+# même sens que celui des événements bruts, qui sert ici. Si tous tes centres
+# ressortent inversés, il suffit de passer cette constante à False : c'est un
+# réglage d'une ligne, pas une reprise du code.
+Y_BAS_EST_DROITE = True
+
+# ---------------------------------------------------------------- BUILD-UP
+# Regle de Geoffrey : ce n'est pas d'ou part la possession qui compte, mais
+# OU COMMENCE LA PRESSION ADVERSE, mesuree depuis le but de l'equipe qui
+# construit.
+#     Basse   : la pression demarre dans les 30 premiers metres
+#     Mediane : elle demarre au-dela de 30 m et avant les 30 derniers
+#     Haute   : elle demarre dans les 30 derniers metres
+#     Sans pression : aucune pression adverse de toute la possession
+#
+# StatsBomb exprime le terrain en 120 unites de long, en yards. 30 m valent
+# donc 32,81 unites -- pas 30. L'approximation ferait basculer des sequences
+# d'une categorie a l'autre.
+METRE_EN_UNITES = 1.0 / 0.9144
+SEUIL_BAS = 30.0 * METRE_EN_UNITES          # 32,81
+SEUIL_HAUT = 120.0 - SEUIL_BAS              # 87,19
+
+
+def zone_pression(x):
+    # x exprime dans le sens d'attaque de l'equipe QUI CONSTRUIT
+    if x is None:
+        return ""
+    if x < SEUIL_BAS:
+        return "Basse"
+    if x < SEUIL_HAUT:
+        return "Mediane"
+    return "Haute"
+
+
+def tiers_de(x):
+    """Tiers du terrain dans le sens d'attaque de l'équipe qui a le ballon."""
+    if x is None:
+        return ""
+    for borne, nom in TIERS:
+        if x < borne:
+            return nom
+    return "Haute"
+
+
+def cote_de(y):
+    """Côté du terrain. Voir Y_BAS_EST_DROITE ci-dessus."""
+    if y is None:
+        return ""
+    bas = y < 40.0
+    return ("Droite" if bas else "Gauche") if Y_BAS_EST_DROITE else ("Gauche" if bas else "Droite")
 
 
 # ------------------------------------------------------------------ utilitaires
@@ -187,6 +262,26 @@ def build_match(ev):
                 d["e"] = max(d["e"], s)
                 d["n"] += 1
 
+    # premiere pression ADVERSE de chaque possession, ramenee dans le repere de
+    # l'equipe qui construit
+    premiere_pression = {}
+    for r in rows:
+        if val(r, "type", "") != "Pressure":
+            continue
+        pid = val(r, "possession")
+        if pid is None:
+            continue
+        pid = int(pid)
+        d = poss.get(pid)
+        if not d or val(r, "team", "") == d["team"]:
+            continue                      # pression de l'equipe qui a le ballon : ignoree
+        xy = loc_xy(val(r, "location"))
+        if not xy:
+            continue
+        x_constructeur = 120.0 - xy[0]
+        if pid not in premiere_pression:
+            premiere_pression[pid] = x_constructeur
+
     for pid in sorted(poss):
         d = poss[pid]
         if not d["team"]:
@@ -195,6 +290,19 @@ def build_match(ev):
         out.append({"k": "pos", "team": d["team"], "p": d["p"],
                     "s": round(d["s"], 2), "e": round(d["e"], 2), "n": d["n"]})
 
+        # ---- Build Up : classe par l'endroit ou la PRESSION ADVERSE demarre.
+        #      Piege traite ici : un evenement Pressure appartient a l'equipe
+        #      QUI PRESSE, donc ses coordonnees sont dans SON repere. Il faut
+        #      les retourner (x -> 120 - x) pour les ramener dans le sens
+        #      d'attaque de l'equipe qui construit. Sans ce retournement, Basse
+        #      et Haute seraient purement et simplement inversees.
+        xp = premiere_pression.get(pid)
+        h = zone_pression(xp) if xp is not None else "Sans pression"
+        out.append({"k": "bu", "team": d["team"], "p": d["p"],
+                    "s": round(d["s"], 2), "e": round(d["e"], 2),
+                    "h": h, "n": d["n"],
+                    "xp": None if xp is None else round(xp, 1)})
+
     # ---- passes indexées par possession (pour la chaîne après un 6m)
     by_poss = {}
     for i, r in enumerate(rows):
@@ -202,6 +310,14 @@ def build_match(ev):
         if pid is None:
             continue
         by_poss.setdefault(int(pid), []).append(i)
+
+    # index id -> position dans `rows`, pour remonter de shot_key_pass_id à la
+    # passe elle-même. Sans lui, il faudrait balayer tout le match par tir.
+    par_id = {}
+    for i, r in enumerate(rows):
+        v = val(r, "id")
+        if v is not None:
+            par_id[str(v)] = i
 
     seen_kickoff = set()
 
@@ -255,11 +371,89 @@ def build_match(ev):
                 "pl": val(r, "player", "") or "",
             })
 
-        # ---- centres
+        # ---- centres, avec le côté d'où part le centre
         if typ == "Pass" and bool(val(r, "pass_cross", False)):
+            xy = loc_xy(val(r, "location"))
             out.append({"k": "cr", "team": team, "p": p, "s": s,
                         "o": val(r, "pass_outcome", "") or "",
+                        "cote": cote_de(xy[1] if xy else None),
                         "pl": val(r, "player", "") or ""})
+
+        # ---- remises en jeu : touche, coup franc, corner
+        #      Une seule ligne par famille, la zone et le côté en descripteurs :
+        #      ton export en fait plusieurs lignes, mais leurs définitions
+        #      diffèrent d'un cas à l'autre et je préfère te laisser filtrer
+        #      plutôt que d'inventer une règle qui ne serait pas la tienne.
+        if typ == "Pass":
+            pt = val(r, "pass_type", "")
+            if pt in ("Throw-in", "Free Kick", "Corner"):
+                xy = loc_xy(val(r, "location"))
+                pid = val(r, "possession")
+                fin = s
+                if pid is not None:
+                    d = poss.get(int(pid))
+                    if d and d["p"] == p:
+                        fin = round(d["e"], 2)
+                out.append({
+                    "k": {"Throw-in": "tin", "Free Kick": "fk", "Corner": "cor"}[pt],
+                    "team": team, "p": p, "s": s, "e": fin,
+                    "z": tiers_de(xy[0] if xy else None),
+                    "cote": cote_de(xy[1] if xy else None),
+                    "pl": val(r, "player", "") or "",
+                })
+
+        # ---- Implication offensive : dernière et avant-dernière passe
+        #      StatsBomb rattache au tir l'identifiant de la passe qui l'a créé.
+        #      L'avant-dernière est la passe précédente de la MÊME équipe dans la
+        #      MÊME possession : sans ces deux conditions on remonterait à une
+        #      passe adverse ou à la séquence d'avant.
+        if typ == "Shot" and val(r, "shot_type", "") != "Penalty":
+            kid = val(r, "shot_key_pass_id")
+            j = par_id.get(str(kid)) if kid is not None else None
+            if j is not None:
+                rj = rows[j]
+                xg = val(r, "shot_statsbomb_xg")
+                xgr = round(float(xg), 3) if xg is not None else None
+                out.append({"k": "ass", "team": val(rj, "team", "") or team,
+                            "p": int(val(rj, "period", p)), "s": round(float(rj["_s"]), 2),
+                            "pl": val(rj, "player", "") or "",
+                            "rec": val(rj, "pass_recipient", "") or "",
+                            "xg": xgr, "but": val(r, "shot_outcome", "") == "Goal"})
+                pj = val(rj, "possession")
+                tj = val(rj, "team", "")
+                for k2 in range(j - 1, -1, -1):
+                    rk = rows[k2]
+                    if val(rk, "possession") != pj:
+                        break
+                    if val(rk, "type", "") == "Pass" and val(rk, "team", "") == tj:
+                        out.append({"k": "pre", "team": tj,
+                                    "p": int(val(rk, "period", p)),
+                                    "s": round(float(rk["_s"]), 2),
+                                    "pl": val(rk, "player", "") or "",
+                                    "rec": val(rk, "pass_recipient", "") or "",
+                                    "xg": xgr, "but": val(r, "shot_outcome", "") == "Goal"})
+                        break
+
+        # ---- Goalkeeper Build Up : toutes les relances du gardien SAUF le
+        #      six metres. C'est la definition de Geoffrey, et elle explique
+        #      pourquoi seules 3 de ses 19 instances partaient d'un degagement :
+        #      l'essentiel, ce sont les passes en retrait rejouees au pied ou a
+        #      la main. Les six metres ont deja leur propre ligne (k = "gk").
+        if (typ == "Pass" and val(r, "position", "") == "Goalkeeper"
+                and val(r, "pass_type", "") != "Goal Kick"):
+            pid = val(r, "possession")
+            fin = s
+            zp = "Sans pression"
+            if pid is not None:
+                dd = poss.get(int(pid))
+                if dd and dd["p"] == p:
+                    fin = round(dd["e"], 2)
+                xpg = premiere_pression.get(int(pid))
+                zp = zone_pression(xpg) if xpg is not None else "Sans pression"
+            out.append({"k": "gkbu", "team": team, "p": p, "s": s, "e": fin,
+                        "h": zp, "len": pass_length_m(r),
+                        "pl": val(r, "player", "") or "",
+                        "rec": val(r, "pass_recipient", "") or ""})
 
         # ---- csc : StatsBomb crée "Own Goal Against" (équipe fautive)
         #      et "Own Goal For" (équipe qui en profite). On garde le "For".
