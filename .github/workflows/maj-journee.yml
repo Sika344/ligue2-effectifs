@@ -1,7 +1,13 @@
 # À déposer dans .github/workflows/maj-journee.yml
 #
-# UN SEUL workflow qui régénère les 13 jeux de données du site après une
+# UN SEUL workflow qui régénère les 14 jeux de données du site après une
 # journée de championnat, puis commite le tout en une fois.
+#
+# ATTENTION à l'ordre : build_effectif_stats.py écrit DANS ligue2_<saison>.json.
+# Si tu relances un jour build_ligue2_lfp.py (rafraîchissement des photos et des
+# effectifs), il réécrit ce fichier depuis la LFP et efface les statistiques —
+# c'est exactement ce qui s'était produit et qui laissait 2026-2027 à zéro.
+# Dans ce cas, relance ce workflow derrière pour les remettre.
 #
 # ------------------------------------------------------------------ POURQUOI
 # Les 13 workflows individuels ont chacun leur cron quotidien, mais ils ne
@@ -83,7 +89,7 @@ jobs:
       # non encore ingéré…), les autres doivent quand même produire leurs
       # données. On collecte donc les échecs sans interrompre la course, et on
       # ne fait échouer le job qu'à la toute fin, APRÈS le commit.
-      - name: Régénérer les 13 jeux de données
+      - name: Régénérer les 14 jeux de données
         id: build
         env:
           SB_USERNAME: ${{ secrets.SB_USERNAME }}
@@ -103,6 +109,7 @@ jobs:
           build_shotmix.py
           build_goalview.py
           build_clubstats.py
+          build_effectif_stats.py
           build_rapport.py
           "
           ECHECS=""
@@ -192,4 +199,4 @@ jobs:
             echo "::error::scripts en échec :$E"
             exit 1
           fi
-          echo "Les 13 jeux de données sont à jour."
+          echo "Les 14 jeux de données sont à jour."
