@@ -1,0 +1,351 @@
+#!/usr/bin/env python3
+# -*- coding: utf-8 -*-
+"""
+build_effectif_stats.py — injecte les statistiques joueur (buts, passes
+décisives, minutes) dans les effectifs `ligue2_<saison>.json`.
+
+------------------------------------------------------------------ POURQUOI
+Les effectifs viennent de la LFP (build_ligue2_lfp.py) : photos, numéros,
+tailles, pieds… mais AUCUNE statistique. Les champs `g` et `a` existaient dans
+le fichier, tous à zéro, et les pages les affichaient tels quels — d'où des
+cartes joueur vides sur toute la saison 2026-2027.
+
+Le fichier 2025-2026 portait bien des stats, mais elles y avaient été mises
+par une manipulation ponctuelle, jamais scriptée : rien ne les régénérait.
+Pire, l'archive `ligue2_2026-2027_AVANT_LFP.json` montre que 2026-2027 a un
+temps porté les stats de la saison 318, c'est-à-dire **celles de 2025-2026**.
+Ce script existe pour que chaque saison porte ses propres chiffres, et pour
+que la fusion LFP ne puisse plus les effacer silencieusement.
+
+------------------------------------------------------------------ SOURCE
+StatsBomb `player_season_stats`, colonnes :
+    player_season_goals_90 · player_season_assists_90 · player_season_minutes
+
+Les totaux sont reconstitués par  valeur_90 × (minutes / 90). C'est exact :
+StatsBomb calcule ces cadences à partir des totaux, la division est donc
+réversible. Contrôlé sur 2025-2026 contre les valeurs déjà en place :
+221 joueurs sur 222 identiques sur les buts ET sur les passes décisives.
+(Le seul écart, Yohann Demoncy, vient d'un total de minutes périmé côté
+fichier — 220 contre 979 — pas de la formule.)
+
+--------------------------------------------------------------- APPARIEMENT
+Le fichier LFP ne contient pas d'identifiant StatsBomb : il faut rapprocher
+les noms. Quatre passes, de la plus sûre à la plus tolérante, et l'on
+s'arrête à la première qui tranche :
+    1. nom complet identique après normalisation
+    2. inclusion des mots (« Salomon Sambia » ⊂ « Salomon Junior Sambia »)
+    3. nom de famille seul, à condition qu'il soit unique dans l'équipe
+    4. similarité ≥ 0,80 ET nettement devant le suivant
+
+La passe 4 n'est pas un luxe : la LFP écrit NGAPANDOUENTNBU là où StatsBomb
+écrit Ngapandouetnbu, Bouabdeli contre Bouabdelli, Sarikaya contre Sarıkaya.
+Six joueurs de 2026-2027 ne se rattrapent que par là.
+
+Les joueurs qu'aucune passe ne rattrape sont ABSENTS de la liste LFP (recrues
+récentes, jeunes non listés) : ils n'ont pas de carte à alimenter. Le script
+les compte et les nomme dans son journal plutôt que d'inventer un rattachement.
+
+------------------------------------------------------------------- SORTIE
+Réécrit `ligue2_<saison>.json` en place, en ajoutant sur chaque joueur apparié
+    "g"     buts
+    "a"     passes décisives
+    "mins"  minutes jouées (entier)
+    "sbId"  identifiant StatsBomb, pour que les prochains passages n'aient
+            plus à deviner le nom
+et à la racine  "statsSource" / "statsUpdated", qui servent de trace : un
+fichier sans ces deux clés n'a jamais reçu de statistiques.
+
+USAGE LOCAL :
+    SB_USERNAME='…' SB_PASSWORD='…' SEASON='2026-2027' python build_effectif_stats.py
+"""
+
+import os
+import re
+import sys
+import json
+import difflib
+import datetime
+import unicodedata
+
+from statsbombpy import sb
+
+COMPETITION_ID = 8
+CURRENT_SEASON = "2025-2026"
+SEASON_IDS = {
+    "2025-2026": 318,
+    "2026-2027": 351,
+}
+
+COL_GOALS = "player_season_goals_90"
+COL_ASSISTS = "player_season_assists_90"
+COL_MINUTES = "player_season_minutes"
+
+# Seuil de similarité de la 4e passe, et écart minimal avec le 2e candidat.
+# 0,80 rattrape Ngapandouentnbu (0,85) sans confondre deux frères ; l'écart de
+# 0,08 refuse de trancher quand deux joueurs se ressemblent autant l'un que
+# l'autre — mieux vaut un joueur sans stats qu'un joueur avec celles d'un autre.
+SEUIL_SIM = 0.80
+ECART_SIM = 0.08
+
+
+def lookup_season_id(label):
+    """Résout un libellé de saison via l'API quand il n'est pas dans la table."""
+    comps = sb.competitions()
+    hit = comps[(comps["competition_id"] == COMPETITION_ID)
+                & (comps["season_name"] == label)]
+    if hit.empty:
+        raise SystemExit("saison introuvable pour la Ligue 2 : %s" % label)
+    return int(hit.iloc[0]["season_id"])
+
+
+def nn(s):
+    """Minuscules, sans accents, sans ponctuation. « Sarıkaya » → « sarikaya »."""
+    s = (s or "").lower()
+    s = unicodedata.normalize("NFD", s)
+    s = "".join(c for c in s if unicodedata.category(c) != "Mn")
+    s = re.sub(r"[^a-z0-9]+", " ", s)
+    return re.sub(r"\s+", " ", s).strip()
+
+
+def norm_club(s):
+    """Comme nn(), en retirant les mots de club : « FC Annecy » = « Annecy FC »."""
+    s = nn(s)
+    s = re.sub(r"\b(fc|sc|us|as|stade|de|du|foot|club)\b", " ", s)
+    return re.sub(r"\s+", " ", s).strip()
+
+
+def match_team(club, noms):
+    """Rapproche un nom d'équipe StatsBomb d'une clé de ligue2_<saison>.json.
+
+    Même logique que matchTeam() dans rapport-pre-match.html, pour que les deux
+    bouts de la chaîne apparient les 18 clubs de la même façon.
+    """
+    a = norm_club(club)
+    for t in noms:
+        if norm_club(t) == a:
+            return t
+    for t in noms:
+        b = norm_club(t)
+        if b and (a in b or b in a):
+            return t
+    for t in noms:
+        b = norm_club(t)
+        at, bt = a.split(), b.split()
+        if any(len(x) >= 4 and any(y.startswith(x) or x.startswith(y) for y in bt)
+               for x in at):
+            return t
+    return None
+
+
+def _essai(nom_sb, libres, passe):
+    """Une seule passe d'appariement, contre les cartes encore libres."""
+    a = nn(nom_sb)
+    toks = set(a.split())
+
+    if passe == "exact":
+        for q in libres:
+            if nn(q.get("fullname")) == a:
+                return q, "exact"
+        return None, None
+
+    if passe == "inclusion":
+        for q in libres:
+            b = set(nn(q.get("fullname")).split())
+            if b and toks and (b & toks) and (b <= toks or toks <= b):
+                return q, "inclusion"
+        return None, None
+
+    if passe == "nom":
+        cands = [q for q in libres if nn(q.get("name")) and nn(q.get("name")) in toks]
+        if len(cands) == 1:
+            return cands[0], "nom de famille"
+        return None, None
+
+    scores = sorted(((difflib.SequenceMatcher(None, a, nn(q.get("fullname"))).ratio(), q)
+                     for q in libres), key=lambda x: -x[0])
+    if scores and scores[0][0] >= SEUIL_SIM:
+        if len(scores) < 2 or scores[0][0] - scores[1][0] >= ECART_SIM:
+            return scores[0][1], "orthographe %.2f" % scores[0][0]
+    return None, None
+
+
+PASSES = ("exact", "inclusion", "nom", "orthographe")
+
+
+def apparie_equipe(noms_sb, squad):
+    """Apparie TOUS les joueurs d'une équipe, par vagues de confiance décroissante.
+
+    Traiter les joueurs un par un jusqu'au bout des quatre passes était faux :
+    à Reims, « Eloge Patrick Zabi Gueu » raflait la carte de John Patrick par
+    la passe « nom de famille » (patrick ∈ ses prénoms), et écrasait ensuite
+    « John Joe Patrick Finn Benoa » qui, lui, la méritait par inclusion.
+    Le dernier arrivé gagnait, en silence.
+
+    On fait donc toutes les correspondances exactes d'abord, puis les
+    inclusions, etc. Une carte prise n'est plus proposée : le match le plus
+    sûr l'emporte, quel que soit l'ordre des lignes reçues de StatsBomb.
+
+    Retourne {nom_sb: (joueur, méthode)} et la liste des noms non appariés.
+    """
+    resultat = {}
+    pris = set()
+    restants = list(noms_sb)
+
+    for passe in PASSES:
+        encore = []
+        for nom in restants:
+            libres = [q for q in squad if id(q) not in pris]
+            q, methode = _essai(nom, libres, passe)
+            if q is None:
+                encore.append(nom)
+            else:
+                pris.add(id(q))
+                resultat[nom] = (q, methode)
+        restants = encore
+
+    return resultat, restants
+
+
+def total(cadence, minutes):
+    """Passe d'une cadence /90 à un total. None si la donnée manque."""
+    if cadence is None or minutes is None:
+        return None
+    try:
+        return int(round(float(cadence) * float(minutes) / 90.0))
+    except (TypeError, ValueError):
+        return None
+
+
+def main():
+    arg = sys.argv[1] if len(sys.argv) > 1 else ""
+    label = (arg or os.environ.get("SEASON", "")).strip() or CURRENT_SEASON
+    season_id = SEASON_IDS.get(label) or lookup_season_id(label)
+
+    chemin = "ligue2_%s.json" % label
+    if not os.path.exists(chemin):
+        # Le fichier d'effectif est produit par build_ligue2_lfp.py. S'il manque,
+        # il n'y a rien à enrichir : on le dit et on sort proprement, sans faire
+        # échouer la journée entière.
+        print("!! %s absent — rien à enrichir." % chemin)
+        return
+
+    with open(chemin, encoding="utf-8") as f:
+        data = json.load(f)
+
+    print("Saison %s (season_id=%s) — %s" % (label, season_id, chemin))
+
+    stats = sb.player_season_stats(competition_id=COMPETITION_ID, season_id=season_id)
+    manquantes = [c for c in (COL_GOALS, COL_ASSISTS, COL_MINUTES)
+                  if c not in stats.columns]
+    if manquantes:
+        raise SystemExit("colonnes absentes de player_season_stats : %s"
+                         % ", ".join(manquantes))
+    print("   %d lignes reçues de StatsBomb" % len(stats))
+
+    equipes = list(data["teams"])
+    corr = {}
+    for club in sorted({str(r) for r in stats["team_name"]}):
+        corr[club] = match_team(club, equipes)
+    inconnues = [c for c, v in corr.items() if v is None]
+    if inconnues:
+        print("   !! équipes non rapprochées : %s" % ", ".join(inconnues))
+
+    # Un même club ne doit pas être visé par deux noms StatsBomb : sinon le
+    # second écraserait le premier sans que rien ne le signale.
+    vus = {}
+    for club, cible in corr.items():
+        if cible:
+            vus.setdefault(cible, []).append(club)
+    for cible, sources in vus.items():
+        if len(sources) > 1:
+            print("   !! %s visé par plusieurs noms : %s" % (cible, ", ".join(sources)))
+
+    methodes = {}
+    orthographe = []
+    absents = []
+    touches = 0
+
+    # Regroupement par club : l'appariement se décide à l'échelle de l'équipe,
+    # pas ligne par ligne (voir apparie_equipe).
+    par_club = {}
+    for _, row in stats.iterrows():
+        club = corr.get(str(row["team_name"]))
+        if not club:
+            continue
+        nom = str(row.get("player_known_name") or row.get("player_name") or "")
+        if not nom:
+            continue
+        # Deux lignes pour un même nom dans un même club ne devraient pas
+        # exister ; si cela arrive, on garde celle qui a le plus de minutes.
+        prec = par_club.setdefault(club, {}).get(nom)
+        if prec is None or float(row.get(COL_MINUTES) or 0) > float(prec.get(COL_MINUTES) or 0):
+            par_club[club][nom] = row
+
+    for club, lignes in par_club.items():
+        squad = data["teams"][club]["squad"]
+        apparies, rates = apparie_equipe(list(lignes), squad)
+
+        for nom in rates:
+            mins = lignes[nom].get(COL_MINUTES)
+            absents.append((club, nom, int(round(float(mins or 0)))))
+
+        for nom, (joueur, methode) in apparies.items():
+            row = lignes[nom]
+            mins = row.get(COL_MINUTES)
+            g = total(row.get(COL_GOALS), mins)
+            a = total(row.get(COL_ASSISTS), mins)
+            if g is None or a is None:
+                continue
+
+            joueur["g"] = g
+            joueur["a"] = a
+            joueur["mins"] = int(round(float(mins)))
+            joueur["sbId"] = int(row["player_id"])
+            touches += 1
+            cle = methode.split(" ")[0]
+            methodes[cle] = methodes.get(cle, 0) + 1
+            if methode.startswith("orthographe"):
+                orthographe.append((club, nom, joueur.get("fullname"), methode))
+
+    # Un joueur du fichier LFP que StatsBomb ne connaît pas encore (recrue, ou
+    # qui n'a pas joué) doit afficher 0 et non un reste de la saison passée.
+    remis = 0
+    for club in data["teams"]:
+        for p in data["teams"][club]["squad"]:
+            if "sbId" not in p:
+                if p.get("g") or p.get("a") or p.get("mins"):
+                    remis += 1
+                p["g"], p["a"], p["mins"] = 0, 0, 0
+
+    data["statsSource"] = "StatsBomb comp %d saison %d" % (COMPETITION_ID, season_id)
+    data["statsUpdated"] = datetime.datetime.utcnow().strftime("%Y-%m-%d %H:%M UTC")
+
+    with open(chemin, "w", encoding="utf-8") as f:
+        json.dump(data, f, ensure_ascii=False, indent=1)
+
+    joueurs = [p for t in data["teams"].values() for p in t["squad"]]
+    print("\n--- Appariement ---")
+    for k, v in sorted(methodes.items(), key=lambda x: -x[1]):
+        print("   %-16s %d" % (k, v))
+    if orthographe:
+        print("\n   rattrapés sur l'orthographe (à contrôler) :")
+        for c, sb_nom, lfp_nom, m in orthographe:
+            print("      %-14s %-30s -> %-30s %s" % (c, sb_nom, lfp_nom, m))
+    if absents:
+        print("\n   %d joueurs StatsBomb absents de la liste LFP "
+              "(pas de carte à alimenter), les plus joués :" % len(absents))
+        for c, n, m in sorted(absents, key=lambda x: -x[2])[:12]:
+            print("      %-14s %-30s %4d min" % (c, n, m))
+    if remis:
+        print("\n   %d joueurs remis à zéro (stats d'une autre saison)" % remis)
+
+    print("\n--- Résultat ---")
+    print("   %d joueurs enrichis sur %d dans l'effectif" % (touches, len(joueurs)))
+    print("   buts cumulés : %d | passes décisives : %d"
+          % (sum(p.get("g") or 0 for p in joueurs),
+             sum(p.get("a") or 0 for p in joueurs)))
+    print("   %s écrit." % chemin)
+
+
+if __name__ == "__main__":
+    main()

@@ -151,9 +151,9 @@
     background-color:#fbfcfd;margin-right:2px}
   .topbar select.viewsel:hover{border-color:var(--ui-accent)}
 </style>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/pptxgenjs@3.12.0/dist/pptxgen.bundle.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
+<script src="vendor/html2canvas.min.js"></script>
+<script src="vendor/pptxgen.bundle.js"></script>
+<script src="vendor/jszip.min.js"></script>
 <script src="season.js"></script>
 </head>
 <body>
@@ -305,6 +305,24 @@ function wirePhotos(root){
     if(img.complete && img.naturalWidth===0) swap();
   });
 }
+/* Seuil de minutes du filtre « groupe pro ».
+
+   Un seuil fixe à 90 minutes supposait une saison terminée. Au 3e match de
+   2026-2027, le joueur le plus utilisé de la Ligue 2 en comptait 296 : le
+   seuil aurait écarté la moitié des titulaires. On le rapporte donc à
+   l'avancement réel de la saison — 15 % du maximum observé — sans jamais
+   dépasser les 90 minutes d'origine, si bien que sur une saison complète le
+   comportement est identique à avant. */
+let _seuilMin=null;
+function seuilMinutes(){
+  if(_seuilMin!==null) return _seuilMin;
+  let mx=0;
+  for(const t of Object.values(DATA.teams||{}))
+    for(const p of (t.squad||[])) if(p.mins>mx) mx=p.mins;
+  _seuilMin = mx ? Math.min(90, Math.round(0.15*mx)) : 90;
+  return _seuilMin;
+}
+
 function render(name){
   const team=DATA.teams[name];
   ["crestL","crestR"].forEach(id=>{document.getElementById(id).innerHTML=team.logo?`<img src="${team.logo}" alt="">`:"";});
@@ -312,8 +330,9 @@ function render(name){
   let squad=team.squad.filter(p=>p.num!=null);
   if(squad.length<11) squad=team.squad.slice();
   if(document.getElementById("hideYouth").checked){
+    const s=seuilMinutes();
     const f=squad.filter(p=>{
-      if(p.mins!=null) return p.mins>=90;
+      if(p.mins!=null) return p.mins>=s;
       return !(p.age!=null && p.age<=20 && (p.g||0)===0 && (p.a||0)===0 && (p.num||0)>=30);
     });
     if(f.length>=11) squad=f;
@@ -569,7 +588,8 @@ function applyPlayerOverrides(data){
   return data;
 }
 function boot(data,demo){
-  DATA=data; stampAvatars(DATA); applyPlayerOverrides(DATA);
+  // _seuilMin dépend des minutes du fichier : changer de saison doit le recalculer.
+  DATA=data; _seuilMin=null; stampAvatars(DATA); applyPlayerOverrides(DATA);
   const _bi=document.getElementById("bannerImg"); if(_bi) _bi.src=BANNER;
   const sel=document.getElementById("teamSelect"); sel.innerHTML="";
   Object.keys(DATA.teams).sort().forEach(t=>{const o=document.createElement("option");o.value=t;o.textContent=t;sel.appendChild(o);});
