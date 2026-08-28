@@ -138,11 +138,17 @@
           <div><label>Tirs : xG minimum</label><input type="number" id="minXg" value="0" min="0" max="1" step="0.01"></div>
           <div><label>Build Up : partir d'une situation contrôlée</label>
             <input type="checkbox" id="buControle" checked>
-            <span class="ds">décoché = transitions comprises</span></div>
+            <span class="ds">exclut phases arrêtées, relances de but et transitions — déjà codées sur leurs propres lignes</span></div>
           <div><label>Build Up : démarrage avant (m)</label>
-            <input type="number" id="buX0" value="60" min="0" max="105" step="5">
-            <span class="ds">0 = aucun filtre · 60 m = son propre camp</span></div>
+            <input type="number" id="buX0" value="40" min="0" max="105" step="5">
+            <span class="ds">0 = aucun filtre</span></div>
         </div>
+        <div class="row">
+          <div><label>Build Up : frontière Basse / Mediane (m)</label>
+            <input type="number" id="buFrontiere" value="33" min="10" max="60" step="1">
+            <span class="ds">zone où démarre la pression adverse, mesurée depuis sa propre ligne de but</span></div>
+        </div>
+        <p class="hint" style="margin:0">Réglage calé sur ton codage manuel d'ASSE–GF38 : 13 Basse / 13 Mediane côté ASSE, 14 / 6 côté Grenoble (tu avais 15 / 6).</p>
         <div class="row" style="margin:0">
           <div><label>Penalties</label><select id="selPen"><option value="1">Inclus dans les tirs</option><option value="0">Exclus</option></select></div>
         </div>
@@ -199,8 +205,8 @@ var LINES = [
   { id:"cor", nom:"Corner",       lead:3,  lag:0,  on:true,  rgb:[160, 90,160], span:true,
     aide:"jusqu'à la fin de la possession · côté" },
   { id:"bu",  nom:"Build Up",     lead:0,  lag:0,  on:true,  rgb:[ 70,150,190], span:true,
-    aide:"classé par la zone où démarre la pression adverse" },
-  { id:"gkbu",nom:"Relance gardien", lead:3, lag:0, on:true, rgb:[ 40,120,150], span:true,
+    aide:"trois lignes séparées — Low / Mid / High — selon la zone où démarre la pression adverse" },
+  { id:"gkbu",nom:"Goalkeeper Build Up", lead:3, lag:0, on:true, rgb:[ 40,120,150], span:true,
     aide:"toutes les relances du gardien SAUF les six mètres" },
   { id:"ass", nom:"Dernière passe", lead:10, lag:5, on:true, rgb:[220,100,140],
     aide:"la passe qui crée le tir · xG et issue" },
@@ -245,7 +251,24 @@ var DEBUT = {
 function debutDe(st){ return DEBUT[st] || (st || "n/a"); }
 /* 1 unité StatsBomb ≈ 0,9144 m : le terrain fait 120 unités de long. */
 var M_EN_U = 1 / 0.9144;
-function estControlee(pp){ return origineDe(pp) !== "Transition"; }
+/* Les phases arrêtées et les relances de but sont codées sur LEURS PROPRES
+   lignes (Build Up Set Play, Goalkeeper Build Up). Les laisser aussi dans Low
+   et Mid Build Up les comptait deux fois : c'est ce qui faisait exploser la
+   Mediane (41 contre 13 au codage manuel). */
+function estControlee(pp){ return origineDe(pp) === "Phase jouée"; }
+
+/* Zone où démarre la pression adverse. Recalculée ICI, à partir de l'abscisse
+   brute `xp`, et non lue dans `e.h` : la frontière devient réglable sans
+   régénérer les 306 matchs.
+   Une possession sans aucune pression adverse ne se classe pas — il n'y a rien
+   à mesurer — d'où le null. */
+function zonePression(xp, frontiereM){
+  if (xp == null) return null;
+  var f = frontiereM * M_EN_U;
+  if (xp <= f)         return "Basse";
+  if (xp <= 120 - f)   return "Mediane";
+  return "Haute";
+}
 
 var IDX = null;      // index.json
 var MATCH = null;    // match courant
@@ -352,6 +375,8 @@ function buildInstances(){
   var buControle = buCtrlEl ? buCtrlEl.checked : true;
   var buX0El = $("buX0");
   var buX0 = buX0El ? (+buX0El.value || 0) : 0;   // en mètres, 0 = pas de filtre
+  var buFrEl = $("buFrontiere");
+  var buFrontiere = buFrEl ? (+buFrEl.value || 30) : 30;   // en mètres
 
   var inst = [];
   var rowsSeen = [];
@@ -375,9 +400,12 @@ function buildInstances(){
   /* Lignes à durée propre : l'instance couvre du début de l'action jusqu'à la
      fin de la possession. Sans ce helper, chaque ligne « span » dupliquait la
      dizaine de lignes de code de la possession. */
-  function pushSpan(lineId, team, tStart, tEnd, labels){
+  /* `nomForce` permet à une même ligne de config de produire plusieurs codes
+     SportsCode distincts — Geoffrey code Low / Mid / High Build Up sur trois
+     lignes séparées, pas sur une seule avec un descripteur. */
+  function pushSpan(lineId, team, tStart, tEnd, labels, nomForce){
     var c = cfg[lineId];
-    var code = team + " - " + c.nom;
+    var code = team + " - " + (nomForce || c.nom);
     if (!rowsMap[code]){
       rowsMap[code] = true;
       rowsSeen.push({ code: code, rgb: c.rgb });
@@ -483,14 +511,19 @@ function buildInstances(){
       // Une construction démarre dans son propre camp. Le seuil est réglable :
       // c'est le seul moyen de coller à une lecture du jeu sans la deviner.
       if (buX0 > 0 && e.x0 != null && e.x0 > buX0 * M_EN_U) return;
+      // Jamais pressé : rien à classer, l'action ne relève d'aucune des trois
+      // lignes. On la laisse de côté plutôt que de la ranger d'office en Basse.
+      var zb = zonePression(e.xp, buFrontiere);
+      if (zb === null) return;
+      var NOM_BU = { "Basse":"Low Build Up", "Mediane":"Mid Build Up", "Haute":"High Build Up" };
       pushSpan("bu", e.team, t, off + (e.e != null ? e.e : e.s), [
-        { g:"Pression", x: e.h || "n/a" },
+        { g:"Pression", x: zb },
         { g:"Départ",   x: origineDe(e.pp) },
         { g:"Début",    x: debutDe(e.st) },
         { g:"Départ m", x: (e.x0 != null ? Math.round(e.x0 * 0.9144) + " m" : "n/a") },
         { g:"Durée",    x: durb.toFixed(1) + " s" },
         { g:"Actions",  x: String(e.n || 0) }
-      ]);
+      ], NOM_BU[zb]);
     }
 
     /* ---- relances du gardien hors six mètres ---- */
