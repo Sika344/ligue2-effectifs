@@ -63,6 +63,7 @@ import os
 import re
 import sys
 import json
+import math
 import difflib
 import datetime
 import unicodedata
@@ -96,6 +97,22 @@ def lookup_season_id(label):
     if hit.empty:
         raise SystemExit("saison introuvable pour la Ligue 2 : %s" % label)
     return int(hit.iloc[0]["season_id"])
+
+
+def texte(v):
+    """Chaîne propre depuis une cellule pandas, ou "" si la donnée manque.
+
+    À NE PAS remplacer par `a or b` : une cellule vide arrive en float('nan'),
+    qui est VRAI en Python. Un simple `known_name or name` gardait donc le nan,
+    tous les joueurs sans surnom s'appelaient « nan », et la déduplication par
+    nom n'en laissait qu'un par club — 67 joueurs enrichis au lieu de 311.
+    """
+    if v is None:
+        return ""
+    if isinstance(v, float) and math.isnan(v):
+        return ""
+    s = str(v).strip()
+    return "" if s.lower() in ("nan", "none", "<na>") else s
 
 
 def nn(s):
@@ -206,6 +223,131 @@ def apparie_equipe(noms_sb, squad):
     return resultat, restants
 
 
+# StatsBomb -> vocabulaire de posDesc du site (voir roleOf() dans index.html).
+# Vocabulaire fermé et stable : 23 valeurs relevées sur les deux saisons.
+POSTES = {
+    "Goalkeeper":                    ("GK",  "GK"),
+    "Centre Back":                   ("CB",  "DEF"),
+    "Left Centre Back":              ("CB",  "DEF"),
+    "Right Centre Back":             ("CB",  "DEF"),
+    "Left Back":                     ("LB",  "DEF"),
+    "Right Back":                    ("RB",  "DEF"),
+    "Left Wing Back":                ("LWB", "DEF"),
+    "Right Wing Back":               ("RWB", "DEF"),
+    "Centre Defensive Midfielder":   ("CDM", "MID"),
+    "Left Defensive Midfielder":     ("CDM", "MID"),
+    "Right Defensive Midfielder":    ("CDM", "MID"),
+    "Left Centre Midfielder":        ("CM",  "MID"),
+    "Right Centre Midfielder":       ("CM",  "MID"),
+    "Centre Attacking Midfielder":   ("CAM", "MID"),
+    "Left Attacking Midfielder":     ("CAM", "MID"),
+    "Right Attacking Midfielder":    ("CAM", "MID"),
+    "Left Midfielder":               ("LM",  "MID"),
+    "Right Midfielder":              ("RM",  "MID"),
+    "Left Wing":                     ("LW",  "ATT"),
+    "Right Wing":                    ("RW",  "ATT"),
+    "Centre Forward":                ("ST",  "ATT"),
+    "Left Centre Forward":           ("ST",  "ATT"),
+    "Right Centre Forward":          ("ST",  "ATT"),
+}
+
+
+def numeros_maillot(season_id, cherches):
+    """Numéros de maillot des joueurs demandés, via les feuilles de match.
+
+    `player_season_stats` ne porte pas le numéro. Or index.html n'affiche que
+    les joueurs qui en ont un : un joueur ajouté sans numéro resterait
+    invisible, ce qui viderait l'ajout de son intérêt.
+
+    On parcourt les feuilles de match du plus RÉCENT au plus ancien — un joueur
+    peut avoir changé de numéro — et on s'arrête dès que tout le monde est
+    trouvé. En pratique deux ou trois feuilles suffisent.
+
+    `cherches` : ensemble d'identifiants StatsBomb. Retourne {id: numéro}.
+    """
+    trouves = {}
+    if not cherches:
+        return trouves
+    try:
+        ms = sb.matches(competition_id=COMPETITION_ID, season_id=season_id)
+    except Exception as exc:
+        print("   !! feuilles de match indisponibles (%s) — pas de numéros" % exc)
+        return trouves
+
+    if "match_date" in ms.columns:
+        ms = ms.sort_values("match_date", ascending=False)
+
+    lus = 0
+    for mid in ms["match_id"]:
+        if len(trouves) >= len(cherches):
+            break
+        try:
+            lu = sb.lineups(match_id=int(mid))
+        except Exception:
+            continue
+        lus += 1
+        if not isinstance(lu, dict):
+            continue
+        for df in lu.values():
+            if "jersey_number" not in df.columns or "player_id" not in df.columns:
+                continue
+            for _, r in df.iterrows():
+                try:
+                    pid = int(r["player_id"])
+                except (TypeError, ValueError):
+                    continue
+                if pid not in cherches or pid in trouves:
+                    continue
+                num = r.get("jersey_number")
+                if num is not None and num == num:      # écarte NaN
+                    trouves[pid] = int(num)
+    print("   %d numéros retrouvés sur %d cherchés (%d feuilles lues)"
+          % (len(trouves), len(cherches), lus))
+    return trouves
+
+
+def fiche_joueur(row, numero):
+    """Construit une entrée d'effectif pour un joueur absent de la liste LFP."""
+    nom_complet = texte(row.get("player_name")) or texte(row.get("player_known_name"))
+    morceaux = nom_complet.split()
+    poste, famille = POSTES.get(texte(row.get("primary_position")), (None, None))
+
+    age = None
+    naissance = texte(row.get("birth_date"))[:10]
+    if len(naissance) == 10:
+        try:
+            n = datetime.date.fromisoformat(naissance)
+            a = datetime.date.today()
+            age = a.year - n.year - ((a.month, a.day) < (n.month, n.day))
+        except ValueError:
+            age = None
+
+    taille = None
+    try:
+        h = float(row.get("player_height"))
+        if h == h and 140 <= h <= 220:
+            taille = int(round(h))
+    except (TypeError, ValueError):
+        pass
+
+    return {
+        "num": numero,
+        "name": (morceaux[-1] if morceaux else nom_complet).upper(),
+        "fullname": nom_complet,
+        "pos": famille or "MID",
+        "posDesc": poste or "CM",
+        "height": taille,
+        "age": age,
+        # Pas de photo : la page bascule sur l'avatar générique, comme pour
+        # tout joueur dont la LFP n'a pas encore publié le portrait.
+        "photo": "",
+        "photoLFP": False,
+        # Trace explicite : cette fiche vient de StatsBomb, pas de la LFP.
+        # Un prochain rafraîchissement LFP la remplacera si le joueur y entre.
+        "ajouteStatsBomb": True,
+    }
+
+
 def total(cadence, minutes):
     """Passe d'une cadence /90 à un total. None si la donnée manque."""
     if cadence is None or minutes is None:
@@ -244,7 +386,7 @@ def main():
 
     equipes = list(data["teams"])
     corr = {}
-    for club in sorted({str(r) for r in stats["team_name"]}):
+    for club in sorted({texte(r) for r in stats["team_name"] if texte(r)}):
         corr[club] = match_team(club, equipes)
     inconnues = [c for c, v in corr.items() if v is None]
     if inconnues:
@@ -268,12 +410,18 @@ def main():
     # Regroupement par club : l'appariement se décide à l'échelle de l'équipe,
     # pas ligne par ligne (voir apparie_equipe).
     par_club = {}
+    sans_nom = 0
+    lignes_club = 0          # lignes REÇUES dont le club est reconnu
     for _, row in stats.iterrows():
-        club = corr.get(str(row["team_name"]))
+        club = corr.get(texte(row.get("team_name")))
         if not club:
             continue
-        nom = str(row.get("player_known_name") or row.get("player_name") or "")
+        lignes_club += 1
+        # player_name est toujours rempli ; player_known_name ne l'est que pour
+        # les joueurs qui ont un nom d'usage. On part donc du nom officiel.
+        nom = texte(row.get("player_name")) or texte(row.get("player_known_name"))
         if not nom:
+            sans_nom += 1
             continue
         # Deux lignes pour un même nom dans un même club ne devraient pas
         # exister ; si cela arrive, on garde celle qui a le plus de minutes.
@@ -287,7 +435,7 @@ def main():
 
         for nom in rates:
             mins = lignes[nom].get(COL_MINUTES)
-            absents.append((club, nom, int(round(float(mins or 0)))))
+            absents.append((club, nom, int(round(float(mins or 0))), lignes[nom]))
 
         for nom, (joueur, methode) in apparies.items():
             row = lignes[nom]
@@ -306,6 +454,90 @@ def main():
             methodes[cle] = methodes.get(cle, 0) + 1
             if methode.startswith("orthographe"):
                 orthographe.append((club, nom, joueur.get("fullname"), methode))
+
+    # GARDE-FOU, AVANT toute écriture. Le run du 28/08 s'est terminé en vert
+    # avec 67 joueurs enrichis au lieu de 311 : le script « marchait », il
+    # produisait juste un fichier presque vide, qui a été commité. Un taux
+    # d'appariement anormalement bas trahit un défaut de lecture (colonne
+    # renommée, valeurs manquantes) et doit faire ÉCHOUER l'étape sans rien
+    # écrire, plutôt que de remplacer des données correctes par du vide.
+    # Le dénominateur est le nombre de lignes REÇUES pour un club reconnu, et
+    # non les lignes qui ont survécu au filtrage : sinon un défaut qui écarte
+    # les lignes en amont se cache lui-même, en rétrécissant le dénominateur en
+    # même temps que le numérateur. C'est exactement ce qui s'est passé.
+    taux = (touches / lignes_club) if lignes_club else 0.0
+    part_sans_nom = (sans_nom / lignes_club) if lignes_club else 0.0
+
+    # Contrôle 1 — lecture des noms. C'est LE symptôme du défaut du 28/08 :
+    # 272 lignes sur 341 arrivaient sans nom exploitable. En marche normale ce
+    # chiffre est nul, donc le moindre écart notable est un défaut de code, pas
+    # une particularité de la saison.
+    if part_sans_nom > 0.05:
+        raise SystemExit(
+            "ÉCHEC : %d lignes sur %d (%.0f %%) arrivent sans nom de joueur.\n"
+            "C'est un défaut de lecture, pas une donnée manquante. %s n'a PAS été\n"
+            "modifié — vérifier les colonnes de player_season_stats."
+            % (sans_nom, lignes_club, 100 * part_sans_nom, chemin))
+    if sans_nom:
+        print("   !! %d lignes StatsBomb sans nom de joueur" % sans_nom)
+
+    # Contrôle 2 — filet large. Le taux d'appariement dépend légitimement de la
+    # saison : sur 2025-2026 il tombe à 54 %, parce que la liste d'effectifs est
+    # celle de 2026 et que beaucoup de joueurs sont partis depuis. On ne bloque
+    # donc qu'en cas d'effondrement manifeste.
+    if lignes_club and taux < 0.40:
+        raise SystemExit(
+            "ÉCHEC : seulement %d joueurs appariés sur %d lignes StatsBomb reçues "
+            "(%.0f %%).\nAttendu : au moins 40 %%. %s n'a PAS été modifié."
+            % (touches, lignes_club, 100 * taux, chemin))
+
+    # --- Joueurs que StatsBomb connaît mais que la LFP n'a pas listés --------
+    # Tamar Svetlin, n° 16 de Saint-Étienne, a joué 174 minutes et n'apparaît
+    # nulle part dans l'effectif : la liste LFP est simplement en retard. On
+    # crée donc leur fiche à partir de StatsBomb plutôt que de les perdre.
+    # Seuls les joueurs qui ont effectivement joué sont ajoutés — sans minutes,
+    # rien ne prouve qu'ils appartiennent au groupe.
+    a_ajouter = [(club, nom, row) for club, nom, mins, row in absents if mins > 0]
+    ajoutes = 0
+    sans_numero = []
+    if a_ajouter:
+        besoins = set()
+        for _, _, row in a_ajouter:
+            try:
+                besoins.add(int(row["player_id"]))
+            except (TypeError, ValueError):
+                pass
+        print("\n--- Joueurs absents de la liste LFP : %d à créer ---" % len(a_ajouter))
+        nums = numeros_maillot(season_id, besoins)
+
+        for club, nom, row in a_ajouter:
+            try:
+                pid = int(row["player_id"])
+            except (TypeError, ValueError):
+                continue
+            numero = nums.get(pid)
+            if numero is None:
+                # Sans numéro, index.html ne l'afficherait pas : mieux vaut ne
+                # pas l'ajouter que de gonfler le fichier d'une fiche fantôme.
+                sans_numero.append((club, nom))
+                continue
+            mins = row.get(COL_MINUTES)
+            g = total(row.get(COL_GOALS), mins)
+            a = total(row.get(COL_ASSISTS), mins)
+            if g is None or a is None:
+                continue
+            fiche = fiche_joueur(row, numero)
+            fiche["g"] = g
+            fiche["a"] = a
+            fiche["mins"] = int(round(float(mins)))
+            fiche["sbId"] = pid
+            data["teams"][club]["squad"].append(fiche)
+            ajoutes += 1
+        print("   %d fiches créées" % ajoutes)
+        if sans_numero:
+            print("   %d écartés faute de numéro de maillot :" % len(sans_numero))
+            for c, n in sans_numero[:10]:
+                print("      %-14s %s" % (c, n))
 
     # Un joueur du fichier LFP que StatsBomb ne connaît pas encore (recrue, ou
     # qui n'a pas joué) doit afficher 0 et non un reste de la saison passée.
@@ -331,15 +563,18 @@ def main():
         print("\n   rattrapés sur l'orthographe (à contrôler) :")
         for c, sb_nom, lfp_nom, m in orthographe:
             print("      %-14s %-30s -> %-30s %s" % (c, sb_nom, lfp_nom, m))
-    if absents:
-        print("\n   %d joueurs StatsBomb absents de la liste LFP "
-              "(pas de carte à alimenter), les plus joués :" % len(absents))
-        for c, n, m in sorted(absents, key=lambda x: -x[2])[:12]:
-            print("      %-14s %-30s %4d min" % (c, n, m))
+    restes = [(c, n, m) for c, n, m, _ in absents if m == 0]
+    if restes:
+        print("\n   %d joueurs StatsBomb absents de la liste LFP et sans minutes "
+              "(non ajoutés) :" % len(restes))
+        for c, n, m in restes[:10]:
+            print("      %-14s %s" % (c, n))
     if remis:
         print("\n   %d joueurs remis à zéro (stats d'une autre saison)" % remis)
 
     print("\n--- Résultat ---")
+    print("   %d joueurs enrichis sur %d lignes StatsBomb reçues (%.0f %%)"
+          % (touches, lignes_club, 100 * taux))
     print("   %d joueurs enrichis sur %d dans l'effectif" % (touches, len(joueurs)))
     print("   buts cumulés : %d | passes décisives : %d"
           % (sum(p.get("g") or 0 for p in joueurs),
