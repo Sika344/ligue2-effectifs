@@ -1,0 +1,145 @@
+# À déposer dans .github/workflows/effectif-stats.yml
+#
+# Statistiques joueur (buts, passes décisives, minutes) dans les effectifs.
+#
+# ------------------------------------------------------------------ POURQUOI
+# build_effectif_stats.py met DEUX MINUTES : un appel à player_season_stats,
+# puis quelques feuilles de match pour les numéros de maillot.
+#
+# Le lancer via maj-journee.yml imposait d'attendre UNE HEURE, parce que ce
+# workflow régénère d'abord les 13 autres jeux de données — dont
+# build_finishing et build_defending, qui parcourent les matchs un par un.
+# Quatre corrections successives sur ce script ont ainsi coûté quatre heures
+# d'attente pour vérifier des changements qui n'affectaient qu'un fichier.
+#
+# Ce workflow-ci ne lance que ce script. Il ne remplace pas maj-journee.yml,
+# qui reste le passage complet après une journée de championnat : il sert à
+# vérifier vite, et à rattraper les effectifs sans tout recalculer.
+#
+# ------------------------------------------------------------- MODE ESSAI
+# La case « Essai » exécute le script SANS rien enregistrer. Le résumé du run
+# affiche alors ce qui serait écrit — nombre de joueurs appariés, fiches
+# créées, doublons détectés — et le dépôt n'est pas touché. À utiliser après
+# chaque modification du script, avant de lancer pour de vrai.
+
+name: Statistiques des effectifs
+
+on:
+  workflow_dispatch:
+    inputs:
+      season:
+        description: "Saison (vide = saison par défaut du workflow)"
+        required: false
+        default: ""
+      essai:
+        description: "Essai : calculer et afficher le résultat SANS enregistrer"
+        type: boolean
+        required: false
+        default: false
+
+permissions:
+  contents: write
+
+concurrency:
+  group: maj-journee        # même groupe que le workflow complet : les deux
+  cancel-in-progress: false # écrivent dans les mêmes fichiers
+
+env:
+  SAISON_PAR_DEFAUT: "2026-2027"
+
+jobs:
+  stats:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install deps
+        run: pip install --quiet statsbombpy pandas
+
+      - name: Saison retenue
+        id: s
+        run: |
+          SAISON="${{ inputs.season }}"
+          # bash tourne avec -e : « [ ... ] && cmd » renverrait 1 quand le test
+          # est faux et ferait échouer l'étape. D'où le if/fi explicite.
+          if [ -z "$SAISON" ]; then SAISON="${{ env.SAISON_PAR_DEFAUT }}"; fi
+          echo "saison=$SAISON" >> "$GITHUB_OUTPUT"
+          echo "### Saison traitée : \`$SAISON\`" >> "$GITHUB_STEP_SUMMARY"
+
+      - name: Statistiques des effectifs
+        id: run
+        env:
+          SB_USERNAME: ${{ secrets.SB_USERNAME }}
+          SB_PASSWORD: ${{ secrets.SB_PASSWORD }}
+          SEASON: ${{ steps.s.outputs.saison }}
+        run: python build_effectif_stats.py | tee sortie.txt
+
+      # Le journal d'un run finit par disparaître ; le résumé, non. C'est là
+      # qu'on relit combien de joueurs ont été appariés et lesquels ont été
+      # rattrapés sur l'orthographe.
+      - name: Résumé
+        if: always()
+        run: |
+          {
+            echo "### Résultat"
+            echo '```'
+            cat sortie.txt 2>/dev/null || echo "(aucune sortie : le script a échoué avant d'écrire)"
+            echo '```'
+          } >> "$GITHUB_STEP_SUMMARY"
+
+      # En mode essai, on montre ce qui AURAIT changé, puis on s'arrête.
+      - name: Aperçu des changements (essai)
+        if: ${{ inputs.essai }}
+        run: |
+          {
+            echo "### Mode ESSAI — rien n'a été enregistré"
+            echo ""
+            echo "Fichiers qui auraient été modifiés :"
+            echo '```'
+            git diff --stat -- 'ligue2*.json' || true
+            echo '```'
+          } >> "$GITHUB_STEP_SUMMARY"
+          git checkout -- 'ligue2*.json' 2>/dev/null || true
+          echo "Mode essai : dépôt laissé intact."
+
+      - name: Commit
+        if: ${{ !inputs.essai }}
+        run: |
+          git config user.name  "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add -- 'ligue2*.json'
+          if git diff --staged --quiet; then
+            echo "Aucun effectif modifié."
+            echo "_Aucun effectif modifié._" >> "$GITHUB_STEP_SUMMARY"
+            exit 0
+          fi
+          git commit -q -m "chore: stats effectifs (${{ steps.s.outputs.saison }})"
+
+          # Même récupération que dans maj-journee.yml : un rebase bloqué ne
+          # doit pas condamner les quatre tentatives suivantes.
+          pousse=0
+          for i in 1 2 3 4 5; do
+            if git push; then
+              echo "push OK (tentative $i)"
+              pousse=1
+              break
+            fi
+            echo "push rejeté (tentative $i) — resynchronisation…"
+            git rebase --abort 2>/dev/null || true
+            if ! git pull --rebase --autostash origin main; then
+              echo "conflit pendant le rebase : on garde nos fichiers régénérés"
+              git checkout --theirs -- . 2>/dev/null || true
+              git add -A
+              GIT_EDITOR=true git rebase --continue || git rebase --abort || true
+            fi
+            sleep $((RANDOM % 5 + 2))
+          done
+          if [ "$pousse" != 1 ]; then
+            echo "::error::push impossible après 5 tentatives — rien n'a été enregistré. Relancer."
+            exit 1
+          fi
