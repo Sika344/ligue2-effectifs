@@ -154,6 +154,20 @@ def match_team(club, noms):
     return None
 
 
+def similitude(a, b):
+    """Similarité de deux noms, insensible à l'ordre des mots.
+
+    La LFP et StatsBomb n'ordonnent pas toujours prénom et nom de la même
+    façon : « Evan's Jean-Lambert » chez l'une, « Jean Lambert Evans » chez
+    l'autre. Comparés dans l'ordre, ces deux noms se ressemblent peu ; mots
+    triés, ils se superposent. On garde le meilleur des deux points de vue.
+    """
+    direct = difflib.SequenceMatcher(None, a, b).ratio()
+    tri_a = " ".join(sorted(a.split()))
+    tri_b = " ".join(sorted(b.split()))
+    return max(direct, difflib.SequenceMatcher(None, tri_a, tri_b).ratio())
+
+
 def _essai(nom_sb, libres, passe):
     """Une seule passe d'appariement, contre les cartes encore libres."""
     a = nn(nom_sb)
@@ -178,7 +192,7 @@ def _essai(nom_sb, libres, passe):
             return cands[0], "nom de famille"
         return None, None
 
-    scores = sorted(((difflib.SequenceMatcher(None, a, nn(q.get("fullname"))).ratio(), q)
+    scores = sorted(((similitude(a, nn(q.get("fullname"))), q)
                      for q in libres), key=lambda x: -x[0])
     if scores and scores[0][0] >= SEUIL_SIM:
         if len(scores) < 2 or scores[0][0] - scores[1][0] >= ECART_SIM:
@@ -189,7 +203,7 @@ def _essai(nom_sb, libres, passe):
 PASSES = ("exact", "inclusion", "nom", "orthographe")
 
 
-def apparie_equipe(noms_sb, squad):
+def apparie_equipe(noms_sb, squad, variantes=None):
     """Apparie TOUS les joueurs d'une équipe, par vagues de confiance décroissante.
 
     Traiter les joueurs un par un jusqu'au bout des quatre passes était faux :
@@ -202,8 +216,15 @@ def apparie_equipe(noms_sb, squad):
     inclusions, etc. Une carte prise n'est plus proposée : le match le plus
     sûr l'emporte, quel que soit l'ordre des lignes reçues de StatsBomb.
 
+    `variantes` : {nom : [autres écritures]}. On y met le nom d'usage renvoyé
+    par StatsBomb, car c'est souvent celui que la LFP retient — Loni Quenabio
+    y figure sous « Loni », exactement comme sur sa fiche LFP « Loni Laurent ».
+    Sans cet essai, il n'était pas apparié et se retrouvait DEUX FOIS dans
+    l'effectif, sa fiche LFP et une fiche créée, avec le même identifiant.
+
     Retourne {nom_sb: (joueur, méthode)} et la liste des noms non appariés.
     """
+    variantes = variantes or {}
     resultat = {}
     pris = set()
     restants = list(noms_sb)
@@ -213,6 +234,12 @@ def apparie_equipe(noms_sb, squad):
         for nom in restants:
             libres = [q for q in squad if id(q) not in pris]
             q, methode = _essai(nom, libres, passe)
+            if q is None:
+                for autre in variantes.get(nom, []):
+                    q, methode = _essai(autre, libres, passe)
+                    if q is not None:
+                        methode += " (nom d'usage)"
+                        break
             if q is None:
                 encore.append(nom)
             else:
@@ -376,6 +403,19 @@ def main():
 
     print("Saison %s (season_id=%s) — %s" % (label, season_id, chemin))
 
+    # Les fiches créées par un run précédent sont retirées d'entrée : elles
+    # seront recréées plus bas à partir des données du jour. Sans ce ménage, une
+    # fiche créée à tort survit indéfiniment — c'est ainsi que « Loni Quenabio »
+    # est resté à Rodez à côté de sa vraie fiche LFP « Loni Laurent ». Le script
+    # devient du même coup rejouable : deux passages donnent le même fichier.
+    efface = 0
+    for t in data["teams"].values():
+        avant = len(t["squad"])
+        t["squad"] = [p for p in t["squad"] if not p.get("ajouteStatsBomb")]
+        efface += avant - len(t["squad"])
+    if efface:
+        print("   %d fiches du run précédent retirées avant reconstruction" % efface)
+
     stats = sb.player_season_stats(competition_id=COMPETITION_ID, season_id=season_id)
     manquantes = [c for c in (COL_GOALS, COL_ASSISTS, COL_MINUTES)
                   if c not in stats.columns]
@@ -429,9 +469,16 @@ def main():
         if prec is None or float(row.get(COL_MINUTES) or 0) > float(prec.get(COL_MINUTES) or 0):
             par_club[club][nom] = row
 
+    apparies_ids = set()      # cartes effectivement alimentées PAR CE RUN
+
     for club, lignes in par_club.items():
         squad = data["teams"][club]["squad"]
-        apparies, rates = apparie_equipe(list(lignes), squad)
+        variantes = {}
+        for nom, row in lignes.items():
+            usage = texte(row.get("player_known_name"))
+            if usage and nn(usage) != nn(nom):
+                variantes[nom] = [usage]
+        apparies, rates = apparie_equipe(list(lignes), squad, variantes)
 
         for nom in rates:
             mins = lignes[nom].get(COL_MINUTES)
@@ -449,6 +496,7 @@ def main():
             joueur["a"] = a
             joueur["mins"] = int(round(float(mins)))
             joueur["sbId"] = int(row["player_id"])
+            apparies_ids.add(id(joueur))
             touches += 1
             cle = methode.split(" ")[0]
             methodes[cle] = methodes.get(cle, 0) + 1
@@ -500,6 +548,22 @@ def main():
     a_ajouter = [(club, nom, row) for club, nom, mins, row in absents if mins > 0]
     ajoutes = 0
     sans_numero = []
+
+    # On ne crée des fiches que si la liste d'effectifs est bien CELLE de la
+    # saison traitée. Sur une saison passée, la liste LFP disponible est celle
+    # d'aujourd'hui : la moitié des joueurs sont partis, et il faudrait créer
+    # 192 fiches sur 2025-2026 — des effectifs à 38 joueurs, illisibles sur la
+    # vue terrain, et pas ce qui est demandé. Au-delà d'un joueur manquant sur
+    # sept, on considère que la liste n'est pas contemporaine de la saison.
+    effectif_total = sum(len(t["squad"]) for t in data["teams"].values())
+    if a_ajouter and effectif_total and len(a_ajouter) > 0.15 * effectif_total:
+        print("\n--- Création de fiches ABANDONNÉE ---")
+        print("   %d joueurs manquants pour %d fiches d'effectif (%.0f %%)."
+              % (len(a_ajouter), effectif_total, 100.0 * len(a_ajouter) / effectif_total))
+        print("   La liste LFP n'est pas celle de cette saison : on enrichit")
+        print("   les fiches existantes sans en créer.")
+        a_ajouter = []
+
     if a_ajouter:
         besoins = set()
         for _, _, row in a_ajouter:
@@ -510,10 +574,29 @@ def main():
         print("\n--- Joueurs absents de la liste LFP : %d à créer ---" % len(a_ajouter))
         nums = numeros_maillot(season_id, besoins)
 
+        deja = 0
         for club, nom, row in a_ajouter:
             try:
                 pid = int(row["player_id"])
             except (TypeError, ValueError):
+                continue
+            # FILET DE SÉCURITÉ. Si une carte de l'effectif porte déjà cet
+            # identifiant, c'est le même joueur : on l'alimente au lieu d'en
+            # créer une seconde. Sans ce test, Loni Quenabio apparaissait deux
+            # fois à Rodez — sa fiche LFP « Loni Laurent » et une fiche créée,
+            # toutes deux avec l'identifiant 219141 et le numéro 24.
+            jumeau = next((p for p in data["teams"][club]["squad"]
+                           if p.get("sbId") == pid), None)
+            if jumeau is not None:
+                mins = row.get(COL_MINUTES)
+                g = total(row.get(COL_GOALS), mins)
+                a = total(row.get(COL_ASSISTS), mins)
+                if g is not None and a is not None:
+                    jumeau["g"], jumeau["a"] = g, a
+                    jumeau["mins"] = int(round(float(mins)))
+                    apparies_ids.add(id(jumeau))
+                    touches += 1
+                    deja += 1
                 continue
             numero = nums.get(pid)
             if numero is None:
@@ -532,22 +615,53 @@ def main():
             fiche["mins"] = int(round(float(mins)))
             fiche["sbId"] = pid
             data["teams"][club]["squad"].append(fiche)
+            apparies_ids.add(id(fiche))
             ajoutes += 1
         print("   %d fiches créées" % ajoutes)
+        if deja:
+            print("   %d rattachés à une fiche existante par leur identifiant "
+                  "(doublon évité)" % deja)
         if sans_numero:
             print("   %d écartés faute de numéro de maillot :" % len(sans_numero))
             for c, n in sans_numero[:10]:
                 print("      %-14s %s" % (c, n))
 
-    # Un joueur du fichier LFP que StatsBomb ne connaît pas encore (recrue, ou
-    # qui n'a pas joué) doit afficher 0 et non un reste de la saison passée.
+    # Toute carte que CE RUN n'a pas alimentée repart à zéro.
+    #
+    # Le test précédent — « pas de sbId » — était insuffisant : une carte
+    # appariée lors d'un run antérieur garde son identifiant, échappait donc à
+    # la remise à zéro, et conservait indéfiniment des chiffres périmés. C'est
+    # ainsi que « Loni Laurent » affichait encore 297 minutes d'avant la 4e
+    # journée alors que ce run ne l'avait pas apparié.
     remis = 0
     for club in data["teams"]:
         for p in data["teams"][club]["squad"]:
-            if "sbId" not in p:
+            if id(p) not in apparies_ids:
                 if p.get("g") or p.get("a") or p.get("mins"):
                     remis += 1
                 p["g"], p["a"], p["mins"] = 0, 0, 0
+
+    # CONTRÔLE FINAL. Un même identifiant StatsBomb sur deux cartes du même
+    # club, c'est un joueur affiché en double sur le terrain. Le cas s'est
+    # produit (Rodez, 219141) : on refuse désormais d'écrire un tel fichier.
+    doublons = []
+    for club, t in data["teams"].items():
+        vus = {}
+        for p in t["squad"]:
+            sid = p.get("sbId")
+            if sid is None:
+                continue
+            if sid in vus:
+                doublons.append((club, sid, vus[sid], p.get("fullname")))
+            else:
+                vus[sid] = p.get("fullname")
+    if doublons:
+        for club, sid, a, b in doublons[:10]:
+            print("   !! %s : identifiant %s porté par « %s » ET « %s »"
+                  % (club, sid, a, b))
+        raise SystemExit(
+            "ÉCHEC : %d joueur(s) en double dans un effectif. %s n'a PAS été "
+            "modifié." % (len(doublons), chemin))
 
     data["statsSource"] = "StatsBomb comp %d saison %d" % (COMPETITION_ID, season_id)
     data["statsUpdated"] = datetime.datetime.utcnow().strftime("%Y-%m-%d %H:%M UTC")
