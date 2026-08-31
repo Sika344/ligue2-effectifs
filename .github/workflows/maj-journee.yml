@@ -177,6 +177,17 @@ jobs:
 
           git commit -q -m "chore: MAJ journée (${{ steps.s.outputs.saison }})"
 
+          # Le rebase pouvait rester COINCÉ. Quand deux runs se suivent de près,
+          # le second voit son push rejeté, tente un rebase qui bute sur un
+          # conflit, et laisse le dépôt en plein rebase : les quatre tentatives
+          # suivantes échouent alors toutes pour cette raison, et le run se
+          # termine en rouge sans rien avoir enregistré. C'est ce qui est arrivé
+          # au run #8 du 31/08 — une heure de calcul perdue.
+          #
+          # Ces fichiers sont des données REGÉNÉRÉES : en cas de conflit, notre
+          # version est la bonne, elle vient d'être calculée. On abandonne donc
+          # un rebase bloqué et on reprend simplement la main sur les fichiers
+          # en conflit, au lieu d'attendre un arbitrage impossible.
           pousse=0
           for i in 1 2 3 4 5; do
             if git push; then
@@ -184,11 +195,20 @@ jobs:
               pousse=1
               break
             fi
-            echo "push rejeté (tentative $i) — rebase puis nouvelle tentative…"
-            git pull --rebase --autostash origin main || true
+            echo "push rejeté (tentative $i) — resynchronisation…"
+            git rebase --abort 2>/dev/null || true
+            if ! git pull --rebase --autostash origin main; then
+              echo "conflit pendant le rebase : on garde nos fichiers régénérés"
+              git checkout --theirs -- . 2>/dev/null || true
+              git add -A
+              GIT_EDITOR=true git rebase --continue || git rebase --abort || true
+            fi
             sleep $((RANDOM % 5 + 2))
           done
-          [ "$pousse" = 1 ] || { echo "échec du push après 5 tentatives"; exit 1; }
+          if [ "$pousse" != 1 ]; then
+            echo "::error::push impossible après 5 tentatives — les données calculées n'ont PAS été enregistrées. Relancer le workflow."
+            exit 1
+          fi
 
       # Le commit est fait : on peut maintenant signaler les scripts en échec
       # sans avoir perdu le travail des autres.
