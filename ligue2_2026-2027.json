@@ -964,22 +964,6 @@
      "sbId": 189641
     },
     {
-     "num": 35,
-     "name": "DIA",
-     "fullname": "Cheikh Ibrahim Dia",
-     "pos": "ATT",
-     "posDesc": "ST",
-     "height": null,
-     "age": 21,
-     "photo": "",
-     "photoLFP": false,
-     "ajouteStatsBomb": true,
-     "g": 0,
-     "a": 0,
-     "mins": 82,
-     "sbId": 571587
-    },
-    {
      "num": 36,
      "name": "SOUMAH",
      "fullname": "Mohamed Soumah",
@@ -996,11 +980,27 @@
      "sbId": 338191
     },
     {
+     "num": 35,
+     "name": "DIA",
+     "fullname": "Cheikh Ibrahim Dia",
+     "pos": "ATT",
+     "posDesc": "ST",
+     "height": null,
+     "age": 21,
+     "photo": "",
+     "photoLFP": false,
+     "ajouteStatsBomb": true,
+     "g": 0,
+     "a": 0,
+     "mins": 82,
+     "sbId": 571587
+    },
+    {
      "num": 64,
      "name": "EPAILLY",
      "fullname": "Théo Edgard Epailly",
      "pos": "MID",
-     "posDesc": "LM",
+     "posDesc": "CAM",
      "height": 178,
      "age": 27,
      "photo": "",
@@ -2027,22 +2027,6 @@
      "mins": 0
     },
     {
-     "num": 42,
-     "name": "AKA",
-     "fullname": "Ylan Aka",
-     "pos": "DEF",
-     "posDesc": "LB",
-     "height": null,
-     "age": 19,
-     "photo": "",
-     "photoLFP": false,
-     "ajouteStatsBomb": true,
-     "g": 0,
-     "a": 0,
-     "mins": 198,
-     "sbId": 348004
-    },
-    {
      "num": 30,
      "name": "MIMOUNE",
      "fullname": "Hatem Mimoune",
@@ -2059,22 +2043,6 @@
      "sbId": 443616
     },
     {
-     "num": 9,
-     "name": "DONG",
-     "fullname": "Tyris Dong",
-     "pos": "ATT",
-     "posDesc": "ST",
-     "height": null,
-     "age": 17,
-     "photo": "",
-     "photoLFP": false,
-     "ajouteStatsBomb": true,
-     "g": 0,
-     "a": 0,
-     "mins": 103,
-     "sbId": 443600
-    },
-    {
      "num": 46,
      "name": "MARIE-ROSE",
      "fullname": "Ylann Marie-Rose",
@@ -2089,6 +2057,38 @@
      "a": 0,
      "mins": 99,
      "sbId": 412350
+    },
+    {
+     "num": 42,
+     "name": "AKA",
+     "fullname": "Ylan Aka",
+     "pos": "DEF",
+     "posDesc": "LB",
+     "height": null,
+     "age": 19,
+     "photo": "",
+     "photoLFP": false,
+     "ajouteStatsBomb": true,
+     "g": 0,
+     "a": 0,
+     "mins": 198,
+     "sbId": 348004
+    },
+    {
+     "num": 9,
+     "name": "DONG",
+     "fullname": "Tyris Dong",
+     "pos": "ATT",
+     "posDesc": "ST",
+     "height": null,
+     "age": 17,
+     "photo": "",
+     "photoLFP": false,
+     "ajouteStatsBomb": true,
+     "g": 0,
+     "a": 0,
+     "mins": 103,
+     "sbId": 443600
     }
    ]
   },
@@ -3236,6 +3236,22 @@
      "sbId": 84547
     },
     {
+     "num": 47,
+     "name": "FOFANA",
+     "fullname": "Kylian Fofana",
+     "pos": "MID",
+     "posDesc": "RM",
+     "height": 191,
+     "age": 20,
+     "photo": "",
+     "photoLFP": false,
+     "ajouteStatsBomb": true,
+     "g": 1,
+     "a": 0,
+     "mins": 309,
+     "sbId": 530861
+    },
+    {
      "num": 46,
      "name": "MOUTON",
      "fullname": "Jules Mouton",
@@ -3266,22 +3282,6 @@
      "a": 0,
      "mins": 98,
      "sbId": 391396
-    },
-    {
-     "num": 47,
-     "name": "FOFANA",
-     "fullname": "Kylian Fofana",
-     "pos": "MID",
-     "posDesc": "RM",
-     "height": 191,
-     "age": 20,
-     "photo": "",
-     "photoLFP": false,
-     "ajouteStatsBomb": true,
-     "g": 1,
-     "a": 0,
-     "mins": 309,
-     "sbId": 530861
     }
    ]
   },
@@ -4996,7 +4996,7 @@
      "name": "SAVANIER",
      "fullname": "Téji Tedy Savanier",
      "pos": "MID",
-     "posDesc": "CM",
+     "posDesc": "CAM",
      "height": 172,
      "age": 34,
      "photo": "",
@@ -5497,22 +5497,6 @@
      "mins": 0
     },
     {
-     "num": 32,
-     "name": "ABDERREBI",
-     "fullname": "Hichem Abderrebi",
-     "pos": "MID",
-     "posDesc": "CDM",
-     "height": null,
-     "age": 18,
-     "photo": "",
-     "photoLFP": false,
-     "ajouteStatsBomb": true,
-     "g": 0,
-     "a": 0,
-     "mins": 215,
-     "sbId": 452390
-    },
-    {
      "num": 40,
      "name": "CARTOUX",
      "fullname": "Noah Vidal Cartoux",
@@ -5527,6 +5511,22 @@
      "a": 0,
      "mins": 304,
      "sbId": 431434
+    },
+    {
+     "num": 32,
+     "name": "ABDERREBI",
+     "fullname": "Hichem Abderrebi",
+     "pos": "MID",
+     "posDesc": "CDM",
+     "height": null,
+     "age": 18,
+     "photo": "",
+     "photoLFP": false,
+     "ajouteStatsBomb": true,
+     "g": 0,
+     "a": 0,
+     "mins": 215,
+     "sbId": 452390
     }
    ]
   },
@@ -6613,20 +6613,20 @@
      "mins": 0
     },
     {
-     "num": 49,
-     "name": "KONÉ",
-     "fullname": "Doumbia Broulaye Koné",
+     "num": 7,
+     "name": "JOUJOU",
+     "fullname": "Antoine Joujou",
      "pos": "MID",
-     "posDesc": "CM",
-     "height": 190,
-     "age": 19,
+     "posDesc": "LM",
+     "height": 189,
+     "age": 23,
      "photo": "",
      "photoLFP": false,
      "ajouteStatsBomb": true,
-     "g": 0,
+     "g": 1,
      "a": 0,
-     "mins": 10,
-     "sbId": 479905
+     "mins": 20,
+     "sbId": 361077
     },
     {
      "num": 47,
@@ -6645,38 +6645,6 @@
      "sbId": 476953
     },
     {
-     "num": 4,
-     "name": "SOW",
-     "fullname": "Saidou Sow",
-     "pos": "DEF",
-     "posDesc": "CB",
-     "height": 187,
-     "age": 24,
-     "photo": "",
-     "photoLFP": false,
-     "ajouteStatsBomb": true,
-     "g": 0,
-     "a": 0,
-     "mins": 201,
-     "sbId": 46008
-    },
-    {
-     "num": 7,
-     "name": "JOUJOU",
-     "fullname": "Antoine Joujou",
-     "pos": "MID",
-     "posDesc": "LM",
-     "height": 189,
-     "age": 23,
-     "photo": "",
-     "photoLFP": false,
-     "ajouteStatsBomb": true,
-     "g": 1,
-     "a": 0,
-     "mins": 20,
-     "sbId": 361077
-    },
-    {
      "num": 26,
      "name": "HACHEM",
      "fullname": "Ryad Hachem",
@@ -6691,6 +6659,38 @@
      "a": 0,
      "mins": 28,
      "sbId": 133468
+    },
+    {
+     "num": 49,
+     "name": "KONÉ",
+     "fullname": "Doumbia Broulaye Koné",
+     "pos": "MID",
+     "posDesc": "CM",
+     "height": 190,
+     "age": 19,
+     "photo": "",
+     "photoLFP": false,
+     "ajouteStatsBomb": true,
+     "g": 0,
+     "a": 0,
+     "mins": 10,
+     "sbId": 479905
+    },
+    {
+     "num": 4,
+     "name": "SOW",
+     "fullname": "Saidou Sow",
+     "pos": "DEF",
+     "posDesc": "CB",
+     "height": 187,
+     "age": 24,
+     "photo": "",
+     "photoLFP": false,
+     "ajouteStatsBomb": true,
+     "g": 0,
+     "a": 0,
+     "mins": 201,
+     "sbId": 46008
     }
    ]
   },
@@ -8539,7 +8539,7 @@
      "foot": "right",
      "g": 0,
      "a": 0,
-     "mins": 297,
+     "mins": 385,
      "sbId": 219141
     },
     {
@@ -8747,7 +8747,8 @@
      "foot": "left",
      "g": 0,
      "a": 0,
-     "mins": 0
+     "mins": 238,
+     "sbId": 31406
     },
     {
      "num": 18,
@@ -8803,38 +8804,6 @@
      "g": 0,
      "a": 0,
      "mins": 0
-    },
-    {
-     "num": 24,
-     "name": "QUENABIO",
-     "fullname": "Loni Quenabio",
-     "pos": "DEF",
-     "posDesc": "CB",
-     "height": 184,
-     "age": 25,
-     "photo": "",
-     "photoLFP": false,
-     "ajouteStatsBomb": true,
-     "g": 0,
-     "a": 0,
-     "mins": 385,
-     "sbId": 219141
-    },
-    {
-     "num": 15,
-     "name": "EVANS",
-     "fullname": "Jean Lambert Evans",
-     "pos": "DEF",
-     "posDesc": "LWB",
-     "height": 180,
-     "age": 27,
-     "photo": "",
-     "photoLFP": false,
-     "ajouteStatsBomb": true,
-     "g": 0,
-     "a": 0,
-     "mins": 238,
-     "sbId": 31406
     },
     {
      "num": 9,
@@ -9973,5 +9942,5 @@
   }
  },
  "statsSource": "StatsBomb comp 8 saison 351",
- "statsUpdated": "2026-08-31 09:07 UTC"
+ "statsUpdated": "2026-08-31 12:48 UTC"
 }
