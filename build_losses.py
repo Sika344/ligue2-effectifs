@@ -204,6 +204,13 @@ def main():
         grid = [[0] * COLS for _ in range(ROWS)]
         risk = [[0] * COLS for _ in range(ROWS)]
         goal_locs = []
+        # {player_id: {nom, loss, risk, goal}}. Contrairement aux récupérations,
+        # une perte a TOUJOURS un auteur : c'est notre joueur qui a été
+        # dépossédé, a raté son contrôle, sa passe ou son dribble. Le classement
+        # couvre donc l'intégralité des pertes de l'équipe.
+        # Les minutes viennent de ligue2_<saison>.json, côté page.
+        joueurs = {}
+        sans_auteur = 0   # pertes sans joueur identifie (ne doit pas arriver)
         n = 0
         for mid in mids:
             try:
@@ -239,6 +246,7 @@ def main():
             danger, scored = {}, {}
             c_sout = col("shot_outcome")
             c_player = col("player")
+            c_pid = col("player_id")
             c_kp = col("shot_key_pass_id")
             c_id = col("id")
             by_id = {}
@@ -276,6 +284,18 @@ def main():
                     continue
                 grid[cell[0]][cell[1]] += 1
 
+                fiche = None
+                _pid = c_pid.get(idx) if c_pid is not None else None
+                if _pid is None or _pid != _pid:
+                    sans_auteur += 1
+                if _pid is not None and _pid == _pid:
+                    _nom = c_player.get(idx) if c_player is not None else None
+                    fiche = joueurs.setdefault(int(_pid),
+                                               {"nom": "", "loss": 0, "risk": 0, "goal": 0})
+                    if isinstance(_nom, str) and _nom and not fiche["nom"]:
+                        fiche["nom"] = _nom
+                    fiche["loss"] += 1
+
                 t0 = tsec(c_ts.get(idx))
                 p0 = c_poss.get(idx)
                 if t0 is None or p0 != p0:
@@ -295,6 +315,8 @@ def main():
                 for per1, t1 in danger.get(target, ()):
                     if per1 == per0 and 0 < (t1 - t0) <= RISK_WINDOW:
                         risk[cell[0]][cell[1]] += 1
+                        if fiche is not None:
+                            fiche["risk"] += 1
                         break
                 for per1, t1, sidx in scored.get(target, ()):
                     if per1 == per0 and 0 < (t1 - t0) <= RISK_WINDOW:
@@ -305,6 +327,8 @@ def main():
                             break
                         if gx != gx or gy != gy:
                             break
+                        if fiche is not None:
+                            fiche["goal"] += 1
                         minute = int((tsec(c_ts.get(sidx)) or 0) // 60) + 1
                         scorer = c_player.get(sidx) if c_player is not None else None
                         passer = None
@@ -326,7 +350,24 @@ def main():
         rtotal = sum(sum(r) for r in risk)
         teams_out[team] = {"matches": n, "total": total, "risk_total": rtotal,
                            "goal_total": len(goal_locs),
-                           "grid": grid, "risk": risk, "goal_locs": goal_locs}
+                           "grid": grid, "risk": risk, "goal_locs": goal_locs,
+                           # classement par joueur ; clé = identifiant StatsBomb,
+                           # le même que le champ sbId des effectifs.
+                           "players": {str(k): v for k, v in
+                                       sorted(joueurs.items(),
+                                              key=lambda kv: -kv[1]["loss"])}}
+
+        # Contrôle : chaque perte ayant un auteur, la somme par joueur doit
+        # égaler le total de l'équipe. Un écart signale une perte de comptage.
+        j_loss = sum(v["loss"] for v in joueurs.values())
+        j_risk = sum(v["risk"] for v in joueurs.values())
+        if j_loss + sans_auteur != total or j_risk > rtotal:
+            raise AssertionError(
+                f"{team} : classement joueur incohérent — pertes {j_loss} "
+                f"(+{sans_auteur} sans auteur) pour {total}, "
+                f"à risque {j_risk} pour {rtotal}")
+        if sans_auteur:
+            print(f"    !! {sans_auteur} perte(s) sans joueur identifié")
         pm = (total / n) if n else 0
         pct = (100.0 * rtotal / total) if total else 0
         print(f"  ✓ {team}: {n} matchs | {total} pertes ({pm:.1f}/match) | "

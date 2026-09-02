@@ -282,6 +282,12 @@ def main():
         grid_poss = [[[0] * POSS_BUCKETS for _ in range(COLS)] for _ in range(ROWS)]
         risk_poss = [[[0] * POSS_BUCKETS for _ in range(COLS)] for _ in range(ROWS)]
         goal_locs = []
+        # {player_id: {nom, reco, risk, cross, shot, goal}} — famille A seulement.
+        # Les minutes ne sont PAS calculées ici : la page les lit dans
+        # ligue2_<saison>.json, où build_effectif_stats.py les a déjà mises. Cela
+        # évite un appel API de plus et garantit que la cadence par 90 minutes
+        # repose sur les mêmes minutes que l'onglet Effectif.
+        joueurs = {}
         n = 0
         for mid in mids:
             try:
@@ -355,6 +361,7 @@ def main():
 
             # tirs / centres de l'équipe en jeu courant + ses buts, par séquence
             c_player = col("player")
+            c_pid = col("player_id")
             c_kp = col("shot_key_pass_id")
             c_id = col("id")
             by_id = {}
@@ -375,7 +382,13 @@ def main():
                         and c_sout is not None and c_sout.get(idx) == "Goal"):
                     scored.setdefault(c_poss.get(idx), []).append((c_per.get(idx), t, idx))
                 if is_danger(c_type.get(idx), stype, get(c_cross, idx), get(c_ptype, idx)):
-                    danger.setdefault(c_poss.get(idx), []).append((c_per.get(idx), t))
+                    # On retient DE QUOI il s'agit : le classement des joueurs
+                    # distingue les récupérations qui débouchent sur un centre
+                    # de celles qui débouchent sur un tir. La grille, elle,
+                    # continue de les compter ensemble.
+                    genre = "shot" if c_type.get(idx) == "Shot" else "cross"
+                    danger.setdefault(c_poss.get(idx), []).append(
+                        (c_per.get(idx), t, genre))
 
             # ---- collecte des récupérations (familles A puis B)
             recs = []          # (période, seconde, x, y, possession)
@@ -399,7 +412,19 @@ def main():
                 t = tsec(c_ts.get(idx))
                 if t is None:
                     continue
-                recs.append((c_per.get(idx), t, pt[0], pt[1], c_poss.get(idx), own))
+                # AUTEUR. Seule la famille A a un auteur dans notre équipe : la
+                # famille B est une PERTE ADVERSE vue en miroir, personne chez
+                # nous ne l'a récupérée. Lui attribuer un joueur serait inventer
+                # une donnée. D'où l'auteur laissé à None pour cette famille, et
+                # un total « récupérations joueur » inférieur au total de la
+                # grille — c'est attendu, pas une perte de comptage.
+                auteur = None
+                if own:
+                    pid = get(c_pid, idx)
+                    nom = get(c_player, idx)
+                    if pid is not None and pid == pid:
+                        auteur = (int(pid), nom if isinstance(nom, str) else "")
+                recs.append((c_per.get(idx), t, pt[0], pt[1], c_poss.get(idx), own, auteur))
 
             # déduplication : une perte adverse doublonnant une action propre
             recs.sort(key=lambda r: (r[0] if r[0] is not None else 0, r[1]))
@@ -416,10 +441,18 @@ def main():
                     kept.append(r)
 
             # ---- comptage
-            for per0, t0, x, y, p0, _own in kept:
+            for per0, t0, x, y, p0, _own, auteur in kept:
                 cell = cell_of((x, y))
                 if cell is None:
                     continue
+                fiche = None
+                if auteur is not None:
+                    pid, nom = auteur
+                    fiche = joueurs.setdefault(pid, {"nom": nom, "reco": 0, "risk": 0,
+                                                     "cross": 0, "shot": 0, "goal": 0})
+                    if nom and not fiche["nom"]:
+                        fiche["nom"] = nom
+                    fiche["reco"] += 1
                 grid[cell[0]][cell[1]] += 1
                 _d = duree_adverse(p0, per0, t0)
                 _b = bucket_poss(_d)
@@ -438,13 +471,27 @@ def main():
                         break
                 if target is None:
                     continue
-                for per1, t1 in danger.get(target, ()):
+                # La grille compte la récupération UNE fois (premier événement
+                # dangereux). Le joueur, lui, se voit créditer du genre de
+                # chacun des deux : une récupération suivie d'un centre PUIS
+                # d'un tir compte 1 en « risk », mais alimente les deux détails.
+                vu_risk = False
+                genres = set()
+                for per1, t1, genre in danger.get(target, ()):
                     if per1 == per0 and 0 < (t1 - t0) <= RISK_WINDOW:
-                        risk[cell[0]][cell[1]] += 1
-                        risk_poss[cell[0]][cell[1]][_b] += 1
-                        break
+                        if not vu_risk:
+                            risk[cell[0]][cell[1]] += 1
+                            risk_poss[cell[0]][cell[1]][_b] += 1
+                            vu_risk = True
+                        genres.add(genre)
+                if fiche is not None and vu_risk:
+                    fiche["risk"] += 1
+                    for g in genres:
+                        fiche[g] += 1
                 for per1, t1, sidx in scored.get(target, ()):
                     if per1 == per0 and 0 < (t1 - t0) <= RISK_WINDOW:
+                        if fiche is not None:
+                            fiche["goal"] += 1
                         minute = int((tsec(c_ts.get(sidx)) or 0) // 60) + 1
                         scorer = get(c_player, sidx)
                         passer = None
@@ -480,6 +527,21 @@ def main():
                             f"{team} : {nom}[{r}][{c}] = {plein[r][c]} mais les "
                             f"tranches somment à {sum(vent[r][c])}")
 
+        # Cohérence du classement joueur. Les sous-totaux doivent rester
+        # inférieurs ou égaux aux totaux d'équipe : les dépasser signalerait un
+        # double comptage, et « risk » supérieur à « reco » serait absurde.
+        j_reco = sum(v["reco"] for v in joueurs.values())
+        j_risk = sum(v["risk"] for v in joueurs.values())
+        if j_reco > total or j_risk > rtotal:
+            raise AssertionError(
+                f"{team} : classement joueur incohérent — reco {j_reco}/{total}, "
+                f"risk {j_risk}/{rtotal}")
+        for pid, v in joueurs.items():
+            if v["risk"] > v["reco"] or v["goal"] > v["risk"]:
+                raise AssertionError(
+                    f"{team} : joueur {pid} — reco {v['reco']}, risk {v['risk']}, "
+                    f"goal {v['goal']}")
+
         ind = sum(grid_poss[r][c][0] for r in range(ROWS) for c in range(COLS))
         r5 = sum(sum(risk_poss[r][c][3:]) for r in range(ROWS) for c in range(COLS))
         teams_out[team] = {"matches": n, "total": total, "risk_total": rtotal,
@@ -488,7 +550,12 @@ def main():
                            # ventilation par durée de possession adverse ;
                            # sommées, ces tranches redonnent grid et risk à
                            # l'identique — c'est vérifié à l'exécution.
-                           "grid_poss": grid_poss, "risk_poss": risk_poss}
+                           "grid_poss": grid_poss, "risk_poss": risk_poss,
+                           # classement par joueur ; clé = identifiant StatsBomb,
+                           # le même que le champ sbId des effectifs.
+                           "players": {str(k): v for k, v in
+                                       sorted(joueurs.items(),
+                                              key=lambda kv: -kv[1]["reco"])}}
         pm = (total / n) if n else 0
         pct = (100.0 * rtotal / total) if total else 0
         g5 = sum(1 for g in goal_locs if (g.get("poss") or 0) >= 5)
