@@ -712,7 +712,8 @@ function minutesIndex(club){
   const idx = {};
   for(const p of (src[jt].squad||[])){
     if(p && p.sbId != null) idx[String(p.sbId)] = {
-      mins: p.mins || 0, nom: p.fullname || p.name || "", num: p.num
+      mins: p.mins || 0, nom: p.fullname || p.name || "", num: p.num,
+      gk: (p.pos === "GK" || p.posDesc === "GK")
     };
   }
   return idx;
@@ -730,7 +731,7 @@ function seuilMinutesTop(idx){
 
 /* Trie les joueurs d'une équipe par cadence sur 90 minutes.
    `valeur(v)` extrait le compteur voulu de la fiche joueur. */
-function topJoueurs(t, club, valeur){
+function topJoueurs(t, club, valeur, sansGardien){
   const pl = t && t.players;
   if(!pl) return null;                 // fichier d'une génération antérieure
   const idx = minutesIndex(club);
@@ -741,6 +742,14 @@ function topJoueurs(t, club, valeur){
     const v = valeur(pl[id]) || 0;
     if(!v) continue;
     const info = idx[id];
+    // Le GARDIEN est écarté du classement des récupérations. Ses prises et
+    // captations comptent comme récupérations dans la grille, mais ce n'est pas
+    // le même geste qu'un tacle ou une interception, et il sort mécaniquement
+    // en tête : 35 ballons pour Larsonneur contre 27 au premier joueur de champ
+    // à Saint-Étienne. Il resterait donc toujours le même nom, sans rien
+    // apprendre. Il est en revanche CONSERVÉ dans le classement des pertes :
+    // un ballon perdu à la relance est la même faute que pour un autre joueur.
+    if(sansGardien && info && info.gk) continue;
     // Sans minutes, aucune cadence n'est calculable. Plutôt que d'inventer un
     // dénominateur, on écarte — et on le dit dans le pied de la plaque.
     if(!info || !info.mins || info.mins < seuil) continue;
@@ -830,10 +839,10 @@ function recoBlockHTML(club){
       '<div class="losshead"><span class="ttl">OFFENSIF — ZONES DE RÉCUPÉRATION</span><span class="sub">'+sub+'</span></div>'+
       '<div class="losswrap"><div class="lossrow">'+
         '<div class="pitchcol">'+lossPitchSVG(grid, cols, rows, t.matches)+'</div>'+
-        topPanelHTML(topJoueurs(t, club, v=>v.reco), "Récupèrent le plus")+
+        topPanelHTML(topJoueurs(t, club, v=>v.reco, true), "Récupèrent le plus")+
       '</div></div>'+
       '<div class="lossfoot">'+
-        '<span class="lossnote">Ballons récupérés par '+club+' (actions défensives — récupérations, interceptions, tacles gagnés, prises du gardien — et pertes adverses). Grand chiffre = total saison, petit = par match. Le classement ne retient que les <b>actions défensives</b> : une perte adverse n\'a pas d\'auteur dans cette équipe, son total est donc inférieur à celui de la grille.</span>'+
+        '<span class="lossnote">Ballons récupérés par '+club+' (actions défensives — récupérations, interceptions, tacles gagnés, prises du gardien — et pertes adverses). Grand chiffre = total saison, petit = par match. Le classement ne retient que les <b>actions défensives</b> — une perte adverse n\'a pas d\'auteur dans cette équipe, et elle pèse environ deux tiers du total de la grille. <b>Le gardien en est écarté</b> : ses prises sortiraient toujours en tête.</span>'+
         '<span class="lossleg">faible<span>'+leg+'</span>fort</span>'+
       '</div>'+
     '</div></div>';
@@ -906,7 +915,7 @@ function recoRiskBlockHTML(club){
       '<div class="losshead"><span class="ttl">OFFENSIF — RÉCUPÉRATIONS DÉCISIVES</span><span class="sub">'+sub+'</span></div>'+
       '<div class="losswrap"><div class="lossrow">'+
         '<div class="pitchcol">'+lossPitchSVG(grid, cols, rows, t.matches, subs, glf, true)+'</div>'+
-        topPanelHTML(topJoueurs(t, club, v=>v.risk), "Impact centre / tir / but",
+        topPanelHTML(topJoueurs(t, club, v=>v.risk, true), "Impact centre / tir / but",
           f=>(f.cross||0)+' centre'+((f.cross||0)>1?'s':'')+' · '+
              (f.shot||0)+' tir'+((f.shot||0)>1?'s':'')+' · '+
              (f.goal||0)+' but'+((f.goal||0)>1?'s':''))+
