@@ -964,22 +964,6 @@
      "sbId": 189641
     },
     {
-     "num": 35,
-     "name": "DIA",
-     "fullname": "Cheikh Ibrahim Dia",
-     "pos": "ATT",
-     "posDesc": "ST",
-     "height": null,
-     "age": 21,
-     "photo": "",
-     "photoLFP": false,
-     "ajouteStatsBomb": true,
-     "g": 0,
-     "a": 0,
-     "mins": 82,
-     "sbId": 571587
-    },
-    {
      "num": 64,
      "name": "EPAILLY",
      "fullname": "Théo Edgard Epailly",
@@ -1010,6 +994,22 @@
      "a": 0,
      "mins": 32,
      "sbId": 338191
+    },
+    {
+     "num": 35,
+     "name": "DIA",
+     "fullname": "Cheikh Ibrahim Dia",
+     "pos": "ATT",
+     "posDesc": "ST",
+     "height": null,
+     "age": 21,
+     "photo": "",
+     "photoLFP": false,
+     "ajouteStatsBomb": true,
+     "g": 0,
+     "a": 0,
+     "mins": 82,
+     "sbId": 571587
     }
    ]
   },
@@ -2027,22 +2027,6 @@
      "mins": 0
     },
     {
-     "num": 30,
-     "name": "MIMOUNE",
-     "fullname": "Hatem Mimoune",
-     "pos": "MID",
-     "posDesc": "RM",
-     "height": null,
-     "age": 19,
-     "photo": "",
-     "photoLFP": false,
-     "ajouteStatsBomb": true,
-     "g": 0,
-     "a": 0,
-     "mins": 9,
-     "sbId": 443616
-    },
-    {
      "num": 9,
      "name": "DONG",
      "fullname": "Tyris Dong",
@@ -2073,6 +2057,22 @@
      "a": 0,
      "mins": 99,
      "sbId": 412350
+    },
+    {
+     "num": 30,
+     "name": "MIMOUNE",
+     "fullname": "Hatem Mimoune",
+     "pos": "MID",
+     "posDesc": "RM",
+     "height": null,
+     "age": 19,
+     "photo": "",
+     "photoLFP": false,
+     "ajouteStatsBomb": true,
+     "g": 0,
+     "a": 0,
+     "mins": 9,
+     "sbId": 443616
     },
     {
      "num": 42,
@@ -6613,20 +6613,20 @@
      "mins": 0
     },
     {
-     "num": 49,
-     "name": "KONÉ",
-     "fullname": "Doumbia Broulaye Koné",
+     "num": 26,
+     "name": "HACHEM",
+     "fullname": "Ryad Hachem",
      "pos": "MID",
-     "posDesc": "CM",
-     "height": 190,
-     "age": 19,
+     "posDesc": "RM",
+     "height": 173,
+     "age": 28,
      "photo": "",
      "photoLFP": false,
      "ajouteStatsBomb": true,
      "g": 0,
      "a": 0,
-     "mins": 10,
-     "sbId": 479905
+     "mins": 28,
+     "sbId": 133468
     },
     {
      "num": 7,
@@ -6661,20 +6661,20 @@
      "sbId": 476953
     },
     {
-     "num": 26,
-     "name": "HACHEM",
-     "fullname": "Ryad Hachem",
+     "num": 49,
+     "name": "KONÉ",
+     "fullname": "Doumbia Broulaye Koné",
      "pos": "MID",
      "posDesc": "CM",
-     "height": 173,
-     "age": 28,
+     "height": 190,
+     "age": 19,
      "photo": "",
      "photoLFP": false,
      "ajouteStatsBomb": true,
      "g": 0,
      "a": 0,
-     "mins": 28,
-     "sbId": 133468
+     "mins": 10,
+     "sbId": 479905
     },
     {
      "num": 4,
@@ -9398,22 +9398,6 @@
      "sbId": 448096
     },
     {
-     "num": 31,
-     "name": "JAMALI",
-     "fullname": "Nadir El Jamali",
-     "pos": "MID",
-     "posDesc": "CM",
-     "height": 180,
-     "age": 19,
-     "photo": "",
-     "photoLFP": false,
-     "ajouteStatsBomb": true,
-     "g": 0,
-     "a": 0,
-     "mins": 3,
-     "sbId": 345667
-    },
-    {
      "num": 37,
      "name": "NKONDO",
      "fullname": "Nathan Kasia Nkondo",
@@ -9428,6 +9412,22 @@
      "a": 0,
      "mins": 12,
      "sbId": 441997
+    },
+    {
+     "num": 31,
+     "name": "JAMALI",
+     "fullname": "Nadir El Jamali",
+     "pos": "MID",
+     "posDesc": "CM",
+     "height": 180,
+     "age": 19,
+     "photo": "",
+     "photoLFP": false,
+     "ajouteStatsBomb": true,
+     "g": 0,
+     "a": 0,
+     "mins": 3,
+     "sbId": 345667
     },
     {
      "num": 16,
@@ -9959,5 +9959,5 @@
   }
  },
  "statsSource": "StatsBomb comp 8 saison 351",
- "statsUpdated": "2026-09-01 09:20 UTC"
+ "statsUpdated": "2026-09-03 07:44 UTC"
 }
