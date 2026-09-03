@@ -6629,20 +6629,20 @@
      "sbId": 133468
     },
     {
-     "num": 7,
-     "name": "JOUJOU",
-     "fullname": "Antoine Joujou",
+     "num": 49,
+     "name": "KONÉ",
+     "fullname": "Doumbia Broulaye Koné",
      "pos": "MID",
-     "posDesc": "LM",
-     "height": 189,
-     "age": 23,
+     "posDesc": "CM",
+     "height": 190,
+     "age": 19,
      "photo": "",
      "photoLFP": false,
      "ajouteStatsBomb": true,
-     "g": 1,
+     "g": 0,
      "a": 0,
-     "mins": 20,
-     "sbId": 361077
+     "mins": 10,
+     "sbId": 479905
     },
     {
      "num": 47,
@@ -6661,20 +6661,20 @@
      "sbId": 476953
     },
     {
-     "num": 49,
-     "name": "KONÉ",
-     "fullname": "Doumbia Broulaye Koné",
+     "num": 7,
+     "name": "JOUJOU",
+     "fullname": "Antoine Joujou",
      "pos": "MID",
-     "posDesc": "CM",
-     "height": 190,
-     "age": 19,
+     "posDesc": "LM",
+     "height": 189,
+     "age": 23,
      "photo": "",
      "photoLFP": false,
      "ajouteStatsBomb": true,
-     "g": 0,
+     "g": 1,
      "a": 0,
-     "mins": 10,
-     "sbId": 479905
+     "mins": 20,
+     "sbId": 361077
     },
     {
      "num": 4,
@@ -9959,5 +9959,5 @@
   }
  },
  "statsSource": "StatsBomb comp 8 saison 351",
- "statsUpdated": "2026-09-03 07:44 UTC"
+ "statsUpdated": "2026-09-03 18:08 UTC"
 }
