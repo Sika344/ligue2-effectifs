@@ -299,6 +299,20 @@ td.raw{font-variant-numeric:tabular-nums;color:var(--ui-muted)}
     <div class="dgrid" id="dist"></div>
     <div class="note" id="dnote"></div>
   </div>
+
+  <div class="blk">
+    <h3>Profil de poste — développement individuel</h3>
+    <div class="row">
+      <div class="fld"><label>Poste</label><select id="pfPos"></select></div>
+      <div class="fld"><label>Joueur</label><select id="pfJoueur"></select></div>
+      <div class="fld"><label>Minutes minimum du groupe</label>
+        <div class="slider"><input type="range" id="pfMin" min="0" max="3000" step="30" value="180">
+          <b id="pfMinL">180 min</b></div>
+      </div>
+    </div>
+    <div id="pfCorps"></div>
+    <div class="note" id="pfNote"></div>
+  </div>
 </div>
 
 <script src="season.js"></script>
@@ -1033,6 +1047,240 @@ function dLimiter(){
 }
 
 /* ---------------------------------------------------------------- démarrage */
+/* ===========================================================================
+   PROFIL DE POSTE — développement individuel
+
+   Les deux parties précédentes servent à COMPARER. Celle-ci sert à SITUER un
+   joueur dans son poste, thème par thème, pour préparer un entretien ou un
+   plan de travail.
+
+   Les thèmes vivent ICI, dans la page, et non dans le script Python : les
+   ajuster ne demande qu'un rechargement, là où toucher au script imposerait
+   de régénérer les données. C'est le même parti pris que pour les seuils de
+   build-up de la page SportsCode.
+
+   Le percentile est calculé contre les joueurs du MÊME groupe de poste ayant
+   franchi le seuil de minutes. Les métriques où « moins, c'est mieux »
+   (ballons perdus, dépossessions) sont retournées : sur cette plaque, un
+   percentile élevé veut toujours dire « bon », sans exception à retenir.  */
+
+const PF_THEMES = {
+  "Attaquant": [
+    ["Finition",        ["np_xg","shots","xg_per_shot","conversion_ratio","shot_touch_ratio"]],
+    ["Présence surface",["box_touches","op_passes_into_and_touches_inside_box","passes_box"]],
+    ["Jeu dos au but",  ["aerial_ratio","aerial_wins","dispossessions","turnovers","pressured_passing_ratio"]],
+    ["Création",        ["xa","key_passes","op_xgchain","obv_off","deep_compl"]],
+    ["Pressing",        ["pressures","high_recov","counterpressure_regains","aggressive_actions","padj_pressures"]]
+  ],
+  "Ailier": [
+    ["Finition",        ["np_xg","shots","xg_per_shot","conversion_ratio"]],
+    ["Débordement",     ["dribbles","dribble_ratio","crosses","box_crosses","carries"]],
+    ["Création",        ["xa","key_passes","passes_box","op_xgchain","obv_off"]],
+    ["Conservation",    ["dispossessions","turnovers","pressured_passing_ratio"]],
+    ["Pressing",        ["pressures","high_recov","counterpressure_regains","aggressive_actions"]]
+  ],
+  "Milieu offensif": [
+    ["Création",        ["xa","key_passes","through_balls","passes_box","op_xgchain"]],
+    ["Progression",     ["deep_prog","deep_compl","lbp","lbp_completed","carries"]],
+    ["Finition",        ["np_xg","shots","xg_per_shot"]],
+    ["Conservation",    ["passing_pct","dispossessions","turnovers","pressured_passing_ratio"]],
+    ["Pressing",        ["pressures","high_recov","counterpressure_regains","aggressive_actions"]]
+  ],
+  "Milieu central": [
+    ["Progression",     ["deep_prog","deep_compl","lbp","lbp_completed","obv_lb"]],
+    ["Conservation",    ["passing_pct","op_passes","dispossessions","turnovers","pressured_passing_ratio"]],
+    ["Création",        ["xa","key_passes","passes_box","op_xgchain"]],
+    ["Récupération",    ["tackles_and_interceptions","padj_tackles","padj_interceptions","ball_recoveries","challenge_ratio"]],
+    ["Pressing",        ["pressures","padj_pressures","counterpressure_regains","aggressive_actions"]]
+  ],
+  "Milieu défensif": [
+    ["Récupération",    ["tackles_and_interceptions","padj_tackles","padj_interceptions","ball_recoveries","challenge_ratio"]],
+    ["Duel",            ["aerial_ratio","aerial_wins","dribble_faced_ratio","dribbled_past","fouls"]],
+    ["Relance",         ["passing_pct","lbp","lbp_completed","obv_lb","long_ball_ratio"]],
+    ["Conservation",    ["dispossessions","turnovers","pressured_passing_ratio"]],
+    ["Pressing",        ["pressures","padj_pressures","counterpressure_regains","aggressive_actions"]]
+  ],
+  "Latéral": [
+    ["Apport offensif", ["crosses","box_crosses","passes_box","xa","key_passes"]],
+    ["Progression",     ["deep_prog","deep_compl","carries","dribbles"]],
+    ["Défense 1v1",     ["challenge_ratio","dribble_faced_ratio","dribbled_past","padj_tackles"]],
+    ["Duel et couverture",["aerial_ratio","padj_interceptions","ball_recoveries","clearance"]],
+    ["Conservation",    ["passing_pct","dispossessions","turnovers"]]
+  ],
+  "Défenseur central": [
+    ["Duel aérien",     ["aerial_ratio","aerial_wins","predicted_headers"]],
+    ["Défense 1v1",     ["challenge_ratio","dribble_faced_ratio","dribbled_past","padj_tackles"]],
+    ["Couverture",      ["padj_interceptions","clearance","blocks_per_shot","ball_recoveries","errors"]],
+    ["Relance",         ["passing_pct","lbp","lbp_completed","obv_lb","long_ball_ratio"]],
+    ["Conservation",    ["dispossessions","turnovers","pressured_passing_ratio"]]
+  ],
+  "Gardien": [
+    ["Arrêts",          ["save_ratio","gsaa","np_psxg_faced","shots_faced","ot_shots_faced"]],
+    ["Surface",         ["goals_faced","penalties_faced","claims_ratio"]],
+    ["Relance",         ["passing_pct","long_ball_ratio","np_optimal_gk_dlength","pass_length"]]
+  ]
+};
+/* Poste sans thème défini : on retombe sur un découpage générique plutôt que
+   d'afficher une plaque vide. */
+const PF_DEFAUT = [
+  ["Offensif",     ["np_xg","shots","xa","key_passes","obv_off"]],
+  ["Progression",  ["deep_prog","deep_compl","carries","lbp_completed"]],
+  ["Conservation", ["passing_pct","dispossessions","turnovers"]],
+  ["Défensif",     ["tackles_and_interceptions","padj_pressures","ball_recoveries","aerial_ratio"]]
+];
+
+/* Couleurs du site : marine pour les points forts, orange pour ce qui reste à
+   travailler, gris pour la zone médiane où l'écart n'est pas significatif. */
+const PF_MARINE = "#0d3b8c", PF_ORANGE = "#e2571f", PF_GRIS = "#9ca3af";
+function pfCouleur(p){
+  if (p >= 70) return PF_MARINE;
+  if (p <= 30) return PF_ORANGE;
+  return PF_GRIS;
+}
+
+let PF_SEUIL = 180;
+
+function pfMetrique(cle){ return (DATA.metrics || []).find(m => m.cle === cle) || null; }
+
+/* Groupe de comparaison : mêmes postes, au-dessus du seuil de minutes. */
+function pfGroupe(grp){
+  return DATA.players.filter(p => grpDe(p) === grp && (p.minutes || 0) >= PF_SEUIL);
+}
+
+function pfConstruire(){
+  const sp = $("pfPos");
+  sp.innerHTML = GROUPES.map(([g]) => '<option value="' + esc(g) + '">' + esc(g) + '</option>').join("");
+  sp.value = "Attaquant";           // le poste sur lequel on travaille aujourd'hui
+  pfMajJoueurs(true);
+}
+
+/* Liste des joueurs du poste, triée par temps de jeu : les plus utilisés
+   d'abord, ce sont ceux dont les chiffres tiennent debout. */
+function pfMajJoueurs(premier){
+  const grp = $("pfPos").value;
+  const liste = DATA.players
+    .filter(p => grpDe(p) === grp && (p.minutes || 0) >= PF_SEUIL)
+    .sort((a, b) => (b.minutes || 0) - (a.minutes || 0));
+  const avant = $("pfJoueur").value;
+  $("pfJoueur").innerHTML = liste.map(p =>
+    '<option value="' + esc(String(p.id)) + '">' + esc(p.nom) + ' · ' + esc(p.equipe) +
+    ' · ' + Math.round(p.minutes) + ' min</option>').join("");
+  if (!liste.length) return;
+  // À l'ouverture, on affiche l'avant-centre de Montpellier : c'est le joueur
+  // suivi. Ensuite on garde le choix de l'utilisateur s'il existe encore.
+  let cible = liste.find(p => String(p.id) === avant);
+  if (!cible && premier) cible = liste.find(p => /Megnan/i.test(p.nom));
+  $("pfJoueur").value = String((cible || liste[0]).id);
+}
+
+function pfRendu(){
+  const corps = $("pfCorps"), note = $("pfNote");
+  if (!DATA) return;
+  const grp = $("pfPos").value;
+  const groupe = pfGroupe(grp);
+  const j = DATA.players.find(p => String(p.id) === $("pfJoueur").value);
+  if (!j || groupe.length < 5){
+    corps.innerHTML = '<div class="empty">Groupe trop petit pour un percentile : ' +
+      groupe.length + ' joueur(s) au-dessus de ' + PF_SEUIL + ' min. Baisse le seuil.</div>';
+    note.textContent = "";
+    return;
+  }
+
+  const themes = PF_THEMES[grp] || PF_DEFAUT;
+  let html = '<div style="display:flex;flex-wrap:wrap;gap:18px;margin:4px 0 14px">' +
+    '<div><div style="font-size:11px;color:var(--ui-muted);font-weight:600">Joueur</div>' +
+    '<div style="font-size:15px;font-weight:700;color:var(--ui-ink2)">' + esc(j.nom) + '</div></div>' +
+    '<div><div style="font-size:11px;color:var(--ui-muted);font-weight:600">Club</div>' +
+    '<div style="font-size:15px;font-weight:700;color:var(--ui-ink2)">' + esc(j.equipe) + '</div></div>' +
+    '<div><div style="font-size:11px;color:var(--ui-muted);font-weight:600">Poste StatsBomb</div>' +
+    '<div style="font-size:15px;font-weight:700;color:var(--ui-ink2)">' + esc(j.poste) + '</div></div>' +
+    '<div><div style="font-size:11px;color:var(--ui-muted);font-weight:600">Temps de jeu</div>' +
+    '<div style="font-size:15px;font-weight:700;color:var(--ui-ink2)">' + Math.round(j.minutes) +
+    ' min · ' + Math.round(j.matchs || 0) + ' matchs</div></div>' +
+    '<div><div style="font-size:11px;color:var(--ui-muted);font-weight:600">Comparé à</div>' +
+    '<div style="font-size:15px;font-weight:700;color:var(--ui-ink2)">' + groupe.length +
+    ' joueurs</div></div></div>';
+
+  const forts = [], faibles = [];
+
+  for (const [titre, cles] of themes){
+    const lignes = [];
+    for (const cle of cles){
+      const m = pfMetrique(cle);
+      if (!m) continue;                       // métrique absente de cette saison
+      const v = valeur(j, m, "p90");
+      if (v === null) continue;
+      const vals = groupe.map(p => valeur(p, m, "p90")).filter(x => x !== null);
+      if (vals.length < 5) continue;
+      let pc = percentile(vals, v);
+      if (pc === null) continue;
+      // « moins, c'est mieux » : on retourne, pour que 100 signifie toujours bon
+      if ((m.sens || 1) < 0) pc = 100 - pc;
+      pc = Math.round(pc);
+      const lbl = m.label || m.cle;
+      lignes.push({ lbl: lbl, v: v, pc: pc });
+      if (pc >= 80) forts.push(lbl);
+      if (pc <= 20) faibles.push(lbl);
+    }
+    if (!lignes.length) continue;
+    const moy = Math.round(lignes.reduce((s, l) => s + l.pc, 0) / lignes.length);
+    html += '<div style="margin-bottom:16px">' +
+      '<div style="display:flex;align-items:baseline;gap:8px;margin-bottom:6px">' +
+        '<span style="font-size:12.5px;font-weight:700;color:var(--ui-ink2);letter-spacing:.02em">' +
+          esc(titre) + '</span>' +
+        '<span style="font-size:11px;font-weight:600;color:' + pfCouleur(moy) + '">moyenne ' + moy + '</span>' +
+      '</div>' +
+      lignes.map(l =>
+        '<div style="display:flex;align-items:center;gap:10px;padding:3px 0">' +
+          '<span style="flex:0 0 210px;font-size:12px;color:var(--ui-muted);white-space:nowrap;' +
+            'overflow:hidden;text-overflow:ellipsis">' + esc(l.lbl) + '</span>' +
+          '<span style="flex:0 0 52px;text-align:right;font-size:11.5px;color:var(--ui-faint);' +
+            'font-variant-numeric:tabular-nums">' + fmt(l.v) + '</span>' +
+          '<span style="flex:1 1 auto;height:13px;background:#f1f3f6;border-radius:4px;overflow:hidden">' +
+            '<span style="display:block;height:100%;width:' + l.pc + '%;background:' +
+              pfCouleur(l.pc) + ';border-radius:4px"></span></span>' +
+          '<span style="flex:0 0 26px;text-align:right;font-size:12px;font-weight:700;' +
+            'color:var(--ui-ink2);font-variant-numeric:tabular-nums">' + l.pc + '</span>' +
+        '</div>').join("") +
+      '</div>';
+  }
+
+  html += '<div style="display:flex;gap:16px;flex-wrap:wrap;margin-top:6px;font-size:11.5px;' +
+    'color:var(--ui-muted);font-weight:600">' +
+    '<span><i style="display:inline-block;width:10px;height:10px;border-radius:2px;background:' +
+      PF_MARINE + ';vertical-align:-1px;margin-right:5px"></i>point fort (70 et plus)</span>' +
+    '<span><i style="display:inline-block;width:10px;height:10px;border-radius:2px;background:' +
+      PF_GRIS + ';vertical-align:-1px;margin-right:5px"></i>dans la moyenne</span>' +
+    '<span><i style="display:inline-block;width:10px;height:10px;border-radius:2px;background:' +
+      PF_ORANGE + ';vertical-align:-1px;margin-right:5px"></i>à travailler (30 et moins)</span></div>';
+
+  corps.innerHTML = html;
+
+  // Un percentile n'a de sens que sur un échantillon. On dit le pas du
+  // classement plutôt que de laisser croire à une précision qui n'existe pas.
+  const pas = (100 / groupe.length).toFixed(1);
+  let n = 'Percentile par 90 minutes, contre les ' + groupe.length + ' joueurs du poste ' +
+    'au-dessus de ' + PF_SEUIL + ' min. Une place vaut ' + pas + ' points de percentile.';
+  if (Math.round(j.matchs || 0) < 6)
+    n += ' ⚠ ' + Math.round(j.matchs || 0) + ' matchs seulement : à lire comme une indication, pas comme un jugement.';
+  // Certains libellés StatsBomb finissent déjà par un point (« High recov. ») :
+  // sans ce nettoyage la phrase se terminait par deux points de suite.
+  const pt = t => t.replace(/\.\s*$/, "");
+  if (forts.length) n += ' Points forts : ' + forts.slice(0, 4).map(pt).join(", ") + '.';
+  if (faibles.length) n += ' À travailler : ' + faibles.slice(0, 4).map(pt).join(", ") + '.';
+  note.textContent = n;
+}
+
+function pfBrancher(){
+  $("pfPos").onchange = () => { pfMajJoueurs(false); pfRendu(); };
+  $("pfJoueur").onchange = pfRendu;
+  $("pfMin").oninput = () => {
+    PF_SEUIL = +$("pfMin").value;
+    $("pfMinL").textContent = PF_SEUIL + " min";
+    pfMajJoueurs(false); pfRendu();
+  };
+}
+
 fetch(SEASON.fichier("individual.json") + "?_=" + Date.now())
   .then(r => r.ok ? r.json() : null)
   .then(d => {
@@ -1044,6 +1292,7 @@ fetch(SEASON.fichier("individual.json") + "?_=" + Date.now())
     DATA = d;
     construire(); brancher(); majListeAjout(); majChips(); rendu();
     construireDist(); dMajListe(); dMajChips(); renduDist(); brancherInfobulle();
+    pfConstruire(); pfBrancher(); pfRendu();
     // Les logos vivent dans le fichier des effectifs. Chargement séparé et non
     // bloquant : sans lui la page reste utilisable, les joueurs choisis
     // s'affichant alors en pastille de couleur au lieu du logo du club.
