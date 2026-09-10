@@ -2,7 +2,7 @@
  "competition": "Ligue 2",
  "season": "2026-2027",
  "season_id": 351,
- "updated": "2026-09-07T08:19:22Z",
+ "updated": "2026-09-10T08:03:16Z",
  "matches": [
   {
    "match_id": 4063892,
@@ -362,7 +362,7 @@
    "round": 5,
    "home": "Nantes",
    "away": "Nancy",
-   "score": ""
+   "score": "1-0"
   },
   {
    "match_id": 4063938,
