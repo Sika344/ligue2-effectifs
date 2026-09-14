@@ -2,7 +2,7 @@
  "competition": "Ligue 2",
  "season": "2026-2027",
  "season_id": 351,
- "updated": "2026-09-10T08:03:16Z",
+ "updated": "2026-09-14T08:54:31Z",
  "matches": [
   {
    "match_id": 4063892,
@@ -370,7 +370,7 @@
    "round": 6,
    "home": "Clermont Foot",
    "away": "US Boulogne",
-   "score": ""
+   "score": "0-0"
   },
   {
    "match_id": 4063940,
@@ -378,7 +378,7 @@
    "round": 6,
    "home": "Dijon",
    "away": "Stade Lavallois",
-   "score": ""
+   "score": "3-2"
   },
   {
    "match_id": 4063944,
@@ -386,7 +386,7 @@
    "round": 6,
    "home": "Montpellier",
    "away": "Pau",
-   "score": ""
+   "score": "1-0"
   },
   {
    "match_id": 4063943,
@@ -394,7 +394,7 @@
    "round": 6,
    "home": "Nancy",
    "away": "Stade de Reims",
-   "score": ""
+   "score": "1-2"
   },
   {
    "match_id": 4063942,
@@ -402,7 +402,7 @@
    "round": 6,
    "home": "Rodez",
    "away": "Grenoble Foot",
-   "score": ""
+   "score": "0-1"
   },
   {
    "match_id": 4063945,
@@ -410,7 +410,7 @@
    "round": 6,
    "home": "Dunkerque",
    "away": "Saint-Étienne",
-   "score": ""
+   "score": "2-1"
   },
   {
    "match_id": 4063937,
@@ -418,7 +418,7 @@
    "round": 6,
    "home": "Guingamp",
    "away": "FC Annecy",
-   "score": ""
+   "score": "2-1"
   },
   {
    "match_id": 4063939,
@@ -426,7 +426,7 @@
    "round": 6,
    "home": "Sochaux",
    "away": "Nantes",
-   "score": ""
+   "score": "1-0"
   },
   {
    "match_id": 4063941,
@@ -725,27 +725,11 @@
    "score": ""
   },
   {
-   "match_id": 4063986,
-   "date": "2026-10-30",
-   "round": 11,
-   "home": "FC Annecy",
-   "away": "Montpellier",
-   "score": ""
-  },
-  {
    "match_id": 4063985,
    "date": "2026-10-30",
    "round": 11,
    "home": "Grenoble Foot",
    "away": "Dijon",
-   "score": ""
-  },
-  {
-   "match_id": 4063984,
-   "date": "2026-10-30",
-   "round": 11,
-   "home": "Guingamp",
-   "away": "Saint-Étienne",
    "score": ""
   },
   {
@@ -789,19 +773,27 @@
    "score": ""
   },
   {
-   "match_id": 4063989,
-   "date": "2026-10-30",
+   "match_id": 4063986,
+   "date": "2026-10-31",
    "round": 11,
-   "home": "Stade de Reims",
-   "away": "Sochaux",
+   "home": "FC Annecy",
+   "away": "Montpellier",
    "score": ""
   },
   {
-   "match_id": 4063991,
-   "date": "2026-11-06",
-   "round": 12,
-   "home": "Clermont Foot",
-   "away": "Rodez",
+   "match_id": 4063984,
+   "date": "2026-10-31",
+   "round": 11,
+   "home": "Guingamp",
+   "away": "Saint-Étienne",
+   "score": ""
+  },
+  {
+   "match_id": 4063989,
+   "date": "2026-10-31",
+   "round": 11,
+   "home": "Stade de Reims",
+   "away": "Sochaux",
    "score": ""
   },
   {
@@ -829,14 +821,6 @@
    "score": ""
   },
   {
-   "match_id": 4063996,
-   "date": "2026-11-06",
-   "round": 12,
-   "home": "Montpellier",
-   "away": "Metz",
-   "score": ""
-  },
-  {
    "match_id": 4063995,
    "date": "2026-11-06",
    "round": 12,
@@ -845,8 +829,32 @@
    "score": ""
   },
   {
-   "match_id": 4063997,
+   "match_id": 4063994,
    "date": "2026-11-06",
+   "round": 12,
+   "home": "US Boulogne",
+   "away": "FC Annecy",
+   "score": ""
+  },
+  {
+   "match_id": 4063991,
+   "date": "2026-11-07",
+   "round": 12,
+   "home": "Clermont Foot",
+   "away": "Rodez",
+   "score": ""
+  },
+  {
+   "match_id": 4063996,
+   "date": "2026-11-07",
+   "round": 12,
+   "home": "Montpellier",
+   "away": "Metz",
+   "score": ""
+  },
+  {
+   "match_id": 4063997,
+   "date": "2026-11-07",
    "round": 12,
    "home": "Pau",
    "away": "Nantes",
@@ -854,18 +862,10 @@
   },
   {
    "match_id": 4063998,
-   "date": "2026-11-06",
+   "date": "2026-11-07",
    "round": 12,
    "home": "Saint-Étienne",
    "away": "Stade Lavallois",
-   "score": ""
-  },
-  {
-   "match_id": 4063994,
-   "date": "2026-11-06",
-   "round": 12,
-   "home": "US Boulogne",
-   "away": "FC Annecy",
    "score": ""
   },
   {
