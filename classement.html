@@ -1,0 +1,173 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Classements — Ligue 2</title>
+<style>
+  :root{
+    --ui-font:-apple-system,BlinkMacSystemFont,"Inter","Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+    --ui-ink:#1f2937; --ui-ink2:#111827; --ui-muted:#6b7280; --ui-faint:#9ca3af;
+    --ui-line:#e5e7eb; --ui-line2:#d8dce3; --ui-hover:#f9fafb; --ui-accent:#0a1733;
+    --marine:#0d3b8c; --orange:#e2571f;
+  }
+  *{box-sizing:border-box}
+  body{margin:0;background:#fff;color:var(--ui-ink);font-family:var(--ui-font)}
+  .sitenav{display:flex;align-items:center;gap:7px;flex-wrap:wrap;padding:11px 18px;
+    border-bottom:1px solid var(--ui-line);background:#fff}
+  .sitenav .brand{font-size:13.5px;font-weight:800;color:var(--ui-accent);margin-right:8px}
+  .sitenav .brand span{font-weight:600;color:var(--ui-muted);margin-left:5px}
+  .sitenav a{font-size:12px;font-weight:600;color:var(--ui-muted);text-decoration:none;
+    padding:6px 11px;border:1px solid var(--ui-line2);border-radius:8px;background:#fff}
+  .sitenav a:hover{color:var(--ui-ink2);border-color:#b9c0cc;background:var(--ui-hover)}
+  .sitenav a.on{color:var(--ui-accent);font-weight:700;border-color:var(--ui-accent)}
+  .wrap{max-width:820px;margin:22px auto 60px;padding:0 16px}
+  .bar{display:flex;align-items:center;gap:12px;flex-wrap:wrap;margin-bottom:16px}
+  .bar label{font-size:11px;font-weight:700;color:var(--ui-muted);text-transform:uppercase;
+    letter-spacing:.06em}
+  select{font-family:inherit;font-size:13px;font-weight:600;color:var(--ui-ink);background:#fff;
+    border:1px solid var(--ui-line2);border-radius:8px;padding:8px 12px;cursor:pointer}
+  select:hover{border-color:#b9c0cc}
+  .maj{font-size:11.5px;color:var(--ui-faint);font-weight:600;margin-left:auto}
+  table{width:100%;border-collapse:collapse;font-size:13.5px}
+  th{font-size:10.5px;font-weight:700;color:var(--ui-muted);text-transform:uppercase;
+    letter-spacing:.06em;text-align:right;padding:0 0 8px;border-bottom:1px solid var(--ui-line)}
+  th.l{text-align:left}
+  td{padding:7px 0;border-bottom:1px solid #f1f3f6;font-variant-numeric:tabular-nums}
+  td.rk{width:30px;color:var(--ui-faint);font-size:12px;font-weight:700}
+  td.eq{font-weight:650;color:var(--ui-ink2)}
+  td.n{text-align:right;width:64px;color:var(--ui-muted)}
+  td.v{text-align:right;width:72px;font-weight:800;color:var(--ui-ink2);font-size:15px}
+  td.bar{width:34%;padding-left:14px}
+  td.bar span{display:block;height:13px;background:#f1f3f6;border-radius:4px;overflow:hidden}
+  td.bar i{display:block;height:100%;border-radius:4px}
+  tr.moi td{background:#fbfcfe}
+  tr.moi td.eq{color:var(--marine)}
+  .note{margin-top:14px;font-size:11.5px;color:var(--ui-muted);line-height:1.6}
+  .empty{padding:40px 0;text-align:center;color:var(--ui-muted);font-size:13px}
+</style>
+</head>
+<body>
+<nav class="sitenav"><div class="brand">⚽ Ligue 2<span>Analyse</span></div><a href="index.html">Effectif</a><a href="effectif-sans-photos.html">Effectif sans photos</a><a href="attacking.html">Attacking</a><a href="chartindex.html">Chart index</a><a href="defending.html">Defending</a><a href="classement.html" class="on">Classements</a><a href="analytics.html">Analytics 360</a><a href="individual.html">Individual</a><a href="rapport-pre-match.html">Rapport pré-match</a><a href="sportscode.html">SportsCode XML</a></nav>
+
+<div class="wrap">
+  <div class="bar">
+    <label for="sel">Classement</label>
+    <select id="sel">
+      <option value="gf">Buts marqués</option>
+      <option value="ga">Buts encaissés</option>
+      <option value="xf">xG créés</option>
+      <option value="xa">xG concédés</option>
+    </select>
+    <span class="maj" id="maj"></span>
+  </div>
+  <div id="corps"><div class="empty">Chargement…</div></div>
+  <div class="note" id="note"></div>
+</div>
+
+<script src="season.js"></script>
+<script>
+"use strict";
+
+/* Noms StatsBomb -> noms courts. Demandé explicitement : c'est le nom qu'on
+   emploie à l'oral, pas la raison sociale du club. Seules les six équipes dont
+   le nom StatsBomb est long figurent ici ; les autres passent tels quels. */
+const COURT = {
+  "Stade Lavallois": "Laval",
+  "Stade de Reims":  "Reims",
+  "US Boulogne":     "Boulogne",
+  "FC Annecy":       "Annecy",
+  "Red Star FC":     "Red Star",
+  "Grenoble Foot":   "Grenoble",
+  "Clermont Foot":   "Clermont",
+  "Saint-Étienne":   "Saint-Étienne"
+};
+const court = n => COURT[n] || n;
+
+/* Le club suivi, mis en évidence dans chaque classement. */
+const MON_CLUB = "Montpellier";
+
+/* Pour les buts encaissés et les xG concédés, le meilleur est le PLUS PETIT :
+   le tri s'inverse, et la barre se lit à l'envers — la plus courte est la
+   meilleure. Sans ça, un classement des buts encaissés mettrait en tête la
+   défense la plus perméable. */
+const VUES = {
+  gf: { titre:"Buts marqués",   court:"Buts",  moins:false, dec:0, couleur:"#0d3b8c" },
+  ga: { titre:"Buts encaissés", court:"Buts",  moins:true,  dec:0, couleur:"#e2571f" },
+  xf: { titre:"xG créés",       court:"xG",    moins:false, dec:1, couleur:"#0d3b8c" },
+  xa: { titre:"xG concédés",    court:"xG",    moins:true,  dec:1, couleur:"#e2571f" }
+};
+
+let LIGNES = null, MAJ = "";
+
+function charger(){
+  const f = (n) => fetch(SEASON.fichier(n) + "?_=" + Date.now())
+    .then(r => r.ok ? r.json() : null).catch(() => null);
+  Promise.all([f("defending.json"), f("xg.json")]).then(([def_, xg]) => {
+    const st = def_ && def_.standings;
+    if (!st || !st.length){
+      document.getElementById("corps").innerHTML =
+        '<div class="empty">' + SEASON.absent("defending.json") + '</div>';
+      return;
+    }
+    MAJ = (def_.updated || "").slice(0, 10);
+    const tx = (xg && xg.teams) || {};
+    const somme = a => Array.isArray(a) ? a.reduce((s, v) => s + (+v || 0), 0) : null;
+    LIGNES = st.map(t => {
+      const x = tx[t.team] || {};
+      return {
+        eq: t.team, j: t.played || 0,
+        gf: t.gf, ga: t.ga,
+        xf: somme(x.for), xa: somme(x.against)
+      };
+    });
+    rendre();
+  });
+}
+
+function rendre(){
+  if (!LIGNES) return;
+  const cle = document.getElementById("sel").value, V = VUES[cle];
+  // Une équipe sans valeur (xG absents) ne peut pas être classée : on l'écarte
+  // du classement plutôt que de la placer d'office en dernier.
+  const l = LIGNES.filter(r => r[cle] !== null && r[cle] !== undefined)
+                  .sort((a, b) => V.moins ? a[cle] - b[cle] : b[cle] - a[cle]);
+  const vals = l.map(r => r[cle]);
+  const hi = Math.max(...vals, 0.001);
+
+  document.getElementById("maj").textContent =
+    // SEASON.courante est une CHAÎNE, pas une fonction (cf. season.js).
+    String(SEASON.courante).replace("-", "/") +
+    (MAJ ? " · mis à jour le " + MAJ.split("-").reverse().join("/") : "");
+
+  let h = '<table><thead><tr><th class="l" colspan="2">Équipe</th>' +
+    '<th>J</th><th>' + V.court + '</th><th>/match</th><th></th></tr></thead><tbody>';
+  l.forEach((r, i) => {
+    const v = r[cle], pm = r.j ? v / r.j : 0;
+    const large = Math.max(3, Math.round(100 * v / hi));
+    h += '<tr' + (r.eq === MON_CLUB ? ' class="moi"' : '') + '>' +
+      '<td class="rk">' + (i + 1) + '</td>' +
+      '<td class="eq">' + court(r.eq) + '</td>' +
+      '<td class="n">' + r.j + '</td>' +
+      '<td class="v">' + v.toFixed(V.dec) + '</td>' +
+      '<td class="n">' + pm.toFixed(V.dec === 0 ? 1 : 2) + '</td>' +
+      '<td class="bar"><span><i style="width:' + large + '%;background:' + V.couleur + '"></i></span></td>' +
+      '</tr>';
+  });
+  h += '</tbody></table>';
+  document.getElementById("corps").innerHTML = h;
+
+  const ecartes = LIGNES.length - l.length;
+  let n = V.moins
+    ? "Classé du meilleur au moins bon : le premier est celui qui en concède le moins. La barre représente la valeur brute, donc la plus courte est la meilleure."
+    : "Classé du plus au moins. La barre représente la valeur brute.";
+  n += " La colonne « /match » ramène au nombre de matchs joués, car toutes les équipes n'en ont pas disputé autant.";
+  if (ecartes) n += " " + ecartes + " équipe(s) écartée(s), valeur indisponible.";
+  document.getElementById("note").textContent = n;
+}
+
+document.getElementById("sel").onchange = rendre;
+charger();
+</script>
+</body>
+</html>
