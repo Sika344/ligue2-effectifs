@@ -2,7 +2,7 @@
  "competition": "Ligue 2",
  "season": "2026-2027",
  "season_id": 351,
- "updated": "2026-09-17T08:34:43Z",
+ "updated": "2026-09-21T08:54:39Z",
  "matches": [
   {
    "match_id": 4063892,
@@ -442,7 +442,7 @@
    "round": 7,
    "home": "FC Annecy",
    "away": "Dijon",
-   "score": ""
+   "score": "1-2"
   },
   {
    "match_id": 4063952,
@@ -450,7 +450,7 @@
    "round": 7,
    "home": "Grenoble Foot",
    "away": "Clermont Foot",
-   "score": ""
+   "score": "1-1"
   },
   {
    "match_id": 4063950,
@@ -458,7 +458,7 @@
    "round": 7,
    "home": "Pau",
    "away": "Dunkerque",
-   "score": ""
+   "score": "2-0"
   },
   {
    "match_id": 4063947,
@@ -466,7 +466,7 @@
    "round": 7,
    "home": "Rodez",
    "away": "Nancy",
-   "score": ""
+   "score": "3-4"
   },
   {
    "match_id": 4063953,
@@ -474,7 +474,7 @@
    "round": 7,
    "home": "Stade Lavallois",
    "away": "Sochaux",
-   "score": ""
+   "score": "1-1"
   },
   {
    "match_id": 4063954,
@@ -482,7 +482,7 @@
    "round": 7,
    "home": "Stade de Reims",
    "away": "Montpellier",
-   "score": ""
+   "score": "1-1"
   },
   {
    "match_id": 4063949,
@@ -490,7 +490,7 @@
    "round": 7,
    "home": "Guingamp",
    "away": "Red Star FC",
-   "score": ""
+   "score": "1-3"
   },
   {
    "match_id": 4063946,
@@ -498,7 +498,7 @@
    "round": 7,
    "home": "Metz",
    "away": "Saint-Étienne",
-   "score": ""
+   "score": "2-2"
   },
   {
    "match_id": 4063951,
@@ -506,7 +506,7 @@
    "round": 7,
    "home": "US Boulogne",
    "away": "Nantes",
-   "score": ""
+   "score": "1-2"
   },
   {
    "match_id": 4063963,
