@@ -2,7 +2,7 @@
  "competition": "Ligue 2",
  "season": "2026-2027",
  "season_id": 351,
- "updated": "2026-09-21T08:54:39Z",
+ "updated": "2026-09-24T08:40:04Z",
  "matches": [
   {
    "match_id": 4063892,
@@ -509,14 +509,6 @@
    "score": "1-2"
   },
   {
-   "match_id": 4063963,
-   "date": "2026-10-09",
-   "round": 8,
-   "home": "Dijon",
-   "away": "Metz",
-   "score": ""
-  },
-  {
    "match_id": 4063962,
    "date": "2026-10-09",
    "round": 8,
@@ -578,6 +570,14 @@
    "round": 8,
    "home": "Saint-Étienne",
    "away": "Rodez",
+   "score": ""
+  },
+  {
+   "match_id": 4063963,
+   "date": "2026-10-12",
+   "round": 8,
+   "home": "Dijon",
+   "away": "Metz",
    "score": ""
   },
   {
