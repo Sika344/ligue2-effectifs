@@ -56,6 +56,27 @@
   .disc .num{font-weight:800;font-size:17px;line-height:1}
   .disc .pos{font-weight:800;font-size:9px;line-height:1;margin-top:1px;opacity:.95}
 
+  /* Infobulle au survol d'un joueur.
+     Tout en CSS, sans écouteur d'événement : la plaque est reconstruite à
+     chaque changement de club ou de match, et un câblage JavaScript devrait
+     être refait à chaque fois. Une règle :hover survit à tous les rendus.
+     Le pointeur ne doit pas pouvoir entrer dans l'infobulle (pointer-events
+     none), sinon elle clignoterait en se plaçant sous le curseur. */
+  .pl .tip{position:absolute;left:50%;transform:translateX(-50%);top:52px;
+    display:none;z-index:9;pointer-events:none;
+    background:#0a1733;color:#fff;border-radius:7px;padding:6px 9px;
+    box-shadow:0 6px 18px rgba(0,0,0,.35);white-space:nowrap;text-align:left}
+  .pl.up .tip{top:auto;bottom:52px}
+  .pl:hover .tip{display:block}
+  .pl:hover{z-index:8}
+  .pl .tip .tnom{font-size:12.5px;font-weight:800;line-height:1.25}
+  .pl .tip .tsub{font-size:11px;font-weight:600;opacity:.75;line-height:1.3;margin-top:1px}
+  /* Petite flèche vers le disque, pour rattacher l'infobulle au joueur. */
+  .pl .tip::after{content:"";position:absolute;left:50%;margin-left:-5px;
+    border:5px solid transparent;border-bottom-color:#0a1733;top:-10px}
+  .pl.up .tip::after{top:auto;bottom:-10px;border-bottom-color:transparent;
+    border-top-color:#0a1733}
+
   .fbar{display:flex;justify-content:space-between;align-items:center;padding:8px 6px 0}
   .fbar div{font-size:clamp(12px,1.6vw,15px);font-weight:700} .fbar b{font-weight:900}
 
@@ -453,6 +474,57 @@ function matchTeam(club, names){
 }
 
 /* ===== MATCHS (StatsBomb) ===== */
+/* Nom sans accents ni ponctuation, pour rapprocher deux orthographes.
+   N'Diaye, Sarıkaya, Saint-Luce : la comparaison brute échouerait. */
+function nnom(s){
+  return String(s||"").toLowerCase().normalize("NFD").replace(/[̀-ͯ]/g,"")
+    .replace(/[^a-z0-9]+/g," ").replace(/\s+/g," ").trim();
+}
+
+/* Fiche d'un joueur de la composition, cherchée dans les effectifs.
+
+   Le fichier des compositions ne porte que le numéro, le poste et le nom : ni
+   taille ni âge. Ces deux-là vivent dans ligue2_<saison>.json, déjà chargé par
+   la page pour la plaque Effectif. On rapproche donc les deux, dans cet ordre :
+     1. nom complet identique
+     2. même nom de famille ET même initiale de prénom
+     3. même numéro de maillot
+   Le numéro vient en dernier : il est fiable pour un titulaire, mais deux
+   joueurs peuvent porter le même au fil d'une saison. */
+function ficheJoueur(nomEquipe, p){
+  const src = LIGUE2 && LIGUE2.teams ? LIGUE2.teams : null;
+  if(!src) return null;
+  const jt = matchTeam(nomEquipe, Object.keys(src));
+  if(!jt) return null;
+  const squad = src[jt].squad || [];
+  const a = nnom(p.name), toks = a.split(" ");
+
+  let q = squad.find(x => nnom(x.fullname) === a);
+  if(!q && toks.length > 1){
+    const fam = toks[toks.length-1], ini = toks[0][0];
+    q = squad.find(x => {
+      const b = nnom(x.fullname).split(" ");
+      return b.length > 1 && b[b.length-1] === fam && b[0][0] === ini;
+    });
+  }
+  if(!q && p.num != null) q = squad.find(x => x.num === p.num);
+  return q || null;
+}
+
+/* Contenu de l'infobulle. Une donnée absente est simplement omise : mieux vaut
+   une ligne plus courte qu'un « — cm » qui laisse croire à une mesure ratée. */
+function tipHTML(nomEquipe, p){
+  const q = ficheJoueur(nomEquipe, p);
+  const nom = (q && q.fullname) || p.name || "";
+  const bits = [];
+  if(q && q.height) bits.push(q.height + " cm");
+  if(q && q.age != null) bits.push(q.age + " ans");
+  if(p.role) bits.push(p.role);
+  return '<div class="tip"><div class="tnom">' + esc(nom) + '</div>' +
+    (bits.length ? '<div class="tsub">' + esc(bits.join("  ·  ")) + '</div>' : '') +
+    '</div>';
+}
+
 function placePlayers(team, side){
   const frag=[];
   (team.players||[]).forEach(p=>{ let d=p.x,t=p.y,x,y;
@@ -463,7 +535,10 @@ function placePlayers(team, side){
     // retrouvait en haut de l'image, c'est-à-dire à gauche pour une équipe qui
     // attaque vers la gauche. Tous les postes latéraux étaient donc permutés.
     if(side==='home'){ x=3+d*0.5*94; y=4+t*92; } else { x=97-d*0.5*94; y=4+(1-t)*92; }
-    frag.push(`<div class="pl" style="left:${x.toFixed(2)}%;top:${y.toFixed(2)}%"><div class="disc" style="background:${team.color}"><span class="num">${p.num}</span><span class="pos">${p.pos}</span></div></div>`);
+    // Le cadre de la plaque coupe ce qui dépasse : pour un joueur situé bas sur
+    // le terrain, l'infobulle passe AU-DESSUS du disque plutôt qu'en dessous.
+    const haut = y > 66 ? " up" : "";
+    frag.push(`<div class="pl${haut}" style="left:${x.toFixed(2)}%;top:${y.toFixed(2)}%"><div class="disc" style="background:${team.color}"><span class="num">${p.num}</span><span class="pos">${p.pos}</span></div>${tipHTML(team.name, p)}</div>`);
   });
   return frag.join("");
 }
