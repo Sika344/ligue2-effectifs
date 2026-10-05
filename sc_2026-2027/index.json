@@ -2,7 +2,7 @@
  "competition": "Ligue 2",
  "season": "2026-2027",
  "season_id": 351,
- "updated": "2026-10-01T09:47:37Z",
+ "updated": "2026-10-05T09:48:37Z",
  "matches": [
   {
    "match_id": 4063892,
@@ -138,7 +138,7 @@
    "round": 2,
    "home": "Stade Lavallois",
    "away": "Nantes",
-   "score": ""
+   "score": "2-1"
   },
   {
    "match_id": 4063904,
