@@ -34,11 +34,29 @@ name: MAJ journée (tous les jeux de données)
 
 on:
   schedule:
-    # Lundi et jeudi 02:00 UTC : couvre les journées de week-end et de milieu
-    # de semaine, en laissant à StatsBomb le temps d'ingérer les matchs.
-    # 02:00 et non 04:30 pour finir AVANT les crons des 13 anciens workflows,
-    # qui s'échelonnent de 04:30 à 07:30 — deux push simultanés se rejettent.
-    - cron: "0 2 * * 1,4"
+    # DEUX PASSAGES PAR JOUR, tous les jours.
+    #
+    # Avant : lundi et jeudi seulement. Les matchs du vendredi 18 septembre ne
+    # sont arrivés sur le site que le lundi 21 — trois jours d'attente, alors
+    # que StatsBomb les avait publiés bien plus tôt.
+    #
+    # 02:00 UTC : rattrape les matchs du soir une fois ingérés dans la nuit.
+    # 14:00 UTC : seconde chance de la journée. StatsBomb publie souvent avec
+    #   plusieurs heures de retard ; sans ce passage, un match ingéré en fin de
+    #   matinée attendrait le lendemain.
+    #
+    # CE QUE ÇA NE CHANGE PAS : le facteur limitant reste l'ingestion par
+    # StatsBomb, pas notre fréquence. Nantes et Laval ont mis trois semaines à
+    # apparaître. Passer à deux fois par jour borne NOTRE retard à douze heures,
+    # il ne raccourcit pas le leur.
+    #
+    # COÛT : environ 1 h 25 de calcul par passage, soit moins de 3 h par jour.
+    # Gratuit sur un dépôt public. Et quand rien n'a bougé, l'étape de commit
+    # s'arrête d'elle-même sur « Aucune donnée modifiée » : pas de commit vide.
+    #
+    # 02:00 et 14:00 évitent la plage 04:30–07:30 des 13 anciens workflows,
+    # dont les push entreraient en collision avec le nôtre.
+    - cron: "0 2,14 * * *"
   workflow_dispatch:
     inputs:
       season:
