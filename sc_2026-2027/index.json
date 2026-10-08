@@ -2,7 +2,7 @@
  "competition": "Ligue 2",
  "season": "2026-2027",
  "season_id": 351,
- "updated": "2026-10-08T10:08:53Z",
+ "updated": "2026-10-08T20:59:22Z",
  "matches": [
   {
    "match_id": 4063892,
@@ -901,14 +901,6 @@
    "score": ""
   },
   {
-   "match_id": 4064000,
-   "date": "2026-11-20",
-   "round": 13,
-   "home": "Nantes",
-   "away": "Grenoble Foot",
-   "score": ""
-  },
-  {
    "match_id": 4064006,
    "date": "2026-11-20",
    "round": 13,
@@ -917,16 +909,16 @@
    "score": ""
   },
   {
-   "match_id": 4064008,
-   "date": "2026-11-20",
+   "match_id": 4064000,
+   "date": "2026-11-21",
    "round": 13,
-   "home": "Sochaux",
-   "away": "Dunkerque",
+   "home": "Nantes",
+   "away": "Grenoble Foot",
    "score": ""
   },
   {
    "match_id": 4064005,
-   "date": "2026-11-20",
+   "date": "2026-11-21",
    "round": 13,
    "home": "Stade Lavallois",
    "away": "Montpellier",
@@ -934,10 +926,18 @@
   },
   {
    "match_id": 4064007,
-   "date": "2026-11-20",
+   "date": "2026-11-21",
    "round": 13,
    "home": "Stade de Reims",
    "away": "Saint-Étienne",
+   "score": ""
+  },
+  {
+   "match_id": 4064008,
+   "date": "2026-11-23",
+   "round": 13,
+   "home": "Sochaux",
+   "away": "Dunkerque",
    "score": ""
   },
   {
@@ -957,14 +957,6 @@
    "score": ""
   },
   {
-   "match_id": 4064016,
-   "date": "2026-12-04",
-   "round": 14,
-   "home": "Dunkerque",
-   "away": "Red Star FC",
-   "score": ""
-  },
-  {
    "match_id": 4064013,
    "date": "2026-12-04",
    "round": 14,
@@ -981,35 +973,43 @@
    "score": ""
   },
   {
-   "match_id": 4064010,
+   "match_id": 4064014,
    "date": "2026-12-04",
+   "round": 14,
+   "home": "US Boulogne",
+   "away": "Pau",
+   "score": ""
+  },
+  {
+   "match_id": 4064016,
+   "date": "2026-12-05",
+   "round": 14,
+   "home": "Dunkerque",
+   "away": "Red Star FC",
+   "score": ""
+  },
+  {
+   "match_id": 4064010,
+   "date": "2026-12-05",
    "round": 14,
    "home": "Montpellier",
    "away": "Nantes",
    "score": ""
   },
   {
-   "match_id": 4064012,
-   "date": "2026-12-04",
-   "round": 14,
-   "home": "Rodez",
-   "away": "Stade de Reims",
-   "score": ""
-  },
-  {
    "match_id": 4064011,
-   "date": "2026-12-04",
+   "date": "2026-12-05",
    "round": 14,
    "home": "Saint-Étienne",
    "away": "Nancy",
    "score": ""
   },
   {
-   "match_id": 4064014,
-   "date": "2026-12-04",
+   "match_id": 4064012,
+   "date": "2026-12-07",
    "round": 14,
-   "home": "US Boulogne",
-   "away": "Pau",
+   "home": "Rodez",
+   "away": "Stade de Reims",
    "score": ""
   },
   {
