@@ -2,7 +2,7 @@
  "competition": "Ligue 2",
  "season": "2026-2027",
  "season_id": 351,
- "updated": "2026-10-05T09:48:37Z",
+ "updated": "2026-10-08T10:08:53Z",
  "matches": [
   {
    "match_id": 4063892,
@@ -605,14 +605,6 @@
    "score": ""
   },
   {
-   "match_id": 4063965,
-   "date": "2026-10-16",
-   "round": 9,
-   "home": "Rodez",
-   "away": "Montpellier",
-   "score": ""
-  },
-  {
    "match_id": 4063970,
    "date": "2026-10-16",
    "round": 9,
@@ -650,6 +642,14 @@
    "round": 9,
    "home": "Red Star FC",
    "away": "Saint-Étienne",
+   "score": ""
+  },
+  {
+   "match_id": 4063965,
+   "date": "2026-10-19",
+   "round": 9,
+   "home": "Rodez",
+   "away": "Montpellier",
    "score": ""
   },
   {
@@ -749,14 +749,6 @@
    "score": ""
   },
   {
-   "match_id": 4063982,
-   "date": "2026-10-30",
-   "round": 11,
-   "home": "Red Star FC",
-   "away": "Nancy",
-   "score": ""
-  },
-  {
    "match_id": 4063988,
    "date": "2026-10-30",
    "round": 11,
@@ -794,6 +786,14 @@
    "round": 11,
    "home": "Stade de Reims",
    "away": "Sochaux",
+   "score": ""
+  },
+  {
+   "match_id": 4063982,
+   "date": "2026-11-02",
+   "round": 11,
+   "home": "Red Star FC",
+   "away": "Nancy",
    "score": ""
   },
   {
