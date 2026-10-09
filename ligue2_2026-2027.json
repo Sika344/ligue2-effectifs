@@ -2773,22 +2773,6 @@
      "sbId": 231984
     },
     {
-     "num": 2,
-     "name": "TOURÉ",
-     "fullname": "Ousmane Touré",
-     "pos": "DEF",
-     "posDesc": "RB",
-     "height": 187,
-     "age": 21,
-     "photo": "",
-     "photoLFP": false,
-     "ajouteStatsBomb": true,
-     "g": 0,
-     "a": 0,
-     "mins": 55,
-     "sbId": 405137
-    },
-    {
      "num": 9,
      "name": "ROBAIL",
      "fullname": "Gaëtan Robail",
@@ -2803,6 +2787,22 @@
      "a": 0,
      "mins": 67,
      "sbId": 7821
+    },
+    {
+     "num": 2,
+     "name": "TOURÉ",
+     "fullname": "Ousmane Touré",
+     "pos": "DEF",
+     "posDesc": "RB",
+     "height": 187,
+     "age": 21,
+     "photo": "",
+     "photoLFP": false,
+     "ajouteStatsBomb": true,
+     "g": 0,
+     "a": 0,
+     "mins": 55,
+     "sbId": 405137
     }
    ]
   },
@@ -3421,22 +3421,6 @@
      "sbId": 440058
     },
     {
-     "num": 43,
-     "name": "PELON",
-     "fullname": "Aurélien Pelon",
-     "pos": "DEF",
-     "posDesc": "CB",
-     "height": 186,
-     "age": 22,
-     "photo": "",
-     "photoLFP": false,
-     "ajouteStatsBomb": true,
-     "g": 0,
-     "a": 0,
-     "mins": 391,
-     "sbId": 391396
-    },
-    {
      "num": 46,
      "name": "MOUTON",
      "fullname": "Jules Mouton",
@@ -3451,6 +3435,22 @@
      "a": 0,
      "mins": 54,
      "sbId": 193652
+    },
+    {
+     "num": 43,
+     "name": "PELON",
+     "fullname": "Aurélien Pelon",
+     "pos": "DEF",
+     "posDesc": "CB",
+     "height": 186,
+     "age": 22,
+     "photo": "",
+     "photoLFP": false,
+     "ajouteStatsBomb": true,
+     "g": 0,
+     "a": 0,
+     "mins": 391,
+     "sbId": 391396
     },
     {
      "num": 47,
@@ -10442,5 +10442,5 @@
   }
  },
  "statsSource": "StatsBomb comp 8 saison 351",
- "statsUpdated": "2026-10-08 20:55 UTC"
+ "statsUpdated": "2026-10-09 09:33 UTC"
 }
