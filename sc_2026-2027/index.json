@@ -2,7 +2,7 @@
  "competition": "Ligue 2",
  "season": "2026-2027",
  "season_id": 351,
- "updated": "2026-10-10T19:25:23Z",
+ "updated": "2026-10-11T09:32:53Z",
  "matches": [
   {
    "match_id": 4063892,
@@ -554,7 +554,7 @@
    "round": 8,
    "home": "Clermont Foot",
    "away": "Red Star FC",
-   "score": ""
+   "score": "2-3"
   },
   {
    "match_id": 4063961,
@@ -562,7 +562,7 @@
    "round": 8,
    "home": "Nantes",
    "away": "Stade de Reims",
-   "score": ""
+   "score": "0-0"
   },
   {
    "match_id": 4063959,
@@ -570,7 +570,7 @@
    "round": 8,
    "home": "Saint-Étienne",
    "away": "Rodez",
-   "score": ""
+   "score": "2-0"
   },
   {
    "match_id": 4063963,
