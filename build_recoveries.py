@@ -162,6 +162,22 @@ def resolve_season():
     return label, sid, out
 
 
+# Minute de match affichable. Le chronomètre StatsBomb REPART À ZÉRO à chaque
+# période : sans ce décalage, un but de la 70e minute s'affichait « 25' ». Le
+# maximum relevé sur la saison était 53, ce qui trahissait le défaut.
+BASE_PERIODE = {1: 0, 2: 45, 3: 90, 4: 105, 5: 120}
+
+
+def minute_match(periode, secondes):
+    if secondes is None:
+        return None
+    try:
+        p = int(periode)
+    except (TypeError, ValueError):
+        p = 1
+    return BASE_PERIODE.get(p, 0) + int(secondes // 60) + 1
+
+
 def tsec(ts):
     """timestamp StatsBomb "HH:MM:SS.mmm" -> secondes écoulées dans la période."""
     try:
@@ -492,7 +508,7 @@ def main():
                     if per1 == per0 and 0 < (t1 - t0) <= RISK_WINDOW:
                         if fiche is not None:
                             fiche["goal"] += 1
-                        minute = int((tsec(c_ts.get(sidx)) or 0) // 60) + 1
+                        minute = minute_match(c_per.get(sidx), tsec(c_ts.get(sidx)))
                         scorer = get(c_player, sidx)
                         passer = None
                         kid = get(c_kp, sidx)

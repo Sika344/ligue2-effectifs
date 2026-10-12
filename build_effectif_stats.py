@@ -279,18 +279,30 @@ POSTES = {
 }
 
 
-def numeros_maillot(season_id, cherches):
+def numeros_maillot(season_id, cherches, noms):
     """Numéros de maillot des joueurs demandés, via les feuilles de match.
 
     `player_season_stats` ne porte pas le numéro. Or index.html n'affiche que
     les joueurs qui en ont un : un joueur ajouté sans numéro resterait
     invisible, ce qui viderait l'ajout de son intérêt.
 
-    On parcourt les feuilles de match du plus RÉCENT au plus ancien — un joueur
-    peut avoir changé de numéro — et on s'arrête dès que tout le monde est
-    trouvé. En pratique deux ou trois feuilles suffisent.
+    ----------------------------------------------------------------- PAR LE NOM
+    `sb.lineups` ne renvoie PAS de colonne `player_id` — build_rapport.py le
+    savait déjà, il apparie par le nom depuis le début. Ma version exigeait cet
+    identifiant : elle écartait donc chaque ligne et ne trouvait jamais aucun
+    numéro. Conséquence silencieuse : plus aucune fiche créée depuis des
+    semaines, et Mathis Saka, n°10 de Rodez et titulaire, absent de l'effectif
+    pendant que la liste LFP y laissait Mehdi Baaloudj, qui n'a jamais joué.
+    On apparie donc par le nom normalisé, avec l'identifiant en appoint quand
+    il est présent.
 
-    `cherches` : ensemble d'identifiants StatsBomb. Retourne {id: numéro}.
+    ------------------------------------------------------------ MATCHS JOUÉS
+    On ne lit que les feuilles des matchs DÉJÀ JOUÉS. Trié par date
+    décroissante, le calendrier commence par les rencontres d'avril 2027 : on
+    passait plus de deux cents appels inutiles avant d'atteindre un vrai match.
+
+    `cherches` : identifiants StatsBomb voulus. `noms` : {id: nom}.
+    Retourne {id: numéro}.
     """
     trouves = {}
     if not cherches:
@@ -301,8 +313,20 @@ def numeros_maillot(season_id, cherches):
         print("   !! feuilles de match indisponibles (%s) — pas de numéros" % exc)
         return trouves
 
+    # Un match joué a un score renseigné ; sinon on retombe sur la date.
+    if "home_score" in ms.columns:
+        ms = ms[ms["home_score"].notna()]
+    elif "match_date" in ms.columns:
+        ms = ms[ms["match_date"].astype(str) <= datetime.date.today().isoformat()]
     if "match_date" in ms.columns:
         ms = ms.sort_values("match_date", ascending=False)
+
+    # nom normalisé -> identifiant cherché
+    par_nom = {}
+    for pid in cherches:
+        n = nn(noms.get(pid, ""))
+        if n:
+            par_nom.setdefault(n, pid)
 
     lus = 0
     for mid in ms["match_id"]:
@@ -316,14 +340,21 @@ def numeros_maillot(season_id, cherches):
         if not isinstance(lu, dict):
             continue
         for df in lu.values():
-            if "jersey_number" not in df.columns or "player_id" not in df.columns:
+            if "jersey_number" not in df.columns:
                 continue
             for _, r in df.iterrows():
-                try:
-                    pid = int(r["player_id"])
-                except (TypeError, ValueError):
-                    continue
-                if pid not in cherches or pid in trouves:
+                pid = None
+                if "player_id" in df.columns:
+                    try:
+                        v = int(r["player_id"])
+                        if v in cherches:
+                            pid = v
+                    except (TypeError, ValueError):
+                        pid = None
+                if pid is None:
+                    nom = texte(r.get("player_name")) or texte(r.get("player_nickname"))
+                    pid = par_nom.get(nn(nom))
+                if pid is None or pid in trouves:
                     continue
                 num = r.get("jersey_number")
                 if num is not None and num == num:      # écarte NaN
@@ -470,6 +501,7 @@ def main():
             par_club[club][nom] = row
 
     apparies_ids = set()      # cartes effectivement alimentées PAR CE RUN
+    NOM_SB = {}               # identifiant -> nom tel que StatsBomb l'écrit
 
     for club, lignes in par_club.items():
         squad = data["teams"][club]["squad"]
@@ -496,6 +528,11 @@ def main():
             joueur["a"] = a
             joueur["mins"] = int(round(float(mins)))
             joueur["sbId"] = int(row["player_id"])
+            # On retient le nom tel que StatsBomb l'écrit : c'est celui des
+            # feuilles de match. Chercher le numéro avec le nom LFP échouait
+            # pour « Dylan Vangi », que les feuilles appellent « Luzolo Vangi
+            # Vungele » — il gardait alors un numéro périmé.
+            NOM_SB[int(row["player_id"])] = nom
             apparies_ids.add(id(joueur))
             touches += 1
             cle = methode.split(" ")[0]
@@ -549,14 +586,80 @@ def main():
     ajoutes = 0
     sans_numero = []
 
+    # ---- NUMÉROS DE MAILLOT : la feuille de match fait foi -----------------
+    # La liste LFP se trompe, et pas qu'à la marge. À Rodez elle donnait le
+    # n°10 à Mehdi Baaloudj — qui n'a jamais joué — alors qu'il est porté par
+    # Mathis Saka, titulaire ; et elle intervertissait Nagera (7) et Nsingi (9).
+    # Le numéro réellement porté sur le terrain est celui des feuilles de match.
+    # On le lit donc pour TOUS les joueurs appariés, pas seulement pour ceux
+    # qu'on crée, et on corrige la fiche quand il diffère.
+    #
+    # Le plus RÉCENT l'emporte : un joueur peut changer de numéro en cours de
+    # saison, et c'est son numéro actuel qui compte pour un rapport d'avant-match.
+    tous_ids, tous_noms = set(), {}
+    for t in data["teams"].values():
+        for p in t["squad"]:
+            if p.get("sbId") is not None:
+                sid_ = int(p["sbId"])
+                tous_ids.add(sid_)
+                # nom StatsBomb en priorité ; le nom LFP ne sert que de secours
+                tous_noms[sid_] = NOM_SB.get(sid_) or p.get("fullname") or ""
+    for _, nom_sb, row in a_ajouter:
+        try:
+            pid_b = int(row["player_id"])
+        except (TypeError, ValueError):
+            continue
+        tous_ids.add(pid_b)
+        tous_noms[pid_b] = nom_sb
+
+    print("\n--- Numéros de maillot (feuilles de match) ---")
+    NUMS = numeros_maillot(season_id, tous_ids, tous_noms)
+
+    corriges = []
+    for club_, t in data["teams"].items():
+        for p in t["squad"]:
+            sid = p.get("sbId")
+            if sid is None:
+                continue
+            n = NUMS.get(int(sid))
+            if n is None or n == p.get("num"):
+                continue
+            corriges.append((club_, p.get("fullname"), p.get("num"), n))
+            p["num"] = n
+    if corriges:
+        print("   %d numéros corrigés d'après les feuilles de match :" % len(corriges))
+        for c_, nom_, av, ap in corriges[:15]:
+            print("      %-14s %-26s %s -> %s" % (c_, nom_, av, ap))
+        if len(corriges) > 15:
+            print("      … et %d autres" % (len(corriges) - 15))
+    else:
+        print("   aucun écart entre la liste LFP et les feuilles de match")
+    # ALERTE. Zéro numéro lu alors qu'on en cherchait des centaines, c'est un
+    # défaut de lecture, pas une saison sans feuilles de match. C'est
+    # exactement ce qui s'est produit en silence : `sb.lineups` ne renvoie pas
+    # de colonne player_id, chaque ligne était écartée, et plus aucune fiche
+    # n'était créée.
+    if tous_ids and not NUMS:
+        raise SystemExit(
+            "ÉCHEC : aucun numéro de maillot retrouvé pour %d joueurs.\n"
+            "Les feuilles de match sont illisibles — %s n'a PAS été modifié."
+            % (len(tous_ids), chemin))
+
+
     # On ne crée des fiches que si la liste d'effectifs est bien CELLE de la
     # saison traitée. Sur une saison passée, la liste LFP disponible est celle
     # d'aujourd'hui : la moitié des joueurs sont partis, et il faudrait créer
     # 192 fiches sur 2025-2026 — des effectifs à 38 joueurs, illisibles sur la
-    # vue terrain, et pas ce qui est demandé. Au-delà d'un joueur manquant sur
-    # sept, on considère que la liste n'est pas contemporaine de la saison.
+    # vue terrain, et pas ce qui est demandé.
+    #
+    # SEUIL PORTÉ DE 15 À 30 %. À 15 % il était trop serré : au fil de la
+    # saison, de plus en plus de joueurs StatsBomb n'ont jamais été ajoutés à
+    # la liste LFP. Le 12 octobre on atteignait 15,7 %, le garde-fou s'est
+    # déclenché, et PLUS AUCUNE fiche n'a été créée — Mathis Saka, n°10 de
+    # Rodez et titulaire, a disparu de l'effectif sans que rien ne le signale.
+    # 2025-2026 reste protégé : il est à 39 %.
     effectif_total = sum(len(t["squad"]) for t in data["teams"].values())
-    if a_ajouter and effectif_total and len(a_ajouter) > 0.15 * effectif_total:
+    if a_ajouter and effectif_total and len(a_ajouter) > 0.30 * effectif_total:
         print("\n--- Création de fiches ABANDONNÉE ---")
         print("   %d joueurs manquants pour %d fiches d'effectif (%.0f %%)."
               % (len(a_ajouter), effectif_total, 100.0 * len(a_ajouter) / effectif_total))
@@ -565,14 +668,8 @@ def main():
         a_ajouter = []
 
     if a_ajouter:
-        besoins = set()
-        for _, _, row in a_ajouter:
-            try:
-                besoins.add(int(row["player_id"]))
-            except (TypeError, ValueError):
-                pass
         print("\n--- Joueurs absents de la liste LFP : %d à créer ---" % len(a_ajouter))
-        nums = numeros_maillot(season_id, besoins)
+        nums = NUMS
 
         deja = 0
         for club, nom, row in a_ajouter:
@@ -625,6 +722,37 @@ def main():
             print("   %d écartés faute de numéro de maillot :" % len(sans_numero))
             for c, n in sans_numero[:10]:
                 print("      %-14s %s" % (c, n))
+
+    # ---- NUMÉROS PÉRIMÉS ---------------------------------------------------
+    # Quand deux fiches d'un même club revendiquent le même numéro et qu'une
+    # seule a joué, c'est l'autre qui porte une information périmée : la LFP
+    # donnait le n°10 de Rodez à Mehdi Baaloudj, qui n'est jamais entré en jeu,
+    # alors que Mathis Saka le porte sur le terrain.
+    #
+    # On ne supprime pas la fiche — rien ne prouve que le joueur a quitté le
+    # club — mais on lui retire le numéro, qui n'est pas le sien. Elle sort
+    # alors de la vue terrain, qui n'affiche que les joueurs numérotés.
+    perimes = []
+    for club_, t in data["teams"].items():
+        par_num = {}
+        for p in t["squad"]:
+            if isinstance(p.get("num"), int):
+                par_num.setdefault(p["num"], []).append(p)
+        for num, lot in par_num.items():
+            if len(lot) < 2:
+                continue
+            joueurs_reels = [p for p in lot if (p.get("mins") or 0) > 0]
+            fantomes = [p for p in lot if (p.get("mins") or 0) == 0 and p.get("sbId") is None]
+            # On ne tranche que si UN SEUL joueur a réellement porté le numéro.
+            if len(joueurs_reels) == 1 and fantomes:
+                for p in fantomes:
+                    perimes.append((club_, p.get("fullname"), num, joueurs_reels[0].get("fullname")))
+                    p["num"] = None
+    if perimes:
+        print("\n   %d numéro(s) périmé(s) retiré(s) — le joueur n'a jamais joué "
+              "et le numéro est porté par un autre :" % len(perimes))
+        for c_, nom_, num_, vrai_ in perimes[:10]:
+            print("      %-14s %-24s n°%-3s est porté par %s" % (c_, nom_, num_, vrai_))
 
     # Toute carte que CE RUN n'a pas alimentée repart à zéro.
     #

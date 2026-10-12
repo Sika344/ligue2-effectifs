@@ -128,6 +128,22 @@ def cell_of(loc):
     return r, c
 
 
+# Minute de match affichable. Le chronomètre StatsBomb REPART À ZÉRO à chaque
+# période : sans ce décalage, un but de la 70e minute s'affichait « 25' ». Le
+# maximum relevé sur la saison était 53, ce qui trahissait le défaut.
+BASE_PERIODE = {1: 0, 2: 45, 3: 90, 4: 105, 5: 120}
+
+
+def minute_match(periode, secondes):
+    if secondes is None:
+        return None
+    try:
+        p = int(periode)
+    except (TypeError, ValueError):
+        p = 1
+    return BASE_PERIODE.get(p, 0) + int(secondes // 60) + 1
+
+
 def tsec(ts):
     """timestamp StatsBomb "HH:MM:SS.mmm" -> secondes écoulées dans la période."""
     try:
@@ -210,6 +226,7 @@ def main():
         # couvre donc l'intégralité des pertes de l'équipe.
         # Les minutes viennent de ligue2_<saison>.json, côté page.
         joueurs = {}
+        risk_ev = []      # journal des pertes a risque (diapo d'analyse)
         sans_auteur = 0   # pertes sans joueur identifie (ne doit pas arriver)
         n = 0
         for mid in mids:
@@ -247,6 +264,8 @@ def main():
             c_sout = col("shot_outcome")
             c_player = col("player")
             c_pid = col("player_id")
+            c_prec = col("pass_recipient")
+            c_precid = col("pass_recipient_id")
             c_kp = col("shot_key_pass_id")
             c_id = col("id")
             by_id = {}
@@ -270,6 +289,56 @@ def main():
                                  c_ptype.get(idx) if c_ptype is not None else None):
                     continue
                 danger.setdefault(c_poss.get(idx), []).append((c_per.get(idx), t))
+
+            # PASSES REÇUES par nos joueurs, pour retrouver « qui lui a donné le
+            # ballon » juste avant une perte. On indexe par destinataire : pour
+            # une perte, il suffit de prendre la dernière passe reçue par ce
+            # joueur, dans la même séquence et avant l'instant de la perte.
+            #
+            # Le destinataire n'est renseigné que si la passe est ARRIVÉE — une
+            # passe ratée n'a pas de destinataire. C'est exactement ce qu'on
+            # veut : la relation décrit un ballon effectivement transmis.
+            recues = {}
+            if c_prec is not None:
+                for idx in ev.index:
+                    if c_type.get(idx) != "Pass" or c_team.get(idx) != team:
+                        continue
+                    if c_pout is not None and not blank(c_pout.get(idx)):
+                        continue                      # passe non arrivée
+                    rid = c_precid.get(idx) if c_precid is not None else None
+                    if rid is None or rid != rid:
+                        continue
+                    tt = tsec(c_ts.get(idx))
+                    if tt is None:
+                        continue
+                    xy = c_loc.get(idx) if c_loc is not None else None
+                    try:
+                        px = float(xy[0])
+                    except (TypeError, ValueError, IndexError):
+                        px = None
+                    if px is not None and px != px:
+                        px = None
+                    recues.setdefault(int(rid), []).append({
+                        "poss": c_poss.get(idx), "per": c_per.get(idx), "t": tt,
+                        "pid": (int(c_pid.get(idx))
+                                if c_pid is not None and c_pid.get(idx) == c_pid.get(idx)
+                                else None),
+                        "nom": (c_player.get(idx) if c_player is not None else None),
+                        "x": px,
+                    })
+                for v in recues.values():
+                    v.sort(key=lambda r: ((r["per"] if r["per"] is not None else 0), r["t"]))
+
+            def passe_avant(pid_recepteur, per0, t0, poss0):
+                """Dernière passe reçue par ce joueur, même séquence, avant t0."""
+                best = None
+                for r in recues.get(pid_recepteur, ()):
+                    if r["poss"] != poss0 or r["per"] != per0:
+                        continue
+                    if r["t"] >= t0:
+                        break
+                    best = r
+                return best
 
             for idx in ev.index:
                 if c_team.get(idx) != team or c_per.get(idx) == SHOOTOUT_PERIOD:
@@ -317,6 +386,38 @@ def main():
                         risk[cell[0]][cell[1]] += 1
                         if fiche is not None:
                             fiche["risk"] += 1
+
+                        # Journal des pertes à risque, une ligne par événement.
+                        # C'est lui qui alimente la diapo d'analyse : classement
+                        # des joueurs, relations de passe, filtre par zone et
+                        # détail match + minute au survol. On stocke les
+                        # abscisses brutes, pas des zones : le découpage du
+                        # terrain reste réglable dans la page.
+                        xl = None
+                        _lc = c_loc.get(idx) if c_loc is not None else None
+                        try:
+                            xl = round(float(_lc[0]), 1)
+                        except (TypeError, ValueError, IndexError):
+                            xl = None
+                        if xl is not None and xl != xl:
+                            xl = None
+                        pr = (passe_avant(int(_pid), per0, t0, p0)
+                              if (_pid is not None and _pid == _pid) else None)
+                        risk_ev.append({
+                            # le joueur qui perd le ballon
+                            "p":  (int(_pid) if _pid is not None and _pid == _pid else None),
+                            "pn": (c_player.get(idx) if c_player is not None else "") or "",
+                            "x":  xl,
+                            # celui qui venait de lui donner le ballon ; null
+                            # quand la perte ne suit aucune passe (duel gagné,
+                            # récupération, touche)
+                            "f":  (pr["pid"] if pr else None),
+                            "fn": ((pr["nom"] or "") if pr else ""),
+                            "fx": (pr["x"] if pr else None),
+                            "t":  c_type.get(idx) or "",
+                            "m":  match_label.get(mid, ""),
+                            "min": minute_match(per0, t0),
+                        })
                         break
                 for per1, t1, sidx in scored.get(target, ()):
                     if per1 == per0 and 0 < (t1 - t0) <= RISK_WINDOW:
@@ -329,7 +430,7 @@ def main():
                             break
                         if fiche is not None:
                             fiche["goal"] += 1
-                        minute = int((tsec(c_ts.get(sidx)) or 0) // 60) + 1
+                        minute = minute_match(c_per.get(sidx), tsec(c_ts.get(sidx)))
                         scorer = c_player.get(sidx) if c_player is not None else None
                         passer = None
                         kid = c_kp.get(sidx) if c_kp is not None else None
@@ -355,7 +456,10 @@ def main():
                            # le même que le champ sbId des effectifs.
                            "players": {str(k): v for k, v in
                                        sorted(joueurs.items(),
-                                              key=lambda kv: -kv[1]["loss"])}}
+                                              key=lambda kv: -kv[1]["loss"])},
+                           # une ligne par perte a risque : joueur, passeur,
+                           # abscisses, match et minute
+                           "risk_ev": risk_ev}
 
         # Contrôle : chaque perte ayant un auteur, la somme par joueur doit
         # égaler le total de l'équipe. Un écart signale une perte de comptage.
