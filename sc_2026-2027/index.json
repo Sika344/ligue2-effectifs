@@ -2,7 +2,7 @@
  "competition": "Ligue 2",
  "season": "2026-2027",
  "season_id": 351,
- "updated": "2026-10-12T23:35:54Z",
+ "updated": "2026-10-13T10:09:55Z",
  "matches": [
   {
    "match_id": 4063892,
@@ -578,7 +578,7 @@
    "round": 8,
    "home": "Dijon",
    "away": "Metz",
-   "score": ""
+   "score": "4-2"
   },
   {
    "match_id": 4063964,
