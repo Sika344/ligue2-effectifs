@@ -342,6 +342,38 @@
   .clst .cltit{font-size:10.5px;font-weight:700;letter-spacing:.1em;color:#9aa4b6;
     text-transform:uppercase;margin-bottom:6px}
 
+  /* Diapo « pertes à risque — joueurs et relations » */
+  .prwrap{display:grid;grid-template-columns:1fr 1fr;gap:22px;padding:4px 18px 10px}
+  @media(max-width:860px){.prwrap{grid-template-columns:1fr}}
+  .prcol h4{margin:0 0 8px;font-size:11px;font-weight:800;letter-spacing:.08em;
+    text-transform:uppercase;color:#0a1733}
+  .prcol h4 em{font-style:normal;font-weight:600;color:#9aa4b6;letter-spacing:.02em;
+    text-transform:none;font-size:10.5px}
+  .prrow{position:relative;display:flex;align-items:center;gap:9px;padding:5px 0;
+    border-top:1px solid #f1f3f6}
+  .prrow:first-of-type{border-top:0}
+  .prrow .rk{flex:0 0 16px;text-align:right;font-size:11px;font-weight:800;color:#c2c8d4}
+  .prrow .nm{flex:1 1 auto;min-width:0;font-size:12.5px;font-weight:700;color:#16223d;
+    white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  .prrow .nm small{display:block;font-size:10.5px;font-weight:600;color:#9aa4b6}
+  .prrow .vv{flex:0 0 auto;font-size:15px;font-weight:800;color:#0a1733;
+    font-variant-numeric:tabular-nums}
+  .prrow.sans .nm{color:#8a93a6;font-style:italic}
+  .prvide{font-size:11.5px;color:#9aa4b6;font-weight:600;padding:8px 0}
+  /* Détail match + minute au survol. Même parti pris que l'infobulle des
+     compositions : tout en CSS, pour survivre aux reconstructions de la page. */
+  .prrow .prtip{position:absolute;left:0;top:100%;z-index:9;display:none;
+    pointer-events:none;background:#0a1733;color:#fff;border-radius:7px;
+    padding:7px 10px;box-shadow:0 6px 18px rgba(0,0,0,.35);min-width:210px}
+  .prrow:hover .prtip{display:block}
+  .prrow:hover{z-index:8}
+  .prtip .l{font-size:11px;font-weight:600;line-height:1.45;white-space:nowrap}
+  .prtip .l b{font-weight:800}
+  .przone{display:flex;align-items:center;gap:8px;margin-left:auto;font-size:11.5px;
+    color:#6b7280}
+  .przone select{font-family:inherit;font-size:12px;padding:4px 8px;
+    border:1px solid #d8dce3;border-radius:7px}
+
   .cicols{display:grid;grid-template-columns:1.5fr 1fr;gap:24px}
   @media(max-width:760px){.cicols{grid-template-columns:1fr}}
   .cicols h3{margin:0 0 6px;font-size:10.5px;font-weight:700;letter-spacing:.1em;color:#9aa4b6;
@@ -1375,6 +1407,138 @@ function clubIntroBlockHTML(club){
     '</div></div>';
 }
 
+/* =====================================================================
+   DIAPO « PERTES À RISQUE — JOUEURS ET RELATIONS »
+
+   Même définition de perte à risque que la plaque du dessus : une perte
+   suivie, dans les 10 s et sur la séquence adverse ouverte juste après, d'un
+   tir ou d'un centre en jeu courant.
+
+   Deux lectures :
+     - QUI perd le ballon dans la zone choisie ;
+     - QUELLE RELATION y mène, c'est-à-dire qui venait de lui donner le ballon.
+
+   LA ZONE ne s'applique pas de la même façon aux deux :
+     - classement des joueurs : on filtre sur l'endroit de la PERTE, le seul
+       point qui existe toujours ;
+     - relations : la passe ET la perte doivent être dans la zone, comme
+       demandé. Une relation à cheval sur deux zones n'apparaît donc nulle
+       part, et c'est voulu : elle ne décrit pas un problème localisé.
+
+   Découpage en quatre quarts de 30 unités StatsBomb, dans le sens de jeu de
+   l'équipe analysée : 0 = sa propre ligne de but, 120 = celle de l'adversaire. */
+const PR_ZONES = [
+  ["Tout le terrain",           null],
+  ["1 · Zone basse",            [0, 30]],
+  ["2 · Zone médiane basse",    [30, 60]],
+  ["3 · Zone médiane haute",    [60, 90]],
+  ["4 · Zone haute",            [90, 120]]
+];
+let PR_ZONE = 0;
+const PR_N = 5;
+
+function prDansZone(x, z){
+  if(!z) return true;
+  if(x === null || x === undefined) return false;   // sans position : écarté
+  // Borne haute incluse sur le dernier quart, sinon un ballon perdu
+  // exactement sur la ligne de but ne tomberait dans aucune zone.
+  return x >= z[0] && (z[1] >= 120 ? x <= z[1] : x < z[1]);
+}
+
+/* Les occurrences (match + minute) affichées au survol. Triées par match puis
+   par minute, pour qu'on puisse les retrouver dans la vidéo dans l'ordre. */
+function prTip(evts){
+  const l = evts.slice().sort((a,b)=> (a.m||"").localeCompare(b.m||"") || (a.min||0)-(b.min||0));
+  const lignes = l.slice(0, 8).map(e =>
+    '<div class="l"><b>' + (e.min != null ? e.min + "'" : "—") + '</b>  ' + esc(e.m || "") + '</div>'
+  ).join("");
+  const reste = l.length > 8 ? '<div class="l" style="opacity:.6">… et ' + (l.length-8) + ' autre(s)</div>' : '';
+  return '<div class="prtip">' + lignes + reste + '</div>';
+}
+
+function pertesRisqueBlockHTML(club){
+  const jt = LOSS && LOSS.teams ? matchTeam(club, Object.keys(LOSS.teams)) : null;
+  const t  = jt ? LOSS.teams[jt] : null;
+  const evts = t && Array.isArray(t.risk_ev) ? t.risk_ev : null;
+
+  const entete = '<div class="matchblock"><div class="mbtools">' +
+    '<span class="mlbl">OFFENSIF · Pertes à risque, joueurs et relations · ' + club + '</span>';
+
+  if(!evts){
+    return entete + '</div><div class="board lossboard"><div class="xgnote" style="padding:26px 16px">' +
+      'Cette diapo s\'affichera dès que <code>losses.json</code> contiendra le journal ' +
+      '<code>risk_ev</code>. Relance le workflow <b>Build zones de pertes</b> après avoir ' +
+      'déposé la nouvelle version de <code>build_losses.py</code>.</div></div></div>';
+  }
+
+  const z = PR_ZONES[PR_ZONE][1];
+
+  // --- qui perd le ballon, dans la zone
+  const parJoueur = {};
+  evts.forEach(e => {
+    if(!prDansZone(e.x, z)) return;
+    const k = String(e.p);
+    (parJoueur[k] = parJoueur[k] || { nom: e.pn, ev: [] }).ev.push(e);
+  });
+  const joueurs = Object.values(parJoueur).sort((a,b)=> b.ev.length - a.ev.length)
+                        .slice(0, PR_N);
+
+  // --- quelle relation y mène. La passe ET la perte dans la zone.
+  const parRel = {}; let sansPasse = [];
+  evts.forEach(e => {
+    if(!prDansZone(e.x, z)) return;
+    if(e.f == null){ sansPasse.push(e); return; }
+    if(!prDansZone(e.fx, z)) return;
+    const k = e.f + ">" + e.p;
+    (parRel[k] = parRel[k] || { de: e.fn, vers: e.pn, ev: [] }).ev.push(e);
+  });
+  const rels = Object.values(parRel).sort((a,b)=> b.ev.length - a.ev.length).slice(0, PR_N);
+
+  const ligne = (i, titre, sous, n, ev, cls) =>
+    '<div class="prrow' + (cls||"") + '">' +
+      (i != null ? '<span class="rk">' + i + '</span>' : '<span class="rk"></span>') +
+      '<span class="nm">' + titre + (sous ? '<small>' + sous + '</small>' : '') + '</span>' +
+      '<span class="vv">' + n + '</span>' + prTip(ev) + '</div>';
+
+  const colJ = joueurs.length
+    ? joueurs.map((j,i)=> ligne(i+1, esc(j.nom), null, j.ev.length, j.ev, "")).join("")
+    : '<div class="prvide">Aucune perte à risque dans cette zone.</div>';
+
+  const colR = (rels.length || sansPasse.length)
+    ? rels.map((r,i)=> ligne(i+1, esc(r.de) + ' <span style="color:#9aa4b6">→</span> ' + esc(r.vers),
+                             null, r.ev.length, r.ev, "")).join("") +
+      (sansPasse.length
+        ? ligne(null, "Sans passe avant la perte",
+                "duel gagné, récupération, touche", sansPasse.length, sansPasse, " sans")
+        : "")
+    : '<div class="prvide">Aucune relation dans cette zone.</div>';
+
+  const nZone = evts.filter(e => prDansZone(e.x, z)).length;
+  const sel = '<span class="przone">Zone<select id="prZoneSel">' +
+    PR_ZONES.map((zz,i)=>'<option value="'+i+'"'+(i===PR_ZONE?' selected':'')+'>'+zz[0]+'</option>').join("") +
+    '</select></span>';
+
+  const sub = (LOSS.season||'') + ' · ' + t.matches + ' matchs · ' + (t.risk_total||0) +
+    ' pertes à risque sur la saison · ' + nZone + ' dans la zone retenue';
+
+  return entete + sel + '<button class="pngbtn" data-board="board-prisk">⬇ PNG</button></div>' +
+    '<div class="board board-snap lossboard" id="board-prisk">' +
+      '<div class="losshead"><span class="ttl">OFFENSIF — PERTES À RISQUE : QUI, ET AVEC QUI</span>' +
+        '<span class="sub">' + sub + '</span></div>' +
+      '<div class="prwrap">' +
+        '<div class="prcol"><h4>Perdent le plus de ballons à risque<br>' +
+          '<em>zone de la perte</em></h4>' + colJ + '</div>' +
+        '<div class="prcol"><h4>Relations qui mènent à une perte à risque<br>' +
+          '<em>passe et perte dans la zone</em></h4>' + colR + '</div>' +
+      '</div>' +
+      '<div class="lossfoot"><span class="lossnote">Une perte est dite <b>à risque</b> quand ' +
+        'l\'adversaire produit un tir ou un centre en jeu courant dans les 10 s qui suivent, ' +
+        'sur la séquence ouverte juste après. La relation est la <b>dernière passe reçue</b> par ' +
+        'le joueur avant qu\'il ne perde le ballon. <b>Survole une ligne</b> pour voir le match et ' +
+        'la minute de chaque occurrence.</span></div>' +
+    '</div></div>';
+}
+
 /* Mini-classement : l'équipe du rapport et ses voisines immédiates.
 
    FENÊTRE DE 7 LIGNES, glissante et bornée aux extrémités du classement :
@@ -1444,6 +1608,7 @@ function renderClub(club){
   blocks.push(outpossBlockHTML(club));
   blocks.push(lossesBlockHTML(club));
   blocks.push(lossesRiskBlockHTML(club));
+  blocks.push(pertesRisqueBlockHTML(club));
   blocks.push(recoBlockHTML(club));
   blocks.push(recoRiskBlockHTML(club));
   document.getElementById("stack").innerHTML = blocks.join("");
@@ -1459,6 +1624,8 @@ function renderClub(club){
   document.querySelectorAll(".topMinSel").forEach(sel=>{
     sel.onchange=()=>{ TOP_MIN=+sel.value; renderClub(club); };
   });
+  const pz=document.getElementById("prZoneSel");
+  if(pz) pz.onchange=()=>{ PR_ZONE=+pz.value; renderClub(club); };
 }
 
 /* ===== export (inline les photos externes avant capture) ===== */
