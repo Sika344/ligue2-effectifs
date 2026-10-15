@@ -103,8 +103,20 @@ def frame_count(match_id):
 def do_probe(sample=10):
     ms = matches()
     print(f"{len(ms)} matchs en base (comp {COMP} saison {SEASON})")
-    # echantillonne les plus recents joues
-    played = [m for m in ms if m["hs"] is not None][-sample:]
+    # Échantillonne les plus récents JOUÉS.
+    #
+    # `m["hs"] is not None` ne suffisait pas : un match à venir a un score à
+    # NaN, et NaN n'est pas None — le filtre laissait donc tout passer. Sur une
+    # saison en cours, le sondage interrogeait les dix dernières journées du
+    # calendrier, non disputées, et renvoyait zéro frame partout. On en
+    # concluait que le 360 n'était pas couvert, alors qu'il l'était.
+    # NaN est la seule valeur différente d'elle-même : c'est le test fiable.
+    def joue(m):
+        h = m.get("hs")
+        return h is not None and h == h
+    played = [m for m in ms if joue(m)][-sample:]
+    if not played:
+        print("  aucun match joué dans cette saison — rien à sonder")
     cov = []
     best = None
     for m in played:

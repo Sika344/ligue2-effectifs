@@ -192,6 +192,8 @@
       </div>
 
       <div class="note" id="note"></div>
+
+      <div id="runlastBox" class="g-buildup" style="margin-top:18px"></div>
     </div>
     </div>
   </div>
@@ -582,7 +584,98 @@ function renderTops(R){
                 '<div class="toph">Top 5 dernières passes</div>'+list(cnt(s=>s[8]),"passe décisive");
 }
 
+/* =====================================================================
+   FRANCHISSEMENTS DE LA DERNIÈRE LIGNE, EN CONSTRUCTION
+
+   Données : runlast_<saison>.json, produit par build_runlast.py à partir des
+   images 360. Deux mesures par case :
+     FRANCHISSEMENT  un joueur au-delà de la dernière ligne adverse alors qu'il
+                     ne l'était pas sur l'image précédente
+     PRÉSENCE        un joueur déjà au-delà, à cet instant
+
+   Le tableau croise la zone du BALLON (en lignes) et celle du FRANCHISSEMENT
+   (en colonnes). Beaucoup de cases resteront vides : franchir la dernière
+   ligne se produit presque toujours dans le dernier quart. C'est une propriété
+   du jeu, pas un défaut de calcul, et la colonne « Haute » concentrera
+   l'essentiel.
+
+   Le 360 donne des photos, pas un film : un franchissement est déduit de deux
+   images successives, pas observé. Et une image sur trois est écartée faute de
+   voir assez de défenseurs. La base retenue est donc affichée en clair. */
+let RUNLAST = null;
+
+function runlastHTML(){
+  if(!RUNLAST) return "";
+  const eq = HILITE && RUNLAST.teams[HILITE] ? HILITE : null;
+  const noms = RUNLAST.zones || ["Basse","Médiane basse","Médiane haute","Haute"];
+
+  // Sans équipe choisie, on additionne toute la ligue : une plaque vide
+  // n'apprendrait rien à l'ouverture.
+  let t;
+  if(eq){ t = RUNLAST.teams[eq]; }
+  else {
+    t = { matches:0, frames_vues:0, frames_retenues:0,
+          cross_pass:[[0,0,0,0],[0,0,0,0],[0,0,0,0],[0,0,0,0]],
+          cross_pres:[[0,0,0,0],[0,0,0,0],[0,0,0,0],[0,0,0,0]],
+          franch_total:0, presence_total:0 };
+    for(const v of Object.values(RUNLAST.teams)){
+      t.matches+=v.matches; t.frames_vues+=v.frames_vues; t.frames_retenues+=v.frames_retenues;
+      t.franch_total+=v.franch_total; t.presence_total+=v.presence_total;
+      for(let i=0;i<4;i++) for(let j=0;j<4;j++){
+        t.cross_pass[i][j]+=v.cross_pass[i][j];
+        t.cross_pres[i][j]+=v.cross_pres[i][j];
+      }
+    }
+  }
+
+  const hi = Math.max(1, ...t.cross_pass.flat());
+  const cell = (f,p) => {
+    const inten = f ? 0.12 + 0.68*(f/hi) : 0;
+    const fond = f ? 'background:rgba(13,59,140,'+inten.toFixed(3)+')' : '';
+    const enc = f && inten>0.45 ? 'color:#fff' : '';
+    return '<td style="'+fond+';'+enc+'">'+
+      '<b style="font-size:14px;font-weight:800">'+f+'</b>'+
+      '<span style="display:block;font-size:10px;opacity:.65">'+p+' prés.</span></td>';
+  };
+
+  let lignes = "";
+  for(let i=0;i<4;i++){
+    lignes += '<tr><th style="text-align:left;font-weight:700;color:#1f2937">'+noms[i]+'</th>' +
+      t.cross_pass[i].map((f,j)=>cell(f, t.cross_pres[i][j])).join("") +
+      '<td style="font-weight:800;color:#0d3b8c">'+t.cross_pass[i].reduce((a,b)=>a+b,0)+'</td></tr>';
+  }
+
+  const part = t.frames_vues ? Math.round(100*t.frames_retenues/t.frames_vues) : 0;
+  const pm = t.matches ? (t.franch_total/t.matches).toFixed(1) : "0";
+
+  return '<div class="card" style="padding:16px 18px">' +
+    '<div style="display:flex;align-items:baseline;gap:10px;flex-wrap:wrap;margin-bottom:10px">' +
+      '<span style="font-size:13px;font-weight:800;letter-spacing:.04em;text-transform:uppercase;color:#0a1733">' +
+        'Franchissements de la dernière ligne</span>' +
+      '<span style="font-size:11.5px;color:#6b7280">' + (eq ? eq : "toutes équipes") +
+        ' · ' + t.matches + ' matchs · ' + t.franch_total + ' franchissements (' + pm + '/match)</span>' +
+    '</div>' +
+    '<table style="border-collapse:collapse;font-size:12px;width:100%;max-width:620px">' +
+      '<thead><tr><th style="text-align:left;font-size:10px;text-transform:uppercase;' +
+        'letter-spacing:.06em;color:#9ca3af;padding-bottom:6px">Ballon \\ franchissement</th>' +
+        noms.map(n=>'<th style="font-size:10px;text-transform:uppercase;letter-spacing:.06em;' +
+          'color:#9ca3af;padding-bottom:6px">'+n+'</th>').join("") +
+        '<th style="font-size:10px;color:#9ca3af">Tot</th></tr></thead>' +
+      '<tbody>'+lignes+'</tbody></table>' +
+    '<div style="margin-top:10px;font-size:11px;color:#6b7280;line-height:1.55">' +
+      'Grand chiffre = <b>franchissements</b> (un joueur passe derrière la dernière ligne adverse) ; ' +
+      'petit chiffre = <b>présence</b> (joueurs déjà au-delà). Lignes = zone du ballon, colonnes = zone ' +
+      'du franchissement. ' +
+      '<b>Base : ' + t.frames_retenues.toLocaleString("fr-FR") + ' images retenues sur ' +
+      t.frames_vues.toLocaleString("fr-FR") + ' (' + part + ' %)</b> — les autres ne montrent pas assez ' +
+      'de défenseurs pour situer la ligne. Le 360 donne des positions à l\'instant d\'un événement, ' +
+      'pas une trajectoire : un franchissement est déduit de deux images successives.' +
+    '</div></div>';
+}
+
 function render(){
+  const rb=document.getElementById("runlastBox");
+  if(rb) rb.innerHTML = (CHART==="buildup") ? runlastHTML() : "";
   if(CHART==="buildup") renderBuildup();
   else if(CHART==="goalsxg") renderGoalsXG();
   else renderFinishing();
@@ -677,6 +770,13 @@ fetch(SEASON.fichier("finishing.json")+"?_="+Date.now()).then(r=>r.ok?r.json():n
     } }
   if(CHART==="finishing") render();
 }).catch(()=>{});
+/* Chargement non bloquant : sans runlast_<saison>.json la page reste
+   parfaitement utilisable, la plaque ne s'affiche simplement pas. */
+fetch(SEASON.fichier("runlast.json")+"?_="+Date.now())
+  .then(r=>r.ok?r.json():null)
+  .then(d=>{ if(d && d.teams){ RUNLAST=d; render(); } })
+  .catch(()=>{});
+
 fetch(SEASON.fichier("buildup.json")+"?_="+Date.now()).then(r=>r.ok?r.json():null).then(d=>{
   if(!d){ document.getElementById("plot").innerHTML=
     '<div class="empty">La page s\'affichera dès que <b>buildup.json</b> sera présent à la racine du repo.<br>Ce fichier est généré par <b>build_buildup.py</b> via une GitHub Action.</div>';
