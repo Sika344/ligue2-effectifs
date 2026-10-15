@@ -1,0 +1,114 @@
+# À déposer dans .github/workflows/runlast.yml
+#
+# Franchissements de la dernière ligne adverse, en construction, à partir des
+# images 360. Produit runlast_<saison>.json pour la plaque « Construction »
+# de attacking.html.
+#
+# ------------------------------------------------------------------ DURÉE
+# Deux appels par match — les images 360 puis les événements — sur tous les
+# matchs joués. Environ 3 000 positions par match. Compte 30 à 60 minutes sur
+# une saison avancée. Ce n'est donc PAS un script à mettre dans le passage de
+# journée : on le lance quand on veut rafraîchir cette plaque.
+#
+# ------------------------------------------------------------ SAISON
+# Contrairement aux vieux workflows, celui-ci a une saison par défaut. Laissé
+# vide, il traite 2026-2027 et non la saison codée en dur dans le script —
+# c'est le piège qui nous a coûté plusieurs runs pour rien.
+
+name: Franchissements derniere ligne (360)
+
+on:
+  workflow_dispatch:
+    inputs:
+      season:
+        description: "Saison (vide = saison par défaut du workflow)"
+        required: false
+        default: ""
+
+permissions:
+  contents: write
+
+concurrency:
+  group: maj-journee          # même verrou que les autres : ils écrivent tous
+  cancel-in-progress: false   # dans le même dépôt
+
+env:
+  SAISON_PAR_DEFAUT: "2026-2027"
+
+jobs:
+  runlast:
+    runs-on: ubuntu-latest
+    timeout-minutes: 120
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install deps
+        run: pip install --quiet statsbombpy pandas requests
+
+      - name: Saison retenue
+        id: s
+        run: |
+          SAISON="${{ inputs.season }}"
+          # bash tourne avec -e : « [ ... ] && cmd » renverrait 1 quand le test
+          # est faux et ferait échouer l'étape. D'où le if/fi explicite.
+          if [ -z "$SAISON" ]; then SAISON="${{ env.SAISON_PAR_DEFAUT }}"; fi
+          echo "saison=$SAISON" >> "$GITHUB_OUTPUT"
+          echo "### Saison traitée : \`$SAISON\`" >> "$GITHUB_STEP_SUMMARY"
+
+      - name: Calcul des franchissements
+        env:
+          SB_USERNAME: ${{ secrets.SB_USERNAME }}
+          SB_PASSWORD: ${{ secrets.SB_PASSWORD }}
+          SEASON: ${{ steps.s.outputs.saison }}
+        run: python build_runlast.py | tee sortie.txt
+
+      # Le journal d'un run finit par disparaître ; le résumé, non. C'est là
+      # qu'on relit la part d'images exploitables, qui conditionne la lecture.
+      - name: Résumé
+        if: always()
+        run: |
+          {
+            echo "### Résultat"
+            echo '```'
+            tail -n 30 sortie.txt 2>/dev/null || echo "(aucune sortie)"
+            echo '```'
+          } >> "$GITHUB_STEP_SUMMARY"
+
+      - name: Commit
+        run: |
+          git config user.name  "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add -- 'runlast*.json'
+          if git diff --staged --quiet; then
+            echo "Aucune donnée modifiée."
+            exit 0
+          fi
+          git commit -q -m "chore: franchissements derniere ligne (${{ steps.s.outputs.saison }})"
+
+          # Même récupération que les autres workflows : un rebase bloqué ne
+          # doit pas condamner les tentatives suivantes.
+          pousse=0
+          for i in 1 2 3 4 5; do
+            if git push; then
+              echo "push OK (tentative $i)"
+              pousse=1
+              break
+            fi
+            echo "push rejeté (tentative $i) — resynchronisation…"
+            git rebase --abort 2>/dev/null || true
+            if ! git pull --rebase --autostash origin main; then
+              echo "conflit : on garde nos fichiers régénérés"
+              git checkout --theirs -- . 2>/dev/null || true
+              git add -A
+              GIT_EDITOR=true git rebase --continue || git rebase --abort || true
+            fi
+            sleep $((RANDOM % 5 + 2))
+          done
+          if [ "$pousse" != 1 ]; then
+            echo "::error::push impossible après 5 tentatives — rien n'a été enregistré."
+            exit 1
+          fi
