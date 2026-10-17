@@ -2,7 +2,7 @@
  "competition": "Ligue 2",
  "season": "2026-2027",
  "season_id": 351,
- "updated": "2026-10-17T07:37:50Z",
+ "updated": "2026-10-17T18:03:56Z",
  "matches": [
   {
    "match_id": 4063892,
@@ -594,7 +594,7 @@
    "round": 9,
    "home": "Grenoble Foot",
    "away": "US Boulogne",
-   "score": ""
+   "score": "0-2"
   },
   {
    "match_id": 4063971,
@@ -618,7 +618,7 @@
    "round": 9,
    "home": "Stade de Reims",
    "away": "Dijon",
-   "score": ""
+   "score": "4-2"
   },
   {
    "match_id": 4063969,
