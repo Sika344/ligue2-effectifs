@@ -1016,6 +1016,22 @@
      "sbId": 189641
     },
     {
+     "num": 13,
+     "name": "ETONDE",
+     "fullname": "Luderic Etonde",
+     "pos": "ATT",
+     "posDesc": "ST",
+     "height": 190,
+     "age": 26,
+     "photo": "",
+     "photoLFP": false,
+     "ajouteStatsBomb": true,
+     "g": 0,
+     "a": 0,
+     "mins": 42,
+     "sbId": 46757
+    },
+    {
      "num": 35,
      "name": "DIA",
      "fullname": "Cheikh Ibrahim Dia",
@@ -1030,22 +1046,6 @@
      "a": 0,
      "mins": 82,
      "sbId": 571587
-    },
-    {
-     "num": 36,
-     "name": "SOUMAH",
-     "fullname": "Mohamed Soumah",
-     "pos": "ATT",
-     "posDesc": "ST",
-     "height": null,
-     "age": 20,
-     "photo": "",
-     "photoLFP": false,
-     "ajouteStatsBomb": true,
-     "g": 0,
-     "a": 1,
-     "mins": 173,
-     "sbId": 338191
     },
     {
      "num": 64,
@@ -1080,20 +1080,20 @@
      "sbId": 407118
     },
     {
-     "num": 13,
-     "name": "ETONDE",
-     "fullname": "Luderic Etonde",
+     "num": 36,
+     "name": "SOUMAH",
+     "fullname": "Mohamed Soumah",
      "pos": "ATT",
      "posDesc": "ST",
-     "height": 190,
-     "age": 26,
+     "height": null,
+     "age": 20,
      "photo": "",
      "photoLFP": false,
      "ajouteStatsBomb": true,
      "g": 0,
-     "a": 0,
-     "mins": 42,
-     "sbId": 46757
+     "a": 1,
+     "mins": 173,
+     "sbId": 338191
     }
    ]
   },
@@ -1664,38 +1664,6 @@
      "sbId": 408198
     },
     {
-     "num": 7,
-     "name": "BIANCHINI",
-     "fullname": "Florian Bianchini",
-     "pos": "ATT",
-     "posDesc": "LW",
-     "height": 177,
-     "age": 25,
-     "photo": "",
-     "photoLFP": false,
-     "ajouteStatsBomb": true,
-     "g": 2,
-     "a": 1,
-     "mins": 385,
-     "sbId": 48485
-    },
-    {
-     "num": 9,
-     "name": "SEMEDO",
-     "fullname": "Luís Hemir Silva Semedo",
-     "pos": "ATT",
-     "posDesc": "ST",
-     "height": 192,
-     "age": 23,
-     "photo": "",
-     "photoLFP": false,
-     "ajouteStatsBomb": true,
-     "g": 0,
-     "a": 0,
-     "mins": 64,
-     "sbId": 151809
-    },
-    {
      "num": 26,
      "name": "N'GUESSAN",
      "fullname": "Rominigue Kouamé N'Guessan",
@@ -1726,6 +1694,38 @@
      "a": 1,
      "mins": 386,
      "sbId": 3019
+    },
+    {
+     "num": 7,
+     "name": "BIANCHINI",
+     "fullname": "Florian Bianchini",
+     "pos": "ATT",
+     "posDesc": "LW",
+     "height": 177,
+     "age": 25,
+     "photo": "",
+     "photoLFP": false,
+     "ajouteStatsBomb": true,
+     "g": 2,
+     "a": 1,
+     "mins": 385,
+     "sbId": 48485
+    },
+    {
+     "num": 9,
+     "name": "SEMEDO",
+     "fullname": "Luís Hemir Silva Semedo",
+     "pos": "ATT",
+     "posDesc": "ST",
+     "height": 192,
+     "age": 23,
+     "photo": "",
+     "photoLFP": false,
+     "ajouteStatsBomb": true,
+     "g": 0,
+     "a": 0,
+     "mins": 64,
+     "sbId": 151809
     }
    ]
   },
@@ -2164,11 +2164,27 @@
      "mins": 0
     },
     {
-     "num": 46,
-     "name": "MARIE-ROSE",
-     "fullname": "Ylann Marie-Rose",
-     "pos": "GK",
-     "posDesc": "GK",
+     "num": 90,
+     "name": "LAGO",
+     "fullname": "Emmanuel Israel Ange Lago",
+     "pos": "ATT",
+     "posDesc": "ST",
+     "height": 183,
+     "age": 21,
+     "photo": "",
+     "photoLFP": false,
+     "ajouteStatsBomb": true,
+     "g": 2,
+     "a": 1,
+     "mins": 372,
+     "sbId": 388256
+    },
+    {
+     "num": 32,
+     "name": "PULERI",
+     "fullname": "Luis Puleri",
+     "pos": "MID",
+     "posDesc": "CM",
      "height": null,
      "age": 18,
      "photo": "",
@@ -2176,8 +2192,8 @@
      "ajouteStatsBomb": true,
      "g": 0,
      "a": 0,
-     "mins": 99,
-     "sbId": 412350
+     "mins": 10,
+     "sbId": 443595
     },
     {
      "num": 75,
@@ -2228,20 +2244,20 @@
      "sbId": 348004
     },
     {
-     "num": 90,
-     "name": "LAGO",
-     "fullname": "Emmanuel Israel Ange Lago",
-     "pos": "ATT",
-     "posDesc": "ST",
-     "height": 183,
-     "age": 21,
+     "num": 46,
+     "name": "MARIE-ROSE",
+     "fullname": "Ylann Marie-Rose",
+     "pos": "GK",
+     "posDesc": "GK",
+     "height": null,
+     "age": 18,
      "photo": "",
      "photoLFP": false,
      "ajouteStatsBomb": true,
-     "g": 2,
-     "a": 1,
-     "mins": 372,
-     "sbId": 388256
+     "g": 0,
+     "a": 0,
+     "mins": 99,
+     "sbId": 412350
     },
     {
      "num": 30,
@@ -2258,22 +2274,6 @@
      "a": 0,
      "mins": 9,
      "sbId": 443616
-    },
-    {
-     "num": 32,
-     "name": "PULERI",
-     "fullname": "Luis Puleri",
-     "pos": "MID",
-     "posDesc": "CM",
-     "height": null,
-     "age": 18,
-     "photo": "",
-     "photoLFP": false,
-     "ajouteStatsBomb": true,
-     "g": 0,
-     "a": 0,
-     "mins": 10,
-     "sbId": 443595
     }
    ]
   },
@@ -2858,6 +2858,22 @@
      "sbId": 442808
     },
     {
+     "num": 99,
+     "name": "NIANG",
+     "fullname": "M'Baye Babacar Niang",
+     "pos": "ATT",
+     "posDesc": "ST",
+     "height": 184,
+     "age": 31,
+     "photo": "",
+     "photoLFP": false,
+     "ajouteStatsBomb": true,
+     "g": 0,
+     "a": 0,
+     "mins": 35,
+     "sbId": 5661
+    },
+    {
      "num": 2,
      "name": "TOURÉ",
      "fullname": "Ousmane Touré",
@@ -2888,22 +2904,6 @@
      "a": 0,
      "mins": 194,
      "sbId": 7821
-    },
-    {
-     "num": 99,
-     "name": "NIANG",
-     "fullname": "M'Baye Babacar Niang",
-     "pos": "ATT",
-     "posDesc": "ST",
-     "height": 184,
-     "age": 31,
-     "photo": "",
-     "photoLFP": false,
-     "ajouteStatsBomb": true,
-     "g": 0,
-     "a": 0,
-     "mins": 35,
-     "sbId": 5661
     }
    ]
   },
@@ -3506,20 +3506,20 @@
      "sbId": 35277
     },
     {
-     "num": 46,
-     "name": "MOUTON",
-     "fullname": "Jules Mouton",
-     "pos": "MID",
-     "posDesc": "CM",
-     "height": 181,
-     "age": 21,
+     "num": 21,
+     "name": "BATHELE",
+     "fullname": "Christ-Owen Kouassi Bathele",
+     "pos": "DEF",
+     "posDesc": "LB",
+     "height": 184,
+     "age": 23,
      "photo": "",
      "photoLFP": false,
      "ajouteStatsBomb": true,
      "g": 0,
      "a": 0,
-     "mins": 54,
-     "sbId": 193652
+     "mins": 22,
+     "sbId": 440058
     },
     {
      "num": 43,
@@ -3538,22 +3538,6 @@
      "sbId": 391396
     },
     {
-     "num": 21,
-     "name": "BATHELE",
-     "fullname": "Christ-Owen Kouassi Bathele",
-     "pos": "DEF",
-     "posDesc": "LB",
-     "height": 184,
-     "age": 23,
-     "photo": "",
-     "photoLFP": false,
-     "ajouteStatsBomb": true,
-     "g": 0,
-     "a": 0,
-     "mins": 22,
-     "sbId": 440058
-    },
-    {
      "num": 47,
      "name": "FOFANA",
      "fullname": "Kylian Fofana",
@@ -3568,6 +3552,22 @@
      "a": 0,
      "mins": 506,
      "sbId": 530861
+    },
+    {
+     "num": 46,
+     "name": "MOUTON",
+     "fullname": "Jules Mouton",
+     "pos": "MID",
+     "posDesc": "CM",
+     "height": 181,
+     "age": 21,
+     "photo": "",
+     "photoLFP": false,
+     "ajouteStatsBomb": true,
+     "g": 0,
+     "a": 0,
+     "mins": 54,
+     "sbId": 193652
     }
    ]
   },
@@ -4099,22 +4099,6 @@
      "mins": 0
     },
     {
-     "num": 5,
-     "name": "OLLILA",
-     "fullname": "Tuomas Ollila",
-     "pos": "DEF",
-     "posDesc": "LB",
-     "height": 174,
-     "age": 26,
-     "photo": "",
-     "photoLFP": false,
-     "ajouteStatsBomb": true,
-     "g": 0,
-     "a": 0,
-     "mins": 375,
-     "sbId": 130547
-    },
-    {
      "num": 33,
      "name": "FOMBA",
      "fullname": "Ibrahim Fomba",
@@ -4129,6 +4113,22 @@
      "a": 0,
      "mins": 22,
      "sbId": 408190
+    },
+    {
+     "num": 5,
+     "name": "OLLILA",
+     "fullname": "Tuomas Ollila",
+     "pos": "DEF",
+     "posDesc": "LB",
+     "height": 174,
+     "age": 26,
+     "photo": "",
+     "photoLFP": false,
+     "ajouteStatsBomb": true,
+     "g": 0,
+     "a": 0,
+     "mins": 375,
+     "sbId": 130547
     },
     {
      "num": 22,
@@ -4697,6 +4697,38 @@
      "sbId": 440538
     },
     {
+     "num": 27,
+     "name": "DIALLO",
+     "fullname": "Alpha Diallo",
+     "pos": "MID",
+     "posDesc": "CM",
+     "height": 179,
+     "age": 20,
+     "photo": "",
+     "photoLFP": false,
+     "ajouteStatsBomb": true,
+     "g": 0,
+     "a": 0,
+     "mins": 18,
+     "sbId": 364242
+    },
+    {
+     "num": 33,
+     "name": "SOUARÉ",
+     "fullname": "Mohamed Souaré",
+     "pos": "ATT",
+     "posDesc": "ST",
+     "height": null,
+     "age": 18,
+     "photo": "",
+     "photoLFP": false,
+     "ajouteStatsBomb": true,
+     "g": 0,
+     "a": 0,
+     "mins": 10,
+     "sbId": 554543
+    },
+    {
      "num": 32,
      "name": "COURT",
      "fullname": "Yanis Court",
@@ -4727,38 +4759,6 @@
      "a": 1,
      "mins": 68,
      "sbId": 447136
-    },
-    {
-     "num": 33,
-     "name": "SOUARÉ",
-     "fullname": "Mohamed Souaré",
-     "pos": "ATT",
-     "posDesc": "ST",
-     "height": null,
-     "age": 18,
-     "photo": "",
-     "photoLFP": false,
-     "ajouteStatsBomb": true,
-     "g": 0,
-     "a": 0,
-     "mins": 10,
-     "sbId": 554543
-    },
-    {
-     "num": 27,
-     "name": "DIALLO",
-     "fullname": "Alpha Diallo",
-     "pos": "MID",
-     "posDesc": "CM",
-     "height": 179,
-     "age": 20,
-     "photo": "",
-     "photoLFP": false,
-     "ajouteStatsBomb": true,
-     "g": 0,
-     "a": 0,
-     "mins": 18,
-     "sbId": 364242
     },
     {
      "num": 33,
@@ -5884,38 +5884,6 @@
      "mins": 0
     },
     {
-     "num": 32,
-     "name": "ABDERREBI",
-     "fullname": "Hichem Abderrebi",
-     "pos": "MID",
-     "posDesc": "CDM",
-     "height": null,
-     "age": 18,
-     "photo": "",
-     "photoLFP": false,
-     "ajouteStatsBomb": true,
-     "g": 0,
-     "a": 0,
-     "mins": 337,
-     "sbId": 452390
-    },
-    {
-     "num": 10,
-     "name": "BENHATTAB",
-     "fullname": "Yassine Benhattab",
-     "pos": "ATT",
-     "posDesc": "RW",
-     "height": 170,
-     "age": 23,
-     "photo": "",
-     "photoLFP": false,
-     "ajouteStatsBomb": true,
-     "g": 0,
-     "a": 0,
-     "mins": 12,
-     "sbId": 45067
-    },
-    {
      "num": 39,
      "name": "HATCHI",
      "fullname": "Jérémy Hatchi",
@@ -5932,20 +5900,36 @@
      "sbId": 444887
     },
     {
-     "num": 58,
-     "name": "SISSOKO",
-     "fullname": "Nelson Sissoko",
+     "num": 28,
+     "name": "ZOUAOUI",
+     "fullname": "Yanis Zouaoui",
      "pos": "DEF",
-     "posDesc": "RB",
-     "height": 178,
-     "age": 29,
+     "posDesc": "LB",
+     "height": 183,
+     "age": 28,
      "photo": "",
      "photoLFP": false,
      "ajouteStatsBomb": true,
      "g": 0,
      "a": 0,
-     "mins": 81,
-     "sbId": 7608
+     "mins": 97,
+     "sbId": 186265
+    },
+    {
+     "num": 32,
+     "name": "ABDERREBI",
+     "fullname": "Hichem Abderrebi",
+     "pos": "MID",
+     "posDesc": "CDM",
+     "height": null,
+     "age": 18,
+     "photo": "",
+     "photoLFP": false,
+     "ajouteStatsBomb": true,
+     "g": 0,
+     "a": 0,
+     "mins": 337,
+     "sbId": 452390
     },
     {
      "num": 40,
@@ -5964,20 +5948,36 @@
      "sbId": 431434
     },
     {
-     "num": 28,
-     "name": "ZOUAOUI",
-     "fullname": "Yanis Zouaoui",
+     "num": 58,
+     "name": "SISSOKO",
+     "fullname": "Nelson Sissoko",
      "pos": "DEF",
-     "posDesc": "LB",
-     "height": 183,
-     "age": 28,
+     "posDesc": "RB",
+     "height": 178,
+     "age": 29,
      "photo": "",
      "photoLFP": false,
      "ajouteStatsBomb": true,
      "g": 0,
      "a": 0,
-     "mins": 97,
-     "sbId": 186265
+     "mins": 81,
+     "sbId": 7608
+    },
+    {
+     "num": 10,
+     "name": "BENHATTAB",
+     "fullname": "Yassine Benhattab",
+     "pos": "ATT",
+     "posDesc": "RW",
+     "height": 170,
+     "age": 23,
+     "photo": "",
+     "photoLFP": false,
+     "ajouteStatsBomb": true,
+     "g": 0,
+     "a": 0,
+     "mins": 12,
+     "sbId": 45067
     }
    ]
   },
@@ -6508,38 +6508,6 @@
      "sbId": 410719
     },
     {
-     "num": 29,
-     "name": "JACQUET",
-     "fullname": "Noam Obougou Jacquet",
-     "pos": "ATT",
-     "posDesc": "ST",
-     "height": null,
-     "age": 20,
-     "photo": "",
-     "photoLFP": false,
-     "ajouteStatsBomb": true,
-     "g": 0,
-     "a": 0,
-     "mins": 115,
-     "sbId": 397022
-    },
-    {
-     "num": 70,
-     "name": "KANDIL",
-     "fullname": "Nordine Kandil",
-     "pos": "MID",
-     "posDesc": "RM",
-     "height": 167,
-     "age": 24,
-     "photo": "",
-     "photoLFP": false,
-     "ajouteStatsBomb": true,
-     "g": 1,
-     "a": 2,
-     "mins": 444,
-     "sbId": 134961
-    },
-    {
      "num": 12,
      "name": "RAHERINIAINA",
      "fullname": "Ahmad El Hadary Ylan Clauvis Raheriniaina",
@@ -6570,6 +6538,38 @@
      "a": 1,
      "mins": 260,
      "sbId": 32925
+    },
+    {
+     "num": 70,
+     "name": "KANDIL",
+     "fullname": "Nordine Kandil",
+     "pos": "MID",
+     "posDesc": "RM",
+     "height": 167,
+     "age": 24,
+     "photo": "",
+     "photoLFP": false,
+     "ajouteStatsBomb": true,
+     "g": 1,
+     "a": 2,
+     "mins": 444,
+     "sbId": 134961
+    },
+    {
+     "num": 29,
+     "name": "JACQUET",
+     "fullname": "Noam Obougou Jacquet",
+     "pos": "ATT",
+     "posDesc": "ST",
+     "height": null,
+     "age": 20,
+     "photo": "",
+     "photoLFP": false,
+     "ajouteStatsBomb": true,
+     "g": 0,
+     "a": 0,
+     "mins": 115,
+     "sbId": 397022
     }
    ]
   },
@@ -7083,54 +7083,6 @@
      "mins": 0
     },
     {
-     "num": 47,
-     "name": "DABO",
-     "fullname": "Moustapha Dabo",
-     "pos": "ATT",
-     "posDesc": "LW",
-     "height": null,
-     "age": 19,
-     "photo": "",
-     "photoLFP": false,
-     "ajouteStatsBomb": true,
-     "g": 0,
-     "a": 0,
-     "mins": 29,
-     "sbId": 476953
-    },
-    {
-     "num": 44,
-     "name": "PIERRET",
-     "fullname": "Balthazar Jean Philippe Marie Pierret",
-     "pos": "MID",
-     "posDesc": "CDM",
-     "height": 186,
-     "age": 26,
-     "photo": "",
-     "photoLFP": false,
-     "ajouteStatsBomb": true,
-     "g": 0,
-     "a": 0,
-     "mins": 238,
-     "sbId": 44685
-    },
-    {
-     "num": 30,
-     "name": "CARLGREN",
-     "fullname": "Patrik Ulf Anders Carlgren",
-     "pos": "GK",
-     "posDesc": "GK",
-     "height": 189,
-     "age": 34,
-     "photo": "",
-     "photoLFP": false,
-     "ajouteStatsBomb": true,
-     "g": 0,
-     "a": 0,
-     "mins": 193,
-     "sbId": 7088
-    },
-    {
      "num": 27,
      "name": "ROBINET",
      "fullname": "Thomas Robinet",
@@ -7147,20 +7099,20 @@
      "sbId": 7610
     },
     {
-     "num": 7,
-     "name": "JOUJOU",
-     "fullname": "Antoine Joujou",
-     "pos": "MID",
-     "posDesc": "LM",
-     "height": 189,
-     "age": 23,
+     "num": 47,
+     "name": "DABO",
+     "fullname": "Moustapha Dabo",
+     "pos": "ATT",
+     "posDesc": "LW",
+     "height": null,
+     "age": 19,
      "photo": "",
      "photoLFP": false,
      "ajouteStatsBomb": true,
-     "g": 1,
+     "g": 0,
      "a": 0,
-     "mins": 114,
-     "sbId": 361077
+     "mins": 29,
+     "sbId": 476953
     },
     {
      "num": 26,
@@ -7179,6 +7131,54 @@
      "sbId": 133468
     },
     {
+     "num": 49,
+     "name": "KONÉ",
+     "fullname": "Doumbia Broulaye Koné",
+     "pos": "MID",
+     "posDesc": "CM",
+     "height": 190,
+     "age": 19,
+     "photo": "",
+     "photoLFP": false,
+     "ajouteStatsBomb": true,
+     "g": 0,
+     "a": 0,
+     "mins": 10,
+     "sbId": 479905
+    },
+    {
+     "num": 44,
+     "name": "PIERRET",
+     "fullname": "Balthazar Jean Philippe Marie Pierret",
+     "pos": "MID",
+     "posDesc": "CDM",
+     "height": 186,
+     "age": 26,
+     "photo": "",
+     "photoLFP": false,
+     "ajouteStatsBomb": true,
+     "g": 0,
+     "a": 0,
+     "mins": 238,
+     "sbId": 44685
+    },
+    {
+     "num": 7,
+     "name": "JOUJOU",
+     "fullname": "Antoine Joujou",
+     "pos": "MID",
+     "posDesc": "LM",
+     "height": 189,
+     "age": 23,
+     "photo": "",
+     "photoLFP": false,
+     "ajouteStatsBomb": true,
+     "g": 1,
+     "a": 0,
+     "mins": 114,
+     "sbId": 361077
+    },
+    {
      "num": 4,
      "name": "SOW",
      "fullname": "Saidou Sow",
@@ -7195,20 +7195,20 @@
      "sbId": 46008
     },
     {
-     "num": 49,
-     "name": "KONÉ",
-     "fullname": "Doumbia Broulaye Koné",
-     "pos": "MID",
-     "posDesc": "CM",
-     "height": 190,
-     "age": 19,
+     "num": 30,
+     "name": "CARLGREN",
+     "fullname": "Patrik Ulf Anders Carlgren",
+     "pos": "GK",
+     "posDesc": "GK",
+     "height": 189,
+     "age": 34,
      "photo": "",
      "photoLFP": false,
      "ajouteStatsBomb": true,
      "g": 0,
      "a": 0,
-     "mins": 10,
-     "sbId": 479905
+     "mins": 193,
+     "sbId": 7088
     }
    ]
   },
@@ -7793,22 +7793,6 @@
      "sbId": 32761
     },
     {
-     "num": 27,
-     "name": "GADEGBEKU",
-     "fullname": "Luan Gadegbeku",
-     "pos": "MID",
-     "posDesc": "CM",
-     "height": 186,
-     "age": 19,
-     "photo": "",
-     "photoLFP": false,
-     "ajouteStatsBomb": true,
-     "g": 0,
-     "a": 0,
-     "mins": 175,
-     "sbId": 442023
-    },
-    {
      "num": 18,
      "name": "SEBAS",
      "fullname": "Jérémy Sebas",
@@ -7823,6 +7807,22 @@
      "a": 1,
      "mins": 187,
      "sbId": 409624
+    },
+    {
+     "num": 27,
+     "name": "GADEGBEKU",
+     "fullname": "Luan Gadegbeku",
+     "pos": "MID",
+     "posDesc": "CM",
+     "height": 186,
+     "age": 19,
+     "photo": "",
+     "photoLFP": false,
+     "ajouteStatsBomb": true,
+     "g": 0,
+     "a": 0,
+     "mins": 175,
+     "sbId": 442023
     },
     {
      "num": 10,
@@ -8260,38 +8260,6 @@
      "sbId": 20897
     },
     {
-     "num": 9,
-     "name": "DESPOTOVIC",
-     "fullname": "Ilija Despotovic",
-     "pos": "MID",
-     "posDesc": "CM",
-     "height": null,
-     "age": 18,
-     "photo": "",
-     "photoLFP": false,
-     "ajouteStatsBomb": true,
-     "g": 0,
-     "a": 0,
-     "mins": 41,
-     "sbId": 492053
-    },
-    {
-     "num": 25,
-     "name": "BUTA",
-     "fullname": "Leonardo Daniel Ulineia Buta",
-     "pos": "DEF",
-     "posDesc": "LB",
-     "height": 182,
-     "age": 24,
-     "photo": "",
-     "photoLFP": false,
-     "ajouteStatsBomb": true,
-     "g": 0,
-     "a": 0,
-     "mins": 63,
-     "sbId": 178618
-    },
-    {
      "num": 27,
      "name": "KYEREMEH",
      "fullname": "Godson Kyeremeh",
@@ -8354,6 +8322,38 @@
      "a": 0,
      "mins": 58,
      "sbId": 314905
+    },
+    {
+     "num": 25,
+     "name": "BUTA",
+     "fullname": "Leonardo Daniel Ulineia Buta",
+     "pos": "DEF",
+     "posDesc": "LB",
+     "height": 182,
+     "age": 24,
+     "photo": "",
+     "photoLFP": false,
+     "ajouteStatsBomb": true,
+     "g": 0,
+     "a": 0,
+     "mins": 63,
+     "sbId": 178618
+    },
+    {
+     "num": 9,
+     "name": "DESPOTOVIC",
+     "fullname": "Ilija Despotovic",
+     "pos": "MID",
+     "posDesc": "CM",
+     "height": null,
+     "age": 18,
+     "photo": "",
+     "photoLFP": false,
+     "ajouteStatsBomb": true,
+     "g": 0,
+     "a": 0,
+     "mins": 41,
+     "sbId": 492053
     }
    ]
   },
@@ -8937,6 +8937,22 @@
      "sbId": 460608
     },
     {
+     "num": 46,
+     "name": "DEMBÉLÉ",
+     "fullname": "Seydou Dembélé",
+     "pos": "MID",
+     "posDesc": "RM",
+     "height": null,
+     "age": 18,
+     "photo": "",
+     "photoLFP": false,
+     "ajouteStatsBomb": true,
+     "g": 0,
+     "a": 0,
+     "mins": 132,
+     "sbId": 479374
+    },
+    {
      "num": 62,
      "name": "KASHI",
      "fullname": "Amine Kashi",
@@ -8967,22 +8983,6 @@
      "a": 0,
      "mins": 458,
      "sbId": 416960
-    },
-    {
-     "num": 46,
-     "name": "DEMBÉLÉ",
-     "fullname": "Seydou Dembélé",
-     "pos": "MID",
-     "posDesc": "RM",
-     "height": null,
-     "age": 18,
-     "photo": "",
-     "photoLFP": false,
-     "ajouteStatsBomb": true,
-     "g": 0,
-     "a": 0,
-     "mins": 132,
-     "sbId": 479374
     },
     {
      "num": 77,
@@ -10067,38 +10067,6 @@
      "mins": 0
     },
     {
-     "num": 31,
-     "name": "JAMALI",
-     "fullname": "Nadir El Jamali",
-     "pos": "ATT",
-     "posDesc": "RW",
-     "height": 180,
-     "age": 19,
-     "photo": "",
-     "photoLFP": false,
-     "ajouteStatsBomb": true,
-     "g": 0,
-     "a": 0,
-     "mins": 23,
-     "sbId": 345667
-    },
-    {
-     "num": 16,
-     "name": "SVETLIN",
-     "fullname": "Tamar Svetlin",
-     "pos": "MID",
-     "posDesc": "CDM",
-     "height": 177,
-     "age": 25,
-     "photo": "",
-     "photoLFP": false,
-     "ajouteStatsBomb": true,
-     "g": 0,
-     "a": 1,
-     "mins": 418,
-     "sbId": 39249
-    },
-    {
      "num": 32,
      "name": "BAALLAL",
      "fullname": "Adam Baallal",
@@ -10145,6 +10113,38 @@
      "a": 0,
      "mins": 29,
      "sbId": 441997
+    },
+    {
+     "num": 31,
+     "name": "JAMALI",
+     "fullname": "Nadir El Jamali",
+     "pos": "ATT",
+     "posDesc": "RW",
+     "height": 180,
+     "age": 19,
+     "photo": "",
+     "photoLFP": false,
+     "ajouteStatsBomb": true,
+     "g": 0,
+     "a": 0,
+     "mins": 23,
+     "sbId": 345667
+    },
+    {
+     "num": 16,
+     "name": "SVETLIN",
+     "fullname": "Tamar Svetlin",
+     "pos": "MID",
+     "posDesc": "CDM",
+     "height": 177,
+     "age": 25,
+     "photo": "",
+     "photoLFP": false,
+     "ajouteStatsBomb": true,
+     "g": 0,
+     "a": 1,
+     "mins": 418,
+     "sbId": 39249
     }
    ]
   },
@@ -10657,22 +10657,6 @@
      "mins": 0
     },
     {
-     "num": 24,
-     "name": "DEMONCY",
-     "fullname": "Yohann Demoncy",
-     "pos": "MID",
-     "posDesc": "CAM",
-     "height": 181,
-     "age": 30,
-     "photo": "",
-     "photoLFP": false,
-     "ajouteStatsBomb": true,
-     "g": 0,
-     "a": 0,
-     "mins": 232,
-     "sbId": 10617
-    },
-    {
      "num": 11,
      "name": "DEEDSON",
      "fullname": "Louicius Don Deedson",
@@ -10687,10 +10671,26 @@
      "a": 0,
      "mins": 177,
      "sbId": 32628
+    },
+    {
+     "num": 24,
+     "name": "DEMONCY",
+     "fullname": "Yohann Demoncy",
+     "pos": "MID",
+     "posDesc": "CAM",
+     "height": 181,
+     "age": 30,
+     "photo": "",
+     "photoLFP": false,
+     "ajouteStatsBomb": true,
+     "g": 0,
+     "a": 0,
+     "mins": 232,
+     "sbId": 10617
     }
    ]
   }
  },
  "statsSource": "StatsBomb comp 8 saison 351",
- "statsUpdated": "2026-10-19 09:08 UTC"
+ "statsUpdated": "2026-10-19 21:04 UTC"
 }
