@@ -2,7 +2,7 @@
  "competition": "Ligue 2",
  "season": "2026-2027",
  "season_id": 351,
- "updated": "2026-10-21T19:56:04Z",
+ "updated": "2026-10-22T08:04:49Z",
  "matches": [
   {
    "match_id": 4063892,
@@ -701,19 +701,19 @@
    "score": ""
   },
   {
-   "match_id": 4063980,
-   "date": "2026-10-24",
-   "round": 10,
-   "home": "Montpellier",
-   "away": "Red Star FC",
-   "score": ""
-  },
-  {
    "match_id": 4063974,
    "date": "2026-10-24",
    "round": 10,
    "home": "Saint-Étienne",
    "away": "Nantes",
+   "score": ""
+  },
+  {
+   "match_id": 4063980,
+   "date": "2026-10-26",
+   "round": 10,
+   "home": "Montpellier",
+   "away": "Red Star FC",
    "score": ""
   },
   {
