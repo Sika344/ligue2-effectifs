@@ -2,7 +2,7 @@
  "competition": "Ligue 2",
  "season": "2026-2027",
  "season_id": 351,
- "updated": "2026-10-23T19:37:06Z",
+ "updated": "2026-10-24T08:23:17Z",
  "matches": [
   {
    "match_id": 4063892,
@@ -658,7 +658,7 @@
    "round": 10,
    "home": "Clermont Foot",
    "away": "Guingamp",
-   "score": ""
+   "score": "0-2"
   },
   {
    "match_id": 4063981,
@@ -666,7 +666,7 @@
    "round": 10,
    "home": "Dunkerque",
    "away": "Metz",
-   "score": ""
+   "score": "1-1"
   },
   {
    "match_id": 4063976,
@@ -674,7 +674,7 @@
    "round": 10,
    "home": "Nancy",
    "away": "Stade Lavallois",
-   "score": ""
+   "score": "1-0"
   },
   {
    "match_id": 4063979,
