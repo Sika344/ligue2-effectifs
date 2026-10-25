@@ -2,7 +2,7 @@
  "competition": "Ligue 2",
  "season": "2026-2027",
  "season_id": 351,
- "updated": "2026-10-24T18:28:27Z",
+ "updated": "2026-10-25T08:38:40Z",
  "matches": [
   {
    "match_id": 4063892,
@@ -706,7 +706,7 @@
    "round": 10,
    "home": "Saint-Étienne",
    "away": "Nantes",
-   "score": ""
+   "score": "1-0"
   },
   {
    "match_id": 4063980,
