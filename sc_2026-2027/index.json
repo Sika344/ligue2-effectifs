@@ -2,7 +2,7 @@
  "competition": "Ligue 2",
  "season": "2026-2027",
  "season_id": 351,
- "updated": "2026-10-28T20:47:26Z",
+ "updated": "2026-10-29T09:07:32Z",
  "matches": [
   {
    "match_id": 4063892,
@@ -781,19 +781,19 @@
    "score": ""
   },
   {
-   "match_id": 4063989,
-   "date": "2026-10-31",
-   "round": 11,
-   "home": "Stade de Reims",
-   "away": "Sochaux",
-   "score": ""
-  },
-  {
    "match_id": 4063982,
    "date": "2026-11-02",
    "round": 11,
    "home": "Red Star FC",
    "away": "Nancy",
+   "score": ""
+  },
+  {
+   "match_id": 4063989,
+   "date": "2026-11-02",
+   "round": 11,
+   "home": "Stade de Reims",
+   "away": "Sochaux",
    "score": ""
   },
   {
