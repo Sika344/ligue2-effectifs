@@ -2,7 +2,7 @@
  "competition": "Ligue 2",
  "season": "2026-2027",
  "season_id": 351,
- "updated": "2026-10-30T20:38:38Z",
+ "updated": "2026-10-31T09:33:41Z",
  "matches": [
   {
    "match_id": 4063892,
@@ -738,7 +738,7 @@
    "round": 11,
    "home": "Metz",
    "away": "Pau",
-   "score": ""
+   "score": "1-3"
   },
   {
    "match_id": 4063990,
@@ -746,7 +746,7 @@
    "round": 11,
    "home": "Nantes",
    "away": "Clermont Foot",
-   "score": ""
+   "score": "1-1"
   },
   {
    "match_id": 4063988,
@@ -762,7 +762,7 @@
    "round": 11,
    "home": "Stade Lavallois",
    "away": "US Boulogne",
-   "score": ""
+   "score": "1-0"
   },
   {
    "match_id": 4063986,
@@ -821,6 +821,14 @@
    "score": ""
   },
   {
+   "match_id": 4063996,
+   "date": "2026-11-06",
+   "round": 12,
+   "home": "Montpellier",
+   "away": "Metz",
+   "score": ""
+  },
+  {
    "match_id": 4063995,
    "date": "2026-11-06",
    "round": 12,
@@ -842,14 +850,6 @@
    "round": 12,
    "home": "Clermont Foot",
    "away": "Rodez",
-   "score": ""
-  },
-  {
-   "match_id": 4063996,
-   "date": "2026-11-07",
-   "round": 12,
-   "home": "Montpellier",
-   "away": "Metz",
    "score": ""
   },
   {
