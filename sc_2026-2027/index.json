@@ -2,7 +2,7 @@
  "competition": "Ligue 2",
  "season": "2026-2027",
  "season_id": 351,
- "updated": "2026-10-31T19:35:40Z",
+ "updated": "2026-11-01T10:14:08Z",
  "matches": [
   {
    "match_id": 4063892,
@@ -778,7 +778,7 @@
    "round": 11,
    "home": "Guingamp",
    "away": "Saint-Étienne",
-   "score": ""
+   "score": "3-0"
   },
   {
    "match_id": 4063982,
@@ -1021,14 +1021,6 @@
    "score": ""
   },
   {
-   "match_id": 4064023,
-   "date": "2026-12-11",
-   "round": 15,
-   "home": "Metz",
-   "away": "Stade de Reims",
-   "score": ""
-  },
-  {
    "match_id": 4064018,
    "date": "2026-12-11",
    "round": 15,
@@ -1045,30 +1037,6 @@
    "score": ""
   },
   {
-   "match_id": 4064021,
-   "date": "2026-12-11",
-   "round": 15,
-   "home": "Pau",
-   "away": "Saint-Étienne",
-   "score": ""
-  },
-  {
-   "match_id": 4064020,
-   "date": "2026-12-11",
-   "round": 15,
-   "home": "Red Star FC",
-   "away": "Grenoble Foot",
-   "score": ""
-  },
-  {
-   "match_id": 4064019,
-   "date": "2026-12-11",
-   "round": 15,
-   "home": "Sochaux",
-   "away": "Montpellier",
-   "score": ""
-  },
-  {
    "match_id": 4064024,
    "date": "2026-12-11",
    "round": 15,
@@ -1082,6 +1050,38 @@
    "round": 15,
    "home": "US Boulogne",
    "away": "Rodez",
+   "score": ""
+  },
+  {
+   "match_id": 4064023,
+   "date": "2026-12-12",
+   "round": 15,
+   "home": "Metz",
+   "away": "Stade de Reims",
+   "score": ""
+  },
+  {
+   "match_id": 4064021,
+   "date": "2026-12-12",
+   "round": 15,
+   "home": "Pau",
+   "away": "Saint-Étienne",
+   "score": ""
+  },
+  {
+   "match_id": 4064020,
+   "date": "2026-12-12",
+   "round": 15,
+   "home": "Red Star FC",
+   "away": "Grenoble Foot",
+   "score": ""
+  },
+  {
+   "match_id": 4064019,
+   "date": "2026-12-14",
+   "round": 15,
+   "home": "Sochaux",
+   "away": "Montpellier",
    "score": ""
   },
   {
