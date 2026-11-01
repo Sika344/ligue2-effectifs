@@ -2,7 +2,7 @@
  "competition": "Ligue 2",
  "season": "2026-2027",
  "season_id": 351,
- "updated": "2026-11-01T10:14:08Z",
+ "updated": "2026-11-01T20:20:09Z",
  "matches": [
   {
    "match_id": 4063892,
@@ -770,7 +770,7 @@
    "round": 11,
    "home": "FC Annecy",
    "away": "Montpellier",
-   "score": ""
+   "score": "0-3"
   },
   {
    "match_id": 4063984,
