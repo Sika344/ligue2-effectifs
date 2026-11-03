@@ -2,7 +2,7 @@
  "competition": "Ligue 2",
  "season": "2026-2027",
  "season_id": 351,
- "updated": "2026-11-03T10:38:54Z",
+ "updated": "2026-11-03T22:07:27Z",
  "matches": [
   {
    "match_id": 4063892,
@@ -794,7 +794,7 @@
    "round": 11,
    "home": "Stade de Reims",
    "away": "Sochaux",
-   "score": ""
+   "score": "2-0"
   },
   {
    "match_id": 4063993,
