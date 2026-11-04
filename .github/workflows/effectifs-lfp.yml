@@ -1,0 +1,128 @@
+# À déposer dans .github/workflows/effectifs-lfp.yml
+#
+# RAFRAÎCHIT LES EFFECTIFS depuis la LFP, de bout en bout.
+#
+# ------------------------------------------------------------------ POURQUOI
+# Trois scripts qui DOIVENT s'enchaîner, et dans cet ordre :
+#
+#   1. fetch_lfp.py            interroge l'API LFP -> lfp_effectifs_<saison>.json
+#   2. build_ligue2_lfp.py     reconstruit l'effectif -> ligue2_<saison>.json
+#   3. build_effectif_stats.py y réinjecte buts, passes, minutes et numéros
+#
+# L'étape 2 ÉCRASE ligue2_<saison>.json et efface donc les statistiques. Les
+# lancer séparément laisse le site avec des effectifs vides entre les deux —
+# c'est exactement ce qui était arrivé début septembre. D'où ce workflow unique
+# qui les enchaîne et ne commite qu'à la fin.
+#
+# ---------------------------------------------------------------- QUAND
+# Pas besoin de le lancer souvent : une fois par mercato, et dès qu'une recrue
+# manque ou qu'une photo n'apparaît pas. La liste LFP du 7 août avait dix
+# semaines quand Savanier, arrivé entre-temps à Metz, manquait à l'appel.
+#
+# Durée : 3 à 5 minutes (environ 550 fiches joueur à lire une par une).
+
+name: Effectifs LFP (photos et recrues)
+
+on:
+  workflow_dispatch:
+    inputs:
+      season:
+        description: "Saison (vide = saison par défaut du workflow)"
+        required: false
+        default: ""
+
+permissions:
+  contents: write
+
+concurrency:
+  group: maj-journee          # même verrou que les autres : ils écrivent tous
+  cancel-in-progress: false   # dans ligue2_<saison>.json
+
+env:
+  SAISON_PAR_DEFAUT: "2026-2027"
+
+jobs:
+  effectifs:
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install deps
+        run: pip install --quiet statsbombpy pandas requests
+
+      - name: Saison retenue
+        id: s
+        run: |
+          SAISON="${{ inputs.season }}"
+          # bash tourne avec -e : « [ ... ] && cmd » renverrait 1 quand le test
+          # est faux et ferait échouer l'étape. D'où le if/fi explicite.
+          if [ -z "$SAISON" ]; then SAISON="${{ env.SAISON_PAR_DEFAUT }}"; fi
+          echo "saison=$SAISON" >> "$GITHUB_OUTPUT"
+          echo "### Saison traitée : \`$SAISON\`" >> "$GITHUB_STEP_SUMMARY"
+
+      # Les trois étapes s'arrêtent à la première erreur : mieux vaut ne rien
+      # commiter que publier un effectif reconstruit à moitié.
+      - name: 1 · Récupérer les effectifs LFP
+        env:
+          SAISON: ${{ steps.s.outputs.saison }}
+        run: python fetch_lfp.py | tee s1.txt
+
+      - name: 2 · Reconstruire l'effectif
+        run: python build_ligue2_lfp.py --write | tee s2.txt
+
+      - name: 3 · Réinjecter les statistiques
+        env:
+          SB_USERNAME: ${{ secrets.SB_USERNAME }}
+          SB_PASSWORD: ${{ secrets.SB_PASSWORD }}
+          SEASON: ${{ steps.s.outputs.saison }}
+        run: python build_effectif_stats.py | tee s3.txt
+
+      - name: Résumé
+        if: always()
+        run: |
+          {
+            echo "### Récupération LFP"
+            echo '```'; tail -n 8 s1.txt 2>/dev/null; echo '```'
+            echo "### Reconstruction de l'effectif"
+            echo '```'; tail -n 12 s2.txt 2>/dev/null; echo '```'
+            echo "### Statistiques réinjectées"
+            echo '```'; tail -n 20 s3.txt 2>/dev/null; echo '```'
+          } >> "$GITHUB_STEP_SUMMARY"
+
+      - name: Commit
+        run: |
+          git config user.name  "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add -- 'ligue2*.json' 'lfp_effectifs*.json'
+          if git diff --staged --quiet; then
+            echo "Aucun effectif modifié."
+            exit 0
+          fi
+          git commit -q -m "chore: effectifs LFP (${{ steps.s.outputs.saison }})"
+
+          pousse=0
+          for i in 1 2 3 4 5; do
+            if git push; then
+              echo "push OK (tentative $i)"
+              pousse=1
+              break
+            fi
+            echo "push rejeté (tentative $i) — resynchronisation…"
+            git rebase --abort 2>/dev/null || true
+            if ! git pull --rebase --autostash origin main; then
+              echo "conflit : on garde nos fichiers régénérés"
+              git checkout --theirs -- . 2>/dev/null || true
+              git add -A
+              GIT_EDITOR=true git rebase --continue || git rebase --abort || true
+            fi
+            sleep $((RANDOM % 5 + 2))
+          done
+          if [ "$pousse" != 1 ]; then
+            echo "::error::push impossible après 5 tentatives — rien n'a été enregistré."
+            exit 1
+          fi
