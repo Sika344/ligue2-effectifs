@@ -3498,22 +3498,6 @@
      "sbId": 519801
     },
     {
-     "num": 33,
-     "name": "SARIKAYA",
-     "fullname": "Efe Sarıkaya",
-     "pos": "DEF",
-     "posDesc": "CB",
-     "height": 190,
-     "age": 20,
-     "photo": "",
-     "photoLFP": false,
-     "ajouteStatsBomb": true,
-     "g": 0,
-     "a": 0,
-     "mins": 195,
-     "sbId": 214964
-    },
-    {
      "num": 23,
      "name": "HOOGERWERF",
      "fullname": "Dillion Hoogerwerf",
@@ -3528,6 +3512,22 @@
      "a": 0,
      "mins": 70,
      "sbId": 52121
+    },
+    {
+     "num": 11,
+     "name": "BANGRÉ",
+     "fullname": "Mamady Alex Bangré",
+     "pos": "MID",
+     "posDesc": "CM",
+     "height": 171,
+     "age": 25,
+     "photo": "",
+     "photoLFP": false,
+     "ajouteStatsBomb": true,
+     "g": 0,
+     "a": 0,
+     "mins": 23,
+     "sbId": 105921
     },
     {
      "num": 7,
@@ -3546,20 +3546,20 @@
      "sbId": 162131
     },
     {
-     "num": 11,
-     "name": "BANGRÉ",
-     "fullname": "Mamady Alex Bangré",
-     "pos": "MID",
-     "posDesc": "CM",
-     "height": 171,
-     "age": 25,
+     "num": 33,
+     "name": "SARIKAYA",
+     "fullname": "Efe Sarıkaya",
+     "pos": "DEF",
+     "posDesc": "CB",
+     "height": 190,
+     "age": 20,
      "photo": "",
      "photoLFP": false,
      "ajouteStatsBomb": true,
      "g": 0,
      "a": 0,
-     "mins": 23,
-     "sbId": 105921
+     "mins": 195,
+     "sbId": 214964
     }
    ]
   },
@@ -7229,22 +7229,6 @@
      "mins": 0
     },
     {
-     "num": 11,
-     "name": "GUIRASSY",
-     "fullname": "Bahereba Guirassy",
-     "pos": "ATT",
-     "posDesc": "ST",
-     "height": 186,
-     "age": 20,
-     "photo": "",
-     "photoLFP": false,
-     "ajouteStatsBomb": true,
-     "g": 1,
-     "a": 1,
-     "mins": 335,
-     "sbId": 410939
-    },
-    {
      "num": 52,
      "name": "DEUFF",
      "fullname": "Bahmed Deuff",
@@ -7275,6 +7259,22 @@
      "a": 0,
      "mins": 80,
      "sbId": 151926
+    },
+    {
+     "num": 11,
+     "name": "GUIRASSY",
+     "fullname": "Bahereba Guirassy",
+     "pos": "ATT",
+     "posDesc": "ST",
+     "height": 186,
+     "age": 20,
+     "photo": "",
+     "photoLFP": false,
+     "ajouteStatsBomb": true,
+     "g": 1,
+     "a": 1,
+     "mins": 335,
+     "sbId": 410939
     }
    ]
   },
@@ -9539,6 +9539,22 @@
      "sbId": 409777
     },
     {
+     "num": 5,
+     "name": "HOUILLIEZ",
+     "fullname": "Clément Jolibois Houilliez",
+     "pos": "DEF",
+     "posDesc": "CB",
+     "height": 192,
+     "age": 29,
+     "photo": "",
+     "photoLFP": false,
+     "ajouteStatsBomb": true,
+     "g": 0,
+     "a": 0,
+     "mins": 17,
+     "sbId": 440528
+    },
+    {
      "num": 18,
      "name": "BALDÉ",
      "fullname": "Ibrahima Baldé",
@@ -9569,22 +9585,6 @@
      "a": 0,
      "mins": 103,
      "sbId": 45957
-    },
-    {
-     "num": 5,
-     "name": "HOUILLIEZ",
-     "fullname": "Clément Jolibois Houilliez",
-     "pos": "DEF",
-     "posDesc": "CB",
-     "height": 192,
-     "age": 29,
-     "photo": "",
-     "photoLFP": false,
-     "ajouteStatsBomb": true,
-     "g": 0,
-     "a": 0,
-     "mins": 17,
-     "sbId": 440528
     }
    ]
   },
@@ -10705,5 +10705,5 @@
   }
  },
  "statsSource": "StatsBomb comp 8 saison 351",
- "statsUpdated": "2026-11-05 10:34 UTC"
+ "statsUpdated": "2026-11-05 22:28 UTC"
 }
