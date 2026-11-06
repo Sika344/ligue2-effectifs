@@ -3337,25 +3337,6 @@
      "rc": 0
     },
     {
-     "num": 29,
-     "name": "DECHERF",
-     "fullname": "Marco Decherf",
-     "pos": "MID",
-     "posDesc": "CDM",
-     "height": null,
-     "age": 20,
-     "photo": "",
-     "photoLFP": false,
-     "ajouteStatsBomb": true,
-     "g": 1,
-     "a": 1,
-     "mins": 184,
-     "yc": 1,
-     "y2": 0,
-     "rc": 0,
-     "sbId": 426560
-    },
-    {
      "num": 27,
      "name": "ROBINET",
      "fullname": "Thomas Robinet",
@@ -3373,6 +3354,25 @@
      "y2": 0,
      "rc": 0,
      "sbId": 7610
+    },
+    {
+     "num": 29,
+     "name": "DECHERF",
+     "fullname": "Marco Decherf",
+     "pos": "MID",
+     "posDesc": "CDM",
+     "height": null,
+     "age": 20,
+     "photo": "",
+     "photoLFP": false,
+     "ajouteStatsBomb": true,
+     "g": 1,
+     "a": 1,
+     "mins": 184,
+     "yc": 1,
+     "y2": 0,
+     "rc": 0,
+     "sbId": 426560
     }
    ]
   },
@@ -4053,25 +4053,6 @@
      "rc": 0
     },
     {
-     "num": 11,
-     "name": "BANGRÉ",
-     "fullname": "Mamady Alex Bangré",
-     "pos": "MID",
-     "posDesc": "CM",
-     "height": 171,
-     "age": 25,
-     "photo": "",
-     "photoLFP": false,
-     "ajouteStatsBomb": true,
-     "g": 0,
-     "a": 0,
-     "mins": 23,
-     "yc": 0,
-     "y2": 0,
-     "rc": 0,
-     "sbId": 105921
-    },
-    {
      "num": 23,
      "name": "HOOGERWERF",
      "fullname": "Dillion Hoogerwerf",
@@ -4089,6 +4070,25 @@
      "y2": 0,
      "rc": 0,
      "sbId": 52121
+    },
+    {
+     "num": 11,
+     "name": "BANGRÉ",
+     "fullname": "Mamady Alex Bangré",
+     "pos": "MID",
+     "posDesc": "CM",
+     "height": 171,
+     "age": 25,
+     "photo": "",
+     "photoLFP": false,
+     "ajouteStatsBomb": true,
+     "g": 0,
+     "a": 0,
+     "mins": 23,
+     "yc": 0,
+     "y2": 0,
+     "rc": 0,
+     "sbId": 105921
     },
     {
      "num": 7,
@@ -5467,25 +5467,6 @@
      "rc": 0
     },
     {
-     "num": 10,
-     "name": "SELLOUKI",
-     "fullname": "Malik Sellouki",
-     "pos": "ATT",
-     "posDesc": "ST",
-     "height": 177,
-     "age": 26,
-     "photo": "",
-     "photoLFP": false,
-     "ajouteStatsBomb": true,
-     "g": 0,
-     "a": 0,
-     "mins": 173,
-     "yc": 0,
-     "y2": 0,
-     "rc": 0,
-     "sbId": 86721
-    },
-    {
      "num": 19,
      "name": "MUPEMBA",
      "fullname": "Noa-Grace Mupemba",
@@ -5503,6 +5484,25 @@
      "y2": 0,
      "rc": 0,
      "sbId": 405985
+    },
+    {
+     "num": 10,
+     "name": "SELLOUKI",
+     "fullname": "Malik Sellouki",
+     "pos": "ATT",
+     "posDesc": "ST",
+     "height": 177,
+     "age": 26,
+     "photo": "",
+     "photoLFP": false,
+     "ajouteStatsBomb": true,
+     "g": 0,
+     "a": 0,
+     "mins": 173,
+     "yc": 0,
+     "y2": 0,
+     "rc": 0,
+     "sbId": 86721
     }
    ]
   },
@@ -8381,23 +8381,23 @@
      "rc": 0
     },
     {
-     "num": 11,
-     "name": "GUIRASSY",
-     "fullname": "Bahereba Guirassy",
-     "pos": "ATT",
-     "posDesc": "ST",
-     "height": 186,
+     "num": 52,
+     "name": "DEUFF",
+     "fullname": "Bahmed Deuff",
+     "pos": "MID",
+     "posDesc": "CM",
+     "height": 194,
      "age": 20,
      "photo": "",
      "photoLFP": false,
      "ajouteStatsBomb": true,
-     "g": 1,
-     "a": 1,
-     "mins": 335,
-     "yc": 0,
+     "g": 0,
+     "a": 0,
+     "mins": 124,
+     "yc": 1,
      "y2": 0,
      "rc": 0,
-     "sbId": 410939
+     "sbId": 410936
     },
     {
      "num": 65,
@@ -8419,23 +8419,23 @@
      "sbId": 151926
     },
     {
-     "num": 52,
-     "name": "DEUFF",
-     "fullname": "Bahmed Deuff",
-     "pos": "MID",
-     "posDesc": "CM",
-     "height": 194,
+     "num": 11,
+     "name": "GUIRASSY",
+     "fullname": "Bahereba Guirassy",
+     "pos": "ATT",
+     "posDesc": "ST",
+     "height": 186,
      "age": 20,
      "photo": "",
      "photoLFP": false,
      "ajouteStatsBomb": true,
-     "g": 0,
-     "a": 0,
-     "mins": 124,
-     "yc": 1,
+     "g": 1,
+     "a": 1,
+     "mins": 335,
+     "yc": 0,
      "y2": 0,
      "rc": 0,
-     "sbId": 410936
+     "sbId": 410939
     }
    ]
   },
@@ -9096,25 +9096,6 @@
      "rc": 0
     },
     {
-     "num": 10,
-     "name": "VERSINI",
-     "fullname": "Giovani Versini",
-     "pos": "MID",
-     "posDesc": "RM",
-     "height": 167,
-     "age": 22,
-     "photo": "",
-     "photoLFP": false,
-     "ajouteStatsBomb": true,
-     "g": 0,
-     "a": 0,
-     "mins": 181,
-     "yc": 1,
-     "y2": 0,
-     "rc": 0,
-     "sbId": 132368
-    },
-    {
      "num": 3,
      "name": "KYATENGWA",
      "fullname": "Joseph Kalulu Kyatengwa",
@@ -9132,6 +9113,25 @@
      "y2": 0,
      "rc": 0,
      "sbId": 409779
+    },
+    {
+     "num": 10,
+     "name": "VERSINI",
+     "fullname": "Giovani Versini",
+     "pos": "MID",
+     "posDesc": "RM",
+     "height": 167,
+     "age": 22,
+     "photo": "",
+     "photoLFP": false,
+     "ajouteStatsBomb": true,
+     "g": 0,
+     "a": 0,
+     "mins": 181,
+     "yc": 1,
+     "y2": 0,
+     "rc": 0,
+     "sbId": 132368
     }
    ]
   },
@@ -9728,25 +9728,6 @@
      "rc": 0
     },
     {
-     "num": 26,
-     "name": "HACHEM",
-     "fullname": "Ryad Hachem",
-     "pos": "MID",
-     "posDesc": "CDM",
-     "height": 173,
-     "age": 28,
-     "photo": "",
-     "photoLFP": false,
-     "ajouteStatsBomb": true,
-     "g": 0,
-     "a": 0,
-     "mins": 241,
-     "yc": 1,
-     "y2": 0,
-     "rc": 0,
-     "sbId": 133468
-    },
-    {
      "num": 21,
      "name": "HACHEM",
      "fullname": "Abdelsamad Hachem",
@@ -9764,6 +9745,25 @@
      "y2": 0,
      "rc": 0,
      "sbId": 440100
+    },
+    {
+     "num": 26,
+     "name": "HACHEM",
+     "fullname": "Ryad Hachem",
+     "pos": "MID",
+     "posDesc": "CDM",
+     "height": 173,
+     "age": 28,
+     "photo": "",
+     "photoLFP": false,
+     "ajouteStatsBomb": true,
+     "g": 0,
+     "a": 0,
+     "mins": 241,
+     "yc": 1,
+     "y2": 0,
+     "rc": 0,
+     "sbId": 133468
     }
    ]
   },
@@ -11060,23 +11060,23 @@
      "rc": 0
     },
     {
-     "num": 18,
-     "name": "BALDÉ",
-     "fullname": "Ibrahima Baldé",
-     "pos": "ATT",
-     "posDesc": "ST",
-     "height": 185,
-     "age": 23,
+     "num": 26,
+     "name": "BENCHAMA",
+     "fullname": "Samy Benchama",
+     "pos": "MID",
+     "posDesc": "CM",
+     "height": 187,
+     "age": 26,
      "photo": "",
      "photoLFP": false,
      "ajouteStatsBomb": true,
-     "g": 5,
+     "g": 0,
      "a": 0,
-     "mins": 372,
-     "yc": 1,
+     "mins": 103,
+     "yc": 0,
      "y2": 0,
      "rc": 0,
-     "sbId": 158938
+     "sbId": 45957
     },
     {
      "num": 5,
@@ -11098,23 +11098,23 @@
      "sbId": 440528
     },
     {
-     "num": 26,
-     "name": "BENCHAMA",
-     "fullname": "Samy Benchama",
-     "pos": "MID",
-     "posDesc": "CM",
-     "height": 187,
-     "age": 26,
+     "num": 18,
+     "name": "BALDÉ",
+     "fullname": "Ibrahima Baldé",
+     "pos": "ATT",
+     "posDesc": "ST",
+     "height": 185,
+     "age": 23,
      "photo": "",
      "photoLFP": false,
      "ajouteStatsBomb": true,
-     "g": 0,
+     "g": 5,
      "a": 0,
-     "mins": 103,
-     "yc": 0,
+     "mins": 372,
+     "yc": 1,
      "y2": 0,
      "rc": 0,
-     "sbId": 45957
+     "sbId": 158938
     }
    ]
   },
@@ -12412,5 +12412,5 @@
   }
  },
  "statsSource": "StatsBomb comp 8 saison 351",
- "statsUpdated": "2026-11-06 10:34 UTC"
+ "statsUpdated": "2026-11-06 21:51 UTC"
 }
