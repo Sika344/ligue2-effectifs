@@ -2881,22 +2881,6 @@
      "sbId": 5661
     },
     {
-     "num": 29,
-     "name": "DECHERF",
-     "fullname": "Marco Decherf",
-     "pos": "MID",
-     "posDesc": "CDM",
-     "height": null,
-     "age": 20,
-     "photo": "",
-     "photoLFP": false,
-     "ajouteStatsBomb": true,
-     "g": 1,
-     "a": 1,
-     "mins": 184,
-     "sbId": 426560
-    },
-    {
      "num": 27,
      "name": "ROBINET",
      "fullname": "Thomas Robinet",
@@ -2911,6 +2895,22 @@
      "a": 2,
      "mins": 379,
      "sbId": 7610
+    },
+    {
+     "num": 29,
+     "name": "DECHERF",
+     "fullname": "Marco Decherf",
+     "pos": "MID",
+     "posDesc": "CDM",
+     "height": null,
+     "age": 20,
+     "photo": "",
+     "photoLFP": false,
+     "ajouteStatsBomb": true,
+     "g": 1,
+     "a": 1,
+     "mins": 184,
+     "sbId": 426560
     }
    ]
   },
@@ -7845,22 +7845,6 @@
      "mins": 0
     },
     {
-     "num": 10,
-     "name": "VERSINI",
-     "fullname": "Giovani Versini",
-     "pos": "MID",
-     "posDesc": "RM",
-     "height": 167,
-     "age": 22,
-     "photo": "",
-     "photoLFP": false,
-     "ajouteStatsBomb": true,
-     "g": 0,
-     "a": 0,
-     "mins": 181,
-     "sbId": 132368
-    },
-    {
      "num": 3,
      "name": "KYATENGWA",
      "fullname": "Joseph Kalulu Kyatengwa",
@@ -7875,6 +7859,22 @@
      "a": 0,
      "mins": 138,
      "sbId": 409779
+    },
+    {
+     "num": 10,
+     "name": "VERSINI",
+     "fullname": "Giovani Versini",
+     "pos": "MID",
+     "posDesc": "RM",
+     "height": 167,
+     "age": 22,
+     "photo": "",
+     "photoLFP": false,
+     "ajouteStatsBomb": true,
+     "g": 0,
+     "a": 0,
+     "mins": 181,
+     "sbId": 132368
     }
    ]
   },
@@ -9539,6 +9539,22 @@
      "sbId": 409777
     },
     {
+     "num": 26,
+     "name": "BENCHAMA",
+     "fullname": "Samy Benchama",
+     "pos": "MID",
+     "posDesc": "CM",
+     "height": 187,
+     "age": 26,
+     "photo": "",
+     "photoLFP": false,
+     "ajouteStatsBomb": true,
+     "g": 0,
+     "a": 0,
+     "mins": 103,
+     "sbId": 45957
+    },
+    {
      "num": 5,
      "name": "HOUILLIEZ",
      "fullname": "Clément Jolibois Houilliez",
@@ -9569,22 +9585,6 @@
      "a": 0,
      "mins": 372,
      "sbId": 158938
-    },
-    {
-     "num": 26,
-     "name": "BENCHAMA",
-     "fullname": "Samy Benchama",
-     "pos": "MID",
-     "posDesc": "CM",
-     "height": 187,
-     "age": 26,
-     "photo": "",
-     "photoLFP": false,
-     "ajouteStatsBomb": true,
-     "g": 0,
-     "a": 0,
-     "mins": 103,
-     "sbId": 45957
     }
    ]
   },
@@ -10705,5 +10705,5 @@
   }
  },
  "statsSource": "StatsBomb comp 8 saison 351",
- "statsUpdated": "2026-11-05 22:28 UTC"
+ "statsUpdated": "2026-11-06 10:26 UTC"
 }
