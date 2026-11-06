@@ -162,6 +162,23 @@
   .losswrap{padding:0 18px 6px}
   /* Grille à gauche, classement des joueurs à droite. La grille garde la
      priorité de place : c'est elle qu'on lit d'abord. */
+  table.cartons{width:100%;border-collapse:collapse;font-size:13px}
+  table.cartons th{font-size:10px;font-weight:700;color:#9aa4b6;text-transform:uppercase;
+    letter-spacing:.07em;text-align:right;padding:0 0 7px;border-bottom:1px solid #e5e7eb}
+  table.cartons th.l{text-align:left}
+  table.cartons td{padding:6px 0;border-bottom:1px solid #f1f3f6;
+    font-variant-numeric:tabular-nums}
+  table.cartons tr:last-child td{border-bottom:0}
+  table.cartons td.num{width:34px;font-size:11.5px;font-weight:700;color:#b9c0cc}
+  table.cartons td.nm{font-weight:650;color:#16223d}
+  table.cartons td.c{text-align:right;width:46px;font-weight:800}
+  table.cartons td.c.j{color:#b8860b}
+  table.cartons td.c.jj{color:#c0392b}
+  table.cartons td.c.r{color:#c0392b}
+  table.cartons td.c.mn{font-weight:600;color:#9aa4b6;width:64px}
+  table.cartons .alerte{display:inline-block;margin-left:8px;font-size:10px;font-weight:700;
+    color:#92400e;background:#fef3c7;border-radius:4px;padding:1px 6px;vertical-align:1px}
+
   .lossrow{display:flex;gap:14px;align-items:flex-start}
   /* Sans width:100% explicite, un SVG à viewBox sans dimensions retombe sur
      300x150 px dans un conteneur flex : le terrain se réduirait à une vignette. */
@@ -1539,6 +1556,104 @@ function pertesRisqueBlockHTML(club){
     '</div></div>';
 }
 
+/* =====================================================================
+   DISCIPLINE — cartons de l'effectif
+
+   Source : StatsBomb, via les trois colonnes de player_season_stats que
+   build_effectif_stats.py écrit dans l'effectif :
+     yc  avertissements
+     y2  seconds avertissements (qui valent expulsion)
+     rc  expulsions directes
+   Les trois sont gardés séparés : un joueur expulsé pour cumul et un joueur
+   expulsé d'emblée ne se préparent pas de la même façon.
+
+   SEUIL DE SUSPENSION. Depuis la saison 2025-2026, la LFP applique en Ligue 2
+   un match de suspension automatique au CINQUIÈME avertissement, sans fenêtre
+   glissante de dix matchs comme auparavant. On signale donc les joueurs à
+   quatre — ceux que la LFP publie elle-même comme « menacés ».
+
+   Le seuil est réglable depuis la plaque : le règlement a déjà changé une
+   fois, et je préfère que tu puisses l'ajuster sans relancer quoi que ce soit.
+   Le test porte sur le RESTE de la division par le seuil, pour que le compteur
+   reparte après une suspension purgée — 4, puis 9, puis 14 avertissements. */
+let CARTON_SEUIL = 5;
+const CARTON_SEUILS = [0, 3, 5, 10];
+
+function cartonsBlockHTML(club){
+  const src = LIGUE2 && LIGUE2.teams ? LIGUE2.teams : null;
+  const jt = src ? matchTeam(club, Object.keys(src)) : null;
+  if(!jt) return "";
+  const squad = src[jt].squad || [];
+
+  const n = p => (p.yc||0) + (p.y2||0) + (p.rc||0);
+  const sanctionnes = squad.filter(p => n(p) > 0)
+    .sort((a,b) => n(b) - n(a) || (b.yc||0) - (a.yc||0));
+
+  // Fichier d'une génération antérieure : les champs n'existent pas encore.
+  const aLesChamps = squad.some(p => p.yc !== undefined);
+  if(!aLesChamps){
+    return '<div class="matchblock"><div class="mbtools"><span class="mlbl">Discipline · '+club+'</span></div>'+
+      '<div class="board lossboard"><div class="xgnote" style="padding:26px 16px">'+
+      'Cette diapo s\'affichera dès que l\'effectif contiendra les cartons. '+
+      'Relance le workflow <b>Statistiques des effectifs</b> après avoir déposé la '+
+      'nouvelle version de <code>build_effectif_stats.py</code>.</div></div></div>';
+  }
+
+  const menace = p => CARTON_SEUIL > 0 && (p.yc||0) > 0 &&
+                      ((p.yc||0) % CARTON_SEUIL) === CARTON_SEUIL - 1;
+
+  const lignes = sanctionnes.map(p => {
+    const m = menace(p);
+    return '<tr'+(m?' style="background:#fff8ec"':'')+'>' +
+      '<td class="num">'+(p.num!=null&&p.num!=="?"?esc(String(p.num)):"")+'</td>' +
+      '<td class="nm">'+esc(p.fullname||p.name||"")+
+        (m?'<span class="alerte">à 1 carton de la suspension</span>':'')+'</td>' +
+      '<td class="c j">'+(p.yc||0)+'</td>' +
+      '<td class="c jj">'+(p.y2? p.y2 : '·')+'</td>' +
+      '<td class="c r">'+(p.rc? p.rc : '·')+'</td>' +
+      '<td class="c mn">'+(p.mins||0)+'</td></tr>';
+  }).join("");
+
+  const vierges = squad.filter(p => n(p) === 0 && (p.mins||0) > 0).length;
+  const tj = sanctionnes.reduce((s,p)=>s+(p.yc||0),0);
+  const tr = sanctionnes.reduce((s,p)=>s+(p.y2||0)+(p.rc||0),0);
+  const nbMenaces = sanctionnes.filter(menace).length;
+
+  const sel = '<label style="font-size:11.5px;color:#6b7280;margin-left:auto;display:flex;'+
+    'align-items:center;gap:6px">Suspension à<select id="cartonSel" style="font-family:inherit;'+
+    'font-size:12px;padding:4px 8px;border:1px solid #d8dce3;border-radius:7px">'+
+    CARTON_SEUILS.map(v=>'<option value="'+v+'"'+(v===CARTON_SEUIL?' selected':'')+'>'+
+      (v? v+' avertissements' : 'aucun signal')+'</option>').join("")+'</select></label>';
+
+  return '<div class="matchblock"><div class="mbtools"><span class="mlbl">Discipline · '+club+'</span>'+
+    sel+'<button class="pngbtn" data-board="board-cartons">⬇ PNG</button></div>'+
+    '<div class="board board-snap lossboard" id="board-cartons">'+
+      '<div class="losshead"><span class="ttl">DISCIPLINE — CARTONS</span>'+
+        '<span class="sub">'+sanctionnes.length+' joueurs sanctionnés · '+tj+
+        ' avertissements · '+tr+' expulsions · '+vierges+' joueurs sans carton</span></div>'+
+      '<div style="padding:4px 18px 12px">'+
+        (sanctionnes.length
+          ? '<table class="cartons"><thead><tr><th></th><th class="l">Joueur</th>'+
+            '<th title="avertissements">J</th><th title="seconds avertissements">2J</th>'+
+            '<th title="expulsions directes">R</th><th>Minutes</th></tr></thead>'+
+            '<tbody>'+lignes+'</tbody></table>'
+          : '<div style="font-size:12px;color:#9aa4b6;padding:10px 0">Aucun carton cette saison.</div>')+
+      '</div>'+
+      '<div class="lossfoot"><span class="lossnote">'+
+        '<b>J</b> avertissements · <b>2J</b> seconds avertissements, qui valent expulsion · '+
+        '<b>R</b> expulsions directes. '+
+        (CARTON_SEUIL>0
+          ? 'En Ligue 2, un match de suspension est automatique au <b>'+CARTON_SEUIL+
+            'e avertissement</b> depuis 2025-2026, sans fenêtre glissante. '+
+            (nbMenaces? '<b>'+nbMenaces+' joueur(s) à un carton de la suspension</b>, surlignés.'
+                      : 'Aucun joueur à un carton de la suspension.')
+          : 'Signal de suspension désactivé.')+
+        ' Le compteur est supposé repartir après une suspension purgée — je ne sais pas '+
+        'lesquelles l\'ont été, donc vérifie avant de t\'y fier pour un joueur précis.'+
+      '</span></div>'+
+    '</div></div>';
+}
+
 /* Mini-classement : l'équipe du rapport et ses voisines immédiates.
 
    FENÊTRE DE 7 LIGNES, glissante et bornée aux extrémités du classement :
@@ -1600,6 +1715,7 @@ function renderClub(club){
   blocks.push(clubIntroBlockHTML(club));
   if(jt){ blocks.push(`<div class="matchblock"><div class="mbtools"><span class="mlbl">Effectif · ${club}</span><button class="pngbtn" data-board="board-eff">⬇ PNG</button></div>
       <div class="effboard board-snap" id="board-eff">${effectifBoardHTML(LIGUE2.teams[jt])}</div></div>`); }
+  blocks.push(cartonsBlockHTML(club));
   ms.forEach((m,i)=>{ blocks.push(`<div class="matchblock"><div class="mbtools"><span class="mlbl">Match ${i+1} · ${m.date} · ${m.home.name} ${m.home.score}-${m.away.score} ${m.away.name}</span><button class="pngbtn" data-board="board-${i}">⬇ PNG</button></div>
       <div class="board board-snap" id="board-${i}">${boardHTML(m, club, col)}</div></div>`); });
   blocks.push(shotmixBlockHTML(club));
@@ -1626,6 +1742,8 @@ function renderClub(club){
   });
   const pz=document.getElementById("prZoneSel");
   if(pz) pz.onchange=()=>{ PR_ZONE=+pz.value; renderClub(club); };
+  const cs=document.getElementById("cartonSel");
+  if(cs) cs.onchange=()=>{ CARTON_SEUIL=+cs.value; renderClub(club); };
 }
 
 /* ===== export (inline les photos externes avant capture) ===== */

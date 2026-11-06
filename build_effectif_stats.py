@@ -80,6 +80,12 @@ SEASON_IDS = {
 COL_GOALS = "player_season_goals_90"
 COL_ASSISTS = "player_season_assists_90"
 COL_MINUTES = "player_season_minutes"
+# Cartons. StatsBomb sépare l'avertissement, le second avertissement (qui vaut
+# expulsion) et l'expulsion directe : on garde les trois, ils ne disent pas la
+# même chose d'un joueur.
+COL_YC = "player_season_yellow_cards_90"
+COL_Y2 = "player_season_second_yellow_cards_90"
+COL_RC = "player_season_red_cards_90"
 
 # Seuil de similarité de la 4e passe, et écart minimal avec le 2e candidat.
 # 0,80 rattrape Ngapandouentnbu (0,85) sans confondre deux frères ; l'écart de
@@ -527,6 +533,9 @@ def main():
             joueur["g"] = g
             joueur["a"] = a
             joueur["mins"] = int(round(float(mins)))
+            joueur["yc"] = total(row.get(COL_YC), mins) or 0
+            joueur["y2"] = total(row.get(COL_Y2), mins) or 0
+            joueur["rc"] = total(row.get(COL_RC), mins) or 0
             joueur["sbId"] = int(row["player_id"])
             # On retient le nom tel que StatsBomb l'écrit : c'est celui des
             # feuilles de match. Chercher le numéro avec le nom LFP échouait
@@ -691,6 +700,9 @@ def main():
                 if g is not None and a is not None:
                     jumeau["g"], jumeau["a"] = g, a
                     jumeau["mins"] = int(round(float(mins)))
+                    jumeau["yc"] = total(row.get(COL_YC), mins) or 0
+                    jumeau["y2"] = total(row.get(COL_Y2), mins) or 0
+                    jumeau["rc"] = total(row.get(COL_RC), mins) or 0
                     apparies_ids.add(id(jumeau))
                     touches += 1
                     deja += 1
@@ -710,6 +722,9 @@ def main():
             fiche["g"] = g
             fiche["a"] = a
             fiche["mins"] = int(round(float(mins)))
+            fiche["yc"] = total(row.get(COL_YC), mins) or 0
+            fiche["y2"] = total(row.get(COL_Y2), mins) or 0
+            fiche["rc"] = total(row.get(COL_RC), mins) or 0
             fiche["sbId"] = pid
             data["teams"][club]["squad"].append(fiche)
             apparies_ids.add(id(fiche))
@@ -768,6 +783,7 @@ def main():
                 if p.get("g") or p.get("a") or p.get("mins"):
                     remis += 1
                 p["g"], p["a"], p["mins"] = 0, 0, 0
+                p["yc"], p["y2"], p["rc"] = 0, 0, 0
 
     # CONTRÔLE FINAL. Un même identifiant StatsBomb sur deux cartes du même
     # club, c'est un joueur affiché en double sur le terrain. Le cas s'est
