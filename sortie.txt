@@ -1,0 +1,29 @@
+Saison 2026-2027 (season_id=351) — ligue2_2026-2027.json
+   26 fiches du run précédent retirées avant reconstruction
+   446 lignes reçues de StatsBomb
+
+--- Numéros de maillot (feuilles de match) ---
+   442 numéros retrouvés sur 442 cherchés (97 feuilles lues)
+   aucun écart entre la liste LFP et les feuilles de match
+
+--- Joueurs absents de la liste LFP : 26 à créer ---
+   26 fiches créées
+
+--- Appariement ---
+   exact            385
+   inclusion        21
+   nom              9
+   orthographe      5
+
+   rattrapés sur l'orthographe (à contrôler) :
+      Annecy FC      Arsène Do Marcolino            -> Jonathan Do Marcolino          orthographe 0.80 (nom d'usage)
+      Rodez          Jean Lambert Evans             -> Evan's Jean-Lambert            orthographe 0.92
+      Dunkerque      Mohamed Airam Ramos Wade       -> Mohamet Airam Ramos Wade       orthographe 0.96
+      Metz           Bryan Rigobert Song Bahanag    -> Rigobert Junior Song Bahanag   orthographe 0.84
+      Montpellier    Simon Brady Ngapandouetnbu     -> Simon Ngapandouentnbu          orthographe 0.85
+
+--- Résultat ---
+   420 joueurs enrichis sur 446 lignes StatsBomb reçues (94 %)
+   420 joueurs enrichis sur 569 dans l'effectif
+   buts cumulés : 258 | passes décisives : 179
+   ligue2_2026-2027.json écrit.
