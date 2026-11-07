@@ -2,7 +2,7 @@
  "competition": "Ligue 2",
  "season": "2026-2027",
  "season_id": 351,
- "updated": "2026-11-06T21:55:21Z",
+ "updated": "2026-11-07T09:44:13Z",
  "matches": [
   {
    "match_id": 4063892,
@@ -802,7 +802,7 @@
    "round": 12,
    "home": "Dijon",
    "away": "Red Star FC",
-   "score": ""
+   "score": "1-0"
   },
   {
    "match_id": 4063999,
@@ -810,7 +810,7 @@
    "round": 12,
    "home": "Dunkerque",
    "away": "Guingamp",
-   "score": ""
+   "score": "3-0"
   },
   {
    "match_id": 4063992,
@@ -818,7 +818,7 @@
    "round": 12,
    "home": "Grenoble Foot",
    "away": "Stade de Reims",
-   "score": ""
+   "score": "3-2"
   },
   {
    "match_id": 4063996,
@@ -834,7 +834,7 @@
    "round": 12,
    "home": "Nancy",
    "away": "Sochaux",
-   "score": ""
+   "score": "1-0"
   },
   {
    "match_id": 4063994,
@@ -842,7 +842,7 @@
    "round": 12,
    "home": "US Boulogne",
    "away": "FC Annecy",
-   "score": ""
+   "score": "3-0"
   },
   {
    "match_id": 4063991,
