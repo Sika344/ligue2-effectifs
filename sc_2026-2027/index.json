@@ -2,7 +2,7 @@
  "competition": "Ligue 2",
  "season": "2026-2027",
  "season_id": 351,
- "updated": "2026-11-07T09:44:13Z",
+ "updated": "2026-11-07T19:55:20Z",
  "matches": [
   {
    "match_id": 4063892,
@@ -826,7 +826,7 @@
    "round": 12,
    "home": "Montpellier",
    "away": "Metz",
-   "score": ""
+   "score": "2-3"
   },
   {
    "match_id": 4063995,
