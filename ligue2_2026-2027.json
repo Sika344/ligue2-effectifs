@@ -5470,25 +5470,6 @@
      "rc": 0
     },
     {
-     "num": 19,
-     "name": "MUPEMBA",
-     "fullname": "Noa-Grace Mupemba",
-     "pos": "ATT",
-     "posDesc": "ST",
-     "height": 170,
-     "age": 24,
-     "photo": "",
-     "photoLFP": false,
-     "ajouteStatsBomb": true,
-     "g": 0,
-     "a": 0,
-     "mins": 47,
-     "yc": 0,
-     "y2": 0,
-     "rc": 0,
-     "sbId": 405985
-    },
-    {
      "num": 10,
      "name": "SELLOUKI",
      "fullname": "Malik Sellouki",
@@ -5506,6 +5487,25 @@
      "y2": 0,
      "rc": 0,
      "sbId": 86721
+    },
+    {
+     "num": 19,
+     "name": "MUPEMBA",
+     "fullname": "Noa-Grace Mupemba",
+     "pos": "ATT",
+     "posDesc": "ST",
+     "height": 170,
+     "age": 24,
+     "photo": "",
+     "photoLFP": false,
+     "ajouteStatsBomb": true,
+     "g": 0,
+     "a": 0,
+     "mins": 47,
+     "yc": 0,
+     "y2": 0,
+     "rc": 0,
+     "sbId": 405985
     }
    ]
   },
@@ -8403,25 +8403,6 @@
      "sbId": 410936
     },
     {
-     "num": 65,
-     "name": "LAMY",
-     "fullname": "Hugo Florent Nicolas Lamy",
-     "pos": "DEF",
-     "posDesc": "RWB",
-     "height": 178,
-     "age": 22,
-     "photo": "",
-     "photoLFP": false,
-     "ajouteStatsBomb": true,
-     "g": 0,
-     "a": 0,
-     "mins": 80,
-     "yc": 0,
-     "y2": 0,
-     "rc": 0,
-     "sbId": 151926
-    },
-    {
      "num": 11,
      "name": "GUIRASSY",
      "fullname": "Bahereba Guirassy",
@@ -8439,6 +8420,25 @@
      "y2": 0,
      "rc": 0,
      "sbId": 410939
+    },
+    {
+     "num": 65,
+     "name": "LAMY",
+     "fullname": "Hugo Florent Nicolas Lamy",
+     "pos": "DEF",
+     "posDesc": "RWB",
+     "height": 178,
+     "age": 22,
+     "photo": "",
+     "photoLFP": false,
+     "ajouteStatsBomb": true,
+     "g": 0,
+     "a": 0,
+     "mins": 80,
+     "yc": 0,
+     "y2": 0,
+     "rc": 0,
+     "sbId": 151926
     }
    ]
   },
@@ -12415,5 +12415,5 @@
   }
  },
  "statsSource": "StatsBomb comp 8 saison 351",
- "statsUpdated": "2026-11-10 10:50 UTC"
+ "statsUpdated": "2026-11-10 22:26 UTC"
 }
