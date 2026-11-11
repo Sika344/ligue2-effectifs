@@ -3339,25 +3339,6 @@
      "rc": 0
     },
     {
-     "num": 27,
-     "name": "ROBINET",
-     "fullname": "Thomas Robinet",
-     "pos": "ATT",
-     "posDesc": "ST",
-     "height": 180,
-     "age": 30,
-     "photo": "",
-     "photoLFP": false,
-     "ajouteStatsBomb": true,
-     "g": 1,
-     "a": 2,
-     "mins": 379,
-     "yc": 1,
-     "y2": 0,
-     "rc": 0,
-     "sbId": 7610
-    },
-    {
      "num": 29,
      "name": "DECHERF",
      "fullname": "Marco Decherf",
@@ -3375,6 +3356,25 @@
      "y2": 0,
      "rc": 0,
      "sbId": 426560
+    },
+    {
+     "num": 27,
+     "name": "ROBINET",
+     "fullname": "Thomas Robinet",
+     "pos": "ATT",
+     "posDesc": "ST",
+     "height": 180,
+     "age": 30,
+     "photo": "",
+     "photoLFP": false,
+     "ajouteStatsBomb": true,
+     "g": 1,
+     "a": 2,
+     "mins": 379,
+     "yc": 1,
+     "y2": 0,
+     "rc": 0,
+     "sbId": 7610
     }
    ]
   },
@@ -12415,5 +12415,5 @@
   }
  },
  "statsSource": "StatsBomb comp 8 saison 351",
- "statsUpdated": "2026-11-10 22:26 UTC"
+ "statsUpdated": "2026-11-11 10:23 UTC"
 }
