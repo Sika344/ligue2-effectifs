@@ -8403,25 +8403,6 @@
      "sbId": 410936
     },
     {
-     "num": 65,
-     "name": "LAMY",
-     "fullname": "Hugo Florent Nicolas Lamy",
-     "pos": "DEF",
-     "posDesc": "RWB",
-     "height": 178,
-     "age": 22,
-     "photo": "",
-     "photoLFP": false,
-     "ajouteStatsBomb": true,
-     "g": 0,
-     "a": 0,
-     "mins": 80,
-     "yc": 0,
-     "y2": 0,
-     "rc": 0,
-     "sbId": 151926
-    },
-    {
      "num": 11,
      "name": "GUIRASSY",
      "fullname": "Bahereba Guirassy",
@@ -8439,6 +8420,25 @@
      "y2": 0,
      "rc": 0,
      "sbId": 410939
+    },
+    {
+     "num": 65,
+     "name": "LAMY",
+     "fullname": "Hugo Florent Nicolas Lamy",
+     "pos": "DEF",
+     "posDesc": "RWB",
+     "height": 178,
+     "age": 22,
+     "photo": "",
+     "photoLFP": false,
+     "ajouteStatsBomb": true,
+     "g": 0,
+     "a": 0,
+     "mins": 80,
+     "yc": 0,
+     "y2": 0,
+     "rc": 0,
+     "sbId": 151926
     }
    ]
   },
@@ -9731,25 +9731,6 @@
      "rc": 0
     },
     {
-     "num": 26,
-     "name": "HACHEM",
-     "fullname": "Ryad Hachem",
-     "pos": "MID",
-     "posDesc": "CDM",
-     "height": 173,
-     "age": 28,
-     "photo": "",
-     "photoLFP": false,
-     "ajouteStatsBomb": true,
-     "g": 0,
-     "a": 0,
-     "mins": 241,
-     "yc": 1,
-     "y2": 0,
-     "rc": 0,
-     "sbId": 133468
-    },
-    {
      "num": 21,
      "name": "HACHEM",
      "fullname": "Abdelsamad Hachem",
@@ -9767,6 +9748,25 @@
      "y2": 0,
      "rc": 0,
      "sbId": 440100
+    },
+    {
+     "num": 26,
+     "name": "HACHEM",
+     "fullname": "Ryad Hachem",
+     "pos": "MID",
+     "posDesc": "CDM",
+     "height": 173,
+     "age": 28,
+     "photo": "",
+     "photoLFP": false,
+     "ajouteStatsBomb": true,
+     "g": 0,
+     "a": 0,
+     "mins": 241,
+     "yc": 1,
+     "y2": 0,
+     "rc": 0,
+     "sbId": 133468
     }
    ]
   },
@@ -12415,5 +12415,5 @@
   }
  },
  "statsSource": "StatsBomb comp 8 saison 351",
- "statsUpdated": "2026-11-11 22:32 UTC"
+ "statsUpdated": "2026-11-12 10:47 UTC"
 }

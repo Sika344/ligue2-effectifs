@@ -2,7 +2,7 @@
  "competition": "Ligue 2",
  "season": "2026-2027",
  "season_id": 351,
- "updated": "2026-11-11T22:35:31Z",
+ "updated": "2026-11-12T10:51:18Z",
  "matches": [
   {
    "match_id": 4063892,
@@ -1109,14 +1109,6 @@
    "score": ""
   },
   {
-   "match_id": 4064033,
-   "date": "2027-01-02",
-   "round": 16,
-   "home": "FC Annecy",
-   "away": "Saint-Étienne",
-   "score": ""
-  },
-  {
    "match_id": 4064034,
    "date": "2027-01-02",
    "round": 16,
@@ -1154,6 +1146,14 @@
    "round": 16,
    "home": "Stade de Reims",
    "away": "Stade Lavallois",
+   "score": ""
+  },
+  {
+   "match_id": 4064033,
+   "date": "2027-01-04",
+   "round": 16,
+   "home": "FC Annecy",
+   "away": "Saint-Étienne",
    "score": ""
   },
   {
