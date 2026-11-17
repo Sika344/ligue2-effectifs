@@ -8403,25 +8403,6 @@
      "sbId": 410936
     },
     {
-     "num": 11,
-     "name": "GUIRASSY",
-     "fullname": "Bahereba Guirassy",
-     "pos": "ATT",
-     "posDesc": "ST",
-     "height": 186,
-     "age": 20,
-     "photo": "",
-     "photoLFP": false,
-     "ajouteStatsBomb": true,
-     "g": 1,
-     "a": 1,
-     "mins": 335,
-     "yc": 0,
-     "y2": 0,
-     "rc": 0,
-     "sbId": 410939
-    },
-    {
      "num": 65,
      "name": "LAMY",
      "fullname": "Hugo Florent Nicolas Lamy",
@@ -8439,6 +8420,25 @@
      "y2": 0,
      "rc": 0,
      "sbId": 151926
+    },
+    {
+     "num": 11,
+     "name": "GUIRASSY",
+     "fullname": "Bahereba Guirassy",
+     "pos": "ATT",
+     "posDesc": "ST",
+     "height": 186,
+     "age": 20,
+     "photo": "",
+     "photoLFP": false,
+     "ajouteStatsBomb": true,
+     "g": 1,
+     "a": 1,
+     "mins": 335,
+     "yc": 0,
+     "y2": 0,
+     "rc": 0,
+     "sbId": 410939
     }
    ]
   },
@@ -9099,25 +9099,6 @@
      "rc": 0
     },
     {
-     "num": 10,
-     "name": "VERSINI",
-     "fullname": "Giovani Versini",
-     "pos": "MID",
-     "posDesc": "RM",
-     "height": 167,
-     "age": 22,
-     "photo": "",
-     "photoLFP": false,
-     "ajouteStatsBomb": true,
-     "g": 0,
-     "a": 0,
-     "mins": 181,
-     "yc": 1,
-     "y2": 0,
-     "rc": 0,
-     "sbId": 132368
-    },
-    {
      "num": 3,
      "name": "KYATENGWA",
      "fullname": "Joseph Kalulu Kyatengwa",
@@ -9135,6 +9116,25 @@
      "y2": 0,
      "rc": 0,
      "sbId": 409779
+    },
+    {
+     "num": 10,
+     "name": "VERSINI",
+     "fullname": "Giovani Versini",
+     "pos": "MID",
+     "posDesc": "RM",
+     "height": 167,
+     "age": 22,
+     "photo": "",
+     "photoLFP": false,
+     "ajouteStatsBomb": true,
+     "g": 0,
+     "a": 0,
+     "mins": 181,
+     "yc": 1,
+     "y2": 0,
+     "rc": 0,
+     "sbId": 132368
     }
    ]
   },
@@ -11063,25 +11063,6 @@
      "rc": 0
     },
     {
-     "num": 18,
-     "name": "BALDÉ",
-     "fullname": "Ibrahima Baldé",
-     "pos": "ATT",
-     "posDesc": "ST",
-     "height": 185,
-     "age": 23,
-     "photo": "",
-     "photoLFP": false,
-     "ajouteStatsBomb": true,
-     "g": 5,
-     "a": 0,
-     "mins": 372,
-     "yc": 1,
-     "y2": 0,
-     "rc": 0,
-     "sbId": 158938
-    },
-    {
      "num": 26,
      "name": "BENCHAMA",
      "fullname": "Samy Benchama",
@@ -11118,6 +11099,25 @@
      "y2": 0,
      "rc": 0,
      "sbId": 440528
+    },
+    {
+     "num": 18,
+     "name": "BALDÉ",
+     "fullname": "Ibrahima Baldé",
+     "pos": "ATT",
+     "posDesc": "ST",
+     "height": 185,
+     "age": 23,
+     "photo": "",
+     "photoLFP": false,
+     "ajouteStatsBomb": true,
+     "g": 5,
+     "a": 0,
+     "mins": 372,
+     "yc": 1,
+     "y2": 0,
+     "rc": 0,
+     "sbId": 158938
     }
    ]
   },
@@ -12415,5 +12415,5 @@
   }
  },
  "statsSource": "StatsBomb comp 8 saison 351",
- "statsUpdated": "2026-11-17 11:34 UTC"
+ "statsUpdated": "2026-11-17 23:43 UTC"
 }
