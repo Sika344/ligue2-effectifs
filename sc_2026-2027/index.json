@@ -2,7 +2,7 @@
  "competition": "Ligue 2",
  "season": "2026-2027",
  "season_id": 351,
- "updated": "2026-11-17T00:44:34Z",
+ "updated": "2026-11-17T11:38:59Z",
  "matches": [
   {
    "match_id": 4063892,
@@ -909,14 +909,6 @@
    "score": ""
   },
   {
-   "match_id": 4064000,
-   "date": "2026-11-21",
-   "round": 13,
-   "home": "Nantes",
-   "away": "Grenoble Foot",
-   "score": ""
-  },
-  {
    "match_id": 4064005,
    "date": "2026-11-21",
    "round": 13,
@@ -930,6 +922,14 @@
    "round": 13,
    "home": "Stade de Reims",
    "away": "Saint-Étienne",
+   "score": ""
+  },
+  {
+   "match_id": 4064000,
+   "date": "2026-11-23",
+   "round": 13,
+   "home": "Nantes",
+   "away": "Grenoble Foot",
    "score": ""
   },
   {
