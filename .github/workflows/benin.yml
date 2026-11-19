@@ -1,0 +1,73 @@
+# À déposer dans .github/workflows/benin.yml
+#
+# Recense les joueurs béninois présents dans les données StatsBomb et produit
+# un classeur Excel.
+#
+# ------------------------------------------------------- SANS LIEN AVEC LE SITE
+# Ce workflow NE COMMITE RIEN. Le classeur est publié comme ARTEFACT du run :
+# tu le télécharges depuis la page du run, et le dépôt n'est pas modifié. Le
+# site ne voit donc jamais passer ce fichier — c'est une demande à part.
+#
+# ------------------------------------------------------------------ DURÉE
+# Un appel par compétition-saison. Sur les trois dernières saisons d'une
+# soixantaine de compétitions, compte environ 200 appels, soit 30 à 60 minutes.
+# Chaque appel renvoie plusieurs centaines de joueurs : c'est le réseau qui
+# prend le temps, pas le calcul.
+#
+# Le verrou `maj-journee` n'est PAS partagé : ce script n'écrit dans aucun
+# fichier du dépôt, il ne peut donc entrer en conflit avec rien.
+
+name: Joueurs beninois (Excel)
+
+on:
+  workflow_dispatch:
+    inputs:
+      saisons:
+        description: "Nombre de saisons récentes par compétition"
+        required: false
+        default: "3"
+
+permissions:
+  contents: read
+
+jobs:
+  benin:
+    runs-on: ubuntu-latest
+    timeout-minutes: 120
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install deps
+        run: pip install --quiet statsbombpy pandas openpyxl
+
+      - name: Construire le classeur
+        env:
+          SB_USERNAME: ${{ secrets.SB_USERNAME }}
+          SB_PASSWORD: ${{ secrets.SB_PASSWORD }}
+          SAISONS: ${{ inputs.saisons }}
+        run: python build_benin.py | tee sortie.txt
+
+      # Le journal d'un run finit par disparaître ; le résumé, non. C'est là
+      # qu'on relit le code pays retenu et le nombre de joueurs trouvés.
+      - name: Résumé
+        if: always()
+        run: |
+          {
+            echo "### Résultat"
+            echo '```'
+            tail -n 20 sortie.txt 2>/dev/null || echo "(aucune sortie)"
+            echo '```'
+          } >> "$GITHUB_STEP_SUMMARY"
+
+      - name: Publier le classeur
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: joueurs-benin
+          path: joueurs_benin.xlsx
+          if-no-files-found: warn
+          retention-days: 30
