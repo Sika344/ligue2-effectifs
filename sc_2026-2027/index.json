@@ -2,7 +2,7 @@
  "competition": "Ligue 2",
  "season": "2026-2027",
  "season_id": 351,
- "updated": "2026-11-21T21:50:34Z",
+ "updated": "2026-11-22T10:52:30Z",
  "matches": [
   {
    "match_id": 4063892,
@@ -914,7 +914,7 @@
    "round": 13,
    "home": "Stade Lavallois",
    "away": "Montpellier",
-   "score": ""
+   "score": "1-0"
   },
   {
    "match_id": 4064007,
@@ -922,7 +922,7 @@
    "round": 13,
    "home": "Stade de Reims",
    "away": "Saint-Étienne",
-   "score": ""
+   "score": "0-1"
   },
   {
    "match_id": 4064000,
