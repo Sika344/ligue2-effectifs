@@ -41,6 +41,8 @@ from statsbombpy import sb
 
 COMPETITION_ID = 194          # Pro League, Arabie saoudite
 SORTIE = "mendy_saudi.html"
+SORTIE_SVG = "mendy_saudi.svg"
+SORTIE_PNG = "mendy_saudi.png"
 MIN_MINUTES = int(os.environ.get("MIN_MINUTES", "200"))
 
 POSTES_AXIAUX = {"Centre Forward", "Left Centre Forward", "Right Centre Forward"}
@@ -147,6 +149,106 @@ def saison_courante():
     return int(c.iloc[0]["season_id"]), str(c.iloc[0].get("season_name") or "")
 
 
+# ===================================================================== IMAGE
+# Le HTML est dessiné par le navigateur ; une image, non. On redessine donc les
+# mêmes bandes en SVG, à partir des MÊMES données calculées plus haut — les
+# chiffres ne peuvent pas diverger entre les deux sorties.
+#
+# Ce que l'image perd : le survol. Les points gris y deviennent anonymes. C'est
+# assumé — les nommer tous rendrait la bande illisible — et c'est pourquoi le
+# HTML reste produit à côté.
+
+L_MARGE = 60          # marge gauche et droite, en pixels
+L_LARGE = 1120        # largeur totale
+H_BANDE = 250         # hauteur d'une bande
+
+
+def _t(x, y, txt, taille=12, gras=False, ancre="start", couleur="#1f2937"):
+    return ('<text x="%.1f" y="%.1f" font-family="Arial,Helvetica,sans-serif" '
+            'font-size="%d" font-weight="%s" text-anchor="%s" fill="%s">%s</text>'
+            % (x, y, taille, "bold" if gras else "normal", ancre, couleur, esc(txt)))
+
+
+def dessiner_svg(bandes, snom, manquants):
+    util = L_LARGE - 2 * L_MARGE
+    haut = 150 + H_BANDE * len(bandes) + 120
+    g = ['<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" '
+         'width="%d" height="%d" viewBox="0 0 %d %d">' % (L_LARGE, haut, L_LARGE, haut),
+         '<rect width="%d" height="%d" fill="#ffffff"/>' % (L_LARGE, haut)]
+
+    g.append(_t(L_MARGE, 54, "Alexandre Mendy — comparaison aux avants-centres de Saudi Pro League",
+                21, True, couleur="#111827"))
+    g.append(_t(L_MARGE, 78, "Saison %s · avants-centres axiaux · minimum %d minutes · source StatsBomb"
+                % (snom, MIN_MINUTES), 12, couleur="#6b7280"))
+    if manquants:
+        g.append(_t(L_MARGE, 100, "Non retrouvé(s) : " +
+                    ", ".join("%s (%s)" % (n, c) for n, c in manquants), 11, couleur="#92400e"))
+
+    y0 = 150
+    for b in bandes:
+        axe = y0 + 118
+        g.append(_t(L_MARGE, y0 + 6, b["lab"], 15, True, couleur="#111827"))
+        g.append('<line x1="%d" y1="%.1f" x2="%d" y2="%.1f" stroke="#e5e7eb" stroke-width="2"/>'
+                 % (L_MARGE, axe, L_LARGE - L_MARGE, axe))
+
+        for cle, lib in (("p50x", "P50"), ("p90x", "P90")):
+            x = L_MARGE + util * b[cle] / 100.0
+            g.append('<line x1="%.1f" y1="%.1f" x2="%.1f" y2="%.1f" stroke="#c3cad6" '
+                     'stroke-width="1" stroke-dasharray="4 3"/>' % (x, y0 + 26, x, axe + 14))
+            g.append(_t(x, y0 + 20, "%s · %s" % (lib, b[cle[:3]]), 11, True, "middle", "#9ca3af"))
+
+        for p in b["pts"]:
+            x = L_MARGE + util * p["x"] / 100.0
+            if not p["ved"]:
+                g.append('<circle cx="%.1f" cy="%.1f" r="7" fill="#c9ced8" '
+                         'stroke="#ffffff" stroke-width="2"/>' % (x, axe))
+
+        # Les joueurs mis en avant par-dessus, pour qu'aucun point gris ne les
+        # recouvre, et décalés sur deux niveaux quand ils sont proches.
+        for p in b["pts"]:
+            if not p["ved"]:
+                continue
+            x = L_MARGE + util * p["x"] / 100.0
+            yl = axe - 72 - 40 * int(p.get("niv") or 0)
+            if p["logo"]:
+                g.append('<image x="%.1f" y="%.1f" width="42" height="42" xlink:href="%s"/>'
+                         % (x - 21, yl, p["logo"]))
+            else:
+                ini = "".join(w[0] for w in p["ved"].split())
+                g.append('<circle cx="%.1f" cy="%.1f" r="20" fill="%s"/>'
+                         % (x, yl + 21, p["couleur"] or "#555"))
+                g.append(_t(x, yl + 26, ini, 13, True, "middle", "#ffffff"))
+            # Un nom centré sur un joueur situé tout au bord sortait du cadre
+            # (« Alexandre Lacazette » à droite). On bascule l'ancrage.
+            if x < L_MARGE + 90:
+                ancre, xt = "start", L_MARGE
+            elif x > L_LARGE - L_MARGE - 90:
+                ancre, xt = "end", L_LARGE - L_MARGE
+            else:
+                ancre, xt = "middle", x
+            g.append(_t(xt, yl + 58, p["ved"], 11, True, ancre, "#111827"))
+            g.append(_t(xt, yl + 72, p["val"], 11, True, ancre, "#0d3b8c"))
+            g.append('<circle cx="%.1f" cy="%.1f" r="5" fill="#0d3b8c"/>' % (x, axe))
+
+        g.append(_t(L_MARGE, axe + 26, b["min"], 12, couleur="#6b7280"))
+        g.append(_t(L_LARGE - L_MARGE, axe + 26, b["max"], 12, ancre="end", couleur="#6b7280"))
+        g.append(_t(L_MARGE, axe + 48, "%d avants-centres retenus" % b["n"], 11, couleur="#9ca3af"))
+        y0 += H_BANDE
+
+    pied = [
+        "Chaque point est un avant-centre de Saudi Pro League. Les quatre joueurs mis en avant portent l'écusson de leur club.",
+        "Les repères P50 et P90 situent la médiane et le neuvième décile du groupe. Les valeurs sont des cadences par 90 minutes,",
+        "sauf « Goal conversion % ». « Goals and assists above expectation » est la métrique StatsBomb « Over/Under Performance » :",
+        "buts et passes décisives moins xG et xA. Les points gris ne sont pas nommés sur l'image : leur nom s'affiche au survol",
+        "dans la version HTML, produite à côté de celle-ci.",
+    ]
+    for i, t in enumerate(pied):
+        g.append(_t(L_MARGE, y0 + 18 + i * 16, t, 11, couleur="#9ca3af"))
+
+    g.append("</svg>")
+    return "\n".join(g)
+
+
 def main():
     if not (os.environ.get("SB_USERNAME") and os.environ.get("SB_PASSWORD")):
         raise SystemExit("ERREUR : SB_USERNAME / SB_PASSWORD manquants.")
@@ -241,14 +343,27 @@ def ecrire(joueurs, vedettes, snom, manquants):
         # « Cristiano Ronaldo » et « Ivan Toney » devenaient illisibles. On les
         # répartit donc sur deux niveaux : dès qu'un écusson est à moins de
         # ECART_VED de son voisin de gauche déjà placé au niveau bas, il monte.
-        ECART_VED = 11.0          # en % de la largeur de la bande
-        dernier_bas = None
+        # 17 % et non 11 : à 11, « Cristiano Ronaldo » et « Ivan Toney »
+        # restaient superposés sur l'image, où les noms sont plus larges
+        # que dans le HTML.
+        # 17 % : à 11, « Cristiano Ronaldo » et « Ivan Toney » restaient
+        # superposés sur l'image, où les noms sont plus larges que dans le HTML.
+        ECART_VED = 17.0          # en % de la largeur de la bande
+        NIVEAUX = 3               # deux niveaux ne suffisent pas quand trois
+                                  # joueurs se tiennent dans quelques pourcents
+        dernier = [None] * NIVEAUX
         for p in sorted([x for x in pts if x["ved"]], key=lambda x: x["x"]):
-            if dernier_bas is not None and (p["x"] - dernier_bas) < ECART_VED:
-                p["niv"] = 1
-            else:
-                p["niv"] = 0
-                dernier_bas = p["x"]
+            # on prend le niveau le plus bas qui laisse assez d'espace ; si
+            # aucun ne convient, celui dont le voisin est le plus éloigné.
+            choix = None
+            for k in range(NIVEAUX):
+                if dernier[k] is None or (p["x"] - dernier[k]) >= ECART_VED:
+                    choix = k
+                    break
+            if choix is None:
+                choix = max(range(NIVEAUX), key=lambda k: p["x"] - dernier[k])
+            p["niv"] = choix
+            dernier[choix] = p["x"]
         bandes.append({"lab": lab, "n": len(vals), "min": fmt(lo), "max": fmt(hi),
                        "p50": fmt(p50), "p50x": round(pc(p50), 3),
                        "p90": fmt(p90), "p90x": round(pc(p90), 3), "pts": pts})
@@ -278,7 +393,7 @@ def ecrire(joueurs, vedettes, snom, manquants):
   .bande{margin:30px 0 0;padding-bottom:4px}
   .tt{font-size:15px;font-weight:800;color:var(--ink2);margin-bottom:2px}
   .tt span{font-weight:600;color:var(--faint);font-size:12px;margin-left:8px}
-  .plot{position:relative;height:118px;margin-top:62px}
+  .plot{position:relative;height:118px;margin-top:96px}
   .axe{position:absolute;left:0;right:0;top:72px;height:2px;background:var(--line)}
   .rep{position:absolute;top:10px;bottom:34px;width:1px;border-left:1px dashed #c3cad6}
   .rep b{position:absolute;top:-16px;left:50%;transform:translateX(-50%);
@@ -335,7 +450,7 @@ function html(){
         ? '<img class="logo" src="'+p.logo+'" alt="">'
         : '<span class="pill" style="background:'+(p.couleur||"#555")+'">'+
           p.ved.split(" ").map(s=>s[0]).join("")+'</span>';
-      const dy = p.niv ? ' top:-16px;' : '';
+      const dy = p.niv ? (' top:'+(30-22*p.niv)+'px;') : '';
       return '<span class="ved" style="left:'+p.x+'%;'+dy+'" '+d+'>'+img+
              '<span class="nm">'+p.ved+'</span>'+
              '<span class="nm vv">'+p.val+'</span></span>';
@@ -371,6 +486,20 @@ document.addEventListener("mouseover", e => {
     with open(SORTIE, "w", encoding="utf-8") as fh:
         fh.write(html)
     print("\n%s écrit : %d bandes, %d joueurs." % (SORTIE, len(bandes), len(joueurs)))
+
+    svg = dessiner_svg(bandes, snom, manquants)
+    with open(SORTIE_SVG, "w", encoding="utf-8") as fh:
+        fh.write(svg)
+    print("%s écrit." % SORTIE_SVG)
+    try:
+        import cairosvg
+        cairosvg.svg2png(bytestring=svg.encode("utf-8"), write_to=SORTIE_PNG,
+                         scale=2, background_color="white")
+        print("%s écrit (deux fois la résolution)." % SORTIE_PNG)
+    except Exception as exc:
+        # Le SVG reste utilisable : il s'ouvre dans un navigateur et s'importe
+        # dans Keynote ou PowerPoint. On ne fait donc pas échouer le run.
+        print("   !! PNG non produit (%s) — le SVG, lui, est bien là." % exc)
 
 
 if __name__ == "__main__":
