@@ -1,0 +1,73 @@
+# À déposer dans .github/workflows/mendy.yml
+#
+# Compare Alexandre Mendy aux avants-centres de Saudi Pro League et produit un
+# visuel HTML autonome.
+#
+# ------------------------------------------------------- SANS LIEN AVEC LE SITE
+# Ce workflow NE COMMITE RIEN. Le visuel est publié comme ARTEFACT du run : tu
+# le télécharges depuis la page du run et le dépôt n'est pas modifié. Il ne
+# partage donc aucun verrou avec les workflows du site.
+#
+# ------------------------------------------------------------------ DURÉE
+# Un seul appel à player_season_stats, plus quatre écussons à télécharger.
+# Moins de deux minutes.
+#
+# ------------------------------------------------------------- RÉGLAGES
+# `minutes` fixe le plancher du groupe de comparaison. À 200 minutes le groupe
+# est étroit — le script refuse d'écrire en dessous de cinq joueurs, parce
+# qu'un percentile n'y voudrait plus rien dire. Baisse-le si besoin.
+
+name: Mendy vs Saudi Pro League
+
+on:
+  workflow_dispatch:
+    inputs:
+      minutes:
+        description: "Minutes minimum pour entrer dans la comparaison"
+        required: false
+        default: "200"
+
+permissions:
+  contents: read
+
+jobs:
+  mendy:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install deps
+        run: pip install --quiet statsbombpy pandas requests
+
+      - name: Construire le visuel
+        env:
+          SB_USERNAME: ${{ secrets.SB_USERNAME }}
+          SB_PASSWORD: ${{ secrets.SB_PASSWORD }}
+          MIN_MINUTES: ${{ inputs.minutes }}
+        run: python build_mendy.py | tee sortie.txt
+
+      # Le journal d'un run finit par disparaître ; le résumé, non. C'est là
+      # qu'on relit la taille du groupe et les éventuels joueurs non retrouvés.
+      - name: Résumé
+        if: always()
+        run: |
+          {
+            echo "### Résultat"
+            echo '```'
+            tail -n 20 sortie.txt 2>/dev/null || echo "(aucune sortie)"
+            echo '```'
+          } >> "$GITHUB_STEP_SUMMARY"
+
+      - name: Publier le visuel
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: mendy-saudi
+          path: mendy_saudi.html
+          if-no-files-found: warn
+          retention-days: 30
