@@ -12,6 +12,15 @@
 # Un seul appel à player_season_stats, plus quatre écussons à télécharger.
 # Moins de deux minutes.
 #
+# ------------------------------------------------------------------ SORTIES
+#   mendy_saudi.html  interactif : le nom des points gris apparaît au survol
+#   mendy_saudi.png   image prête à coller dans une présentation
+#   mendy_saudi.svg   la même en vectoriel, redimensionnable sans perte
+#
+# L'image est dessinée à partir des MÊMES données que le HTML : les chiffres
+# ne peuvent pas diverger. Elle perd en revanche le survol, donc les points
+# gris y sont anonymes — c'est pourquoi les deux sont produits.
+#
 # ------------------------------------------------------------- RÉGLAGES
 # `minutes` fixe le plancher du groupe de comparaison. À 200 minutes le groupe
 # est étroit — le script refuse d'écrire en dessous de cinq joueurs, parce
@@ -42,7 +51,11 @@ jobs:
           python-version: "3.12"
 
       - name: Install deps
-        run: pip install --quiet statsbombpy pandas requests
+        run: |
+          # cairosvg a besoin de la bibliothèque système cairo pour écrire
+          # le PNG ; sans elle le script ne produirait que le SVG.
+          sudo apt-get update -qq && sudo apt-get install -y -qq libcairo2 >/dev/null
+          pip install --quiet statsbombpy pandas requests cairosvg
 
       - name: Construire le visuel
         env:
@@ -68,6 +81,9 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: mendy-saudi
-          path: mendy_saudi.html
+          path: |
+            mendy_saudi.html
+            mendy_saudi.png
+            mendy_saudi.svg
           if-no-files-found: warn
           retention-days: 30
