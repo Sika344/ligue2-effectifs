@@ -2,7 +2,7 @@
  "competition": "Ligue 2",
  "season": "2026-2027",
  "season_id": 351,
- "updated": "2026-11-24T03:22:31Z",
+ "updated": "2026-11-24T13:31:10Z",
  "matches": [
   {
    "match_id": 4063892,
@@ -930,7 +930,7 @@
    "round": 13,
    "home": "Nantes",
    "away": "Grenoble Foot",
-   "score": ""
+   "score": "1-0"
   },
   {
    "match_id": 4064008,
