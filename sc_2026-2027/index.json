@@ -2,7 +2,7 @@
  "competition": "Ligue 2",
  "season": "2026-2027",
  "season_id": 351,
- "updated": "2026-11-24T13:31:10Z",
+ "updated": "2026-11-25T01:18:04Z",
  "matches": [
   {
    "match_id": 4063892,
@@ -938,7 +938,7 @@
    "round": 13,
    "home": "Sochaux",
    "away": "Dunkerque",
-   "score": ""
+   "score": "2-3"
   },
   {
    "match_id": 4064015,
