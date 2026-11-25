@@ -4917,7 +4917,7 @@
      "a": 0,
      "mins": 1115,
      "sbId": 7813,
-     "yc": 2,
+     "yc": 1,
      "y2": 0,
      "rc": 0
     },
@@ -5471,25 +5471,6 @@
      "rc": 0
     },
     {
-     "num": 19,
-     "name": "MUPEMBA",
-     "fullname": "Noa-Grace Mupemba",
-     "pos": "ATT",
-     "posDesc": "ST",
-     "height": 170,
-     "age": 24,
-     "photo": "",
-     "photoLFP": false,
-     "ajouteStatsBomb": true,
-     "g": 0,
-     "a": 0,
-     "mins": 47,
-     "yc": 0,
-     "y2": 0,
-     "rc": 0,
-     "sbId": 405985
-    },
-    {
      "num": 10,
      "name": "SELLOUKI",
      "fullname": "Malik Sellouki",
@@ -5507,6 +5488,25 @@
      "y2": 0,
      "rc": 0,
      "sbId": 86721
+    },
+    {
+     "num": 19,
+     "name": "MUPEMBA",
+     "fullname": "Noa-Grace Mupemba",
+     "pos": "ATT",
+     "posDesc": "ST",
+     "height": 170,
+     "age": 24,
+     "photo": "",
+     "photoLFP": false,
+     "ajouteStatsBomb": true,
+     "g": 0,
+     "a": 0,
+     "mins": 47,
+     "yc": 0,
+     "y2": 0,
+     "rc": 0,
+     "sbId": 405985
     }
    ]
   },
@@ -8406,25 +8406,6 @@
      "sbId": 410936
     },
     {
-     "num": 65,
-     "name": "LAMY",
-     "fullname": "Hugo Florent Nicolas Lamy",
-     "pos": "DEF",
-     "posDesc": "RWB",
-     "height": 178,
-     "age": 22,
-     "photo": "",
-     "photoLFP": false,
-     "ajouteStatsBomb": true,
-     "g": 0,
-     "a": 0,
-     "mins": 80,
-     "yc": 0,
-     "y2": 0,
-     "rc": 0,
-     "sbId": 151926
-    },
-    {
      "num": 11,
      "name": "GUIRASSY",
      "fullname": "Bahereba Guirassy",
@@ -8442,6 +8423,25 @@
      "y2": 0,
      "rc": 0,
      "sbId": 410939
+    },
+    {
+     "num": 65,
+     "name": "LAMY",
+     "fullname": "Hugo Florent Nicolas Lamy",
+     "pos": "DEF",
+     "posDesc": "RWB",
+     "height": 178,
+     "age": 22,
+     "photo": "",
+     "photoLFP": false,
+     "ajouteStatsBomb": true,
+     "g": 0,
+     "a": 0,
+     "mins": 80,
+     "yc": 0,
+     "y2": 0,
+     "rc": 0,
+     "sbId": 151926
     }
    ]
   },
@@ -11066,6 +11066,25 @@
      "rc": 0
     },
     {
+     "num": 5,
+     "name": "HOUILLIEZ",
+     "fullname": "Clément Jolibois Houilliez",
+     "pos": "DEF",
+     "posDesc": "CB",
+     "height": 192,
+     "age": 29,
+     "photo": "",
+     "photoLFP": false,
+     "ajouteStatsBomb": true,
+     "g": 0,
+     "a": 0,
+     "mins": 17,
+     "yc": 0,
+     "y2": 0,
+     "rc": 0,
+     "sbId": 440528
+    },
+    {
      "num": 26,
      "name": "BENCHAMA",
      "fullname": "Samy Benchama",
@@ -11102,25 +11121,6 @@
      "y2": 0,
      "rc": 0,
      "sbId": 158938
-    },
-    {
-     "num": 5,
-     "name": "HOUILLIEZ",
-     "fullname": "Clément Jolibois Houilliez",
-     "pos": "DEF",
-     "posDesc": "CB",
-     "height": 192,
-     "age": 29,
-     "photo": "",
-     "photoLFP": false,
-     "ajouteStatsBomb": true,
-     "g": 0,
-     "a": 0,
-     "mins": 17,
-     "yc": 0,
-     "y2": 0,
-     "rc": 0,
-     "sbId": 440528
     }
    ]
   },
@@ -12419,5 +12419,5 @@
   }
  },
  "statsSource": "StatsBomb comp 8 saison 351",
- "statsUpdated": "2026-11-25 01:14 UTC"
+ "statsUpdated": "2026-11-25 12:42 UTC"
 }
