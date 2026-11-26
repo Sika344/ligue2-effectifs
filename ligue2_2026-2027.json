@@ -9102,25 +9102,6 @@
      "rc": 0
     },
     {
-     "num": 3,
-     "name": "KYATENGWA",
-     "fullname": "Joseph Kalulu Kyatengwa",
-     "pos": "DEF",
-     "posDesc": "LWB",
-     "height": 180,
-     "age": 21,
-     "photo": "",
-     "photoLFP": false,
-     "ajouteStatsBomb": true,
-     "g": 0,
-     "a": 0,
-     "mins": 138,
-     "yc": 0,
-     "y2": 0,
-     "rc": 0,
-     "sbId": 409779
-    },
-    {
      "num": 10,
      "name": "VERSINI",
      "fullname": "Giovani Versini",
@@ -9138,6 +9119,25 @@
      "y2": 0,
      "rc": 0,
      "sbId": 132368
+    },
+    {
+     "num": 3,
+     "name": "KYATENGWA",
+     "fullname": "Joseph Kalulu Kyatengwa",
+     "pos": "DEF",
+     "posDesc": "LWB",
+     "height": 180,
+     "age": 21,
+     "photo": "",
+     "photoLFP": false,
+     "ajouteStatsBomb": true,
+     "g": 0,
+     "a": 0,
+     "mins": 138,
+     "yc": 0,
+     "y2": 0,
+     "rc": 0,
+     "sbId": 409779
     }
    ]
   },
@@ -9734,25 +9734,6 @@
      "rc": 0
     },
     {
-     "num": 21,
-     "name": "HACHEM",
-     "fullname": "Abdelsamad Hachem",
-     "pos": "ATT",
-     "posDesc": "ST",
-     "height": 188,
-     "age": 24,
-     "photo": "",
-     "photoLFP": false,
-     "ajouteStatsBomb": true,
-     "g": 0,
-     "a": 0,
-     "mins": 5,
-     "yc": 0,
-     "y2": 0,
-     "rc": 0,
-     "sbId": 440100
-    },
-    {
      "num": 26,
      "name": "HACHEM",
      "fullname": "Ryad Hachem",
@@ -9770,6 +9751,25 @@
      "y2": 0,
      "rc": 0,
      "sbId": 133468
+    },
+    {
+     "num": 21,
+     "name": "HACHEM",
+     "fullname": "Abdelsamad Hachem",
+     "pos": "ATT",
+     "posDesc": "ST",
+     "height": 188,
+     "age": 24,
+     "photo": "",
+     "photoLFP": false,
+     "ajouteStatsBomb": true,
+     "g": 0,
+     "a": 0,
+     "mins": 5,
+     "yc": 0,
+     "y2": 0,
+     "rc": 0,
+     "sbId": 440100
     }
    ]
   },
@@ -11066,6 +11066,25 @@
      "rc": 0
     },
     {
+     "num": 18,
+     "name": "BALDÉ",
+     "fullname": "Ibrahima Baldé",
+     "pos": "ATT",
+     "posDesc": "ST",
+     "height": 185,
+     "age": 23,
+     "photo": "",
+     "photoLFP": false,
+     "ajouteStatsBomb": true,
+     "g": 5,
+     "a": 0,
+     "mins": 372,
+     "yc": 1,
+     "y2": 0,
+     "rc": 0,
+     "sbId": 158938
+    },
+    {
      "num": 5,
      "name": "HOUILLIEZ",
      "fullname": "Clément Jolibois Houilliez",
@@ -11102,25 +11121,6 @@
      "y2": 0,
      "rc": 0,
      "sbId": 45957
-    },
-    {
-     "num": 18,
-     "name": "BALDÉ",
-     "fullname": "Ibrahima Baldé",
-     "pos": "ATT",
-     "posDesc": "ST",
-     "height": 185,
-     "age": 23,
-     "photo": "",
-     "photoLFP": false,
-     "ajouteStatsBomb": true,
-     "g": 5,
-     "a": 0,
-     "mins": 372,
-     "yc": 1,
-     "y2": 0,
-     "rc": 0,
-     "sbId": 158938
     }
    ]
   },
@@ -12419,5 +12419,5 @@
   }
  },
  "statsSource": "StatsBomb comp 8 saison 351",
- "statsUpdated": "2026-11-25 12:42 UTC"
+ "statsUpdated": "2026-11-26 00:52 UTC"
 }
