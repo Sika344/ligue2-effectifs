@@ -3339,25 +3339,6 @@
      "rc": 0
     },
     {
-     "num": 27,
-     "name": "ROBINET",
-     "fullname": "Thomas Robinet",
-     "pos": "ATT",
-     "posDesc": "ST",
-     "height": 180,
-     "age": 30,
-     "photo": "",
-     "photoLFP": false,
-     "ajouteStatsBomb": true,
-     "g": 1,
-     "a": 2,
-     "mins": 379,
-     "yc": 1,
-     "y2": 0,
-     "rc": 0,
-     "sbId": 7610
-    },
-    {
      "num": 29,
      "name": "DECHERF",
      "fullname": "Marco Decherf",
@@ -3375,6 +3356,25 @@
      "y2": 0,
      "rc": 0,
      "sbId": 426560
+    },
+    {
+     "num": 27,
+     "name": "ROBINET",
+     "fullname": "Thomas Robinet",
+     "pos": "ATT",
+     "posDesc": "ST",
+     "height": 180,
+     "age": 30,
+     "photo": "",
+     "photoLFP": false,
+     "ajouteStatsBomb": true,
+     "g": 1,
+     "a": 2,
+     "mins": 379,
+     "yc": 1,
+     "y2": 0,
+     "rc": 0,
+     "sbId": 7610
     }
    ]
   },
@@ -5471,25 +5471,6 @@
      "rc": 0
     },
     {
-     "num": 10,
-     "name": "SELLOUKI",
-     "fullname": "Malik Sellouki",
-     "pos": "ATT",
-     "posDesc": "ST",
-     "height": 177,
-     "age": 26,
-     "photo": "",
-     "photoLFP": false,
-     "ajouteStatsBomb": true,
-     "g": 0,
-     "a": 0,
-     "mins": 173,
-     "yc": 0,
-     "y2": 0,
-     "rc": 0,
-     "sbId": 86721
-    },
-    {
      "num": 19,
      "name": "MUPEMBA",
      "fullname": "Noa-Grace Mupemba",
@@ -5507,6 +5488,25 @@
      "y2": 0,
      "rc": 0,
      "sbId": 405985
+    },
+    {
+     "num": 10,
+     "name": "SELLOUKI",
+     "fullname": "Malik Sellouki",
+     "pos": "ATT",
+     "posDesc": "ST",
+     "height": 177,
+     "age": 26,
+     "photo": "",
+     "photoLFP": false,
+     "ajouteStatsBomb": true,
+     "g": 0,
+     "a": 0,
+     "mins": 173,
+     "yc": 0,
+     "y2": 0,
+     "rc": 0,
+     "sbId": 86721
     }
    ]
   },
@@ -8406,25 +8406,6 @@
      "sbId": 410936
     },
     {
-     "num": 11,
-     "name": "GUIRASSY",
-     "fullname": "Bahereba Guirassy",
-     "pos": "ATT",
-     "posDesc": "ST",
-     "height": 186,
-     "age": 20,
-     "photo": "",
-     "photoLFP": false,
-     "ajouteStatsBomb": true,
-     "g": 1,
-     "a": 1,
-     "mins": 335,
-     "yc": 0,
-     "y2": 0,
-     "rc": 0,
-     "sbId": 410939
-    },
-    {
      "num": 65,
      "name": "LAMY",
      "fullname": "Hugo Florent Nicolas Lamy",
@@ -8442,6 +8423,25 @@
      "y2": 0,
      "rc": 0,
      "sbId": 151926
+    },
+    {
+     "num": 11,
+     "name": "GUIRASSY",
+     "fullname": "Bahereba Guirassy",
+     "pos": "ATT",
+     "posDesc": "ST",
+     "height": 186,
+     "age": 20,
+     "photo": "",
+     "photoLFP": false,
+     "ajouteStatsBomb": true,
+     "g": 1,
+     "a": 1,
+     "mins": 335,
+     "yc": 0,
+     "y2": 0,
+     "rc": 0,
+     "sbId": 410939
     }
    ]
   },
@@ -9102,25 +9102,6 @@
      "rc": 0
     },
     {
-     "num": 10,
-     "name": "VERSINI",
-     "fullname": "Giovani Versini",
-     "pos": "MID",
-     "posDesc": "RM",
-     "height": 167,
-     "age": 22,
-     "photo": "",
-     "photoLFP": false,
-     "ajouteStatsBomb": true,
-     "g": 0,
-     "a": 0,
-     "mins": 181,
-     "yc": 1,
-     "y2": 0,
-     "rc": 0,
-     "sbId": 132368
-    },
-    {
      "num": 3,
      "name": "KYATENGWA",
      "fullname": "Joseph Kalulu Kyatengwa",
@@ -9138,6 +9119,25 @@
      "y2": 0,
      "rc": 0,
      "sbId": 409779
+    },
+    {
+     "num": 10,
+     "name": "VERSINI",
+     "fullname": "Giovani Versini",
+     "pos": "MID",
+     "posDesc": "RM",
+     "height": 167,
+     "age": 22,
+     "photo": "",
+     "photoLFP": false,
+     "ajouteStatsBomb": true,
+     "g": 0,
+     "a": 0,
+     "mins": 181,
+     "yc": 1,
+     "y2": 0,
+     "rc": 0,
+     "sbId": 132368
     }
    ]
   },
@@ -11085,25 +11085,6 @@
      "sbId": 158938
     },
     {
-     "num": 5,
-     "name": "HOUILLIEZ",
-     "fullname": "Clément Jolibois Houilliez",
-     "pos": "DEF",
-     "posDesc": "CB",
-     "height": 192,
-     "age": 29,
-     "photo": "",
-     "photoLFP": false,
-     "ajouteStatsBomb": true,
-     "g": 0,
-     "a": 0,
-     "mins": 17,
-     "yc": 0,
-     "y2": 0,
-     "rc": 0,
-     "sbId": 440528
-    },
-    {
      "num": 26,
      "name": "BENCHAMA",
      "fullname": "Samy Benchama",
@@ -11121,6 +11102,25 @@
      "y2": 0,
      "rc": 0,
      "sbId": 45957
+    },
+    {
+     "num": 5,
+     "name": "HOUILLIEZ",
+     "fullname": "Clément Jolibois Houilliez",
+     "pos": "DEF",
+     "posDesc": "CB",
+     "height": 192,
+     "age": 29,
+     "photo": "",
+     "photoLFP": false,
+     "ajouteStatsBomb": true,
+     "g": 0,
+     "a": 0,
+     "mins": 17,
+     "yc": 0,
+     "y2": 0,
+     "rc": 0,
+     "sbId": 440528
     }
    ]
   },
@@ -12419,5 +12419,5 @@
   }
  },
  "statsSource": "StatsBomb comp 8 saison 351",
- "statsUpdated": "2026-11-26 00:52 UTC"
+ "statsUpdated": "2026-11-26 11:58 UTC"
 }
