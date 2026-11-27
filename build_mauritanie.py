@@ -188,6 +188,35 @@ COLONNES = [
     ("player_season_dribble_ratio",           "Dribbles réussis %",  "Progression", 3),
     ("player_season_passing_ratio",           "Passes réussies %",   "Progression", 3),
 
+    # --- BLOC SOUS PRESSION -------------------------------------------------
+    # Le cœur de la demande : à quel point le joueur se dégrade quand on vient
+    # le chercher. Les trois premières colonnes vont ensemble et se lisent
+    # ensemble — l'écart seul ne veut rien dire. Perdre 5 points en partant de
+    # 92 % n'est pas perdre 5 points en partant de 61 %.
+    #
+    # Une clé peut être un TUPLE : le script prend la première qui existe
+    # réellement dans les données. StatsBomb a renommé ces champs au fil des
+    # versions d'API et je n'ai pas pu vérifier lequel répond sur ta licence
+    # sans lancer le script. Plutôt que de parier sur un nom, on les essaie
+    # tous, et le run imprime la liste exacte des colonnes « pressure » vues.
+    (("player_season_pressured_passing_ratio",
+      "player_season_pressured_pass_ratio"),  "Passes sous pression %",   "Sous pression", 3),
+    (("player_season_unpressured_passing_ratio",
+      "player_season_unpressured_pass_ratio"), "Passes sans pression %",  "Sous pression", 3),
+    # Calculée dans le script : sous pression − sans pression. NÉGATIVE pour
+    # presque tout le monde ; c'est son ampleur qui parle. Proche de zéro =
+    # le joueur ne se dégrade pas quand il est pressé.
+    (None,                                    "Écart sous pression",      "Sous pression", 3),
+    # Le réflexe de dégagement : balancer long dès qu'on est pressé. Une
+    # cadence élevée ici, avec un écart très négatif, dessine le même joueur.
+    (("player_season_pressured_long_balls_90",
+      "player_season_pressured_long_ball_90"), "Longs ballons sous pression /90", "Sous pression", 2),
+    # Combien de fois il est pressé, tout simplement. Sert de dénominateur de
+    # lecture : un écart calculé sur trois ballons pressés ne vaut rien.
+    (("player_season_pressured_action_rate",
+      "player_season_pressured_actions_90",
+      "player_season_times_pressured_90"),    "Fois pressé /90",          "Sous pression", 2),
+
     ("player_season_tackles_and_interceptions_90", "Tacles + inter. /90", "Défensif", 2),
     ("player_season_padj_pressures_90",       "Pressions ajustées /90", "Défensif", 2),
     ("player_season_counterpressures_90",     "Contre-pressions /90", "Défensif", 2),
@@ -207,6 +236,7 @@ THEMES = {
     "Offensif":    "FFE6F1FB",
     "Création":    "FFEAF3DE",
     "Progression": "FFFAEEDA",
+    "Sous pression": "FFEDE7F6",
     "Défensif":    "FFFAECE7",
     "Discipline":  "FFF1EFE8",
 }
@@ -221,13 +251,18 @@ def nn(s):
 
 
 def val(row, cle):
-    if cle not in row:
-        return None
-    v = row[cle]
-    # NaN n'est pas None et NaN == NaN est faux : c'est le seul test fiable.
-    if v is None or v != v:
-        return None
-    return v
+    """Valeur d'une colonne. `cle` peut être un tuple de noms candidats : on
+    renvoie la première colonne qui existe ET qui porte une valeur. Utile pour
+    les champs que StatsBomb a renommés d'une version d'API à l'autre."""
+    for k in (cle if isinstance(cle, tuple) else (cle,)):
+        if k not in row:
+            continue
+        v = row[k]
+        # NaN n'est pas None et NaN == NaN est faux : c'est le seul test fiable.
+        if v is None or v != v:
+            continue
+        return v
+    return None
 
 
 def age_de(dob):
@@ -263,6 +298,7 @@ def main():
     # noms DISTINCTS, pas les lignes : un témoin qui joue trois compétitions
     # ne doit pas peser trois voix.
     vus = collections.defaultdict(set)
+    colonnes_pression = set()
     lignes = []
     cache = {}
     echecs = 0
@@ -276,6 +312,10 @@ def main():
         if df is None or not len(df):
             continue
         cache[(cid, sid)] = (df, cnom, pays, snom)
+        # On relève le nom EXACT de tout champ contenant « pressur ». C'est la
+        # seule façon de savoir ce que la licence expose vraiment, au lieu de
+        # le deviner. Imprimé en fin de run, donc lisible dans le résumé.
+        colonnes_pression.update(c for c in df.columns if "pressur" in str(c).lower())
         for _, r in df.iterrows():
             n = nn(r.get("player_name"))
             if n in temoins:
@@ -338,6 +378,13 @@ def main():
             for cle, titre, _theme, _dec in COLONNES:
                 if cle:
                     ligne[titre] = val(r, cle)
+            # L'écart est calculé ici, pas lu : StatsBomb publie les deux
+            # pourcentages, pas leur différence. Si l'un des deux manque, on
+            # laisse vide — un écart calculé contre zéro serait un mensonge.
+            sp = ligne.get("Passes sous pression %")
+            hp = ligne.get("Passes sans pression %")
+            ligne["Écart sous pression"] = (
+                sp - hp if (sp is not None and hp is not None) else None)
             lignes.append(ligne)
 
     # Un joueur peut figurer dans plusieurs compétitions la même saison
@@ -348,10 +395,26 @@ def main():
     print("%d lignes | %d joueurs distincts | %d compétitions illisibles"
           % (len(lignes), len(noms), echecs))
 
-    ecrire(lignes, noms, code, vus)
+    # --- contrôle du bloc « sous pression »
+    # Des colonnes vides passeraient inaperçues dans un classeur de 43 colonnes.
+    # On dit le taux de remplissage, et on crie si c'est zéro.
+    print("\nChamps « pressure » exposés par la licence (%d) :" % len(colonnes_pression))
+    for c in sorted(colonnes_pression):
+        print("   %s" % c)
+    titres_p = [t for _c, t, th, _d in COLONNES if th == "Sous pression"]
+    if lignes:
+        for t in titres_p:
+            n = sum(1 for l in lignes if l.get(t) is not None)
+            print("   %-34s %3d/%d lignes remplies" % (t, n, len(lignes)))
+        if not any(l.get(t) is not None for l in lignes for t in titres_p):
+            print("\n   !! AUCUNE donnée sous pression récupérée. Les colonnes du bloc\n"
+                  "      sortiront vides. Regarde la liste des champs ci-dessus : si elle\n"
+                  "      contient un nom proche, dis-le-moi et je corrige la clé.")
+
+    ecrire(lignes, noms, code, vus, colonnes_pression)
 
 
-def ecrire(lignes, noms, code, vus):
+def ecrire(lignes, noms, code, vus, colonnes_pression=()):
     from openpyxl import Workbook
     from openpyxl.styles import Font, PatternFill, Alignment, Border, Side
     from openpyxl.utils import get_column_letter
@@ -452,6 +515,19 @@ def ecrire(lignes, noms, code, vus):
         "annoncée (3-9-7-8) ne colle avec aucune des deux. Le poste de l'onglet 2 est donc",
         "indicatif. Seule la colonne « Poste » de l'onglet 1, qui vient de StatsBomb, est fiable.",
         "",
+        "Le bloc « Sous pression »",
+        "« Passes sous pression % » et « Passes sans pression % » viennent telles quelles de",
+        "StatsBomb. « Écart sous pression » est calculé ici : la première moins la seconde.",
+        "Il est négatif pour presque tout le monde — passer est plus dur quand on est pressé.",
+        "C'est son AMPLEUR qui parle, et elle ne se lit pas seule : perdre 5 points en partant",
+        "de 92 % n'est pas perdre 5 points en partant de 61 %. Regarde toujours les deux",
+        "colonnes qui le précèdent, et « Fois pressé /90 » qui dit sur combien de ballons",
+        "l'écart a été mesuré. Un écart calculé sur trois ballons pressés ne vaut rien.",
+        "« Longs ballons sous pression /90 » complète le portrait : une cadence élevée ici",
+        "avec un écart très négatif, c'est le joueur qui dégage dès qu'on vient le chercher.",
+        "Si ces colonnes sortent vides, c'est que la licence n'expose pas ces champs ; le",
+        "journal du run liste alors les noms exacts qu'elle expose.",
+        "",
         "Lecture des colonnes",
         "Les valeurs suivies de « /90 » sont des cadences par 90 minutes, pas des totaux.",
         "Les pourcentages sont des fractions : 0,45 se lit 45 %.",
@@ -459,6 +535,7 @@ def ecrire(lignes, noms, code, vus):
         "toujours la colonne Minutes avant de comparer deux joueurs.",
     ]
     gras = ("Identification des Mauritaniens",
+            "Le bloc « Sous pression »",
             "Pourquoi certains internationaux ne servent pas de témoin",
             "Ce que le fichier ne contient pas",
             "Une réserve sur les postes de l'onglet 2",
