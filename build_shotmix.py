@@ -46,7 +46,7 @@ dans le décompte, ce qui est le comportement voulu.
 
 Sortie shotmix.json :
 {
-  "competition": "Ligue 2", "season": "2025-2026", "season_id": 318,
+  "competition": COMP_NOM, "season": "2025-2026", "season_id": 318,
   "updated": "...Z",
   "keys": ["placee", "transition", "cpa", "autres"],
   "labels": {"placee": "Attaque placée", ...},
@@ -77,7 +77,9 @@ import json
 import datetime
 from statsbombpy import sb
 
-COMPETITION_ID = 8              # Ligue 2
+# La compétition vient de competition.py (variable d'environnement COMP).
+# Sans COMP, c'est la Ligue 2 : comportement identique à avant.
+from competition import COMPETITION_ID, PREFIXE, NOM as COMP_NOM
 CURRENT_SEASON = "2025-2026"    # saison courante -> sortie NON suffixée
 SEASON_IDS = {
     "2025-2026": 318,
@@ -136,7 +138,8 @@ def resolve_season():
     if not label:
         label = CURRENT_SEASON
     sid = SEASON_IDS.get(label) or lookup_season_id(label)
-    out = "shotmix.json" if label == CURRENT_SEASON else f"shotmix_{label}.json"
+    out = ("shotmix.json" if (label == CURRENT_SEASON and not PREFIXE)
+           else f"shotmix_{PREFIXE}{label}.json")
     return label, sid, out
 
 
@@ -314,7 +317,7 @@ def main():
           f"(séquence trop éloignée de la remise en jeu).")
 
     out = {
-        "competition": "Ligue 2",
+        "competition": COMP_NOM,
         "season": season_label,
         "season_id": season_id,
         "updated": datetime.datetime.utcnow().replace(microsecond=0).isoformat() + "Z",

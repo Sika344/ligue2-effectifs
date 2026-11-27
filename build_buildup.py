@@ -31,7 +31,7 @@ TROIS MESURES par build-up :
 
 Sortie buildup.json :
 {
-  "competition": "Ligue 2", "season": "2025-2026", "season_id": 318,
+  "competition": COMP_NOM, "season": "2025-2026", "season_id": 318,
   "updated": "...Z",
   "keys": ["goalkick","gkdist","openplay","low","mid","throwin"],
   "bits": {"goalkick": 1, "gkdist": 2, ...},
@@ -61,7 +61,9 @@ import datetime
 from collections import defaultdict
 from statsbombpy import sb
 
-COMPETITION_ID = 8
+# La compétition vient de competition.py (variable d'environnement COMP).
+# Sans COMP, c'est la Ligue 2 : comportement identique à avant.
+from competition import COMPETITION_ID, PREFIXE, NOM as COMP_NOM
 CURRENT_SEASON = "2025-2026"
 SEASON_IDS = {"2025-2026": 318,
     "2026-2027": 351,   # 1re journee jouee le 08/08/2026
@@ -105,7 +107,8 @@ def resolve_season():
     if not label:
         label = CURRENT_SEASON
     sid = SEASON_IDS.get(label) or lookup_season_id(label)
-    out = "buildup.json" if label == CURRENT_SEASON else f"buildup_{label}.json"
+    out = ("buildup.json" if (label == CURRENT_SEASON and not PREFIXE)
+           else f"buildup_{PREFIXE}{label}.json")
     return label, sid, out
 
 
@@ -268,7 +271,7 @@ def main():
               f"pression {f(puu, ptt):.0f}%")
 
     out = {
-        "competition": "Ligue 2",
+        "competition": COMP_NOM,
         "season": season_label,
         "season_id": season_id,
         "updated": datetime.datetime.utcnow().replace(microsecond=0).isoformat() + "Z",

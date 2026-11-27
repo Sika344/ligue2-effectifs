@@ -31,7 +31,7 @@ FORMAT sc_<match_id>.json
 --------------------------------------------------------------------------------
 {
   "match_id": 3922241,
-  "competition": "Ligue 2", "season": "2025-2026",
+  "competition": COMP_NOM, "season": "2025-2026",
   "date": "2025-08-09", "round": 1,
   "home": "Amiens", "away": "Troyes", "score": "1-2",
   "teams": ["Amiens", "Troyes"],
@@ -102,7 +102,9 @@ import datetime
 
 from statsbombpy import sb
 
-COMPETITION_ID = 8
+# La compétition vient de competition.py (variable d'environnement COMP).
+# Sans COMP, c'est la Ligue 2 : comportement identique à avant.
+from competition import COMPETITION_ID, PREFIXE, NOM as COMP_NOM
 CURRENT_SEASON = "2025-2026"
 SEASON_IDS = {"2025-2026": 318,
     "2026-2027": 351,   # 1re journee jouee le 08/08/2026
@@ -546,7 +548,11 @@ def main():
     except Exception as exc:
         print("!! Impossible de résoudre la saison %r : %s" % (season, exc))
         raise SystemExit(1)
-    outdir = "sc" if season == CURRENT_SEASON else "sc_%s" % season
+    # Le dossier porte la compétition comme les fichiers JSON : la Ligue 1
+    # écrit dans sc_L1_2026-2027/, jamais dans sc_2026-2027/, sinon ses
+    # timelines écraseraient celles de la Ligue 2 une à une.
+    outdir = ("sc" if (season == CURRENT_SEASON and not PREFIXE)
+              else "sc_%s%s" % (PREFIXE, season))
     os.makedirs(outdir, exist_ok=True)
 
     now = datetime.datetime.now(datetime.timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ")
@@ -607,7 +613,7 @@ def main():
 
     def write_index():
         with open(index_path, "w", encoding="utf-8") as f:
-            json.dump({"competition": "Ligue 2", "season": season,
+            json.dump({"competition": COMP_NOM, "season": season,
                        "season_id": season_id, "updated": now,
                        "matches": index}, f, ensure_ascii=False, indent=1)
 
@@ -649,7 +655,7 @@ def main():
             continue
 
         doc = {
-            "match_id": mid, "competition": "Ligue 2", "season": season,
+            "match_id": mid, "competition": COMP_NOM, "season": season,
             "season_id": season_id, "date": date, "round": rnd,
             "home": home, "away": away, "score": score,
             "teams": [home, away], "periods": periods,

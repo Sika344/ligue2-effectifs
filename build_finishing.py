@@ -32,7 +32,7 @@ ballon, récupération) a kx = ky = -1 et kp = -1.
 
 Sortie finishing.json — tables d'index puis une matrice compacte :
 {
-  "competition": "Ligue 2", "season": "...", "season_id": 318, "updated": "...Z",
+  "competition": COMP_NOM, "season": "...", "season_id": 318, "updated": "...Z",
   "sp_window": 15,
   "teams":   ["Amiens", ...],
   "players": ["Alexandre Mendy", ...],
@@ -54,7 +54,9 @@ import json
 import datetime
 from statsbombpy import sb
 
-COMPETITION_ID = 8
+# La compétition vient de competition.py (variable d'environnement COMP).
+# Sans COMP, c'est la Ligue 2 : comportement identique à avant.
+from competition import COMPETITION_ID, PREFIXE, NOM as COMP_NOM
 CURRENT_SEASON = "2025-2026"
 SEASON_IDS = {"2025-2026": 318,
     "2026-2027": 351,   # 1re journee jouee le 08/08/2026
@@ -103,7 +105,8 @@ def resolve_season():
     if not label:
         label = CURRENT_SEASON
     sid = SEASON_IDS.get(label) or lookup_season_id(label)
-    out = "finishing.json" if label == CURRENT_SEASON else f"finishing_{label}.json"
+    out = ("finishing.json" if (label == CURRENT_SEASON and not PREFIXE)
+           else f"finishing_{PREFIXE}{label}.json")
     return label, sid, out
 
 
@@ -257,7 +260,7 @@ def main():
           f"{nk} avec passe décisive identifiée | {reclassified} CPA reclassés en positional")
 
     out = {
-        "competition": "Ligue 2",
+        "competition": COMP_NOM,
         "season": season_label,
         "season_id": season_id,
         "updated": datetime.datetime.utcnow().replace(microsecond=0).isoformat() + "Z",

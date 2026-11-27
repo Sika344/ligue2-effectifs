@@ -70,7 +70,9 @@ import unicodedata
 
 from statsbombpy import sb
 
-COMPETITION_ID = 8
+# La compétition vient de competition.py (variable d'environnement COMP).
+# Sans COMP, c'est la Ligue 2 : comportement identique à avant.
+from competition import COMPETITION_ID, PREFIXE, NOM as COMP_NOM
 CURRENT_SEASON = "2025-2026"
 SEASON_IDS = {
     "2025-2026": 318,
@@ -427,7 +429,11 @@ def main():
     label = (arg or os.environ.get("SEASON", "")).strip() or CURRENT_SEASON
     season_id = SEASON_IDS.get(label) or lookup_season_id(label)
 
-    chemin = "ligue2_%s.json" % label
+    # Le nom « ligue2_ » est le nom HISTORIQUE du jeu de données des
+    # effectifs, pas celui de la compétition : en Ligue 1 le fichier
+    # s'appellera ligue2_L1_2026-2027.json. Ça se lit mal, mais le
+    # renommer toucherait une dizaine de pages ; à faire à froid.
+    chemin = "ligue2_%s%s.json" % (PREFIXE, label)
     if not os.path.exists(chemin):
         # Le fichier d'effectif est produit par build_ligue2_lfp.py. S'il manque,
         # il n'y a rien à enrichir : on le dit et on sort proprement, sans faire

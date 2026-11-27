@@ -38,7 +38,9 @@ import unicodedata
 
 from statsbombpy import sb
 
-COMPETITION_ID = 8
+# La compétition vient de competition.py (variable d'environnement COMP).
+# Sans COMP, c'est la Ligue 2 : comportement identique à avant.
+from competition import COMPETITION_ID, PREFIXE, NOM as COMP_NOM
 CURRENT_SEASON = "2025-2026"
 SEASON_IDS = {
     "2025-2026": 318,
@@ -264,7 +266,8 @@ def main():
             raise SystemExit(1)
         sid = int(hit.iloc[0].season_id)
 
-    sortie = "rapport.json" if saison == CURRENT_SEASON else "rapport_%s.json" % saison
+    sortie = ("rapport.json" if (saison == CURRENT_SEASON and not PREFIXE)
+              else "rapport_%s%s.json" % (PREFIXE, saison))
     print("Saison %s (season_id=%s) -> %s" % (saison, sid, sortie))
 
     couleurs, par_role = charger_refs()

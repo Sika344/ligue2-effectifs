@@ -24,7 +24,7 @@ détail par match, à domicile et à l'extérieur :
 
 Sortie defending.json :
 {
-  "competition": "Ligue 2", "season": "...", "season_id": 318, "updated": "...Z",
+  "competition": COMP_NOM, "season": "...", "season_id": 318, "updated": "...Z",
   "teams": {
     "<équipe>": {
       "matches": [
@@ -54,7 +54,9 @@ import datetime
 from collections import defaultdict
 from statsbombpy import sb
 
-COMPETITION_ID = 8
+# La compétition vient de competition.py (variable d'environnement COMP).
+# Sans COMP, c'est la Ligue 2 : comportement identique à avant.
+from competition import COMPETITION_ID, PREFIXE, NOM as COMP_NOM
 CURRENT_SEASON = "2025-2026"
 SEASON_IDS = {"2025-2026": 318,
     "2026-2027": 351,   # 1re journee jouee le 08/08/2026
@@ -86,7 +88,8 @@ def resolve_season():
     if not label:
         label = CURRENT_SEASON
     sid = SEASON_IDS.get(label) or lookup_season_id(label)
-    out = "defending.json" if label == CURRENT_SEASON else f"defending_{label}.json"
+    out = ("defending.json" if (label == CURRENT_SEASON and not PREFIXE)
+           else f"defending_{PREFIXE}{label}.json")
     return label, sid, out
 
 
@@ -233,7 +236,7 @@ def main():
               f"({len(out_teams[t]['matches'])} matchs)")
 
     out = {
-        "competition": "Ligue 2",
+        "competition": COMP_NOM,
         "season": season_label,
         "season_id": season_id,
         "updated": datetime.datetime.utcnow().replace(microsecond=0).isoformat() + "Z",

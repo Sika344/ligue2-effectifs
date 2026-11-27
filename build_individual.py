@@ -36,7 +36,13 @@ import datetime
 
 from statsbombpy import sb
 
-COMPETITION_ID = 8              # Ligue 2
+# La compétition vient de competition.py (variable d'environnement COMP).
+# Sans COMP, c'est la Ligue 2 : comportement identique à avant.
+# PREFIXE est importé sous un AUTRE nom : ce fichier a déjà sa propre
+# constante PREFIXE = "player_season_" (préfixe des colonnes StatsBomb),
+# qui masquerait l'import et ferait écrire individual_player_season_….json.
+from competition import (COMPETITION_ID, PREFIXE as PREFIXE_COMP,
+                         NOM as COMP_NOM)
 CURRENT_SEASON = "2025-2026"    # saison retenue si SEASON est vide
 SEASON_IDS = {
     "2025-2026": 318,
@@ -387,7 +393,7 @@ def resolve_season():
     # des noms suffixés, ne trouve alors rien. C'est exactement ce qui est arrivé
     # au premier run 2025-2026 : le fichier a bien été produit, sous le nom
     # individual.json, invisible pour le site.
-    out = f"individual_{label}.json"
+    out = f"individual_{PREFIXE_COMP}{label}.json"
     return label, sid, out
 
 

@@ -67,7 +67,9 @@ import datetime
 import requests
 from statsbombpy import sb
 
-COMPETITION_ID = 8
+# La compétition vient de competition.py (variable d'environnement COMP).
+# Sans COMP, c'est la Ligue 2 : comportement identique à avant.
+from competition import COMPETITION_ID, PREFIXE, NOM as COMP_NOM
 CURRENT_SEASON = "2025-2026"
 SEASON_IDS = {"2025-2026": 318, "2026-2027": 351}
 
@@ -103,7 +105,7 @@ def resolve_season():
         if hit.empty:
             raise SystemExit("saison introuvable : %s" % label)
         sid = int(hit.iloc[0]["season_id"])
-    return label, sid, "runlast_%s.json" % label
+    return label, sid, "runlast_%s%s.json" % (PREFIXE, label)
 
 
 def zone_de(x):
@@ -319,7 +321,7 @@ def main():
             raise AssertionError("%s : croisement incohérent (%d/%d, %d/%d)"
                                  % (t, sc, f["franch_total"], sp, f["presence_total"]))
 
-    out = {"competition": "Ligue 2", "season": label, "season_id": season_id,
+    out = {"competition": COMP_NOM, "season": label, "season_id": season_id,
            "updated": now(), "zones": ZONE_NOMS,
            "adv_minimum": ADV_MINIMUM, "teams": teams}
     with open(sortie, "w", encoding="utf-8") as fh:

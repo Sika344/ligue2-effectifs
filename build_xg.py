@@ -10,7 +10,7 @@ Identifiants StatsBomb via variables d'environnement SB_USERNAME / SB_PASSWORD
 
 Sortie xg.json :
 {
-  "competition": "Ligue 2",
+  "competition": COMP_NOM,
   "season": "2025-2026",
   "season_id": 318,
   "updated": "2026-06-26T10:00:00Z",
@@ -44,7 +44,9 @@ import json
 import datetime
 from statsbombpy import sb
 
-COMPETITION_ID = 8              # Ligue 2
+# La compétition vient de competition.py (variable d'environnement COMP).
+# Sans COMP, c'est la Ligue 2 : comportement identique à avant.
+from competition import COMPETITION_ID, PREFIXE, NOM as COMP_NOM
 CURRENT_SEASON = "2025-2026"    # saison courante -> sortie NON suffixée (xg.json)
 SEASON_IDS = {                  # ids connus (évite un appel réseau ; complété à la demande)
     "2025-2026": 318,
@@ -89,7 +91,8 @@ def resolve_season():
     if not label:
         label = CURRENT_SEASON
     sid = SEASON_IDS.get(label) or lookup_season_id(label)
-    out = "xg.json" if label == CURRENT_SEASON else f"xg_{label}.json"
+    out = ("xg.json" if (label == CURRENT_SEASON and not PREFIXE)
+           else f"xg_{PREFIXE}{label}.json")
     return label, sid, out
 
 
@@ -155,7 +158,7 @@ def main():
         print(f"  ✓ {team}: {n} matchs | créés {teams_out[team]['for']} | concédés {teams_out[team]['against']}")
 
     out = {
-        "competition": "Ligue 2",
+        "competition": COMP_NOM,
         "season": season_label,
         "season_id": season_id,
         "updated": datetime.datetime.utcnow().replace(microsecond=0).isoformat() + "Z",

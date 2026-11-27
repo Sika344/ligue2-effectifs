@@ -51,7 +51,9 @@ import datetime
 import pandas as pd
 from statsbombpy import sb
 
-COMPETITION_ID = 8              # Ligue 2
+# La compétition vient de competition.py (variable d'environnement COMP).
+# Sans COMP, c'est la Ligue 2 : comportement identique à avant.
+from competition import COMPETITION_ID, PREFIXE, NOM as COMP_NOM
 CURRENT_SEASON = "2025-2026"    # saison courante -> sortie NON suffixée (outposs.json)
 SEASON_IDS = {                  # ids connus (évite un appel réseau ; complété à la demande)
     "2025-2026": 318,
@@ -219,7 +221,8 @@ def resolve_season():
     if not label:
         label = CURRENT_SEASON
     sid = SEASON_IDS.get(label) or lookup_season_id(label)
-    out = "outposs.json" if label == CURRENT_SEASON else f"outposs_{label}.json"
+    out = ("outposs.json" if (label == CURRENT_SEASON and not PREFIXE)
+           else f"outposs_{PREFIXE}{label}.json")
     return label, sid, out
 
 
@@ -289,7 +292,7 @@ def main():
               f"| BoxCrossC {t['Box cross conceded']}")
 
     out = {
-        "competition": "Ligue 2",
+        "competition": COMP_NOM,
         "season": season_label,
         "season_id": season_id,
         "updated": datetime.datetime.utcnow().replace(microsecond=0).isoformat() + "Z",

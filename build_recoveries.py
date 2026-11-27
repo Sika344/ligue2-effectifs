@@ -58,7 +58,7 @@ récupération (et non une case) pour l'afficher en point rouge.
 
 Sortie recoveries.json :
 {
-  "competition": "Ligue 2", "season": "2025-2026", "season_id": 318,
+  "competition": COMP_NOM, "season": "2025-2026", "season_id": 318,
   "cols": 12, "rows": 8, "updated": "...Z",
   "teams": {
     "<nom StatsBomb>": {
@@ -86,7 +86,9 @@ import json
 import datetime
 from statsbombpy import sb
 
-COMPETITION_ID = 8              # Ligue 2
+# La compétition vient de competition.py (variable d'environnement COMP).
+# Sans COMP, c'est la Ligue 2 : comportement identique à avant.
+from competition import COMPETITION_ID, PREFIXE, NOM as COMP_NOM
 CURRENT_SEASON = "2025-2026"    # saison courante -> sortie NON suffixée
 SEASON_IDS = {
     "2025-2026": 318,
@@ -158,7 +160,7 @@ def resolve_season():
     # lancement sans paramètre produisait recoveries.json — un fichier que
     # season.js, qui ne lit que des noms suffixés, n'ouvre jamais. Le calcul
     # tournait plusieurs minutes pour rien, sans le moindre message d'erreur.
-    out = f"recoveries_{label}.json"
+    out = f"recoveries_{PREFIXE}{label}.json"
     return label, sid, out
 
 
@@ -581,7 +583,7 @@ def main():
               f"{ind} récupérations indatables")
 
     out = {
-        "competition": "Ligue 2",
+        "competition": COMP_NOM,
         "season": season_label,
         "season_id": season_id,
         "cols": COLS,

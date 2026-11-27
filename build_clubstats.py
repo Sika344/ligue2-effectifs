@@ -39,7 +39,9 @@ import datetime
 from collections import defaultdict
 from statsbombpy import sb
 
-COMPETITION_ID = 8
+# La compétition vient de competition.py (variable d'environnement COMP).
+# Sans COMP, c'est la Ligue 2 : comportement identique à avant.
+from competition import COMPETITION_ID, PREFIXE, NOM as COMP_NOM
 CURRENT_SEASON = "2025-2026"
 SEASON_IDS = {"2025-2026": 318,
     "2026-2027": 351,   # 1re journee jouee le 08/08/2026
@@ -152,8 +154,8 @@ def main():
         "teams": out,
     }
     # saison courante -> nom nu ; autre saison -> nom suffixe
-    sortie = ("clubstats.json" if cur_label == CURRENT_SEASON
-              else "clubstats_%s.json" % cur_label)
+    sortie = ("clubstats.json" if (cur_label == CURRENT_SEASON and not PREFIXE)
+              else "clubstats_%s%s.json" % (PREFIXE, cur_label))
     with open(sortie, "w", encoding="utf-8") as f:
         json.dump(result, f, ensure_ascii=False, separators=(",", ":"))
     print(f"\n{sortie} écrit : {len(out)} équipes.")
