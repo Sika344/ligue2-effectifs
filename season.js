@@ -137,6 +137,17 @@
     var nav = document.querySelector(".sitenav");
     if (!nav || nav.querySelector(".liguesel")) return;
 
+    /* --- le titre suit la compétition ---
+       Les 12 pages portent « ⚽ Ligue 2 <span>Analyse</span> » en dur dans
+       leur HTML. Plutôt que d'éditer douze fichiers — et de devoir les
+       rééditer à chaque compétition ajoutée — on réécrit le titre ici, au
+       seul endroit qui connaît la compétition courante. Le <span> est
+       reconstruit à l'identique : c'est lui qui porte le style gris. */
+    var marque = nav.querySelector(".brand");
+    if (marque) {
+      marque.innerHTML = "⚽ " + L.nom + "<span>Analyse</span>";
+    }
+
     /* --- la compétition, toujours montée, sur TOUTES les pages ---
        Elle vient en premier : on choisit la compétition, puis la saison.
        `margin-left:auto` la pousse à droite ; le sélecteur de saison qui
