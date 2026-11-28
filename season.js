@@ -33,9 +33,19 @@
      nom : ce qui s'affiche dans la liste déroulante
      comp : l'identifiant StatsBomb, pour information et usage éventuel
      prefixe : ce qui s'insère dans le nom de fichier (vide = Ligue 2) */
+  /* `club` est le club suivi dans cette compétition : celui qu'on met en
+     évidence dans les classements, qu'on ouvre par défaut dans les rapports
+     et les profils individuels. Écrit ici et nulle part ailleurs.
+     `alias` sert à le retrouver quand la source le nomme autrement — « Rennes »
+     chez StatsBomb, « Stade Rennais » à la LFP. La recherche est tolérante
+     (voir clubParmi), parce qu'un club non reconnu ferait silencieusement
+     basculer la page sur la première équipe de la liste, par ordre
+     alphabétique, sans que rien ne le signale. */
   var LIGUES = [
-    { id: "L2", nom: "Ligue 2", comp: 8, prefixe: "" },
-    { id: "L1", nom: "Ligue 1", comp: 7, prefixe: "L1_" }
+    { id: "L2", nom: "Ligue 2", comp: 8, prefixe: "",
+      club: "Montpellier", alias: ["Montpellier HSC", "MHSC"] },
+    { id: "L1", nom: "Ligue 1", comp: 7, prefixe: "L1_",
+      club: "Rennes", alias: ["Stade Rennais", "Stade Rennais FC", "Rennes FC"] }
   ];
 
   /* Saisons disponibles PAR compétition, dans l'ordre d'affichage.
@@ -148,6 +158,35 @@
       marque.innerHTML = "⚽ " + L.nom + "<span>Analyse</span>";
     }
 
+    /* Le titre de l'onglet du navigateur porte « Ligue 2 » dans les douze
+       pages. Même raisonnement que pour la marque : on le réécrit ici au lieu
+       d'éditer douze fichiers. On remplace le libellé de CHAQUE autre
+       compétition, pas seulement « Ligue 2 », sans quoi passer de la Ligue 1
+       à la Ligue 2 laisserait « Ligue 1 » affiché dans l'onglet. */
+    try {
+      var t = document.title;
+      for (var k = 0; k < LIGUES.length; k++) {
+        if (LIGUES[k].id !== ligue) {
+          t = t.split(LIGUES[k].nom).join(L.nom);
+        }
+      }
+      if (t !== document.title) document.title = t;
+    } catch (e) {}
+
+    /* Pastilles « compétition + saison » purement statiques dans le HTML
+       (Analytics 360, SportsCode). Les autres pages ont la leur remplie par
+       leur propre JS au chargement des données ; ces deux-là n'en ont pas.
+       Elles portent donc l'attribut data-ligue-saison et c'est nous qui les
+       remplissons. Le texte d'origine est conservé comme préfixe quand il dit
+       autre chose que la compétition — « StatsBomb 360 · », par exemple. */
+    var pastilles = nav.ownerDocument
+      ? nav.ownerDocument.querySelectorAll("[data-ligue-saison]")
+      : [];
+    Array.prototype.forEach.call(pastilles, function (el) {
+      var p = el.getAttribute("data-ligue-saison") || "";
+      el.textContent = (p ? p + " · " : "") + L.nom + " " + courante.replace("-", "/");
+    });
+
     /* --- la compétition, toujours montée, sur TOUTES les pages ---
        Elle vient en premier : on choisit la compétition, puis la saison.
        `margin-left:auto` la pousse à droite ; le sélecteur de saison qui
@@ -227,6 +266,35 @@
     prefixe: L.prefixe,      // "" ou "L1_"
     LIGUES: LIGUES,
     estL1: ligue === "L1",
+
+    /* --- le club suivi --- */
+    club: L.club,
+
+    /* Retrouve le club suivi dans une liste de noms venue des données.
+       Trois passes, de la plus sûre à la plus tolérante : égalité stricte,
+       puis alias connus, puis inclusion insensible à la casse et aux
+       accents. Rend null si rien ne correspond — à l'appelant de décider
+       quoi faire, plutôt que de lui rendre une équipe au hasard. */
+    clubParmi: function (noms) {
+      if (!noms || !noms.length) return null;
+      var cands = [L.club].concat(L.alias || []);
+      var i, j;
+      for (i = 0; i < cands.length; i++) {
+        for (j = 0; j < noms.length; j++) if (noms[j] === cands[i]) return noms[j];
+      }
+      function pl(s) {
+        return String(s || "").normalize("NFD")
+          .replace(/[̀-ͯ]/g, "").toLowerCase();
+      }
+      for (i = 0; i < cands.length; i++) {
+        var c = pl(cands[i]);
+        for (j = 0; j < noms.length; j++) {
+          var n = pl(noms[j]);
+          if (n === c || n.indexOf(c) >= 0 || c.indexOf(n) >= 0) return noms[j];
+        }
+      }
+      return null;
+    },
 
     /* Message à afficher quand un JSON est absent. Il nomme la compétition :
        en Ligue 1 au lancement, l'absence sera fréquente le temps que les

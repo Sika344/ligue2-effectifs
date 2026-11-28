@@ -88,7 +88,7 @@
 
   <div class="topbar">
     <h2>⚽ Chart index</h2>
-    <span class="tag" id="tag">Ligue 2 2025/2026</span>
+    <span class="tag" id="tag">…</span>
     <select id="hiSel" aria-label="Équipe à mettre en avant"></select>
   </div>
 
@@ -171,7 +171,7 @@ function renderScatter(){
   if(!D){ host.innerHTML='<div class="empty">Chargement…</div>'; return; }
   if(!R.length){ host.innerHTML='<div class="empty">Aucune donnée.</div>'; return; }
   document.getElementById("sub").textContent=
-    R.length+" équipes · Ligue 2 "+(D.season||"")+(D.obv_available?"":" · OBV indisponible dans le flux");
+    R.length+" équipes · "+SEASON.ligueNom+" "+(D.season||"")+(D.obv_available?"":" · OBV indisponible dans le flux");
   document.getElementById("noteS").textContent=
     "Chaque axe est un z-score sur les équipes affichées (0 = moyenne). En haut à droite = fort des deux côtés. "+
     "Off = OBV possession, possession %, xG, ballons dans la surface. "+
@@ -241,7 +241,7 @@ function niceStep(x){ if(!isFinite(x)||x<=0) return 1;
 function renderTable(){
   const R=rows(); if(!D||!R.length) return;
   document.getElementById("sub2").textContent=
-    R.length+" équipes · Ligue 2 "+(D.season||"")+" · "+(MODE==="p90"?"valeurs par 90":"cumuls saison")+
+    R.length+" équipes · "+SEASON.ligueNom+" "+(D.season||"")+" · "+(MODE==="p90"?"valeurs par 90":"cumuls saison")+
     (D.obv_available?"":" · OBV indisponible dans le flux");
   R.sort((a,b)=>{
     const x=SORT==="team"?a.team:val(a,SORT), y=SORT==="team"?b.team:val(b,SORT);
@@ -307,7 +307,7 @@ fetch(SEASON.fichier("teamindex.json")+"?_="+Date.now()).then(r=>r.ok?r.json():n
     document.getElementById("sub").textContent="Données indisponibles"; return;
   }
   D=d;
-  document.getElementById("tag").textContent="StatsBomb · Ligue 2 "+(d.season||"");
+  document.getElementById("tag").textContent="StatsBomb · "+SEASON.ligueNom+" "+(d.season||"");
   const s=document.getElementById("hiSel");
   s.innerHTML='<option value="">Aucune équipe en avant</option>'+
     Object.keys(d.teams).sort().map(t=>'<option>'+t+'</option>').join("");

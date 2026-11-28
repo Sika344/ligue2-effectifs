@@ -1119,7 +1119,9 @@ function inpLogo(inpName){
 function inpRows(kpi, selClub, SRC){
   SRC = SRC || INP;
   if(!SRC || !SRC.teams) return null;
-  const selN = norm(selClub || "Montpellier");
+  // Club suivi selon la compétition (season.js) : Montpellier en Ligue 2,
+  // Rennes en Ligue 1.
+  const selN = norm(selClub || SEASON.club);
   const rows=[];
   for(const [name, t] of Object.entries(SRC.teams)){
     const v = t ? t[kpi] : null;
@@ -1966,7 +1968,9 @@ function buildClubSelect(){
   if(!cl.length){ noData(); return; }
   const sel=document.getElementById("clubSelect");
   sel.innerHTML=cl.map(c=>`<option value="${c}">${c}</option>`).join("");
-  const def = cl.includes("Montpellier") ? "Montpellier" : cl[0];
+  // Recherche tolérante : les sources n'écrivent pas toutes le nom pareil
+  // (« Rennes » / « Stade Rennais »). Faute de correspondance, premier club.
+  const def = SEASON.clubParmi(cl) || cl[0];
   sel.value=def; sel.onchange=()=>renderClub(sel.value);
   document.getElementById("buildNote").innerHTML="Sélectionne un club : son <b>effectif</b> (photos LFP, comme l'onglet Effectif) puis ses <b>5 derniers matchs</b> s'affichent à la suite. Export PNG par diapo, ou Keynote (.pptx) pour tout.";
   renderClub(def);

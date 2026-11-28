@@ -125,7 +125,7 @@
   <div class="topbar">
     <h2>⚽ Attacking</h2>
     <div class="seg" id="viewSeg"><button data-v="buildup" class="on">Construction</button><button data-v="goalsxg">Conversion</button><button data-v="finishing">Finishing</button></div>
-    <span class="tag" id="tag">Ligue 2 2025/2026</span>
+    <span class="tag" id="tag">…</span>
     <select id="hiSel" aria-label="Équipe"></select>
   </div>
 
@@ -261,7 +261,7 @@ function renderBuildup(){
   const noms=[...SEL].map(k=>DATA.labels[k]);
   const tot=R.reduce((a,r)=>a+r.n,0);
   sub.textContent=(noms.length?noms.join(" + "):"Tous les start types")+" · "+R.length+
-    " équipes · "+tot.toLocaleString("fr-FR")+" build-ups · Ligue 2 "+(DATA.season||"");
+    " équipes · "+tot.toLocaleString("fr-FR")+" build-ups · "+SEASON.ligueNom+" "+(DATA.season||"");
   if(!R.length){ host.innerHTML='<div class="empty">Aucune équipe ne passe le seuil de '+MINB+' build-ups.</div>'; return; }
 
   const W=1240,H=560,L=74,Rr=132,T=26,B=62;
@@ -378,7 +378,7 @@ function renderGoalsXG(){
   document.getElementById("sub").textContent=
     (noms.length?noms.join(" + "):"Tous les action types")+" · "+R.length+" équipes · "+
     tg+" buts pour "+tx.toFixed(1)+" xG · "+(SCALE==="pm"?"par match":"cumul saison")+
-    " · Ligue 2 "+(SMIX.season||"");
+    " · "+SEASON.ligueNom+" "+(SMIX.season||"");
 
   const W=1240,H=560,L=76,Rr=40,T=26,B=62;
   const x0=L,x1=W-Rr,y0=T,y1=H-B,pw=x1-x0,ph=y1-y0;
@@ -499,7 +499,7 @@ function renderFinishing(){
     document.getElementById("sub").textContent="Données indisponibles"; document.getElementById("lpMap").innerHTML=""; return; }
   document.getElementById("sub").textContent=
     (HILITE||"Toutes les équipes")+" · "+R.length.toLocaleString("fr-FR")+" tirs"+
-    (LPC.size?" · "+LPC.size+" zone(s) de passe sélectionnée(s)":"")+" · Ligue 2 "+(FIN.season||"");
+    (LPC.size?" · "+LPC.size+" zone(s) de passe sélectionnée(s)":"")+" · "+SEASON.ligueNom+" "+(FIN.season||"");
 
   const S=13, W=80*S, H=60*S, PAD=16;
   const F='font-family="-apple-system,BlinkMacSystemFont,Inter,Segoe UI,Arial,sans-serif"';
@@ -787,7 +787,7 @@ fetch(SEASON.fichier("buildup.json")+"?_="+Date.now()).then(r=>r.ok?r.json():nul
       sel.onchange=()=>{ HILITE=sel.value; render(); }; }
     return; }
   DATA=d;
-  document.getElementById("tag").textContent="StatsBomb · Ligue 2 "+(d.season||"");
+  document.getElementById("tag").textContent="StatsBomb · "+SEASON.ligueNom+" "+(d.season||"");
   let mx=0;
   for(const t of Object.values(d.teams)) mx=Math.max(mx,(t.buckets||[]).reduce((a,b)=>a+b.n,0));
   const rg=document.getElementById("minRange");

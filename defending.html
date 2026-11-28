@@ -96,7 +96,7 @@
   <div class="topbar">
     <h2>⚽ Defending</h2>
     <div class="seg" id="viewSeg"><button data-v="block" class="on">Bloc défensif</button><button data-v="goalview">Goal view</button><button data-v="pressing">Pressing</button></div>
-    <span class="tag" id="tag">Ligue 2 2025/2026</span>
+    <span class="tag" id="tag">…</span>
     <select id="teamSel" class="team" aria-label="Équipe"></select>
   </div>
 
@@ -273,7 +273,7 @@ function renderGoalview(){
   const acts=[...GVACT].map(k=>GV_ACTS[k]);
   document.getElementById("sub").textContent=
     TEAM+" · tirs cadrés concédés · "+(acts.length?acts.join(" + "):"toutes actions")+" · "+
-    R.length+" tir"+(R.length>1?"s":"")+" · Ligue 2 "+(GV.season||"");
+    R.length+" tir"+(R.length>1?"s":"")+" · "+SEASON.ligueNom+" "+(GV.season||"");
 
   const gy0=GV.goal.y0, gy1=GV.goal.y1, gz=GV.goal.z;
   const W=760, H=330, PADX=70, PADT=30, PADB=40;
@@ -389,7 +389,7 @@ function renderPressing(){
         +" · filtres fins indisponibles (pressing.json à régénérer)";
   }
   document.getElementById("sub").textContent=
-    R.length+" équipes · pressing dans le "+zTxt+" · "+(PRSCALE==="pm"?"par match":"cumul saison")+" · Ligue 2 "+(PR.season||"");
+    R.length+" équipes · pressing dans le "+zTxt+" · "+(PRSCALE==="pm"?"par match":"cumul saison")+" · "+SEASON.ligueNom+" "+(PR.season||"");
   if(!R.length){ host.innerHTML='<div class="empty">Aucune donnée.</div>'; return; }
 
   const W=1000,H=560,L=76,Rr=34,T=26,B=64;
@@ -465,7 +465,7 @@ function render(){
   document.getElementById("sub").textContent=
     TEAM+" · système affiché "+FORM+" · "+ms.length+" matchs retenus"+
     (OPP!=="all"?" · face au top "+OPP:"")+(OSYS!=="all"?" · adversaire en "+OSYS:"")+
-    " · Ligue 2 "+(D.season||"");
+    " · "+SEASON.ligueNom+" "+(D.season||"");
   host.innerHTML=cards.map(function(c){
     const set=ms.filter(m=>c[1]==="all"||m.venue===c[1]);
     const avg=blockAvg(ms,c[1]);
@@ -497,11 +497,13 @@ function syncFormFromMatch(){
 
 function boot(d){
   D=d;
-  document.getElementById("tag").textContent="StatsBomb · Ligue 2 "+(d.season||"");
+  document.getElementById("tag").textContent="StatsBomb · "+SEASON.ligueNom+" "+(d.season||"");
   const teamSel=document.getElementById("teamSel");
   const names=Object.keys(d.teams).sort();
   teamSel.innerHTML=names.map(t=>'<option>'+t+'</option>').join("");
-  TEAM=names.includes("Montpellier")?"Montpellier":names[0];
+  // Le club suivi dépend de la compétition (season.js). Faute de le
+  // trouver, on retombe sur la première équipe par ordre alphabétique.
+  TEAM=SEASON.clubParmi(names)||names[0];
   teamSel.value=TEAM;
 
   const formSel=document.getElementById("formSel");

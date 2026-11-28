@@ -1166,10 +1166,19 @@ function pfMajJoueurs(premier){
     '<option value="' + esc(String(p.id)) + '">' + esc(p.nom) + ' · ' + esc(p.equipe) +
     ' · ' + Math.round(p.minutes) + ' min</option>').join("");
   if (!liste.length) return;
-  // À l'ouverture, on affiche l'avant-centre de Montpellier : c'est le joueur
-  // suivi. Ensuite on garde le choix de l'utilisateur s'il existe encore.
+  // À l'ouverture, on affiche le joueur du club suivi à ce poste : Montpellier
+  // en Ligue 2, Rennes en Ligue 1 (season.js). Ensuite on garde le choix de
+  // l'utilisateur s'il existe encore.
+  //
+  // La liste est triée par temps de jeu décroissant : le premier trouvé est
+  // donc le plus utilisé du club à ce poste. C'est une meilleure règle que
+  // l'ancienne, qui cherchait « Megnan » par son nom — elle n'aurait plus rien
+  // donné le jour où il part, et rien du tout en Ligue 1.
   let cible = liste.find(p => String(p.id) === avant);
-  if (!cible && premier) cible = liste.find(p => /Megnan/i.test(p.nom));
+  if (!cible && premier) {
+    const moi = SEASON.clubParmi(liste.map(p => p.equipe));
+    if (moi) cible = liste.find(p => p.equipe === moi);
+  }
   $("pfJoueur").value = String((cible || liste[0]).id);
 }
 

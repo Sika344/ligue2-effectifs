@@ -85,7 +85,6 @@ const COURT = {
 const court = n => COURT[n] || n;
 
 /* Le club suivi, mis en évidence dans chaque classement. */
-const MON_CLUB = "Montpellier";
 
 /* Pour les buts encaissés et les xG concédés, le meilleur est le PLUS PETIT :
    le tri s'inverse, et la barre se lit à l'envers — la plus courte est la
@@ -132,6 +131,9 @@ function rendre(){
   // du classement plutôt que de la placer d'office en dernier.
   const l = LIGNES.filter(r => r[cle] !== null && r[cle] !== undefined)
                   .sort((a, b) => V.moins ? a[cle] - b[cle] : b[cle] - a[cle]);
+  // Recherche tolérante : StatsBomb écrit « Rennes », la LFP « Stade
+  // Rennais ». Une comparaison stricte ne surlignerait rien, en silence.
+  const MOI = SEASON.clubParmi(l.map(r => r.eq));
   const vals = l.map(r => r[cle]);
   const hi = Math.max(...vals, 0.001);
 
@@ -145,7 +147,7 @@ function rendre(){
   l.forEach((r, i) => {
     const v = r[cle], pm = r.j ? v / r.j : 0;
     const large = Math.max(3, Math.round(100 * v / hi));
-    h += '<tr' + (r.eq === MON_CLUB ? ' class="moi"' : '') + '>' +
+    h += '<tr' + (r.eq === MOI ? ' class="moi"' : '') + '>' +
       '<td class="rk">' + (i + 1) + '</td>' +
       '<td class="eq">' + court(r.eq) + '</td>' +
       '<td class="n">' + r.j + '</td>' +
