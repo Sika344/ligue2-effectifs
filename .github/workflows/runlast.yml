@@ -4,11 +4,23 @@
 # images 360. Produit runlast_<saison>.json pour la plaque « Construction »
 # de attacking.html.
 #
+# ------------------------------------------------------------ COMPÉTITION
+# Comme le passage de journée, ce workflow prend une liste de compétitions.
+# Le script lit COMP et en déduit l'identifiant StatsBomb ET le préfixe de
+# son fichier — voir competition.py.
+#
+#   COMP=8  ->  runlast_2026-2027.json       (Ligue 2)
+#   COMP=7  ->  runlast_L1_2026-2027.json    (Ligue 1)
+#
+# Par défaut, les DEUX. Laissé en Ligue 2 seule, la plaque Construction de la
+# Ligue 1 resterait vide sans que rien ne l'explique.
+#
 # ------------------------------------------------------------------ DURÉE
 # Deux appels par match — les images 360 puis les événements — sur tous les
-# matchs joués. Environ 3 000 positions par match. Compte 30 à 60 minutes sur
-# une saison avancée. Ce n'est donc PAS un script à mettre dans le passage de
-# journée : on le lance quand on veut rafraîchir cette plaque.
+# matchs joués. Environ 3 000 positions par match. Compte 30 à 60 minutes par
+# compétition sur une saison avancée, donc jusqu'à deux heures pour les deux.
+# Ce n'est donc PAS un script à mettre dans le passage de journée : on le
+# lance quand on veut rafraîchir cette plaque. D'où le délai porté à 240 min.
 #
 # ------------------------------------------------------------ SAISON
 # Contrairement aux vieux workflows, celui-ci a une saison par défaut. Laissé
@@ -24,6 +36,10 @@ on:
         description: "Saison (vide = saison par défaut du workflow)"
         required: false
         default: ""
+      competitions:
+        description: "Compétitions : 8=Ligue 2, 7=Ligue 1. Vide = les deux."
+        required: false
+        default: ""
 
 permissions:
   contents: write
@@ -34,11 +50,12 @@ concurrency:
 
 env:
   SAISON_PAR_DEFAUT: "2026-2027"
+  COMPETITIONS_PAR_DEFAUT: "8 7"
 
 jobs:
   runlast:
     runs-on: ubuntu-latest
-    timeout-minutes: 120
+    timeout-minutes: 240
     steps:
       - uses: actions/checkout@v4
 
@@ -49,32 +66,64 @@ jobs:
       - name: Install deps
         run: pip install --quiet statsbombpy pandas requests
 
-      - name: Saison retenue
+      # build_runlast.py importe competition.py. Absent, il échouerait sur un
+      # ImportError illisible après avoir tenté de joindre StatsBomb.
+      - name: Vérifier competition.py
+        run: |
+          if [ ! -f competition.py ]; then
+            echo "::error::competition.py absent de la racine du dépôt."
+            exit 1
+          fi
+
+      - name: Paramètres retenus
         id: s
         run: |
           SAISON="${{ inputs.season }}"
           # bash tourne avec -e : « [ ... ] && cmd » renverrait 1 quand le test
           # est faux et ferait échouer l'étape. D'où le if/fi explicite.
           if [ -z "$SAISON" ]; then SAISON="${{ env.SAISON_PAR_DEFAUT }}"; fi
+          COMPS="${{ inputs.competitions }}"
+          if [ -z "$COMPS" ]; then COMPS="${{ env.COMPETITIONS_PAR_DEFAUT }}"; fi
           echo "saison=$SAISON" >> "$GITHUB_OUTPUT"
-          echo "### Saison traitée : \`$SAISON\`" >> "$GITHUB_STEP_SUMMARY"
+          echo "comps=$COMPS"   >> "$GITHUB_OUTPUT"
+          echo "### Saison \`$SAISON\` — compétitions \`$COMPS\`" >> "$GITHUB_STEP_SUMMARY"
 
+      # Une compétition en échec ne doit pas emporter l'autre : la Ligue 2 a
+      # une plaque qui marche, elle ne doit pas la perdre parce que la Ligue 1
+      # manque d'images 360 sur une journée.
       - name: Calcul des franchissements
+        id: build
         env:
           SB_USERNAME: ${{ secrets.SB_USERNAME }}
           SB_PASSWORD: ${{ secrets.SB_PASSWORD }}
           SEASON: ${{ steps.s.outputs.saison }}
-        run: python build_runlast.py | tee sortie.txt
+        run: |
+          : > sortie.txt
+          ECHECS=""
+          for c in ${{ steps.s.outputs.comps }}; do
+            if [ "$c" = "8" ]; then NOM="Ligue 2"; else NOM="Ligue 1"; fi
+            echo "::group::=== $NOM (COMP=$c) ==="
+            echo "=== $NOM (COMP=$c) ===" >> sortie.txt
+            if COMP="$c" python build_runlast.py 2>&1 | tee -a sortie.txt; then
+              echo "$NOM : OK"
+            else
+              echo "::error::build_runlast.py a échoué en $NOM"
+              ECHECS="$ECHECS $NOM"
+            fi
+            echo "::endgroup::"
+          done
+          echo "echecs=$ECHECS" >> "$GITHUB_OUTPUT"
 
       # Le journal d'un run finit par disparaître ; le résumé, non. C'est là
       # qu'on relit la part d'images exploitables, qui conditionne la lecture.
+      # 60 lignes et non 30 : il y a deux compétitions à résumer.
       - name: Résumé
         if: always()
         run: |
           {
             echo "### Résultat"
             echo '```'
-            tail -n 30 sortie.txt 2>/dev/null || echo "(aucune sortie)"
+            tail -n 60 sortie.txt 2>/dev/null || echo "(aucune sortie)"
             echo '```'
           } >> "$GITHUB_STEP_SUMMARY"
 
@@ -87,7 +136,7 @@ jobs:
             echo "Aucune donnée modifiée."
             exit 0
           fi
-          git commit -q -m "chore: franchissements derniere ligne (${{ steps.s.outputs.saison }})"
+          git commit -q -m "chore: franchissements derniere ligne (${{ steps.s.outputs.saison }}, comp ${{ steps.s.outputs.comps }})"
 
           # Même récupération que les autres workflows : un rebase bloqué ne
           # doit pas condamner les tentatives suivantes.
@@ -110,5 +159,14 @@ jobs:
           done
           if [ "$pousse" != 1 ]; then
             echo "::error::push impossible après 5 tentatives — rien n'a été enregistré."
+            exit 1
+          fi
+
+      # Le commit est fait : on peut signaler les échecs sans perdre le reste.
+      - name: Bilan
+        run: |
+          E="${{ steps.build.outputs.echecs }}"
+          if [ -n "$E" ]; then
+            echo "::error::compétitions en échec :$E"
             exit 1
           fi
